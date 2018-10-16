@@ -6,13 +6,11 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 17:41:26 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/10/08 17:41:39 by alouisy-         ###   ########.fr       */
+/*   Updated: 2018/10/16 16:05:20 by alouisy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/includes/libft.h"
-#include "libft/includes/ft_printf.h"
-#include "libft/includes/macro.h"
+#include "libft/libft.h"
 #include "op.h"
 
 typedef struct			s_process
@@ -24,7 +22,6 @@ typedef struct			s_process
 	int					champ_nbr;
 	int					r[REG_NUMBER];
 	int					pc;
-	int					pc2;
 	int					carry;
 	int					l_live;
 	int					nb_live;

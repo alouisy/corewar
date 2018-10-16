@@ -6,7 +6,7 @@
 /*   By: zcugni <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 09:52:18 by zcugni            #+#    #+#             */
-/*   Updated: 2017/11/20 09:42:28 by zcugni           ###   ########.fr       */
+/*   Updated: 2018/10/16 16:31:13 by alouisy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <stdio.h>
 # include <stdarg.h>
 # include <inttypes.h>
+# include <fcntl.h>
 
 /*
 **struct for libft
@@ -153,6 +154,7 @@ int							is_strdigit(char *str, int accept_neg);
 char						*join_parts(t_char_arr *str_parts,
 													char *sep, int limit);
 char						**ft_strsplit_white(char const *s);
+int							ft_nbrisinteger(char *str);
 /*
 **Lst
 */

@@ -82,9 +82,9 @@ t_process	*parse_process(char *path, int nb_prog, t_pvm *prms)
 			close(fd);
 		}
 		else
-			ft_error(ft_strjoin("Can't read source file ", path), 1);
+			exit_error(ft_strjoin("Can't read source file ", path), 1);
 	}
 	else
-		ft_error("ERROR while trying to malloc", 1);
+		exit_error("ERROR while trying to malloc", 1);
 	return (process);
 }

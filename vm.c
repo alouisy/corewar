@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 17:41:07 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/10/08 17:41:17 by alouisy-         ###   ########.fr       */
+/*   Updated: 2018/10/16 16:29:05 by alouisy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void		start_vm(t_pvm *prms)
 		prms->total_cycles++;
 	}
 	if (prms->winner)
-		ft_printf("le joueur %d()")
+		ft_printf("le joueur %d(%s) a gagne\n", prms->processes->champ_nbr, prms->processes->header->prog_name);
 }
 
 void		print_memory(t_pvm *prms)

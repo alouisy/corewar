@@ -6,7 +6,7 @@
 #    By: zcugni <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/08 09:53:59 by zcugni            #+#    #+#              #
-#    Updated: 2017/11/20 09:50:33 by zcugni           ###   ########.fr        #
+#    Updated: 2018/10/16 16:20:28 by alouisy-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ SRCS_STR = ft_strcat.c ft_strdup.c ft_strncmp.c ft_strstr.c ft_strcpy.c \
 			ft_strsplit.c ft_strsub_free.c ft_strjoin_free.c ft_strcmp.c \
 			ft_strlen.c ft_strnstr.c ft_toupper.c ft_tolower.c ft_strndup.c \
 			ft_strchri.c ft_strchr.c ft_strlcat.c is_strdigit.c \
-			free_str_arr.c join_parts.c ft_strsplit_white.c
+			free_str_arr.c join_parts.c ft_strsplit_white.c ft_nbrisinteger.c
 
 SRCS_LST = ft_lstadd.c ft_lstiter.c ft_lstmap.c ft_lstcpy.c ft_lstnew.c \
 			ft_lstdelone.c ft_lstdel.c ft_lstfind.c ft_lstappend.c \

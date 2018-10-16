@@ -44,9 +44,9 @@ int		ft_check_champ_numb(t_pvm *prms)
 void	ft_last_check_champ(t_pvm *prms)
 {
 	if (prms->nb_champ > 4)
-		ft_error("ERROR (MORE THAN 4 CHAMPIONS)", 1);
+		exit_error("ERROR (MORE THAN 4 CHAMPIONS)", 1);
 	if (ft_check_champ_numb(prms))
-		ft_error("ERROR (2 CHAMPIONS WITH THE SAME NUMBER)", 1);
+		exit_error("ERROR (2 CHAMPIONS WITH THE SAME NUMBER)", 1);
 }
 
 void	add_process(t_process **processes, t_process *new)

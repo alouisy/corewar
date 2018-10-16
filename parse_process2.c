@@ -22,7 +22,7 @@ void		parse_process_prog(t_process *process, int fd)
 	{
 		free(process->header);
 		free(process);
-		ft_error("INVALID FORMAT (ERROR PROG_SIZE DOES NOT MATCH FILE DATA)", 1);
+		exit_error("INVALID FORMAT (ERROR PROG_SIZE DOES NOT MATCH FILE DATA)", 1);
 	}
 }
 
@@ -32,7 +32,7 @@ void		parse_process_magic_size(t_process *process, int fd, char *filename, int m
 	unsigned char	current_byte;
 
 	if (read(fd, &current_byte, 1) == -1)
-		ft_error(ft_strjoin("Can't read source file ", filename), 1);
+		exit_error(ft_strjoin("Can't read source file ", filename), 1);
 	result = current_byte << 24;
 	read(fd, &current_byte, 1);
 	result += current_byte << 16;
@@ -49,9 +49,9 @@ void		parse_process_magic_size(t_process *process, int fd, char *filename, int m
 		free(process->header);
 		free(process);
 		if (mode == 0)
-			ft_error("INVALID FORMAT (ERROR W/ MAGIC)", 1);
+			exit_error("INVALID FORMAT (ERROR W/ MAGIC)", 1);
 		else
-			ft_error("INVALID FORMAT (ERROR W/ PROG_SIZE)", 1);
+			exit_error("INVALID FORMAT (ERROR W/ PROG_SIZE)", 1);
 	}
 }
 
@@ -62,7 +62,7 @@ void		parse_process_header(t_process *process, int fd, char *filename)
 	{
 		free(process->header);
 		free(process);
-		ft_error("INVALID FORMAT (ERROR W/ NAME)", 1);
+		exit_error("INVALID FORMAT (ERROR W/ NAME)", 1);
 	}
 	lseek(fd, 4, SEEK_CUR);
 	parse_process_magic_size(process, fd, filename, 1);
@@ -70,7 +70,7 @@ void		parse_process_header(t_process *process, int fd, char *filename)
 	{
 		free(process->header);
 		free(process);
-		ft_error("INVALID FORMAT (ERROR W/ COMMENT)", 1);
+		exit_error("INVALID FORMAT (ERROR W/ COMMENT)", 1);
 	}
 	lseek(fd, 4, SEEK_CUR);
 }
