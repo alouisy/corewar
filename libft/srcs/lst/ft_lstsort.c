@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/24 18:14:24 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/10/16 16:52:11 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/10/16 16:58:15 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,11 @@ static t_list	*aux_merge(t_list *l1, t_list *l2,
 	}
 	return (head);
 }
+
+/*
+** il faut fournir la fonction de comparaison des listes,
+** dans le meme gout que uasort de la documentation PHP
+*/
 
 t_list			*ft_lstsort(t_list *l1, int (*f)(t_list *node1, t_list *node2))
 {
