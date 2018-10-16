@@ -6,11 +6,11 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 17:41:26 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/10/16 16:05:20 by alouisy-         ###   ########.fr       */
+/*   Updated: 2018/10/16 16:44:21 by alouisy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
+#include "../libft/libft.h"
 #include "op.h"
 
 typedef struct			s_process
