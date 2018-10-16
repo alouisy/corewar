@@ -15,8 +15,8 @@
 static int	write_param(char *line, t_param_def *param, t_list **cur,
 																t_ocp *ocp_s)
 {
-	int 	i;
-	char 	**split;
+	int		i;
+	char	**split;
 
 	split = ft_strsplit(line, SEPARATOR_CHAR);
 	i = 0;
@@ -28,7 +28,8 @@ static int	write_param(char *line, t_param_def *param, t_list **cur,
 			ocp_s->weight = 64;
 		else
 			ocp_s->weight = 64 / ocp_s->weight;
-		if (split[i][0] == DIRECT_CHAR && (param->type[i] == 2 || param->type[i] == 3 || param->type[i] >= 6))
+		if (split[i][0] == DIRECT_CHAR && (param->type[i] == 2 ||
+								param->type[i] == 3 || param->type[i] >= 6))
 			ocp_s->ocp += write_dir(split[i], cur, param) * ocp_s->weight;
 		else if (split[i][0] == 'r' && param->type[i] % 2 != 0)
 			ocp_s->ocp += write_register(split[i], cur) * ocp_s->weight;

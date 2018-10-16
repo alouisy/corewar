@@ -12,7 +12,7 @@
 
 #include "asm.h"
 
-static      t_param_def *init_one_param(char *name, t_param_type param_type, int two_bytes, int inst_code, int ocp)
+static t_param_def	*init_one_param(char *name, t_param_type param_type, int two_bytes, int inst_code, int ocp)
 {
 	t_param_def *param;
 
@@ -30,7 +30,7 @@ static      t_param_def *init_one_param(char *name, t_param_type param_type, int
 	return (param);
 }
 
-static void init_type(int nb, int type1, int type2, int type3, t_param_type *type)
+static void			init_type(int nb, int type1, int type2, int type3, t_param_type *type)
 {
     type->nb = nb;
     type->type1 = type1;
@@ -38,7 +38,7 @@ static void init_type(int nb, int type1, int type2, int type3, t_param_type *typ
     type->type3 = type3;
 }
 
-static void	init_last_param(t_list **hash_tab)
+static void			init_last_param(t_list **hash_tab)
 {
 	t_param_type    type;
     int             size;
@@ -58,7 +58,7 @@ static void	init_last_param(t_list **hash_tab)
 	hash_tab[13] = ft_lstnew(init_one_param("aff", type, 0, 16, 1), size);
 }
 
-t_list		**init_param_def()
+t_list				**init_param_def()
 {
 	t_list          **hash_tab;
 	t_param_type    type;
