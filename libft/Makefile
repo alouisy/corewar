@@ -6,7 +6,7 @@
 #    By: zcugni <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/08 09:53:59 by zcugni            #+#    #+#              #
-#    Updated: 2018/10/16 16:20:28 by alouisy-         ###   ########.fr        #
+#    Updated: 2018/10/16 16:51:31 by jgroc-de         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,8 @@ SRCS_LST = ft_lstadd.c ft_lstiter.c ft_lstmap.c ft_lstcpy.c ft_lstnew.c \
 			ft_lstdelone.c ft_lstdel.c ft_lstfind.c ft_lstappend.c \
 			lst_clr.c lst_to_str.c ft_lstlength.c lst_findi.c ft_pop.c \
 			ft_pop_value.c ft_lstnew_pointer.c lstp_pop_at.c lst_pop_pointer.c \
-			bubble_sort_lst.c remove_first_elem.c lst_partial_clr.c
+			bubble_sort_lst.c remove_first_elem.c lst_partial_clr.c \
+			ft_lstsort.c ft_lstswap.c
 
 SRCS_TREE = compare_index.c find_in_tree.c insert_rbt.c new_rbt_node.c \
 			rotate.c display_tree_id.c rbt_clear.c
@@ -44,7 +45,8 @@ SRCS_FTPRINTF = convert_nb.c convert_string.c convert_all.c flag.c ft_printf.c \
 
 SRCS_MISC = ft_isalnum.c ft_isprint.c ft_isalpha.c ft_atoi.c ft_isascii.c \
 			ft_isdigit.c ft_itoa.c ft_pow.c ft_itoa_base.c is_neg.c \
-			ft_iswhitespace.c ft_atoi_harsh.c
+			ft_iswhitespace.c ft_atoi_harsh.c ft_min.c ft_max.c \
+			ft_isinteger.c
 
 SRCS = $(SRCS_STR) $(SRCS_LST) $(SRCS_IO) $(SRCS_MEM) $(SRCS_FTPRINTF) $(SRCS_MISC) $(SRCS_TREE)
 

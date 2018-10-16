@@ -6,7 +6,7 @@
 /*   By: zcugni <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 09:52:18 by zcugni            #+#    #+#             */
-/*   Updated: 2018/10/16 16:31:13 by alouisy-         ###   ########.fr       */
+/*   Updated: 2018/10/16 16:50:37 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 /*
 **struct for libft
 */
+
 typedef	struct				s_trim
 {
 	int start;
@@ -54,6 +55,7 @@ typedef struct				s_bubble_sort
 /*
 **struct for printf
 */
+
 typedef struct				s_conv_info
 {
 	int		rest;
@@ -86,6 +88,7 @@ typedef struct				s_pos
 /*
 **struct for tree
 */
+
 typedef struct				s_tree_index
 {
 	int		nb;
@@ -110,6 +113,7 @@ typedef	unsigned long long	t_ull;
 /*
 **Str
 */
+
 char						*ft_strcat(char *s1, const char *s2);
 char						*ft_strchr(const char *s, int c);
 int							ft_strchri(const char *s, int c);
@@ -155,9 +159,11 @@ char						*join_parts(t_char_arr *str_parts,
 													char *sep, int limit);
 char						**ft_strsplit_white(char const *s);
 int							ft_nbrisinteger(char *str);
+
 /*
 **Lst
 */
+
 void						ft_lstadd(t_list **alst, t_list *new);
 void						ft_lstappend(t_list **alst, t_list *new);
 t_list						*ft_lstcpy(t_list *ori);
@@ -181,13 +187,17 @@ t_list						*ft_pop(t_list **lst);
 int							ft_pop_value(t_list **lst);
 t_list						*lst_pop_pointer(t_list **lst);
 t_list						*lstp_pop_at(t_list **lst, void *p);
+t_list						*ft_lstsort(t_list *l1, int (*f)(t_list *node1, t_list *node2));
+void						ft_lstswap(t_list *node1, t_list *node2);
 void						bubble_sort_lst(t_list **lst,
 												int (*get_nb)(t_list *lst));
 void						remove_first_elem(t_list **lst);
 void						lst_partial_clr(t_list **lst);
+
 /*
 **Tree
 */
+
 t_rbt_node					*find_in_tree(t_rbt_node *rbt,
 												t_tree_index searched_index);
 void						rotate(t_rbt_node *node, int rotate_right);
@@ -203,6 +213,7 @@ void						rbt_clear(t_rbt_node **rbt,
 /*
 **IO
 */
+
 void						ft_putchar(char c);
 void						ft_putchar_fd(char c, int fd);
 void						ft_putendl(char const *s);
@@ -214,9 +225,11 @@ void						ft_putstr_fd(char const *s, int fd);
 int							get_next_line(const int fd, char **line,
 	char separator);
 void						exit_error(char *msg, int code);
+
 /*
 **Mem
 */
+
 void						ft_bzero(void *s, size_t n);
 void						*ft_memalloc(size_t size);
 int							ft_memcmp(const void *s1, const void *s2, size_t n);
@@ -228,9 +241,11 @@ void						ft_memdel(void **ap);
 void						*ft_memmove(void *dst, const void *src, size_t len);
 void						*ft_memset(void *b, int c, size_t len);
 void						get_leaks(char *msg);
+
 /*
 **Ft_printf
 */
+
 int							ft_printf(const char *str, ...);
 void						convert(va_list ap, t_detail *conv_detail);
 char						*convert_s(char *str, int precision);
@@ -258,12 +273,15 @@ char						*ft_itoa_base_uintmax(uintmax_t nb, int base,
 long						ft_atoi_long(char *str);
 long long					ft_atoi_2_long(char *str);
 int							display(t_list *final_lst, int error);
+
 /*
 **Misc
 */
+
 long long					ft_atoi(char *str);
 long long					ft_atoi_harsh(char *str, int accept_neg, int return_value);
 int							ft_isascii(int c);
+int							ft_isinteger(char *str);
 int							ft_isalnum(int c);
 int							ft_isalpha(int c);
 int							ft_isdigit(int c);
@@ -273,5 +291,7 @@ char						*ft_itoa(long long nb);
 char						*ft_itoa_base(unsigned int nb, int base, int upper);
 long long					ft_pow(int nb, int power);
 int							is_neg(char *str);
+intmax_t					ft_max(intmax_t a, intmax_t b);
+intmax_t					ft_min(intmax_t a, intmax_t b);
 
 #endif
