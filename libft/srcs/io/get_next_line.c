@@ -23,21 +23,17 @@ static int	if_return(char **rest, char **line, int index)
 	return (1);
 }
 
-char	*ft_strncpyat(char *dst, const char *src, size_t len, int shift)
+char	*ft_strncpyat(char *dst, const char *src, int shift)
 {
-	size_t src_len;
-	size_t i;
+	int i;
 
-	src_len = ft_strlen(src);
 	i = 0;
-	while (i < len)
+	while (src[i])
 	{
-		if (i + shift > src_len)
-			dst[i + shift] = '\0';
-		else
-			dst[i + shift] = src[i];
+		dst[i + shift] = src[i];
 		i++;
 	}
+	dst[i + shift] = 'a';
 	return (dst);
 }
 
@@ -61,8 +57,8 @@ static char	*ft_strjoin_overlap(char **s1, char **s2)
 		str = malloc(len_1 + len_2 + 1);
 		if (!str)
 			exit_error("malloc error\n", 1);
-		ft_strncpyat(str, *s1, len_1, 0);
-		ft_strncpyat(str, *s2, ft_strlen(*s2), len_1);
+		ft_strncpyat(str, *s1, 0);
+		ft_strncpyat(str, *s2, len_1);
 		ft_strdel(s1);
 		str[len_1 + len_2] = '\0';
 	}

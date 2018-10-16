@@ -16,12 +16,12 @@ int	ft_strchri(const char *s, int c)
 {
 	int i;
 
-	if (*s)
+	if (s)
 	{
 		if (c == 0)
 			return (ft_strlen(s));
 		i = 0;
-		while (s[i] != '\0')
+		while (s[i])
 		{
 			if (s[i] == (char)c)
 				return (i);

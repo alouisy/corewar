@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-long long	ft_atoi_harsh(char *str, int accept_neg)
+long long	ft_atoi_harsh(char *str, int accept_neg, int return_value)
 {
 	long long	fin_nb;
 	int			is_neg;
@@ -27,7 +27,7 @@ long long	ft_atoi_harsh(char *str, int accept_neg)
 		str++;
 	}
 	else if (*str == '-' && !accept_neg)
-		return (0);
+		return (return_value);
 	while (ft_isdigit(*str))
 	{
 		fin_nb = fin_nb * 10 + (*str - '0');
@@ -35,7 +35,7 @@ long long	ft_atoi_harsh(char *str, int accept_neg)
 	}
 	if ((*str && !ft_isdigit(*str) && !ft_iswhitespace(*str))
 													|| fin_nb > 2147483647)
-		return (0);
+		return (return_value);
 	if (is_neg == 0)
 		return (fin_nb);
 	return (-fin_nb);

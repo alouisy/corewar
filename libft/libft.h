@@ -260,7 +260,7 @@ int							display(t_list *final_lst, int error);
 **Misc
 */
 long long					ft_atoi(char *str);
-long long					ft_atoi_harsh(char *str, int accept_neg);
+long long					ft_atoi_harsh(char *str, int accept_neg, int return_value);
 int							ft_isascii(int c);
 int							ft_isalnum(int c);
 int							ft_isalpha(int c);
