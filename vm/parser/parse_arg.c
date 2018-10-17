@@ -14,10 +14,10 @@
 
 static int		ft_check_champ_numb(t_pvm *prms)
 {
-	t_list		*process;
-	char		check[prms->nb_champ + 1];
-	int			i;
-	int			j;
+	t_list	*process;
+	char	check[prms->nb_champ + 1];
+	int		i;
+	int		j;
 
 	i = -1;
 	while (++i < prms->nb_champ)
@@ -41,7 +41,7 @@ static int		ft_check_champ_numb(t_pvm *prms)
 	return (0);
 }
 
-static void	ft_last_check_champ(t_pvm *prms)
+static void		ft_last_check_champ(t_pvm *prms)
 {
 	if (prms->nb_champ > 4)
 		exit_error("ERROR (MORE THAN 4 CHAMPIONS)", 1);
@@ -49,20 +49,7 @@ static void	ft_last_check_champ(t_pvm *prms)
 		exit_error("ERROR (2 CHAMPIONS WITH THE SAME NUMBER)", 1);
 }
 
-/*void	add_process(t_list **processes, t_list *new)
-{
-	if (!processes || !new)
-		return;
-	if (*processes == NULL)
-		*processes = new;
-	else if (*processes && new)
-	{
-		new->next = *processes;
-		*processes = new;
-	}
-}*/
-
-static void	save_champ(char *path, int nb_prog, t_pvm *prms)
+static void		save_champ(char *path, int nb_prog, t_pvm *prms)
 {
 	t_list	*process;
 
@@ -74,10 +61,10 @@ static void	save_champ(char *path, int nb_prog, t_pvm *prms)
 	}
 }
 
-int		parse_arg(t_pvm *prms, int ac, char **av)
+int				parse_arg(t_pvm *prms, int ac, char **av)
 {
-	int		i;
-	int		nb_prog;
+	int	i;
+	int	nb_prog;
 
 	i = 0;
 	nb_prog = -1;

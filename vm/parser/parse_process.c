@@ -12,10 +12,10 @@
 
 #include "../vm.h"
 
-static int			get_champ_nb(int nb_prog, t_list *begin_list)
+static int		get_champ_nb(int nb_prog, t_list *begin_list)
 {
-	t_list		*process;
-	int			nb;
+	t_list	*process;
+	int		nb;
 
 	nb = 1;
 	if (nb_prog == -1)
@@ -57,7 +57,7 @@ static void		init_process(t_process *process, int nb_prog, int nb_champ, t_pvm *
 	}*/
 }
 
-t_list	*parse_process(char *path, int nb_prog, t_pvm *prms)
+t_list			*parse_process(char *path, int nb_prog, t_pvm *prms)
 {
 	int			fd;
 	t_process	process;

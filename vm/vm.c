@@ -30,7 +30,7 @@ void		start_vm(t_pvm *prms)
 	}
 }
 
-void aux_print_champ(t_list *node)
+void 			aux_print_champ(t_list *node)
 {
 	t_process	*tmp;
 

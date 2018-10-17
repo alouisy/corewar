@@ -12,7 +12,7 @@
 
 #include "../vm.h"
 
-void		parse_process_prog(t_process *process, int fd)
+void	parse_process_prog(t_process *process, int fd)
 {
 	char	verif_end[1];
 

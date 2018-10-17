@@ -12,10 +12,10 @@
 
 #include "../vm.h"
 
-void		print_memory(t_pvm *prms)
+void	print_memory(t_pvm *prms)
 {
-	int		i;
-	int		j;
+	int	i;
+	int	j;
 
 	i = 0;
 	j = 0;

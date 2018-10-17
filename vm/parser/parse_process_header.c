@@ -40,7 +40,7 @@ static void		parse_process_magic_size(t_process *process, int fd, char *filename
 	}
 }
 
-void		parse_process_header(t_process *process, int fd, char *filename)
+void			parse_process_header(t_process *process, int fd, char *filename)
 {
 	parse_process_magic_size(process, fd, filename, 0);
 	if (read(fd, process->header.prog_name, PROG_NAME_LENGTH) != PROG_NAME_LENGTH)
