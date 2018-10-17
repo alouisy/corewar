@@ -50,11 +50,11 @@ static void		init_process(t_process *process, int nb_prog, int nb_champ, t_pvm *
 	while (i < REG_NUMBER)
 		process->r[i++] = 0;
 	i = 0;
-/*	while (i < 3)
+	while (i < 3)
 	{
 		process->param[i] = 0;
 		process->param_type[i++] = 0;
-	}*/
+	}
 }
 
 t_list			*parse_process(char *path, int nb_prog, t_pvm *prms)
