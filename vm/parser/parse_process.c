@@ -64,6 +64,7 @@ t_list			*parse_process(char *path, int nb_prog, t_pvm *prms)
 	t_list		*node;
 	static int	nb_champ;
 
+	node = NULL;
 	if ((fd = open(path, O_RDONLY)) != -1)
 	{
 		ft_putendl("Parse 1 init Process");
