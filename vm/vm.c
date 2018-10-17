@@ -49,18 +49,15 @@ void 			aux_print_champ(t_list *node)
 
 int				main(int argc, char **argv)
 {
-	t_pvm		*prms;
+	t_pvm	prms;
 
 	if (argc > 1)
 	{
-		if ((prms = (t_pvm *)malloc(sizeof(t_pvm))))
-		{
-			init_prms(prms);
-			parse_arg(prms, argc, argv);
-			init_vm(prms);
-			ft_lstiter(prms->processes, &aux_print_champ);
-			print_memory(prms);
-		}
+		init_prms(&prms);
+		parse_arg(&prms, argc, argv);
+		init_vm(&prms);
+		ft_lstiter(prms.processes, &aux_print_champ);
+		print_memory(&prms);
 	}
 	return(0);
 }

@@ -12,7 +12,7 @@
 
 CC= gcc
 CFLAGS= -Wall -Werror -Wextra -g -I ../libft
-LIBFLAGS= -L../libft -lft
+LIBFT= -L../libft -lft
 NAME= corewar
 LIB = ../libft/libft.a
 .phony: all clean fclean re
@@ -22,7 +22,8 @@ OBJ= $(subst .c,.o, $(SRC))
 all: $(NAME)
 
 $(NAME): $(OBJ) vm.h
-	$(CC) $(OBJ) -o $(NAME) $(CFLAGS) $(LIBFLAGS)
+	@echo "compilation de "$(NAME)
+	@$(CC) $(OBJ) -o $(NAME) $(CFLAGS) $(LIBFT)
 
 $(LIB):
 	make -C ../libft
