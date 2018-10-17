@@ -82,10 +82,15 @@ void					add_process(t_process **processes, t_process *new);
 /*
 parse_process.c
 */
-t_process				*parse_process(char *path, int nb_prog, t_pvm *prms);
+t_list					*parse_process(char *path, int nb_prog, t_pvm *prms);
 
 /*
 parse_process2.c
 */
 void					parse_process_header(t_process *process, int fd, char *filename);
 void					parse_process_prog(t_process *process, int fd);
+
+/*
+** struct_process
+*/
+t_process				*get_content(t_list *node);

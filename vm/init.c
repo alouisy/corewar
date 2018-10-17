@@ -26,7 +26,7 @@ void		init_vm(t_pvm *prms)
 	ft_bzero(prms->memory, MEM_SIZE);
 	while (--i >= 0)
 	{
-		tmp = ((t_process*)(plst->content));
+		tmp = get_content(plst);
 		tmp->vm_pos = i * (MEM_SIZE / prms->nb_champ);
 		tmp->pc = tmp->vm_pos;
 		ft_memcpy(prms->memory + tmp->vm_pos, tmp->prog,

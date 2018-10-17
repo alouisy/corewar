@@ -14,7 +14,7 @@
 
 static int		ft_check_champ_numb(t_pvm *prms)
 {
-	t_process	*process;
+	t_list		*process;
 	char		check[prms->nb_champ + 1];
 	int			i;
 	int			j;
@@ -26,7 +26,7 @@ static int		ft_check_champ_numb(t_pvm *prms)
 	i = 0;
 	while (process)
 	{
-		check[i] = process->r[0];
+		check[i] = (get_content(process))->r[0];
 		process = process->next;
 		i++;
 	}
@@ -49,7 +49,7 @@ static void	ft_last_check_champ(t_pvm *prms)
 		exit_error("ERROR (2 CHAMPIONS WITH THE SAME NUMBER)", 1);
 }
 
-void	add_process(t_process **processes, t_process *new)
+/*void	add_process(t_list **processes, t_list *new)
 {
 	if (!processes || !new)
 		return;
@@ -60,16 +60,16 @@ void	add_process(t_process **processes, t_process *new)
 		new->next = *processes;
 		*processes = new;
 	}
-}
+}*/
 
 static void	save_champ(char *path, int nb_prog, t_pvm *prms)
 {
-	t_process		*process;
+	t_list	*process;
 
 	if ((process = parse_process(path, nb_prog, prms)))
 	{
 		ft_putendl("One Champ Save...");
-		add_process(&prms->processes, process);
+		ft_lstadd(&prms->processes, process);
 		ft_putendl("Save Completed !");
 	}
 }

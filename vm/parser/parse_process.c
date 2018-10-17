@@ -12,9 +12,9 @@
 
 #include "../vm.h"
 
-static int			get_champ_nb(int nb_prog, t_process *begin_list)
+static int			get_champ_nb(int nb_prog, t_list *begin_list)
 {
-	t_process	*process;
+	t_list		*process;
 	int			nb;
 
 	nb = 1;
@@ -24,7 +24,7 @@ static int			get_champ_nb(int nb_prog, t_process *begin_list)
 			process = begin_list;
 			while (process)
 			{
-				if (process->r[0] == nb)
+				if (get_content(process)->r[0] == nb)
 					break ;
 				process = process->next;
 			}
@@ -39,7 +39,6 @@ static void		init_process(t_process *process, int nb_prog, int nb_champ, t_pvm *
 {
 	int		i;
 
-	process->next = NULL;
 	process->r[0] = get_champ_nb(nb_prog, prms->processes);
 	process->champ_nbr = process->r[0];
 	process->pid = nb_champ;
@@ -58,29 +57,28 @@ static void		init_process(t_process *process, int nb_prog, int nb_champ, t_pvm *
 	}*/
 }
 
-t_process	*parse_process(char *path, int nb_prog, t_pvm *prms)
+t_list	*parse_process(char *path, int nb_prog, t_pvm *prms)
 {
 	int			fd;
-	t_process	*process;
+	t_process	process;
+	t_list		*node;
 	static int	nb_champ;
 
-	if ((process = (t_process *)malloc(sizeof(t_process))))
+	if ((fd = open(path, O_RDONLY)) != -1)
 	{
-		if ((fd = open(path, O_RDONLY)) != -1)
-		{
-			ft_putendl("Parse 1 init Process");
-			init_process(process, nb_prog, nb_champ++, prms);
-			ft_putendl("Parse 2 Header");
-			parse_process_header(process, fd, path);
-			ft_putendl("Parse 3 Prog");
-			parse_process_prog(process, fd);
-			ft_putendl("Parse 4 Finish");
-			close(fd);
-		}
-		else
-			exit_error(ft_strjoin("Can't read source file ", path), 1);
+		ft_putendl("Parse 1 init Process");
+		init_process(&process, nb_prog, nb_champ++, prms);
+		ft_putendl("Parse 2 Header");
+		parse_process_header(&process, fd, path);
+		ft_putendl("Parse 3 Prog");
+		parse_process_prog(&process, fd);
+		ft_putendl("Parse 4 Finish");
+		close(fd);
+		node = ft_lstnew((void*)(&process), sizeof(t_process));
+		if (!node)
+			exit_error("ERROR while trying to malloc", 1);
 	}
 	else
-		exit_error("ERROR while trying to malloc", 1);
-	return (process);
+		exit_error(ft_strjoin("Can't read source file ", path), 1);
+	return (node);
 }
