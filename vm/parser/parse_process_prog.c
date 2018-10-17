@@ -20,7 +20,6 @@ void	parse_process_prog(t_process *process, int fd)
 	if (read(fd, process->prog, process->header.prog_size + 4) !=
 		process->header.prog_size || read(fd, verif_end, 1) != 0)
 	{
-		free(process);
 		exit_error("INVALID FORMAT (ERROR PROG_SIZE DOES NOT MATCH FILE DATA)", 1);
 	}
 }

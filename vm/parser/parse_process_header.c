@@ -32,7 +32,6 @@ static void		parse_process_magic_size(t_process *process, int fd, char *filename
 		process->header.prog_size = result;
 	else
 	{
-		free(process);
 		if (mode == 0)
 			exit_error("INVALID FORMAT (ERROR W/ MAGIC)", 1);
 		else
@@ -45,14 +44,12 @@ void			parse_process_header(t_process *process, int fd, char *filename)
 	parse_process_magic_size(process, fd, filename, 0);
 	if (read(fd, process->header.prog_name, PROG_NAME_LENGTH) != PROG_NAME_LENGTH)
 	{
-		free(process);
 		exit_error("INVALID FORMAT (ERROR W/ NAME)", 1);
 	}
 	lseek(fd, 4, SEEK_CUR);
 	parse_process_magic_size(process, fd, filename, 1);
 	if (read(fd, process->header.comment, COMMENT_LENGTH) != COMMENT_LENGTH)
 	{
-		free(process);
 		exit_error("INVALID FORMAT (ERROR W/ COMMENT)", 1);
 	}
 	lseek(fd, 4, SEEK_CUR);
