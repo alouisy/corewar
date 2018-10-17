@@ -13,7 +13,7 @@
 CC= gcc
 CFLAGS= -Wall -Werror -Wextra -g -I ../libft
 LIBFLAGS= -L../libft -lft
-NAME= vm
+NAME= corewar
 LIB = ../libft/libft.a
 .phony: all clean fclean re
 SRC= $(wildcard *.c)

@@ -16,6 +16,29 @@ int			get_champ_nb(int nb_prog, t_process *begin_list)
 {
 	t_process	*process;
 	int			nb;
+
+	nb = 1;
+	if (nb_prog == -1)
+		while (1 || nb <= nb_prog)
+		{
+			process = begin_list;
+			while (process)
+			{
+				if (process->r[0] == nb)
+					break ;
+				process = process->next;
+			}
+			if (!process)
+				return (nb);
+			nb++;
+		}
+	return (nb_prog);
+}
+
+/*int			get_champ_nb(int nb_prog, t_process *begin_list)
+{
+	t_process	*process;
+	int			nb;
 	int			ok;
 
 	nb = 1;
@@ -35,7 +58,7 @@ int			get_champ_nb(int nb_prog, t_process *begin_list)
 			nb++;
 		}
 	return (nb_prog);
-}
+}*/
 
 void		init_process(t_process *process, int nb_prog, int nb_champ, t_pvm *prms)
 {
@@ -50,15 +73,15 @@ void		init_process(t_process *process, int nb_prog, int nb_champ, t_pvm *prms)
 	process->nb_live = 0;
 	process->cycles_wo_live = 0;
 	process->instruction = -1;
+	i = 1;
+	while (i < REG_NUMBER)
+		process->r[i++] = 0;
 	i = 0;
-	while (++i < REG_NUMBER)
-		process->r[i] = 0;
-	i = -1;
-	while (++i < 3)
+	while (i < 3)
+	{
 		process->param[i] = 0;
-	i = -1;
-	while (++i < 3)
-		process->param_type[i] = 0;
+		process->param_type[i++] = 0;
+	}
 }
 
 t_process	*parse_process(char *path, int nb_prog, t_pvm *prms)
