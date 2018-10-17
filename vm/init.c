@@ -14,22 +14,24 @@
 
 void		init_vm(t_pvm *prms)
 {
-	t_process	*ptmp;
+	t_list		*plst;
 	int			i;
+	t_process	*tmp;
 
 	prms->sum_lives = 0;
 	prms->cur_cycle = 0;
 	prms->winner = 0;
-	ptmp = prms->processes;
+	plst = prms->processes;
 	i = prms->nb_champ;
 	ft_bzero(prms->memory, MEM_SIZE);
 	while (--i >= 0)
 	{
-		ptmp->vm_pos = i * (MEM_SIZE / prms->nb_champ);
-		ptmp->pc = ptmp->vm_pos;
-		ft_memcpy(prms->memory + ptmp->vm_pos, ptmp->prog,
-			ptmp->header.prog_size);
-		ptmp = ptmp->next;
+		tmp = ((t_process*)(plst->content));
+		tmp->vm_pos = i * (MEM_SIZE / prms->nb_champ);
+		tmp->pc = tmp->vm_pos;
+		ft_memcpy(prms->memory + tmp->vm_pos, tmp->prog,
+			tmp->header.prog_size);
+		plst = plst->next;
 	}
 }
 

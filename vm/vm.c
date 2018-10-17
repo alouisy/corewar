@@ -14,83 +14,42 @@
 
 void		start_vm(t_pvm *prms)
 {
-	t_process	*ptmp;
+	int			len;
+	t_process	*content;
+
 	while (prms->total_cycles <= prms->dump && prms->winner == 0)
 	{
-		ptmp = prms->processes;
-		while (ptmp)
-		{
-			ptmp = ptmp->next;
-		}
+		len = ft_lstlength(prms->processes);
+		(void)len;
 		prms->total_cycles++;
 	}
 	if (prms->winner)
-		ft_printf("le joueur %d(%s) a gagne\n", prms->processes->champ_nbr, prms->processes->header.prog_name);
-}
-
-void		print_memory(t_pvm *prms)
-{
-	int		i;
-	int		j;
-
-	i = 0;
-	j = 0;
-	while (i < MEM_SIZE)
 	{
-		if ((j % 64) == 0)
-		{
-			ft_putchar('\n');
-			j = 0;
-		}
-		if (prms->memory[i] == 0)
-			ft_printf("00 ");
-		else
-			ft_printf("%.2hhx ", prms->memory[i]);
-		j++;
-		i++;
-	}
-	ft_putchar('\n');
-}
-
-void		init_vm(t_pvm *prms)
-{
-	t_process	*ptmp;
-	int			i;
-
-	prms->sum_lives = 0;
-	prms->cur_cycle = 0;
-	prms->winner = 0;
-	ptmp = prms->processes;
-	i = prms->nb_champ;
-	ft_bzero(prms->memory, MEM_SIZE);
-	while (--i >= 0)
-	{
-		ptmp->vm_pos = i * (MEM_SIZE / prms->nb_champ);
-		ptmp->pc = ptmp->vm_pos;
-		ft_memcpy(prms->memory + ptmp->vm_pos, ptmp->prog,
-			ptmp->header.prog_size);
-		ptmp = ptmp->next;
+		content = (t_process*)(prms->processes->content);
+		ft_printf("le joueur %d(%s) a gagne\n", content->champ_nbr, content->header.prog_name);
 	}
 }
 
-void		init_prms(t_pvm *prms)
+void aux_print_champ(t_list *node)
 {
-	prms->dump = -1;
-	prms->processes = NULL;
-	prms->nb_champ = 0;
-	prms->verbose = 0;
-	prms->cycle_to_die = CYCLE_TO_DIE;
-	prms->total_cycles = 1;
-	prms->cycles = 1;
-	prms->live = 0;
-	prms->last_live = 0;
-	prms->nb_checks = 0;
+	t_process	*tmp;
+
+	tmp = (t_process*)node->content;
+	ft_printf("Pos: %d\nMagic: %d\nProg_name: %s\nProg_size: %d\nComment: %s\nPid: %d\nR0: %d\nVm_Pos:% d\nPc: %d\n\n",
+		tmp->champ_nbr,
+		tmp->header.magic,
+		tmp->header.prog_name,
+		tmp->header.prog_size,
+		tmp->header.comment,
+		tmp->pid,
+		tmp->r[0],
+		tmp->vm_pos,
+		tmp->pc);
 }
 
 int				main(int argc, char **argv)
 {
 	t_pvm		*prms;
-	t_process	*ptmp;
 
 	if (argc > 1)
 	{
@@ -99,14 +58,7 @@ int				main(int argc, char **argv)
 			init_prms(prms);
 			parse_arg(prms, argc, argv);
 			init_vm(prms);
-			ptmp = prms->processes;
-			while (ptmp)
-			{
-				ft_printf("Pos: %d\nMagic: %d\nProg_name: %s\nProg_size: %d\nComment: %s\nPid: %d\nR0: %d\nVm_Pos:% d\nPc: %d\n\n",
-					ptmp->champ_nbr, ptmp->header.magic, ptmp->header.prog_name, ptmp->header.prog_size,
-					ptmp->header.comment, ptmp->pid, ptmp->r[0], ptmp->vm_pos, ptmp->pc);
-				ptmp = ptmp->next;
-			}
+			ft_lstiter(prms->processes, &aux_print_champ);
 			print_memory(prms);
 		}
 	}
