@@ -54,13 +54,9 @@ void	add_process(t_process **processes, t_process *new)
 	if (!processes || !new)
 		return;
 	if (*processes == NULL)
-	{
-		new->prev = NULL;
 		*processes = new;
-	}
 	else if (*processes && new)
 	{
-		(*processes)->prev = new;
 		new->next = *processes;
 		*processes = new;
 	}

@@ -64,24 +64,23 @@ void		init_process(t_process *process, int nb_prog, int nb_champ, t_pvm *prms)
 {
 	int		i;
 
-	process->prev = NULL;
 	process->next = NULL;
 	process->r[0] = get_champ_nb(nb_prog, prms->processes);
 	process->champ_nbr = process->r[0];
 	process->pid = nb_champ;
 	process->carry = 0;
-	process->nb_live = 0;
+/*	process->nb_live = 0;
 	process->cycles_wo_live = 0;
-	process->instruction = -1;
+*/	process->instruction = -1;
 	i = 1;
 	while (i < REG_NUMBER)
 		process->r[i++] = 0;
 	i = 0;
-	while (i < 3)
+/*	while (i < 3)
 	{
 		process->param[i] = 0;
 		process->param_type[i++] = 0;
-	}
+	}*/
 }
 
 t_process	*parse_process(char *path, int nb_prog, t_pvm *prms)
@@ -90,8 +89,7 @@ t_process	*parse_process(char *path, int nb_prog, t_pvm *prms)
 	t_process	*process;
 	static int	nb_champ;
 
-	if ((process = (t_process *)malloc(sizeof(t_process)))
-		&& (process->header = (header_t *)malloc(sizeof(header_t))))
+	if ((process = (t_process *)malloc(sizeof(t_process))))
 	{
 		if ((fd = open(path, O_RDONLY)) != -1)
 		{

@@ -17,10 +17,9 @@ void		parse_process_prog(t_process *process, int fd)
 	char	verif_end[1];
 
 	ft_bzero(process->prog, CHAMP_MAX_SIZE);
-	if (read(fd, process->prog, process->header->prog_size + 4) !=
-		process->header->prog_size || read(fd, verif_end, 1) != 0)
+	if (read(fd, process->prog, process->header.prog_size + 4) !=
+		process->header.prog_size || read(fd, verif_end, 1) != 0)
 	{
-		free(process->header);
 		free(process);
 		exit_error("INVALID FORMAT (ERROR PROG_SIZE DOES NOT MATCH FILE DATA)", 1);
 	}
@@ -41,12 +40,11 @@ void		parse_process_magic_size(t_process *process, int fd, char *filename, int m
 	read(fd, &current_byte, 1);
 	result += current_byte;
 	if (mode == 0 && result == COREWAR_EXEC_MAGIC)
-		process->header->magic = result;
+		process->header.magic = result;
 	else if (mode == 1 && result <= CHAMP_MAX_SIZE)
-		process->header->prog_size = result;
+		process->header.prog_size = result;
 	else
 	{
-		free(process->header);
 		free(process);
 		if (mode == 0)
 			exit_error("INVALID FORMAT (ERROR W/ MAGIC)", 1);
@@ -58,17 +56,15 @@ void		parse_process_magic_size(t_process *process, int fd, char *filename, int m
 void		parse_process_header(t_process *process, int fd, char *filename)
 {
 	parse_process_magic_size(process, fd, filename, 0);
-	if (read(fd, process->header->prog_name, PROG_NAME_LENGTH) != PROG_NAME_LENGTH)
+	if (read(fd, process->header.prog_name, PROG_NAME_LENGTH) != PROG_NAME_LENGTH)
 	{
-		free(process->header);
 		free(process);
 		exit_error("INVALID FORMAT (ERROR W/ NAME)", 1);
 	}
 	lseek(fd, 4, SEEK_CUR);
 	parse_process_magic_size(process, fd, filename, 1);
-	if (read(fd, process->header->comment, COMMENT_LENGTH) != COMMENT_LENGTH)
+	if (read(fd, process->header.comment, COMMENT_LENGTH) != COMMENT_LENGTH)
 	{
-		free(process->header);
 		free(process);
 		exit_error("INVALID FORMAT (ERROR W/ COMMENT)", 1);
 	}

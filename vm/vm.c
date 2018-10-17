@@ -25,7 +25,7 @@ void		start_vm(t_pvm *prms)
 		prms->total_cycles++;
 	}
 	if (prms->winner)
-		ft_printf("le joueur %d(%s) a gagne\n", prms->processes->champ_nbr, prms->processes->header->prog_name);
+		ft_printf("le joueur %d(%s) a gagne\n", prms->processes->champ_nbr, prms->processes->header.prog_name);
 }
 
 void		print_memory(t_pvm *prms)
@@ -61,20 +61,15 @@ void		init_vm(t_pvm *prms)
 	prms->cur_cycle = 0;
 	prms->winner = 0;
 	ptmp = prms->processes;
-	i = 0;
+	i = prms->nb_champ;
 	ft_bzero(prms->memory, MEM_SIZE);
-	if (prms->nb_champ > 1)
-		while (i++ < prms->nb_champ - 1)
-			ptmp = ptmp->next;
-	i = 0;
-	while (i < prms->nb_champ)
+	while (--i >= 0)
 	{
 		ptmp->vm_pos = i * (MEM_SIZE / prms->nb_champ);
 		ptmp->pc = ptmp->vm_pos;
 		ft_memcpy(prms->memory + ptmp->vm_pos, ptmp->prog,
-			ptmp->header->prog_size);
-		ptmp = ptmp->prev;
-		i++;
+			ptmp->header.prog_size);
+		ptmp = ptmp->next;
 	}
 }
 
@@ -108,8 +103,8 @@ int				main(int argc, char **argv)
 			while (ptmp)
 			{
 				ft_printf("Pos: %d\nMagic: %d\nProg_name: %s\nProg_size: %d\nComment: %s\nPid: %d\nR0: %d\nVm_Pos:% d\nPc: %d\n\n",
-					ptmp->champ_nbr, ptmp->header->magic, ptmp->header->prog_name, ptmp->header->prog_size,
-					ptmp->header->comment, ptmp->pid, ptmp->r[0], ptmp->vm_pos, ptmp->pc);
+					ptmp->champ_nbr, ptmp->header.magic, ptmp->header.prog_name, ptmp->header.prog_size,
+					ptmp->header.comment, ptmp->pid, ptmp->r[0], ptmp->vm_pos, ptmp->pc);
 				ptmp = ptmp->next;
 			}
 			print_memory(prms);

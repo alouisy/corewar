@@ -15,7 +15,7 @@
 
 typedef struct			s_process
 {
-	header_t			*header;
+	header_t			header;
 	int					vm_pos;
 	unsigned char		prog[CHAMP_MAX_SIZE + 1];
 	int					pid;
@@ -23,15 +23,14 @@ typedef struct			s_process
 	int					r[REG_NUMBER];
 	int					pc;
 	int					carry;
-	int					l_live;
+/*	int					l_live;
 	int					nb_live;
-	int					cycle_bf_exe;
-	int					cycles_wo_live;
+*/	int					cycle_bf_exe;
+/*	int					cycles_wo_live;
 	int					param[3];
 	t_arg_type			param_type[3];
-	char				instruction;
-	int					ocp;
-	struct s_process	*prev;
+*/	char				instruction;
+//	int					ocp;
 	struct s_process	*next;
 }						t_process;
 
