@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vm.h"
+#include "../vm.h"
 
-int			get_champ_nb(int nb_prog, t_process *begin_list)
+static int			get_champ_nb(int nb_prog, t_process *begin_list)
 {
 	t_process	*process;
 	int			nb;
@@ -35,32 +35,7 @@ int			get_champ_nb(int nb_prog, t_process *begin_list)
 	return (nb_prog);
 }
 
-/*int			get_champ_nb(int nb_prog, t_process *begin_list)
-{
-	t_process	*process;
-	int			nb;
-	int			ok;
-
-	nb = 1;
-	if (nb_prog == -1)
-		while (1)
-		{
-			ok = 1;
-			process = begin_list;
-			while (process)
-			{
-				if (process->r[0] == nb)
-					ok = 0;
-				process = process->next;
-			}
-			if (ok == 1)
-				return (nb);
-			nb++;
-		}
-	return (nb_prog);
-}*/
-
-void		init_process(t_process *process, int nb_prog, int nb_champ, t_pvm *prms)
+static void		init_process(t_process *process, int nb_prog, int nb_champ, t_pvm *prms)
 {
 	int		i;
 

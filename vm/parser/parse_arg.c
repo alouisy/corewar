@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vm.h"
+#include "../vm.h"
 
-int		ft_check_champ_numb(t_pvm *prms)
+static int		ft_check_champ_numb(t_pvm *prms)
 {
 	t_process	*process;
 	char		check[prms->nb_champ + 1];
@@ -41,7 +41,7 @@ int		ft_check_champ_numb(t_pvm *prms)
 	return (0);
 }
 
-void	ft_last_check_champ(t_pvm *prms)
+static void	ft_last_check_champ(t_pvm *prms)
 {
 	if (prms->nb_champ > 4)
 		exit_error("ERROR (MORE THAN 4 CHAMPIONS)", 1);
@@ -62,7 +62,7 @@ void	add_process(t_process **processes, t_process *new)
 	}
 }
 
-void	save_champ(char *path, int nb_prog, t_pvm *prms)
+static void	save_champ(char *path, int nb_prog, t_pvm *prms)
 {
 	t_process		*process;
 
