@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 17:41:26 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/10/16 17:05:53 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/10/18 16:25:44 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@ typedef struct			s_process
 	int					carry;
 /*	int					l_live;
 	int					nb_live;
-	int					cycles_wo_live;
-*/	int					cycle_bf_exe;
+*/	int					cycles_wo_live;
+	int					cycle_bf_exe;
 	int					param[3];
 	t_arg_type			param_type[3];
 	char				instruction;
-//	int					ocp;
+	int					ocp;
 }						t_process;
 
 typedef struct			s_pvm

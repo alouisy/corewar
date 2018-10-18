@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 17:41:07 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/10/16 16:29:05 by alouisy-         ###   ########.fr       */
+/*   Updated: 2018/10/18 16:15:57 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void		init_vm(t_pvm *prms)
 void		init_f(t_pvm *prms)
 {
 	prms->f[0] = &ft_live;
-	prms->f[1] = &ft_ld;
+/*	prms->f[1] = &ft_ld;
 	prms->f[2] = &ft_st;
 	prms->f[3] = &ft_add;
 	prms->f[4] = &ft_sub;
@@ -52,7 +52,7 @@ void		init_f(t_pvm *prms)
 	prms->f[12] = &ft_lld;
 	prms->f[13] = &ft_lldi;
 	prms->f[14] = &ft_lfork;
-	prms->f[15] = &ft_aff;
+	prms->f[15] = &ft_aff;*/
 }
 
 void		init_prms(t_pvm *prms)
