@@ -30,18 +30,19 @@ typedef struct			s_process
 	int					carry;
 /*	int					l_live;
 	int					nb_live;
-*/	int					cycles_wo_live;
-	int					cycle_bf_exe;
+*/	int					cycle_bf_exe;
+	int					cycles_wo_live;
 	int					param[3];
 	t_arg_type			param_type[3];
-	char				instruction;
-	int					ocp;
+	char				opcode;
+	char				ocp;
 }						t_process;
 
 typedef struct			s_pvm
 {
 	void				(*f[16])(struct s_pvm *, t_process *);
 	t_list				*processes;
+	t_list				*champions;
 	unsigned char		memory[MEM_SIZE];
 	int					dump;
 	int					verbose;
