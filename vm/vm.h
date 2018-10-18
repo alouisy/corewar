@@ -6,12 +6,14 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 17:41:26 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/10/18 16:25:44 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/10/18 19:20:39 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "op.h"
+#ifndef VM_H
+# define VM_H
+# include "libft.h"
+# include "op.h"
 
 typedef struct			s_process
 {
@@ -94,3 +96,26 @@ void					parse_process_prog(t_process *process, int fd);
 ** struct_process
 */
 t_process				*get_content(t_list *node);
+int						ft_strhex2dec(char *str, int i);
+
+/*
+** jeu d'instruction
+*/
+void	ft_live(t_pvm *pvm, t_process *process);
+void	ft_ld(t_pvm *pvm, t_process *process);
+void	ft_st(t_pvm *pvm, t_process *process);
+void	ft_add(t_pvm *pvm, t_process *process);
+void	ft_sub(t_pvm *pvm, t_process *process);
+void	ft_and(t_pvm *pvm, t_process *process);
+void	ft_or(t_pvm *pvm, t_process *process);
+void	ft_xor(t_pvm *pvm, t_process *process);
+void	ft_zjmp(t_pvm *pvm, t_process *process);
+void	ft_ldi(t_pvm *pvm, t_process *process);
+void	ft_sti(t_pvm *pvm, t_process *process);
+void	ft_fork(t_pvm *pvm, t_process *process);
+void	ft_lld(t_pvm *pvm, t_process *process);
+void	ft_lldi(t_pvm *pvm, t_process *process);
+void	ft_lfork(t_pvm *pvm, t_process *process);
+void	ft_aff(t_pvm *pvm, t_process *process);
+
+#endif

@@ -6,10 +6,9 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/18 17:01:23 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/10/18 17:03:08 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/10/18 17:09:18 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../vm.h"
 
@@ -17,10 +16,10 @@
 ** direct store
 */
 
-void	ft_ld(t_pvm *pvm, t_process *process)
+void	ft_st(t_pvm *pvm, t_process *process)
 {
 	process->param[1] = process->r[process->param[0]];
-	if (!process->param[0])
+	if (!process->param[0] == 0)
 		process->carry = 1;
 	else
 		process->carry = 0;

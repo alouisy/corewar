@@ -1,27 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_add.c                                           :+:      :+:    :+:   */
+/*   ft_hex2dec.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/18 17:03:28 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/10/18 19:26:22 by jgroc-de         ###   ########.fr       */
+/*   Created: 2018/10/18 19:05:11 by jgroc-de          #+#    #+#             */
+/*   Updated: 2018/10/18 19:23:44 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../vm.h"
 
-/*
-** aritmetical addition
-*/
-
-void	ft_add(t_pvm *pvm, t_process *process)
+int	ft_strhex2dec(char *str, int i)
 {
-	(void)pvm;
-	process->param[2] = process->param[0] + process->param[1];
-	if (process->param[2] == 0)
-		process->carry = 1;
-	else
-		process->carry = 0;
+	int 	value;
+	char	*base;
+	int		j;
+
+	j = 0;
+	base = "0123456789abcdef";
+	value = 0;
+	while (i--)
+	{
+		value += (ft_strchr(base, str[i]) - str) * ft_pow(2, j++);
+	}
+	return (value);
 }

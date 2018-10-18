@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/09 14:54:40 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/10/09 14:54:43 by alouisy-         ###   ########.fr       */
+/*   Updated: 2018/10/18 19:21:37 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ t_list			*parse_process(char *path, int nb_prog, t_pvm *prms)
 	t_list		*node;
 	static int	nb_champ;
 
+	node = NULL;
 	if ((fd = open(path, O_RDONLY)) != -1)
 	{
 		ft_putendl("Parse 1 init Process");

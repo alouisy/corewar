@@ -6,7 +6,7 @@
 #    By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/02/06 11:23:09 by jgroc-de          #+#    #+#              #
-#    Updated: 2018/10/16 17:02:46 by jgroc-de         ###   ########.fr        #
+#    Updated: 2018/10/18 19:26:00 by jgroc-de         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ LIBFT= -L../libft -lft
 NAME= corewar
 LIB = ../libft/libft.a
 .phony: all clean fclean re
-SRC= $(wildcard *.c) $(wildcard parser/*.c) $(wildcard struct_process/*.c) $(wildcard print/*.c)
+SRC= $(wildcard *.c) $(wildcard parser/*.c) $(wildcard struct_process/*.c) $(wildcard print/*.c) $(wildcard misc/*.c) $(wildcard instructions/*.c)
 OBJ= $(subst .c,.o, $(SRC))
 
 all: $(NAME)
