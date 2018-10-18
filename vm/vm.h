@@ -29,8 +29,8 @@ typedef struct			s_process
 	int					cycles_wo_live;
 	int					param[3];
 	t_arg_type			param_type[3];
-	char				instruction;
-	int					ocp;
+	char				opcode;
+	char				ocp;
 }						t_process;
 
 typedef struct			s_pvm
