@@ -60,6 +60,14 @@ int				main(int argc, char **argv)
 			init_vm(prms);
 			ft_lstiter(prms->processes, &aux_print_champ);
 			print_memory(prms);
+			unsigned char	ocp = prms->memory[1];
+			printf("%d\n", ocp);
+			printf("%c\n", ocp);
+			printf("%.2hhx\n", ocp);
+			printf("%s\n", ft_itoa_base((unsigned int)ocp, 2, 0));
+			printf("%s\n", ft_itoa_base((unsigned int)ocp >> 6, 2, 0));
+			printf("%s\n", ft_itoa_base((unsigned int)ocp & 0b110000 >> 4, 2, 0));
+			printf("%s\n", ft_itoa_base((unsigned int)ocp & 0b1100 >> 2, 2, 0));
 		}
 	}
 	return(0);
