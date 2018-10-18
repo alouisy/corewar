@@ -6,7 +6,7 @@
 /*   By: zcugni <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 09:52:18 by zcugni            #+#    #+#             */
-/*   Updated: 2018/10/16 16:50:37 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/10/18 16:41:03 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,6 +173,7 @@ void						ft_lstdelone(t_list **alst,
 												void (*del)(void *, size_t));
 t_list						*ft_lstfind(t_list *list, void *content,
 															size_t size);
+t_list						*ft_lstfindbysize(t_list *list, size_t size);
 int							lst_findi(t_list *list, void *content, size_t size);
 void						ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 int							ft_lstlength(t_list *lst);
