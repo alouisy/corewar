@@ -37,6 +37,7 @@ typedef struct			s_pvm
 {
 	void				(*f[16])(struct s_pvm *, t_process *);
 	t_list				*processes;
+	t_list				*champions;
 	unsigned char		memory[MEM_SIZE];
 	int					dump;
 	int					verbose;

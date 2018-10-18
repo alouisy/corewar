@@ -52,11 +52,16 @@ static void		ft_last_check_champ(t_pvm *prms)
 static void		save_champ(char *path, int nb_prog, t_pvm *prms)
 {
 	t_list	*process;
+	t_list	*champ;
 
 	if ((process = parse_process(path, nb_prog, prms)))
 	{
+		champ = ft_lstnew(NULL, 0);
+		champ->content = (void*)ft_strdup((get_content(process))->header.prog_name);
+		champ->content_size = (size_t)((get_content(process))->r[0]);
 		ft_putendl("One Champ Save...");
 		ft_lstadd(&prms->processes, process);
+		ft_lstadd(&prms->champions, champ);
 		ft_putendl("Save Completed !");
 	}
 }
