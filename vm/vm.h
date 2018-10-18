@@ -26,11 +26,11 @@ typedef struct			s_process
 /*	int					l_live;
 	int					nb_live;
 */	int					cycle_bf_exe;
-/*	int					cycles_wo_live;
+	int					cycles_wo_live;
 	int					param[3];
 	t_arg_type			param_type[3];
-*/	char				instruction;
-//	int					ocp;
+	char				instruction;
+	int					ocp;
 }						t_process;
 
 typedef struct			s_pvm
