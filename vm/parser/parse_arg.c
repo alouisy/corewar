@@ -12,7 +12,7 @@
 
 #include "../vm.h"
 
-static int		ft_check_champ_numb(t_pvm *prms)
+static inline int		ft_check_champ_numb(t_pvm *prms)
 {
 	t_list	*process;
 	char	check[prms->nb_champ + 1];
@@ -41,7 +41,7 @@ static int		ft_check_champ_numb(t_pvm *prms)
 	return (0);
 }
 
-static void		ft_last_check_champ(t_pvm *prms)
+static inline void		ft_last_check_champ(t_pvm *prms)
 {
 	if (prms->nb_champ > 4)
 		exit_error("ERROR (MORE THAN 4 CHAMPIONS)", 1);
@@ -49,7 +49,7 @@ static void		ft_last_check_champ(t_pvm *prms)
 		exit_error("ERROR (2 CHAMPIONS WITH THE SAME NUMBER)", 1);
 }
 
-static void		save_champ(char *path, int nb_prog, t_pvm *prms)
+static inline void		save_champ(char *path, int nb_prog, t_pvm *prms)
 {
 	t_list	*process;
 

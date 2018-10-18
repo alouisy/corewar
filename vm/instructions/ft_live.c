@@ -18,5 +18,5 @@ void	ft_live(t_pvm *pvm, t_process *process)
 
 	node = ft_lstfindbysize(pvm->champ_name(process->param[0]));
 	ft_putstr((char*)(node->content));
-	ft_putend(" is still not f****** dead. For god sake, kill him!!")
+	ft_putendl(" is still not f****** dead. For god sake, kill him!!")
 }

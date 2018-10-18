@@ -25,7 +25,7 @@ void		start_vm(t_pvm *prms)
 	}
 	if (prms->winner)
 	{
-		content = get_content(prms->processes);
+		content = CONTENT(prms->processes);
 		ft_printf("le joueur %d(%s) a gagne\n", content->champ_nbr, content->header.prog_name);
 	}
 }
@@ -34,7 +34,7 @@ void 			aux_print_champ(t_list *node)
 {
 	t_process	*tmp;
 
-	tmp = get_content(node);
+	tmp = CONTENT(node);
 	ft_printf("Pos: %d\nMagic: %d\nProg_name: %s\nProg_size: %d\nComment: %s\nPid: %d\nR0: %d\nVm_Pos:% d\nPc: %d\n\n",
 		tmp->champ_nbr,
 		tmp->header.magic,

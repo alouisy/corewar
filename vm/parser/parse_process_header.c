@@ -12,7 +12,7 @@
 
 #include "../vm.h"
 
-static void		parse_process_magic_size(t_process *process, int fd, char *filename, int mode)
+static inline void		parse_process_magic_size(t_process *process, int fd, char *filename, int mode)
 {
 	unsigned int	result;
 	unsigned char	current_byte;

@@ -16,7 +16,7 @@
 ** jump if zero
 */
 
-void	ft_zjmp(t_pvm *pvm, t_process *process)
+void	ft_zjmp(__unused t_pvm *pvm, t_process *process)
 {
 	if (process->carry == 1)
 	{

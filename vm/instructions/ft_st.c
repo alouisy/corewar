@@ -16,7 +16,7 @@
 ** direct store
 */
 
-void	ft_st(t_pvm *pvm, t_process *process)
+void	ft_st(__unused t_pvm *pvm, t_process *process)
 {
 	process->param[1] = process->r[process->param[0]];
 	if (!process->param[0] == 0)

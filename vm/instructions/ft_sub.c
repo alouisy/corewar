@@ -16,7 +16,7 @@
 ** aritmetical substraction
 */
 
-void	ft_sub(t_pvm *pvm, t_process *process)
+void	ft_sub(__unused t_pvm *pvm, t_process *process)
 {
 	process->param[2] = process->param[0] - process->param[1];
 	if (process->param[2] == 0)

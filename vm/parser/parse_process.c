@@ -12,7 +12,7 @@
 
 #include "../vm.h"
 
-static int		get_champ_nb(int nb_prog, t_list *begin_list)
+static inline int		get_champ_nb(int nb_prog, t_list *begin_list)
 {
 	t_list	*process;
 	int		nb;
@@ -35,7 +35,7 @@ static int		get_champ_nb(int nb_prog, t_list *begin_list)
 	return (nb_prog);
 }
 
-static void		init_process(t_process *process, int nb_prog, int nb_champ, t_pvm *prms)
+static inline void		init_process(t_process *process, int nb_prog, int nb_champ, t_pvm *prms)
 {
 	int		i;
 

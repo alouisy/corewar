@@ -16,9 +16,8 @@
 ** direct load
 */
 
-void	ft_ld(t_pvm *pvm, t_process *process)
+void	ft_ld(__unused t_pvm *pvm, t_process *process)
 {
-	(void)pvm;
 	process->r[process->param[1]] = process->param[0];
 	if (process->param[0] == 0)
 		process->carry = 1;

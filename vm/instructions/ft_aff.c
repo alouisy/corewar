@@ -16,7 +16,7 @@
 ** aff comme … comme … affooo… non affaaaa… non affuuuuu? non plus. affouuuuuuu!
 */
 
-void	ft_aff(t_pvm *pvm, t_process *process)
+void	ft_aff(__unused t_pvm *pvm, t_process *process)
 {
 	char	c;
 

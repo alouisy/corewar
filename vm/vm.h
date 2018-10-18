@@ -15,6 +15,9 @@
 # include "libft.h"
 # include "op.h"
 
+# define CONTENT(x) (t_process*)(x->content)
+# define __unused __attribute__((unused))
+
 typedef struct			s_process
 {
 	header_t			header;

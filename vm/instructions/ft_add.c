@@ -16,9 +16,8 @@
 ** aritmetical addition
 */
 
-void	ft_add(t_pvm *pvm, t_process *process)
+void	ft_add(__unused t_pvm *pvm, t_process *process)
 {
-	(void)pvm;
 	process->param[2] = process->param[0] + process->param[1];
 	if (process->param[2] == 0)
 		process->carry = 1;
