@@ -6,7 +6,7 @@
 #    By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/02/06 11:41:26 by jgroc-de          #+#    #+#              #
-#    Updated: 2018/10/16 16:03:42 by zcugni           ###   ########.fr        #
+#    Updated: 2018/10/18 16:46:52 by zcugni           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,14 +14,14 @@
 
 all:
 	make -C libft
-	make -C asm
+	make -C asm_dir
 
 clean:
 	make -C libft clean
-	make -C asm clean
+	make -C asm_dir clean
 
 fclean:
 	make -C libft fclean
-	make -C asm fclean
+	make -C asm_dir fclean
 
 re: fclean all
