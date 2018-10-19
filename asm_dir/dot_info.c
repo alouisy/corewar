@@ -12,54 +12,50 @@
 
 #include "asm.h"
 
-static char *get_name(char *line)
-{
-	char **split;
-
-    split = ft_strsplit_white(line);
-    if (!ft_strcmp(split[0], NAME_CMD_STRING))
-	{
-		if (split[1][0] != '"' || split[1][ft_strlen(split[1]) - 1] != '"')
-			exit_error("Invalid token 1\n", 6);
-		return (ft_strndup(&(split[1][1]), ft_strlen(split[1]) - 2));
-	} 
-	else
-		exit_error("nom manquant", 2);
-	return (NULL);
-}
-
-static char *get_comment(char *line)
+static char	*get_inf(char *line, int is_name)
 {
 	int		i;
-	char	*com_str;
+	int		j;
+	char	*dot_str;
+	char	*cmd_string;
 
 	i = 0;
 	while (!ft_iswhitespace(line[i]))
 		i++;
-	com_str = ft_strndup(line, i);
-	if (!ft_strcmp(com_str, COMMENT_CMD_STRING))
+	dot_str = ft_strndup(line, i++);
+	cmd_string = COMMENT_CMD_STRING;
+	if (is_name)
+		cmd_string = NAME_CMD_STRING;
+	if (ft_strcmp(dot_str, cmd_string))
+		exit_error("wrong caracter in name/comment\n", 2);
+	j = i;
+	if (line[j++] == '"' && line[ft_strlen(line) - 1] == '"')
 	{
-		while (ft_iswhitespace(line[i]))
-			i++;
-		if (line[i] != '"' || (line[ft_strlen(line) - 1] != '"'))
-			exit_error("Invalid token 2\n", 6);
-		return (ft_strndup(&(line[i + 1]), ft_strlen(&(line[i])) - 2)); // -2 ?
+		while (line[j] && line[j] != '"')
+			j++;
+		free(dot_str);
+		return (ft_strndup(&(line[i + 1]), j - i - 1));
 	}
 	else
-		exit_error("commentaire manquant\n", 2);
+		exit_error("invalid token\n", 1);
 	return (NULL);
 }
 
-void		get_dot_info(int fd, char **line, char **prog_name, char **comment)
+void		get_dot_info(int fd, char **line, t_asm_inf *asm_inf)
 {
+	int i;
+
 	get_next_line(fd, line, '\n');
 	if (!line)
 		exit_error("read error\n", 11);
-	*prog_name = get_name(*line);
-	//free
+	i = 0;
+	while (ft_iswhitespace((*line)[i]))
+		i++;
+	asm_inf->prog_name = get_inf(&((*line)[i]), 1);
 	get_next_line(fd, line, '\n');
 	if (!line)
 		exit_error("read error\n", 11);
-	*comment = get_comment(*line);
-	//free
+	while (ft_iswhitespace((*line)[i]))
+		i++;
+	asm_inf->comment = get_inf(&((*line)[i]), 0);
 }

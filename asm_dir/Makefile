@@ -1,6 +1,6 @@
 NAME = ../asm
 
-SRCS = asm.c init_param.c write.c check_instruct.c dot_info.c
+SRCS = asm.c init_param.c write_param.c write_other.c check_instruct.c dot_info.c
 
 OBJS = $(SRCS:%.c=objs/%.o)
 

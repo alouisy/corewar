@@ -58,21 +58,27 @@ typedef struct	s_holder_def
 
 typedef struct	s_asm_inf
 {
-	t_list	*current;
-	t_list	*holder_lst;
-	int		nb_bytes;
+	t_list		*current;
+	t_list		*holder_lst;
+	int			nb_bytes;
+	t_rbt_node	*lbl_tree;
+	char		*comment;
+	char		*prog_name;
+	t_list		*binary_list;
 }				t_asm_inf;
 
 t_list			**init_param_def();
-void			write_header(char *name, char *com, t_list **bin_lst, t_asm_inf *asm_inf);
+void			write_header(t_asm_inf *asm_inf);
 int				write_direct(char *line, t_param_def *param, t_asm_inf *asm_inf, int inst_pos);
 int				write_indirect(char *line, t_asm_inf *asm_inf, int inst_pos);
 int				write_register(char *line, t_asm_inf *asm_inf);
 void			write_binary(t_list *binary_list);
-void			get_dot_info(int fd, char **line, char **prog_name,
-															char **comment);
+void			get_dot_info(int fd, char **line, t_asm_inf *asm_inf);
 void			check_instruct(t_list **hash_tab, char *line, t_asm_inf *asm_inf);
 int				hash_word(char *word);
 char			*fill_binary(int nb_bytes, int val);
+void			write_lbl(t_asm_inf *asm_inf);
+void       		write_param(char *line, t_param_def *param, t_asm_inf *asm_inf,
+																t_ocp *ocp_s);
 
 #endif

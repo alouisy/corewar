@@ -12,7 +12,7 @@
 
 #include "asm.h"
 
-void		read_label(char *lbl, t_rbt_node **lbl_tree, t_asm_inf *asm_inf)
+void		read_label(char *lbl, t_asm_inf *asm_inf)
 {
 	int				i;
 	t_tree_index	index;
@@ -28,14 +28,14 @@ void		read_label(char *lbl, t_rbt_node **lbl_tree, t_asm_inf *asm_inf)
 	}
 	index.is_nb = 0;
 	index.str = lbl; //correct pour eviter les leaks ?
-	if (!find_in_tree(*lbl_tree, index))
+	if (!find_in_tree(asm_inf->lbl_tree, index))
 	{
 		lbl_def = malloc(sizeof(lbl_def));
 		lbl_def->name = lbl;
 		printf("nb_bytes : %i\n", asm_inf->nb_bytes);
 		lbl_def->pos = asm_inf->nb_bytes;
 		node = new_rbt_node(lbl_def, index);
-		insert_rbt(lbl_tree, NULL, node);
+		insert_rbt(&(asm_inf->lbl_tree), NULL, node);
 	}
 	else
 		exit_error("Ce label existe déjà", 5); //free ?
@@ -70,31 +70,38 @@ int			hash_word(char *word)
 	return (res);
 }
 
+int		init_prog(int argc, char **argv, t_asm_inf *asm_inf)
+{
+	int fd;
+
+	if (argc > 2)
+		exit_error("too many args\n", 1);
+	else if (argc <= 1)
+		exit_error(".cor file missing\n", 1);
+	fd = open(argv[1], O_RDONLY);
+	if (fd == -1)
+		exit_error("Ouverture du fichier impossible", 1);
+	asm_inf->holder_lst = NULL;
+	asm_inf->prog_name = NULL;
+	asm_inf->comment = NULL;
+	asm_inf->lbl_tree = NULL;
+	asm_inf->nb_bytes = 0;
+	return (fd);
+}
+
 int			main(int argc, char **argv)
 {
 	int			fd;
 	char		*line;
-	char		*prog_name;
-	char		*comment;
 	t_list		**hash_tab;
 	int			i;
-	t_rbt_node	*lbl_tree;
-	t_list		*binary_lst;
 	t_asm_inf	asm_inf;
 
-	argc = 0; //a enlever
-	asm_inf.holder_lst = NULL;
-	fd = open(argv[1], O_RDONLY);
-	if (fd == -1)
-		exit_error("Ouverture du fichier impossible", 1);
 	line = NULL;
-	prog_name = NULL;
-	comment = NULL;
+	fd = init_prog(argc, argv, &asm_inf);
+	get_dot_info(fd, &line, &asm_inf);
+	write_header(&asm_inf);
 	hash_tab = init_param_def();
-	get_dot_info(fd, &line, &prog_name, &comment);
-	lbl_tree = NULL; //je sais pas si c'est vraiment ce que je veux faire
-	write_header(prog_name, comment, &binary_lst, &asm_inf);
-	asm_inf.nb_bytes = 0;
 	while (get_next_line(fd, &line, '\n'))
 	{
 		i = 0;
@@ -102,50 +109,14 @@ int			main(int argc, char **argv)
 		{
 			while (!ft_iswhitespace(line[i])) //ca marchera pas si y'a un espace au debut
 				i++;
-			
 			if (line[i - 1] == LABEL_CHAR)
-				read_label(ft_strndup(line, i - 1), &lbl_tree, &asm_inf); //leak ?
+				read_label(ft_strndup(line, i - 1), &asm_inf);
 			while (ft_iswhitespace(line[i]))
 				i++;
 			check_instruct(hash_tab, &(line[i]), &asm_inf);
 		}
 	}
-
-	t_holder_def	*tmp_holder;
-	char			*binary;
-	int				val;
-	int				lbl_pos;
-	t_tree_index	searched_index;
-	t_rbt_node		*found_node;
-	int				neg_val;
-	t_list			*new;
-
-	printf("test\n");
-	while (asm_inf.holder_lst)
-	{
-		tmp_holder = asm_inf.holder_lst->content;
-		searched_index.is_nb = 0;
-		searched_index.str = tmp_holder->lbl;
-
-		found_node = find_in_tree(lbl_tree, searched_index);
-		if (!found_node)
-			exit_error("label reference inexistant\n", 12); 
-		lbl_pos = ((t_lbl_def *)found_node->content)->pos;
-		val = lbl_pos - tmp_holder->inst_pos + 1;
-		if (val < 0)
-		{
-			neg_val = val + 1;
-			val = ft_pow(2, 8 * tmp_holder->lbl_bytes);
-			val += neg_val - 1;
-		}
-		binary = fill_binary(tmp_holder->lbl_bytes, val);
-
-		new = ft_lstnew_pointer(binary, tmp_holder->lbl_bytes);;
-		new->next = tmp_holder->lst_pos->next;
-		tmp_holder->lst_pos->next = new;
-		//free (je dois free la liste, et dans la liste le label, mais pas la pos)
-		asm_inf.holder_lst = asm_inf.holder_lst->next;
-	}
-	write_binary(binary_lst);
+	write_lbl(&asm_inf);
+	write_binary(asm_inf.binary_list);
 	return (0);
 }

@@ -12,37 +12,6 @@
 
 #include "asm.h"
 
-static void	write_param(char *line, t_param_def *param, t_asm_inf *asm_inf,
-																t_ocp *ocp_s)
-{
-	int		i;
-	char	**split;
-	int		inst_pos;
-
-	inst_pos = asm_inf->nb_bytes;
-	split = ft_strsplit(line, SEPARATOR_CHAR);
-	i = 0;
-	ocp_s->ocp = 0;
-	while (i < param->nb)
-	{
-		ocp_s->weight = ft_pow(4, i);
-		if (!ocp_s->weight)
-			ocp_s->weight = 64;
-		else
-			ocp_s->weight = 64 / ocp_s->weight;
-		if (split[i][0] == DIRECT_CHAR && (param->type[i] == 2 ||
-								param->type[i] == 3 || param->type[i] >= 6))
-			ocp_s->ocp += write_direct(split[i], param, asm_inf, inst_pos) * ocp_s->weight;
-		else if (split[i][0] == 'r' && param->type[i] % 2 != 0)
-			ocp_s->ocp += write_register(split[i], asm_inf) * ocp_s->weight;
-		else if (param->type[i] >= 4)
-			ocp_s->ocp += write_indirect(split[i], asm_inf, inst_pos) * ocp_s->weight;
-		else
-			exit_error("wrong param type\n", 11);
-		i++;
-	}
-}
-
 static void	act_on_inst(t_asm_inf *asm_inf, t_param_def *param, t_ocp *ocp_s,
 																char *line)
 {

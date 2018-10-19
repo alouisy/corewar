@@ -1,75 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   write.c                                            :+:      :+:    :+:   */
+/*   write_param.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zcugni <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/16 14:58:18 by zcugni            #+#    #+#             */
-/*   Updated: 2018/10/16 14:58:19 by zcugni           ###   ########.fr       */
+/*   Created: 2018/10/19 15:53:23 by zcugni            #+#    #+#             */
+/*   Updated: 2018/10/19 15:53:24 by zcugni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-static void	write_magic(t_list **binary_list, t_list **current)
+void        write_param(char *line, t_param_def *param, t_asm_inf *asm_inf,
+																t_ocp *ocp_s)
 {
-	char	magic[4];
 	int		i;
-	int		nb_bytes;
+	char	**split;
+	int		inst_pos;
 
+	inst_pos = asm_inf->nb_bytes;
+	split = ft_strsplit(line, SEPARATOR_CHAR);
 	i = 0;
-	nb_bytes = 4;
-	while (nb_bytes > 0)
+	ocp_s->ocp = 0;
+	while (i < param->nb)
 	{
-		magic[i] = COREWAR_EXEC_MAGIC>>((nb_bytes - 1) * 8);
-		nb_bytes--;
+		ocp_s->weight = ft_pow(4, i);
+		if (!ocp_s->weight)
+			ocp_s->weight = 64;
+		else
+			ocp_s->weight = 64 / ocp_s->weight;
+		if (split[i][0] == DIRECT_CHAR && (param->type[i] == 2 ||
+								param->type[i] == 3 || param->type[i] >= 6))
+			ocp_s->ocp += write_direct(split[i], param, asm_inf, inst_pos) * ocp_s->weight;
+		else if (split[i][0] == 'r' && param->type[i] % 2 != 0)
+			ocp_s->ocp += write_register(split[i], asm_inf) * ocp_s->weight;
+		else if (param->type[i] >= 4)
+			ocp_s->ocp += write_indirect(split[i], asm_inf, inst_pos) * ocp_s->weight;
+		else
+			exit_error("wrong param type\n", 11);
 		i++;
 	}
-	(*binary_list) = ft_lstnew(&magic, 4);
-	*current = *binary_list;
-}
-
-void		write_header(char *name, char *com, t_list **bin_lst, t_asm_inf *asm_inf)
-{
-	t_list	*new;
-	int		size;
-	char	*str;
-	
-	write_magic(bin_lst, &(asm_inf->current));
-	size = ft_strlen(name);
-	asm_inf->current->next = ft_lstnew_pointer(name, size);
-	asm_inf->current = asm_inf->current->next;
-	new = ft_lstnew_pointer(ft_strnew(PROG_NAME_LENGTH - size + 4), PROG_NAME_LENGTH - size + 4);
-	asm_inf->current->next = new;
-	asm_inf->current = asm_inf->current->next;
-	str = "%prog_size";
-	asm_inf->current->next = ft_lstnew(&str, sizeof(str));
-	asm_inf->current = asm_inf->current->next;
-	size = ft_strlen(com);
-	asm_inf->current->next = ft_lstnew_pointer(com, size);
-	asm_inf->current = asm_inf->current->next;
-	new = ft_lstnew_pointer(ft_strnew(COMMENT_LENGTH - size + 4), COMMENT_LENGTH - size + 4);
-	asm_inf->current->next = new;
-	asm_inf->current = asm_inf->current->next;
-}
-
-char	*fill_binary(int nb_bytes, int val)
-{
-	char	*binary;
-	int		i;
-
-	binary = malloc(nb_bytes);
-	if (!binary)
-		exit_error("malloc error\n", 1);
-	i = 0;
-	while (nb_bytes > 0)
-	{
-		binary[i] = val>>((nb_bytes - 1) * 8);
-		nb_bytes--;
-		i++;
-	}
-	return (binary);
 }
 
 static void	add_lbl(char *line, int inst_pos, t_asm_inf *asm_inf, int lbl_bytes)
@@ -147,26 +118,4 @@ int			write_register(char *line, t_asm_inf *asm_inf)
 	asm_inf->current = asm_inf->current->next;
 	asm_inf->nb_bytes += 1;
 	return (1);
-}
-
-void		write_binary(t_list *binary_list)
-{
-	t_list	        *current;
-	int		        fd;
-	unsigned long   i;
-
-	current = binary_list;
-	fd = open("binary.cor", O_CREAT | O_TRUNC | O_RDWR , 07777);
-	while (current)
-	{
-		i = 0;
-		while (i < current->content_size)
-		{
-			write(fd, &(((char *)current->content)[i]), 1);
-			i++;
-		}
-		current = current->next;
-		//free
-	}
-	close(fd);
 }
