@@ -78,6 +78,7 @@ vm.c
 void					init_prms(t_pvm *prms);
 void					init_vm(t_pvm *prms);
 void					print_memory(t_pvm *prms);
+void					init_f(t_pvm *prms);
 
 /*
 parse_arg.c

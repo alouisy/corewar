@@ -42,10 +42,10 @@ static inline void		init_process(t_process *process, int nb_prog, int nb_champ, 
 	process->r[0] = get_champ_nb(nb_prog, prms->processes);
 	process->champ_nbr = process->r[0];
 	process->pid = nb_champ;
-	process->carry = 0;
-/*	process->nb_live = 0;
+/*	process->carry = 0;
+	process->nb_live = 0;
 	process->cycles_wo_live = 0;
-*/	process->instruction = -1;
+	process->opcode = -1;*/
 	i = 1;
 	while (i < REG_NUMBER)
 		process->r[i++] = 0;
@@ -60,7 +60,7 @@ static inline void		init_process(t_process *process, int nb_prog, int nb_champ, 
 t_list			*parse_process(char *path, int nb_prog, t_pvm *prms)
 {
 	int			fd;
-	t_process	process;
+	t_process	process = {.opcode = -1};
 	t_list		*node;
 	static int	nb_champ;
 

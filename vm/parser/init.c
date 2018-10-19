@@ -12,21 +12,21 @@
 
 #include "../vm.h"
 
-void		init_vm(t_pvm *prms)
+inline void		init_vm(t_pvm *prms)
 {
 	t_list		*plst;
 	int			i;
 	t_process	*tmp;
 
-	prms->sum_lives = 0;
-	prms->cur_cycle = 0;
-	prms->winner = 0;
+	//prms->sum_lives = 0;
+	//prms->cur_cycle = 0;
+	//prms->winner = 0;
 	plst = prms->processes;
 	i = prms->nb_champ;
 	ft_bzero(prms->memory, MEM_SIZE);
 	while (--i >= 0)
 	{
-		tmp = get_content(plst);
+		tmp = CONTENT(plst);
 		tmp->vm_pos = i * (MEM_SIZE / prms->nb_champ);
 		tmp->pc = tmp->vm_pos;
 		ft_memcpy(prms->memory + tmp->vm_pos, tmp->prog,
@@ -35,7 +35,7 @@ void		init_vm(t_pvm *prms)
 	}
 }
 
-void		init_f(t_pvm *prms)
+inline void		init_f(t_pvm *prms)
 {
 	prms->f[0] = &ft_live;
 /*	prms->f[1] = &ft_ld;
@@ -55,7 +55,7 @@ void		init_f(t_pvm *prms)
 	prms->f[15] = &ft_aff;*/
 }
 
-void		init_prms(t_pvm *prms)
+/*void		init_prms(t_pvm *prms)
 {
 	prms->dump = -1;
 	prms->processes = NULL;
@@ -68,4 +68,4 @@ void		init_prms(t_pvm *prms)
 	prms->last_live = 0;
 	prms->nb_checks = 0;
 	init_f(prms);
-}
+}*/
