@@ -6,20 +6,13 @@
 /*   By: zcugni <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 14:34:17 by zcugni            #+#    #+#             */
-/*   Updated: 2017/11/10 14:34:21 by zcugni           ###   ########.fr       */
+/*   Updated: 2018/10/19 13:35:53 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putstr_fd(char const *str, int fd)
+inline int	ft_putstr_fd(char const *str, int fd)
 {
-	if (str)
-	{
-		while (*str)
-		{
-			ft_putchar_fd(*str, fd);
-			str++;
-		}
-	}
+	return (write(1, str, ft_strlen(str)));
 }

@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/18 17:17:08 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/10/18 19:18:01 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/10/19 13:26:34 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** jump if zero
 */
 
-void	ft_zjmp(__unused t_pvm *pvm, t_process *process)
+void	ft_zjmp(UNUSED t_pvm *pvm, t_process *process)
 {
 	if (process->carry == 1)
 	{

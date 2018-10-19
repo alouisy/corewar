@@ -6,13 +6,13 @@
 /*   By: zcugni <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/27 12:13:48 by zcugni            #+#    #+#             */
-/*   Updated: 2018/06/29 18:37:08 by zcugni           ###   ########.fr       */
+/*   Updated: 2018/10/19 13:31:52 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	if_return(char **rest, char **line, int index)
+static inline int	if_return(char **rest, char **line, int index)
 {
 	*line = ft_strndup(*rest, index);
 	if (index == (int)ft_strlen(*rest) - 1)
@@ -37,7 +37,7 @@ char	*ft_strncpyat(char *dst, const char *src, int shift)
 	return (dst);
 }
 
-static char	*ft_strjoin_overlap(char **s1, char **s2)
+static inline char	*ft_strjoin_overlap(char **s1, char **s2)
 {
 	size_t	i;
 	size_t	j;
@@ -66,7 +66,8 @@ static char	*ft_strjoin_overlap(char **s1, char **s2)
 	return (str);
 }
 
-static int	stopped_reading(char **buff, int state, char **line, char **rest)
+static inline int	stopped_reading(char **buff, int state,
+		char **line, char **rest)
 {
 	free(*buff);
 	if (state == 0)

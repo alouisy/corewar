@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/18 16:27:38 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/10/18 19:27:14 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/10/19 13:23:58 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** direct load
 */
 
-void	ft_ld(__unused t_pvm *pvm, t_process *process)
+void	ft_ld(UNUSED t_pvm *pvm, t_process *process)
 {
 	process->r[process->param[1]] = process->param[0];
 	if (process->param[0] == 0)

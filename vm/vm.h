@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 17:41:26 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/10/18 19:20:39 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/10/19 13:23:00 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "op.h"
 
 # define CONTENT(x) (t_process*)(x->content)
-# define __unused __attribute__((unused))
+# define UNUSED __attribute__((unused))
 
 typedef struct			s_process
 {

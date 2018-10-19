@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/18 17:11:05 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/10/18 19:27:05 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/10/19 13:23:46 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** loqical and
 */
 
-void	ft_and(__unused t_pvm *pvm, t_process *process)
+void	ft_and(UNUSED t_pvm *pvm, t_process *process)
 {	
 	process->param[2] = process->param[0] & process->param[1];
 	if (process->param[2] == 0)

@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/18 18:20:03 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/10/18 19:26:55 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/10/19 13:23:34 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** aff comme … comme … affooo… non affaaaa… non affuuuuu? non plus. affouuuuuuu!
 */
 
-void	ft_aff(__unused t_pvm *pvm, t_process *process)
+void	ft_aff(UNUSED t_pvm *pvm, t_process *process)
 {
 	char	c;
 

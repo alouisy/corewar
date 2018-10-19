@@ -6,7 +6,7 @@
 /*   By: zcugni <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 09:52:18 by zcugni            #+#    #+#             */
-/*   Updated: 2018/10/18 16:41:03 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/10/19 13:40:10 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,14 +215,14 @@ void						rbt_clear(t_rbt_node **rbt,
 **IO
 */
 
-void						ft_putchar(char c);
-void						ft_putchar_fd(char c, int fd);
+int							ft_putchar(char c);
+int							ft_putchar_fd(char c, int fd);
 void						ft_putendl(char const *s);
 void						ft_putendl_fd(char const *s, int fd);
 void						ft_putnbr(int n);
 void						ft_putnbr_fd(int n, int fd);
-void						ft_putstr(const char *str);
-void						ft_putstr_fd(char const *s, int fd);
+int							ft_putstr(const char *str);
+int							ft_putstr_fd(char const *s, int fd);
 int							get_next_line(const int fd, char **line,
 	char separator);
 void						exit_error(char *msg, int code);
