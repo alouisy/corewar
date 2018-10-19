@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/11 15:40:47 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/10/11 15:40:52 by alouisy-         ###   ########.fr       */
+/*   Updated: 2018/10/19 13:48:27 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static inline void		parse_process_magic_size(t_process *process, int fd, char *f
 	}
 }
 
-void			parse_process_header(t_process *process, int fd, char *filename)
+inline void			parse_process_header(t_process *process, int fd, char *filename)
 {
 	parse_process_magic_size(process, fd, filename, 0);
 	if (read(fd, process->header.prog_name, PROG_NAME_LENGTH) != PROG_NAME_LENGTH)

@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/09 14:54:40 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/10/18 19:21:37 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/10/19 13:49:39 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static inline int		get_champ_nb(int nb_prog, t_list *begin_list)
 			process = begin_list;
 			while (process)
 			{
-				if (get_content(process)->r[0] == nb)
+				if ((CONTENT(process))->r[0] == nb)
 					break ;
 				process = process->next;
 			}
@@ -57,7 +57,7 @@ static inline void		init_process(t_process *process, int nb_prog, int nb_champ, 
 	}
 }
 
-t_list			*parse_process(char *path, int nb_prog, t_pvm *prms)
+inline t_list			*parse_process(char *path, int nb_prog, t_pvm *prms)
 {
 	int			fd;
 	t_process	process = {.opcode = -1};

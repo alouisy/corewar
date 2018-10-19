@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 17:41:07 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/10/18 16:15:57 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/10/19 13:46:11 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ inline void		init_f(t_pvm *prms)
 	prms->f[15] = &ft_aff;*/
 }
 
-/*void		init_prms(t_pvm *prms)
+inline void		init_prms(t_pvm *prms)
 {
 	prms->dump = -1;
 	prms->processes = NULL;
@@ -68,4 +68,4 @@ inline void		init_f(t_pvm *prms)
 	prms->last_live = 0;
 	prms->nb_checks = 0;
 	init_f(prms);
-}*/
+}

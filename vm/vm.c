@@ -6,13 +6,13 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 17:41:07 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/10/16 16:29:05 by alouisy-         ###   ########.fr       */
+/*   Updated: 2018/10/19 13:50:39 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-void		start_vm(t_pvm *prms)
+inline void		start_vm(t_pvm *prms)
 {
 	int			len;
 	t_process	*content;
@@ -30,7 +30,7 @@ void		start_vm(t_pvm *prms)
 	}
 }
 
-void 			aux_print_champ(t_list *node)
+void 	aux_print_champ(t_list *node)
 {
 	t_process	*tmp;
 
@@ -49,11 +49,11 @@ void 			aux_print_champ(t_list *node)
 
 int				main(int argc, char **argv)
 {
-	t_pvm	prms = {.dump = -1, .cycle_to_die = CYCLE_TO_DIE, .total_cycles = 1, .cycles = 1};
+	t_pvm	prms;
 
 	if (argc > 1)
 	{
-		init_f(&prms);
+		init_prms(&prms);
 		parse_arg(&prms, argc, argv);
 		init_vm(&prms);
 		ft_lstiter(prms.processes, &aux_print_champ);

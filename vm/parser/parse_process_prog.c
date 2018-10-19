@@ -6,13 +6,13 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/11 15:40:47 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/10/11 15:40:52 by alouisy-         ###   ########.fr       */
+/*   Updated: 2018/10/19 13:48:35 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../vm.h"
 
-void	parse_process_prog(t_process *process, int fd)
+inline void	parse_process_prog(t_process *process, int fd)
 {
 	char	verif_end[1];
 

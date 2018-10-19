@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/09 14:51:21 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/10/09 14:51:27 by alouisy-         ###   ########.fr       */
+/*   Updated: 2018/10/19 13:47:55 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static inline int		ft_check_champ_numb(t_pvm *prms)
 	i = 0;
 	while (process)
 	{
-		check[i] = (get_content(process))->r[0];
+		check[i] = (CONTENT(process))->r[0];
 		process = process->next;
 		i++;
 	}
@@ -57,8 +57,8 @@ static inline void		save_champ(char *path, int nb_prog, t_pvm *prms)
 	if ((process = parse_process(path, nb_prog, prms)))
 	{
 		champ = ft_lstnew(NULL, 0);
-		champ->content = (void*)ft_strdup((get_content(process))->header.prog_name);
-		champ->content_size = (size_t)((get_content(process))->r[0]);
+		champ->content = (void*)ft_strdup((CONTENT(process))->header.prog_name);
+		champ->content_size = (size_t)((CONTENT(process))->r[0]);
 		ft_putendl("One Champ Save...");
 		ft_lstadd(&prms->processes, process);
 		ft_lstadd(&prms->champions, champ);
@@ -66,7 +66,7 @@ static inline void		save_champ(char *path, int nb_prog, t_pvm *prms)
 	}
 }
 
-int				parse_arg(t_pvm *prms, int ac, char **av)
+inline int				parse_arg(t_pvm *prms, int ac, char **av)
 {
 	int	i;
 	int	nb_prog;
