@@ -98,29 +98,23 @@ void					parse_process_header(t_process *process, int fd, char *filename);
 void					parse_process_prog(t_process *process, int fd);
 
 /*
-** struct_process
-*/
-t_process				*get_content(t_list *node);
-int						ft_strhex2dec(char *str, int i);
-
-/*
 ** jeu d'instruction
 */
-void	ft_live(t_pvm *pvm, t_process *process);
-void	ft_ld(t_pvm *pvm, t_process *process);
-void	ft_st(t_pvm *pvm, t_process *process);
-void	ft_add(t_pvm *pvm, t_process *process);
-void	ft_sub(t_pvm *pvm, t_process *process);
-void	ft_and(t_pvm *pvm, t_process *process);
-void	ft_or(t_pvm *pvm, t_process *process);
-void	ft_xor(t_pvm *pvm, t_process *process);
-void	ft_zjmp(t_pvm *pvm, t_process *process);
-void	ft_ldi(t_pvm *pvm, t_process *process);
-void	ft_sti(t_pvm *pvm, t_process *process);
-void	ft_fork(t_pvm *pvm, t_process *process);
-void	ft_lld(t_pvm *pvm, t_process *process);
-void	ft_lldi(t_pvm *pvm, t_process *process);
-void	ft_lfork(t_pvm *pvm, t_process *process);
-void	ft_aff(t_pvm *pvm, t_process *process);
+void					ft_live(t_pvm *pvm, t_process *process);
+void					ft_ld(t_pvm *pvm, t_process *process);
+void					ft_st(t_pvm *pvm, t_process *process);
+void					ft_add(t_pvm *pvm, t_process *process);
+void					ft_sub(t_pvm *pvm, t_process *process);
+void					ft_and(t_pvm *pvm, t_process *process);
+void					ft_or(t_pvm *pvm, t_process *process);
+void					ft_xor(t_pvm *pvm, t_process *process);
+void					ft_zjmp(t_pvm *pvm, t_process *process);
+void					ft_ldi(t_pvm *pvm, t_process *process);
+void					ft_sti(t_pvm *pvm, t_process *process);
+void					ft_fork(t_pvm *pvm, t_process *process);
+void					ft_lld(t_pvm *pvm, t_process *process);
+void					ft_lldi(t_pvm *pvm, t_process *process);
+void					ft_lfork(t_pvm *pvm, t_process *process);
+void					ft_aff(t_pvm *pvm, t_process *process);
 
 #endif

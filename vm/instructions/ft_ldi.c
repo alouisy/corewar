@@ -14,7 +14,6 @@
 
 /*
 ** indirect load
-** a finir!!!!!!!!
 */
 
 void	ft_ldi(t_pvm *pvm, t_process *process)

@@ -13,7 +13,7 @@
 #include "../vm.h"
 
 /*
-** aff comme … comme … affooo… non affaaaa… non affuuuuu? non plus. affouuuuuuu!
+** aff comme … comme … affooo… non affaaaa… non affuuuuu? non plus. affouuuuuu?!
 */
 
 void	ft_aff(UNUSED t_pvm *pvm, t_process *process)
