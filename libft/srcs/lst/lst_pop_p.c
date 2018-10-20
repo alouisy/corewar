@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-t_list	*lst_pop_pointer(t_list **lst)
+t_list	*lst_pop_p(t_list **lst)
 {
 	t_list	*new;
 	t_list	*tmp;
@@ -20,7 +20,7 @@ t_list	*lst_pop_pointer(t_list **lst)
 	new = NULL;
 	if (lst && *lst)
 	{
-		new = ft_lstnew_pointer((*lst)->content, (*lst)->content_size);
+		new = ft_lstnew_p((*lst)->content, (*lst)->content_size);
 		tmp = *lst;
 		*lst = (*lst)->next;
 		free(tmp);

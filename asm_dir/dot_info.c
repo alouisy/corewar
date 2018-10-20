@@ -52,10 +52,12 @@ void		get_dot_info(int fd, char **line, t_asm_inf *asm_inf)
 	while (ft_iswhitespace((*line)[i]))
 		i++;
 	asm_inf->prog_name = get_inf(&((*line)[i]), 1);
+	//free line ?
 	get_next_line(fd, line, '\n');
 	if (!line)
 		exit_error("read error\n", 11);
 	while (ft_iswhitespace((*line)[i]))
 		i++;
 	asm_inf->comment = get_inf(&((*line)[i]), 0);
+	//free line ?
 }

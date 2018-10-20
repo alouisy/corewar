@@ -58,6 +58,7 @@ void		check_instruct(t_list **hash_tab, char *line, t_asm_inf *asm_inf)
 		else
 			tmp_list = tmp_list->next;
 	}
+	free(inst);
 	if (!ocp_s.ocp)
 		exit_error("unknown instruction\n", 10);
 }

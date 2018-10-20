@@ -171,13 +171,13 @@ int							ft_lstlength(t_list *lst);
 t_list						*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 t_list						*ft_lstnew(void const *content,
 														size_t content_size);
-t_list						*ft_lstnew_pointer(void *content,
+t_list						*ft_lstnew_p(void *content,
 														size_t content_size);
 void						lst_clr(t_list **lst);
 char						*lst_to_str(t_list *lst);
 t_list						*ft_pop(t_list **lst);
 int							ft_pop_value(t_list **lst);
-t_list						*lst_pop_pointer(t_list **lst);
+t_list						*lst_pop_p(t_list **lst);
 t_list						*lstp_pop_at(t_list **lst, void *p);
 void						bubble_sort_lst(t_list **lst,
 												int (*get_nb)(t_list *lst));
@@ -271,5 +271,6 @@ char						*ft_itoa(long long nb);
 char						*ft_itoa_base(unsigned int nb, int base, int upper);
 long long					ft_pow(int nb, int power);
 int							is_neg(char *str);
+int							ft_is_neg_digit(char *str);
 
 #endif

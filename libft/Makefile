@@ -44,7 +44,7 @@ SRCS_FTPRINTF = convert_nb.c convert_string.c convert_all.c flag.c ft_printf.c \
 
 SRCS_MISC = ft_isalnum.c ft_isprint.c ft_isalpha.c ft_atoi.c ft_isascii.c \
 			ft_isdigit.c ft_itoa.c ft_pow.c ft_itoa_base.c is_neg.c \
-			ft_iswhitespace.c ft_atoi_harsh.c
+			ft_iswhitespace.c ft_atoi_harsh.c ft_is_neg_digit.c
 
 SRCS = $(SRCS_STR) $(SRCS_LST) $(SRCS_IO) $(SRCS_MEM) $(SRCS_FTPRINTF) $(SRCS_MISC) $(SRCS_TREE)
 

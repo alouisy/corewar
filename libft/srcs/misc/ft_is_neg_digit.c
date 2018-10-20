@@ -1,34 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew_pointer.c                                :+:      :+:    :+:   */
+/*   ft_is_neg_digit.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zcugni <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/05/24 15:21:31 by zcugni            #+#    #+#             */
-/*   Updated: 2018/05/24 15:21:33 by zcugni           ###   ########.fr       */
+/*   Created: 2018/10/20 15:53:34 by zcugni            #+#    #+#             */
+/*   Updated: 2018/10/20 15:53:36 by zcugni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lstnew_pointer(void *content, size_t content_size)
+int		ft_is_neg_digit(char *str)
 {
-	t_list	*new;
+    int i;
 
-	new = (t_list *)malloc(sizeof(t_list));
-	if (new == NULL)
-		exit_error("malloc error\n", 1);
-	if (content == NULL)
-	{
-		new->content = NULL;
-		new->content_size = 0;
-	}
-	else
-	{
-		new->content = content;
-		new->content_size = content_size;
-	}
-	new->next = NULL;
-	return (new);
+    i = 0;
+    if (str[0] != '-' && !ft_isdigit(0))
+        return (0);
+    while (str[i])
+        if (!ft_isdigit(str[i++]))
+		    return (0);
+	return (1);
 }
