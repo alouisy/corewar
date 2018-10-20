@@ -18,9 +18,9 @@ inline void		init_vm(t_pvm *prms)
 	int			i;
 	t_process	*tmp;
 
-	//prms->sum_lives = 0;
-	//prms->cur_cycle = 0;
-	//prms->winner = 0;
+	prms->sum_lives = 0;
+	prms->cur_cycle = 0;
+	prms->winner = 0;
 	plst = prms->processes;
 	i = prms->nb_champ;
 	ft_bzero(prms->memory, MEM_SIZE);
@@ -38,7 +38,7 @@ inline void		init_vm(t_pvm *prms)
 inline void		init_f(t_pvm *prms)
 {
 	prms->f[0] = &ft_live;
-/*	prms->f[1] = &ft_ld;
+	prms->f[1] = &ft_ld;
 	prms->f[2] = &ft_st;
 	prms->f[3] = &ft_add;
 	prms->f[4] = &ft_sub;
@@ -52,7 +52,7 @@ inline void		init_f(t_pvm *prms)
 	prms->f[12] = &ft_lld;
 	prms->f[13] = &ft_lldi;
 	prms->f[14] = &ft_lfork;
-	prms->f[15] = &ft_aff;*/
+	prms->f[15] = &ft_aff;
 }
 
 inline void		init_prms(t_pvm *prms)

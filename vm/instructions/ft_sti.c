@@ -14,7 +14,6 @@
 
 /*
 ** indirect store
-** a finir!!!!!!!!
 */
 
 void	ft_sti(t_pvm *pvm, t_process *process)
