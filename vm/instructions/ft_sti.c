@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/18 18:54:28 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/10/18 18:54:55 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/10/20 18:11:04 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_sti(t_pvm *pvm, t_process *process)
 {
 	int	value;
 
-	value = pvm->memory[process->param[0] + process->param[1]];
+	value = (pvm->memory[process->param[0] + process->param[1]]) % IDX_MOD;
 	process->r[process->param[2]] = value;
 	if (value == 0)
 		process->carry = 1;
