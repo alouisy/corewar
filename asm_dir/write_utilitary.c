@@ -12,13 +12,16 @@
 
 #include "asm.h"
 
-void		free_split(char ***split)
+void		free_split(char **split)
 {
 	int i;
 
 	i = 0;
-	while ((*split)[i])
-		free((*split)[i]);
+	while (split[i])
+	{
+		free(split[i]);
+		i++;
+	}
 	free(split);
 }
 
@@ -34,14 +37,15 @@ int			calc_weight(int pow)
 	return (weight);
 }
 
-void		add_lbl(char *line, int inst_pos, t_asm_inf *asm_inf, int lbl_bytes)
+void		add_lbl(char *lbl, int inst_pos, t_asm_inf *asm_inf, int lbl_bytes, int ocp)
 {
 	t_holder_def	holder_def;
 
-	holder_def.lbl = ft_strdup(&(line[2]));
+	holder_def.lbl = ft_strdup(lbl);
 	holder_def.inst_pos = inst_pos;
 	holder_def.lst_pos = asm_inf->current;
 	holder_def.lbl_bytes = lbl_bytes;
+	holder_def.ocp = ocp;
 	ft_lstadd(&(asm_inf->holder_lst), ft_lstnew(&holder_def, sizeof(holder_def))); //je sais pas si je perds le .lbl du coup ?
 	asm_inf->nb_bytes += lbl_bytes;
 }

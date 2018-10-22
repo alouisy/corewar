@@ -28,6 +28,8 @@ static char	*get_inf(char *line, int is_name)
 		cmd_string = NAME_CMD_STRING;
 	if (ft_strcmp(dot_str, cmd_string))
 		exit_error("wrong caracter in name/comment\n", 2);
+	while (ft_iswhitespace(line[i]))
+		i++;
 	j = i;
 	if (line[j++] == '"' && line[ft_strlen(line) - 1] == '"')
 	{

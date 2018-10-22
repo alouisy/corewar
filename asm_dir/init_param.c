@@ -88,10 +88,7 @@ void				init_param_def(t_list ***hash_tab, int size)
 {
 	t_param_type	type;
 	t_inst_def		inst;
-
-	init_type(1, 5, 0, &type);
-	init_inst_def(&inst, "st", 3);
-	(*hash_tab)[3] = ft_lstnew_p(init_p(type, 0, 1, &inst), size);
+	
 	init_type(7, 7, 1, &type);
 	init_inst_def(&inst, "or", 7);
 	(*hash_tab)[6] = ft_lstnew_p(init_p(type, 0, 1, &inst), size);
@@ -99,9 +96,12 @@ void				init_param_def(t_list ***hash_tab, int size)
 	(*hash_tab)[10] = ft_lstnew_p(init_p(type, 0, 1, &inst), size);
 	init_inst_def(&inst, "xor", 8);
 	(*hash_tab)[12] = ft_lstnew_p(init_p(type, 0, 1, &inst), size);
+	init_type(1, 5, 0, &type);
+	init_inst_def(&inst, "st", 3);
+	ft_lstadd(&((*hash_tab)[12]), ft_lstnew_p(init_p(type, 0, 1, &inst), size));
 	init_type(1, 1, 1, &type);
 	init_inst_def(&inst, "sub", 5);
-	(*hash_tab)[8] = ft_lstnew_p(init_p(type, 0, 1, &inst), size);
+	ft_lstadd(&((*hash_tab)[6]), ft_lstnew_p(init_p(type, 0, 1, &inst), size));
 	init_inst_def(&inst, "add", 4);
 	(*hash_tab)[9] = ft_lstnew_p(init_p(type, 0, 1, &inst), size);
 	init_type(6, 1, 0, &type);

@@ -57,7 +57,6 @@ void		write_header(t_asm_inf *asm_inf)
 {
 	t_list	*new;
 	int		size;
-	char	*str;
 
 	write_magic(&(asm_inf->binary_list), &(asm_inf->current));
 	size = ft_strlen(asm_inf->prog_name);
@@ -67,9 +66,7 @@ void		write_header(t_asm_inf *asm_inf)
 											PROG_NAME_LENGTH - size + 4);
 	asm_inf->current->next = new;
 	asm_inf->current = asm_inf->current->next;
-	str = "%prog_size";
-	asm_inf->current->next = ft_lstnew(&str, sizeof(str));
-	asm_inf->current = asm_inf->current->next;
+	asm_inf->holder_prog_size = asm_inf->current;
 	size = ft_strlen(asm_inf->comment);
 	asm_inf->current->next = ft_lstnew_p(asm_inf->comment, size);
 	asm_inf->current = asm_inf->current->next;
@@ -99,7 +96,6 @@ void		read_label(char *lbl, t_asm_inf *asm_inf)
 	{
 		lbl_def = malloc(sizeof(lbl_def));
 		lbl_def->name = lbl;
-		printf("nb_bytes : %i\n", asm_inf->nb_bytes);
 		lbl_def->pos = asm_inf->nb_bytes;
 		node = new_rbt_node(lbl_def, index);
 		insert_rbt(&(asm_inf->lbl_tree), NULL, node);
@@ -123,7 +119,7 @@ int			hash_word(char *word)
 	}
 	if (res == 16)
 		res = 0;
-	else
+	else if (res > 16)
 	{
 		middle = ft_itoa(res);
 		i = 0;
@@ -145,7 +141,9 @@ void	init_hash_tab(t_list ***hash_tab)
 		exit_error("malloc error\n", 1);
 	(*hash_tab)[1] = NULL;
 	(*hash_tab)[2] = NULL;
+	(*hash_tab)[3] = NULL;
 	(*hash_tab)[4] = NULL;
+	(*hash_tab)[8] = NULL;
 }
 
 int		init_prog(int argc, char **argv, t_asm_inf *asm_inf, t_list ***hash_tab)
@@ -181,16 +179,19 @@ static void		parse_line(char *line, t_asm_inf *asm_inf, t_list **hash_tab)
 		j = i;
 		while (line[j] && !ft_iswhitespace(line[j]))
 			j++;
-		if (line[j - 1] == LABEL_CHAR)
+		if (j != i && line[i] != '#')
 		{
-			read_label(ft_strndup(&(line[i]), j - i - 1), asm_inf);
-			while (line[j] && ft_iswhitespace(line[j]))
-				j++;
-			if (line[j])
-				check_instruct(hash_tab, &(line[j]), asm_inf);
+			if (line[j - 1] == LABEL_CHAR)
+			{
+				read_label(ft_strndup(&(line[i]), j - i - 1), asm_inf);
+				while (line[j] && ft_iswhitespace(line[j]))
+					j++;
+				if (line[j])
+					check_instruct(hash_tab, &(line[j]), asm_inf);
+			}
+			else
+				check_instruct(hash_tab, &(line[i]), asm_inf);
 		}
-		else
-			check_instruct(hash_tab, &(line[i]), asm_inf);
 	}
 }
 
@@ -213,6 +214,9 @@ int			main(int argc, char **argv)
 		//free line ? (je sais pas si je dois le mettre dans le if vu que des fois elle est null)
 	}
 	write_lbl(&asm_inf);
+	t_list *new = ft_lstnew(fill_binary(4, asm_inf.nb_bytes), 4);
+	new->next = asm_inf.holder_prog_size->next;
+	asm_inf.holder_prog_size->next = new;
 	write_binary(asm_inf.binary_list);
 	return (0);
 }
