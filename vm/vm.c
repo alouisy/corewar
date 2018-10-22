@@ -14,7 +14,15 @@
 
 void		process_instruction(t_pvm *prms, t_process *process)
 {
-	;
+	printf("%d cycles before exe of '%s' : \n", process->cycle_bf_exe - 1, op_tab[process->opcode].name);
+	if (--process->cycle_bf_exe == 0)
+	{
+		prms->f[process->opcode - 1](prms, process);
+		process->pc = process->pc2;
+		process->opcode = -1;
+		process->ocp = 0;
+	}
+	
 }
 
 void		get_instruction(t_pvm *prms, t_process *process)
@@ -22,7 +30,7 @@ void		get_instruction(t_pvm *prms, t_process *process)
 	int		i;
 	int		j;
  	process->opcode = prms->memory[process->pc];
- 	printf("pc = %d & memory[pc] = '%c' & opcode = %d\n",process->pc, prms->memory[process->pc], process->opcode);
+ 	printf("\npc = %d & memory[pc] = '%c' & opcode = %d\n",process->pc, prms->memory[process->pc], process->opcode);
 	i = -1;
 	j = 1;
 	if (process->opcode != 1 && process->opcode != 9 && process->opcode != 12
@@ -48,6 +56,7 @@ void		get_instruction(t_pvm *prms, t_process *process)
 		if (process->param_type[i] == REG_CODE)
 		{
 			process->param[i] = ft_strhex2dec((prms->memory)+(process->pc + j), 1);
+
 			j += 1;
 		}
 		else if (process->param_type[i] == IND_CODE)
@@ -61,15 +70,18 @@ void		get_instruction(t_pvm *prms, t_process *process)
 			j += (op_tab[process->opcode].label_size == 1) ? 2 : 4;
 		}
 	}
-	process->cycle_bf_exe = op_tab[process->opcode].nb_cycles;
-	printf("INSTUCTION : %s\nOPCODE : %d / %s\nNB_PARAMS : %d\nPARAM 1 : %d / %s\nPARAM 2 : %d / %s\nPARAM 3 : %d / %s\nCYCLE BEFORE EXE : %d\n\n",
-	op_tab[content->opcode].name,
-	content->opcode, ft_itoa_base(content->opcode, 16, 0),
-	op_tab[content->opcode].nb_param,
-	content->param[0], ft_itoa_base(content->param[0], 16, 0),
-	content->param[1], ft_itoa_base(content->param[1], 16, 0),
-	content->param[2], ft_itoa_base(content->param[2], 16, 0),
-	content->cycle_bf_exe);
+	process->pc2 = process->pc + j;
+	process->cycle_bf_exe = op_tab[process->opcode].nb_cycles - 1;
+	printf("PC : %d / MEM[PC] : '%.2hhx'\nPC2 : %d / MEM[PC2] : '%.2hhx'\nINSTUCTION : %s\nOPCODE : %d / %s\nNB_PARAMS : %d\nPARAM 1 : %d / %s\nPARAM 2 : %d / %s\nPARAM 3 : %d / %s\nCYCLE BEFORE EXE : %d\n\n",
+	process->pc, prms->memory[process->pc],
+	process->pc2, prms->memory[process->pc2],
+	op_tab[process->opcode].name,
+	process->opcode, ft_itoa_base(process->opcode, 16, 0),
+	op_tab[process->opcode].nb_param,
+	process->param[0], ft_itoa_base(process->param[0], 16, 0),
+	process->param[1], ft_itoa_base(process->param[1], 16, 0),
+	process->param[2], ft_itoa_base(process->param[2], 16, 0),
+	process->cycle_bf_exe);
 }
 
 void		start_vm(t_pvm *prms)
@@ -78,11 +90,12 @@ void		start_vm(t_pvm *prms)
 	t_process	*content;
 	t_list		*tmp;
 
-	while (prms->total_cycles <= prms->dump && prms->winner == 0)
+	while (prms->total_cycles != prms->dump && prms->winner == 0)
 	{
 		tmp = prms->processes;
 		len = ft_lstlength(tmp);
 		(void)len;
+		printf("It's now cycle %d\n", prms->total_cycles);
 		while (tmp)
 		{
 			content = CONTENT(tmp);
@@ -92,9 +105,9 @@ void		start_vm(t_pvm *prms)
 				process_instruction(prms, content);
 			tmp = tmp->next;		
 		}
-		break;
 		prms->total_cycles++;
 	}
+	print_memory(prms);
 	if (prms->winner)
 	{
 		content = CONTENT(prms->processes);

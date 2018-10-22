@@ -27,6 +27,7 @@ typedef struct			s_process
 	int					champ_nbr;
 	int					r[REG_NUMBER];
 	int					pc;
+	int					pc2;
 	int					carry;
 /*	int					l_live;
 	int					nb_live;
