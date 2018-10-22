@@ -12,7 +12,10 @@
 
 #include "vm.h"
 
-
+void		process_instruction(t_pvm *prms, t_process *process)
+{
+	;
+}
 
 void		get_instruction(t_pvm *prms, t_process *process)
 {
@@ -59,6 +62,14 @@ void		get_instruction(t_pvm *prms, t_process *process)
 		}
 	}
 	process->cycle_bf_exe = op_tab[process->opcode].nb_cycles;
+	printf("INSTUCTION : %s\nOPCODE : %d / %s\nNB_PARAMS : %d\nPARAM 1 : %d / %s\nPARAM 2 : %d / %s\nPARAM 3 : %d / %s\nCYCLE BEFORE EXE : %d\n\n",
+	op_tab[content->opcode].name,
+	content->opcode, ft_itoa_base(content->opcode, 16, 0),
+	op_tab[content->opcode].nb_param,
+	content->param[0], ft_itoa_base(content->param[0], 16, 0),
+	content->param[1], ft_itoa_base(content->param[1], 16, 0),
+	content->param[2], ft_itoa_base(content->param[2], 16, 0),
+	content->cycle_bf_exe);
 }
 
 void		start_vm(t_pvm *prms)
@@ -75,15 +86,10 @@ void		start_vm(t_pvm *prms)
 		while (tmp)
 		{
 			content = CONTENT(tmp);
-			get_instruction(prms, content);
-			printf("INSTUCTION : %s\nOPCODE : %d / %s\nNB_PARAMS : %d\nPARAM 1 : %d / %s\nPARAM 2 : %d / %s\nPARAM 3 : %d / %s\nCYCLE BEFORE EXE : %d\n\n",
-				op_tab[content->opcode].name,
-				content->opcode, ft_itoa_base(content->opcode, 16, 0),
-				op_tab[content->opcode].nb_param,
-				content->param[0], ft_itoa_base(content->param[0], 16, 0),
-				content->param[1], ft_itoa_base(content->param[1], 16, 0),
-				content->param[2], ft_itoa_base(content->param[2], 16, 0),
-				content->cycle_bf_exe);
+			if (content->opcode == -1)
+				get_instruction(prms, content);
+			else
+				process_instruction(prms, content);
 			tmp = tmp->next;		
 		}
 		break;
