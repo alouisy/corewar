@@ -41,7 +41,7 @@ void		add_lbl(char *lbl, int inst_pos, t_asm_inf *asm_inf, int lbl_bytes, int oc
 {
 	t_holder_def	holder_def;
 
-	holder_def.lbl = ft_strdup(lbl);
+	holder_def.lbl = lbl;
 	holder_def.inst_pos = inst_pos;
 	holder_def.lst_pos = asm_inf->current;
 	holder_def.lbl_bytes = lbl_bytes;

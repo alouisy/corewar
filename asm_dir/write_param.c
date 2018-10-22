@@ -18,6 +18,7 @@ void		write_param(char *line, t_param_def *param, t_asm_inf *asm_inf,
 	int		i;
 	char	**split;
 	int		inst_pos;
+	char	*trimmed;
 
 	inst_pos = asm_inf->nb_bytes;
 	split = ft_strsplit(line, SEPARATOR_CHAR);
@@ -26,11 +27,12 @@ void		write_param(char *line, t_param_def *param, t_asm_inf *asm_inf,
 	while (i < param->nb)
 	{
 		ocp_s->weight = calc_weight(i);
-		if (split[i][0] == DIRECT_CHAR && (param->type[i] == 2 ||
+		trimmed = ft_strtrim(split[i]);
+		if (trimmed[0] == DIRECT_CHAR && (param->type[i] == 2 ||
 								param->type[i] == 3 || param->type[i] >= 6))
 			ocp_s->ocp += write_direct(split[i], param, asm_inf, inst_pos, param->ocp - i)
 															* ocp_s->weight;
-		else if (split[i][0] == 'r' && param->type[i] % 2 != 0)
+		else if (trimmed[0] == 'r' && param->type[i] % 2 != 0)
 			ocp_s->ocp += write_register(split[i], asm_inf) * ocp_s->weight;
 		else if (param->type[i] >= 4)
 			ocp_s->ocp += write_indirect(split[i], asm_inf, inst_pos, param->ocp - i)
@@ -38,6 +40,7 @@ void		write_param(char *line, t_param_def *param, t_asm_inf *asm_inf,
 		else
 			exit_error("wrong param type\n", 11);
 		i++;
+		free(trimmed);
 	}
 	free_split(split);
 }
@@ -54,9 +57,8 @@ void		write_lbl(t_asm_inf *asm_inf)
 	{
 		tmp_holder = asm_inf->holder_lst->content;
 		searched_index.is_nb = 0;
-		searched_index.str = ft_strtrim(tmp_holder->lbl);
+		searched_index.str = tmp_holder->lbl;
 		found_node = find_in_tree(asm_inf->lbl_tree, searched_index);
-		free(searched_index.str);
 		if (!found_node)
 			exit_error("label reference inexistant\n", 12);
 		val = ((t_lbl_def *)found_node->content)->pos -
@@ -81,12 +83,12 @@ void		write_lbl(t_asm_inf *asm_inf)
 	}
 }
 
-int		get_val(char *line, int is_direct)
+char	*trim_comment(char *line, int is_direct)
 {
-	int i;
-	int j;
-	char *trimmed;
-	int	val;
+	int		i;
+	int		j;
+	char	*trimmed;
+	char	*tmp_trimmed;
 
 	i = is_direct;
 	while (line[i] && !ft_iswhitespace(line[i]))
@@ -96,10 +98,12 @@ int		get_val(char *line, int is_direct)
 		j++;
 	if (line[j] && line[j] != '#')
 		exit_error("wrong format\n", 2);
-	trimmed = ft_strndup(&(line[is_direct]), i);
-	val = ft_atoi_harsh(trimmed, 1, 0);
+	trimmed = ft_strtrim(line);
+	tmp_trimmed = ft_strndup(&(trimmed[is_direct]), i);
 	free(trimmed);
-	return (val);
+	trimmed = ft_strtrim(tmp_trimmed);
+	free(tmp_trimmed); 
+	return (trimmed);
 }
 
 
@@ -110,20 +114,23 @@ int			write_direct(char *line, t_param_def *param, t_asm_inf *asm_inf,
 {
 	int		val;
 	int		bytes;
+	char	*trimmed;
 
 	bytes = DIR_SIZE;
 	if (param->two_bytes)
 		bytes = 2;
-	if (line[1] == LABEL_CHAR)
-		add_lbl(&(line[2]), inst_pos, asm_inf, bytes, ocp);
+	trimmed = trim_comment(line, 1);
+	if (trimmed[0] == LABEL_CHAR)
+		add_lbl(&(trimmed[1]), inst_pos, asm_inf, bytes, ocp);
 	else
 	{
-		val = get_val(line, 1);
+		val = ft_atoi_harsh(trimmed, 1, 0);
 		if (val < 0)
 			val = calc_neg_val(val, bytes);
 		asm_inf->nb_bytes += bytes;
 		asm_inf->current->next = ft_lstnew_p(fill_binary(bytes, val), bytes);
 		asm_inf->current = asm_inf->current->next;
+		free(trimmed);
 	}
 	return (2);
 }
@@ -132,18 +139,21 @@ int			write_indirect(char *line, t_asm_inf *asm_inf, int inst_pos, int ocp)
 {
 	int		val;
 	char	*binary;
+	char	*trimmed;
 
-	if (line[0] == LABEL_CHAR)
-		add_lbl(&(line[1]), inst_pos, asm_inf, IND_SIZE, ocp);
+	trimmed = trim_comment(line, 0);
+	if (trimmed[0] == LABEL_CHAR)
+		add_lbl(trimmed, inst_pos, asm_inf, IND_SIZE, ocp); // 0 ?
 	else
 	{
-		val = get_val(line, 0);
+		val = ft_atoi_harsh(trimmed, 1, 0);
 		if (val < 0)
 			val = calc_neg_val(val, IND_SIZE);
 		binary = fill_binary(IND_SIZE, val);
 		asm_inf->current->next = ft_lstnew_p(binary, IND_SIZE);
 		asm_inf->current = asm_inf->current->next;
 		asm_inf->nb_bytes += IND_SIZE;
+		free(trimmed);
 	}
 	return (3);
 }
@@ -152,9 +162,11 @@ int			write_register(char *line, t_asm_inf *asm_inf)
 {
 	int		nb_register;
 	int		i;
+	char	*trimmed;
 
 	i = 1;
-	nb_register = get_val(line, 1);
+	trimmed = trim_comment(line, 1);
+	nb_register = ft_atoi_harsh(trimmed, 0, -1);
 	if (nb_register > REG_NUMBER)
 		exit_error("unknown register\n", 7);
 	else if (nb_register < 0)
@@ -162,5 +174,6 @@ int			write_register(char *line, t_asm_inf *asm_inf)
 	asm_inf->current->next = ft_lstnew(&nb_register, 1);
 	asm_inf->current = asm_inf->current->next;
 	asm_inf->nb_bytes += 1;
+	free(trimmed);
 	return (1);
 }

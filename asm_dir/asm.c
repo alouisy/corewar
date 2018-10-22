@@ -67,7 +67,9 @@ void		write_header(t_asm_inf *asm_inf)
 	asm_inf->current->next = new;
 	asm_inf->current = asm_inf->current->next;
 	asm_inf->holder_prog_size = asm_inf->current;
-	size = ft_strlen(asm_inf->comment);
+	size = 0;
+	if (asm_inf->comment)
+		size = ft_strlen(asm_inf->comment);
 	asm_inf->current->next = ft_lstnew_p(asm_inf->comment, size);
 	asm_inf->current = asm_inf->current->next;
 	new = ft_lstnew_p(ft_strnew(COMMENT_LENGTH - size + 4),
@@ -213,6 +215,8 @@ int			main(int argc, char **argv)
 		parse_line(line, &asm_inf, hash_tab);
 		//free line ? (je sais pas si je dois le mettre dans le if vu que des fois elle est null)
 	}
+	//display_tree_id(asm_inf.lbl_tree);
+	//ft_putchar('\n');
 	write_lbl(&asm_inf);
 	t_list *new = ft_lstnew(fill_binary(4, asm_inf.nb_bytes), 4);
 	new->next = asm_inf.holder_prog_size->next;

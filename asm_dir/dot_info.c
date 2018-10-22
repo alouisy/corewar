@@ -48,6 +48,8 @@ void		get_dot_info(int fd, char **line, t_asm_inf *asm_inf)
 	int i;
 
 	get_next_line(fd, line, '\n');
+	while (line && (*line)[0] == '#')
+		get_next_line(fd, line, '\n');
 	if (!line)
 		exit_error("read error\n", 11);
 	i = 0;
