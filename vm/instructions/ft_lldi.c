@@ -10,7 +10,7 @@ void	ft_lldi(t_pvm *pvm, t_process *process)
 	int				value;
 
 	ptr = pvm->memory + process->param[0] + process->param[1];
-	value = ft_strhex2dec((char*)ptr, 2);
+	value = ft_strhex2dec(ptr, 2);
 	process->r[process->param[2]] = value;
 	if (value == 0)
 		process->carry = 1;

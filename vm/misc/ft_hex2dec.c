@@ -12,18 +12,22 @@
 
 #include "../vm.h"
 
-int	ft_strhex2dec(char *str, int i)
+int	ft_strhex2dec(unsigned char *str, int len)
 {
 	int 	value;
-	char	*base;
-	int		j;
+	int		i;
 
-	j = 0;
-	base = "0123456789abcdef";
+	i = -1;
 	value = 0;
-	while (i--)
+	while (++i < len)
 	{
-		value += (ft_strchr(base, str[i]) - str) * ft_pow(2, j++);
+		value <<= 4;
+		if (str[i] > 96)
+			value += (str[i] - 87);
+		else if (str[i] > 64)
+			value += (str[i] - 55);
+		else
+			value += str[i] & 0x0F;
 	}
 	return (value);
 }

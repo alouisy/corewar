@@ -33,8 +33,8 @@ typedef struct			s_process
 */	int					cycle_bf_exe;
 	int					cycles_wo_live;
 	int					param[3];
-	t_arg_type			param_type[3];
-	char				opcode;
+	char			param_type[3];
+	int				opcode;
 	char				ocp;
 }						t_process;
 
@@ -96,6 +96,12 @@ parse_process2.c
 */
 void					parse_process_header(t_process *process, int fd, char *filename);
 void					parse_process_prog(t_process *process, int fd);
+
+/*
+** misc
+*/
+int						ft_strhex2dec(unsigned char *str, int len);
+
 
 /*
 ** jeu d'instruction
