@@ -12,20 +12,16 @@
 
 #include "asm.h"
 
-static char	*get_inf(char *line, int is_name)
+static char	*get_inf(char *line, char *cmd_string)
 {
 	int		i;
 	int		j;
 	char	*dot_str;
-	char	*cmd_string;
 
 	i = 0;
 	while (!ft_iswhitespace(line[i]))
 		i++;
 	dot_str = ft_strndup(line, i++);
-	cmd_string = COMMENT_CMD_STRING;
-	if (is_name)
-		cmd_string = NAME_CMD_STRING;
 	if (ft_strcmp(dot_str, cmd_string))
 		exit_error("wrong caracter in name/comment\n", 2);
 	while (ft_iswhitespace(line[i]))
@@ -46,22 +42,23 @@ static char	*get_inf(char *line, int is_name)
 void		get_dot_info(int fd, char **line, t_asm_inf *asm_inf)
 {
 	int i;
+	int read;
 
-	get_next_line(fd, line, '\n');
-	while (line && (*line)[0] == '#')
+	read = get_next_line(fd, line, '\n');
+	while (read && (!*line || (*line && (*line)[0] == '#')))
 		get_next_line(fd, line, '\n');
 	if (!line)
 		exit_error("read error\n", 11);
 	i = 0;
 	while (ft_iswhitespace((*line)[i]))
 		i++;
-	asm_inf->prog_name = get_inf(&((*line)[i]), 1);
+	asm_inf->prog_name = get_inf(&((*line)[i]), NAME_CMD_STRING);
 	//free line ?
 	get_next_line(fd, line, '\n');
 	if (!line)
 		exit_error("read error\n", 11);
 	while (ft_iswhitespace((*line)[i]))
 		i++;
-	asm_inf->comment = get_inf(&((*line)[i]), 0);
+	asm_inf->comment = get_inf(&((*line)[i]), COMMENT_CMD_STRING);
 	//free line ?
 }

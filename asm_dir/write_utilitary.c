@@ -37,17 +37,17 @@ int			calc_weight(int pow)
 	return (weight);
 }
 
-void		add_lbl(char *lbl, int inst_pos, t_asm_inf *asm_inf, int lbl_bytes, int ocp)
+void		add_lbl(char *lbl, t_write_inf *write_inf, t_asm_inf *asm_inf)
 {
 	t_holder_def	holder_def;
 
 	holder_def.lbl = lbl;
-	holder_def.inst_pos = inst_pos;
+	holder_def.inst_pos = write_inf->inst_pos;
 	holder_def.lst_pos = asm_inf->current;
-	holder_def.lbl_bytes = lbl_bytes;
-	holder_def.ocp = ocp;
+	holder_def.lbl_bytes = write_inf->nb_bytes;
+	holder_def.has_ocp = write_inf->has_ocp;
 	ft_lstadd(&(asm_inf->holder_lst), ft_lstnew(&holder_def, sizeof(holder_def))); //je sais pas si je perds le .lbl du coup ?
-	asm_inf->nb_bytes += lbl_bytes;
+	asm_inf->nb_bytes += write_inf->nb_bytes;
 }
 
 char		*fill_binary(int nb_bytes, int val)

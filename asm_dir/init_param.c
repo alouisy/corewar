@@ -88,7 +88,7 @@ void				init_param_def(t_list ***hash_tab, int size)
 {
 	t_param_type	type;
 	t_inst_def		inst;
-	
+
 	init_type(7, 7, 1, &type);
 	init_inst_def(&inst, "or", 7);
 	(*hash_tab)[6] = ft_lstnew_p(init_p(type, 0, 1, &inst), size);

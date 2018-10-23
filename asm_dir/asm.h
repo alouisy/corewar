@@ -54,7 +54,7 @@ typedef struct	s_holder_def
 	int		inst_pos;
 	char	*lbl;
 	int		lbl_bytes;
-	int		ocp;
+	int		has_ocp;
 }				t_holder_def;
 
 typedef struct	s_asm_inf
@@ -75,11 +75,18 @@ typedef struct	s_inst_def
 	char	*name;
 }				t_inst_def;
 
+typedef struct	s_write_inf
+{
+	int		inst_pos;
+	int		nb_bytes;
+	int		has_ocp;
+	int		i;
+}				t_write_inf;
+
 void			init_param_def(t_list ***hash_tab, int size);
 void			write_header(t_asm_inf *asm_inf);
-int				write_direct(char *line, t_param_def *param, t_asm_inf *asm_inf,
-																int inst_pos, int ocp);
-int				write_indirect(char *line, t_asm_inf *asm_inf, int inst_pos, int ocp);
+int				write_val(char *line, t_write_inf *write_inf,
+							t_asm_inf *asm_inf, int return_val);
 int				write_register(char *line, t_asm_inf *asm_inf);
 void			write_binary(t_list *binary_list);
 void			get_dot_info(int fd, char **line, t_asm_inf *asm_inf);
@@ -92,8 +99,7 @@ void			write_param(char *line, t_param_def *param, t_asm_inf *asm_inf,
 																t_ocp *ocp_s);
 void			free_split(char **split);
 int				calc_weight(int pow);
-void			add_lbl(char *line, int inst_pos, t_asm_inf *asm_inf,
-																int lbl_bytes, int ocp);
+void			add_lbl(char *line, t_write_inf *write_inf, t_asm_inf *asm_inf);
 char			*fill_binary(int nb_bytes, int val);
 int				calc_neg_val(int val, int lbl_bytes);
 

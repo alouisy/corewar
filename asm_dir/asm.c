@@ -29,11 +29,9 @@ void		write_binary(t_list *binary_list)
 			i++;
 		}
 		current = current->next;
-		//free
 	}
 	close(fd);
 }
-
 
 static void	write_magic(t_list **binary_list, t_list **current)
 {
@@ -133,7 +131,7 @@ int			hash_word(char *word)
 	return (res);
 }
 
-void	init_hash_tab(t_list ***hash_tab)
+void		init_hash_tab(t_list ***hash_tab)
 {
 	int	size;
 
@@ -148,7 +146,7 @@ void	init_hash_tab(t_list ***hash_tab)
 	(*hash_tab)[8] = NULL;
 }
 
-int		init_prog(int argc, char **argv, t_asm_inf *asm_inf, t_list ***hash_tab)
+int			init_prog(int argc, char **argv, t_asm_inf *asm_inf, t_list ***hash_tab)
 {
 	int fd;
 
@@ -168,7 +166,7 @@ int		init_prog(int argc, char **argv, t_asm_inf *asm_inf, t_list ***hash_tab)
 	return (fd);
 }
 
-static void		parse_line(char *line, t_asm_inf *asm_inf, t_list **hash_tab)
+static void	parse_line(char *line, t_asm_inf *asm_inf, t_list **hash_tab)
 {
 	int i;
 	int j;
@@ -181,7 +179,7 @@ static void		parse_line(char *line, t_asm_inf *asm_inf, t_list **hash_tab)
 		j = i;
 		while (line[j] && !ft_iswhitespace(line[j]))
 			j++;
-		if (j != i && line[i] != '#')
+		if (j != i && line[i] != COMMENT_CHAR)
 		{
 			if (line[j - 1] == LABEL_CHAR)
 			{
@@ -203,6 +201,7 @@ int			main(int argc, char **argv)
 	char		*line;
 	t_list		**hash_tab;
 	t_asm_inf	asm_inf;
+	t_list		*new;
 
 	line = NULL;
 	hash_tab = NULL;
@@ -218,7 +217,7 @@ int			main(int argc, char **argv)
 	//display_tree_id(asm_inf.lbl_tree);
 	//ft_putchar('\n');
 	write_lbl(&asm_inf);
-	t_list *new = ft_lstnew(fill_binary(4, asm_inf.nb_bytes), 4);
+	new = ft_lstnew(fill_binary(4, asm_inf.nb_bytes), 4);
 	new->next = asm_inf.holder_prog_size->next;
 	asm_inf.holder_prog_size->next = new;
 	write_binary(asm_inf.binary_list);
