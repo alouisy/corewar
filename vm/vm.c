@@ -6,13 +6,13 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 17:41:07 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/10/19 13:50:39 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/10/23 17:18:30 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-void		process_instruction(t_pvm *prms, t_process *process)
+void	process_instruction(t_pvm *prms, t_process *process)
 {
 	printf("%d cycles before exe of '%s' : \n", process->cycle_bf_exe - 1, op_tab[process->opcode].name);
 	if (--process->cycle_bf_exe == 0)
@@ -22,13 +22,13 @@ void		process_instruction(t_pvm *prms, t_process *process)
 		process->opcode = -1;
 		process->ocp = 0;
 	}
-	
 }
 
 void		get_instruction(t_pvm *prms, t_process *process)
 {
 	int		i;
 	int		j;
+
  	process->opcode = prms->memory[process->pc];
  	printf("\npc = %d & memory[pc] = '%c' & opcode = %d\n",process->pc, prms->memory[process->pc], process->opcode);
 	i = -1;
