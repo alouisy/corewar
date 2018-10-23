@@ -19,15 +19,19 @@ int	ft_strhex2dec(unsigned char *str, int len)
 
 	i = -1;
 	value = 0;
+	if (len == 1)
+	{
+		value = str[i + 1];
+	}
+	else
+	{
 	while (++i < len)
 	{
-		value <<= 4;
-		if (str[i] > 96)
-			value += (str[i] - 87);
-		else if (str[i] > 64)
-			value += (str[i] - 55);
-		else
-			value += str[i] & 0x0F;
+		ft_putstr("str ");
+		ft_putnbr(str[i]);
+		ft_putendl("");
+		value += (str[i]) * ft_pow(16, len - (i * 2));
 	}
+}
 	return (value);
 }

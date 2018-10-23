@@ -33,18 +33,13 @@ void		get_instruction(t_pvm *prms, t_process *process)
  	printf("\npc = %d & memory[pc] = '%c' & opcode = %d\n",process->pc, prms->memory[process->pc], process->opcode);
 	i = -1;
 	j = 1;
-	if (process->opcode != 1 && process->opcode != 9 && process->opcode != 12
-		&& process->opcode != 15)
+	if (op_tab[process->opcode].ocp)
 	{
 		process->ocp = prms->memory[process->pc + 1];
 		while (++i < op_tab[process->opcode].nb_param)
 		{
-			if (i == 0)
-				process->param_type[i] = (prms->memory[process->pc + 1] & 0b11000000) >> 6;
-			else if (i == 1)
-				process->param_type[i] = (prms->memory[process->pc + 1] & 0b110000) >> 4;
-			else
-				process->param_type[i] = (prms->memory[process->pc + 1] & 0b1100) >> 2;
+			process->param_type[i] = (prms->memory[process->pc + 1] & (0b11000000 >> (i * 2))) >> (6 - i * 2);
+			printf("param[%d] = '%d'\n", i, process->param_type[i]);
 		}
 		j++;
 	}
@@ -56,7 +51,6 @@ void		get_instruction(t_pvm *prms, t_process *process)
 		if (process->param_type[i] == REG_CODE)
 		{
 			process->param[i] = ft_strhex2dec((prms->memory)+(process->pc + j), 1);
-
 			j += 1;
 		}
 		else if (process->param_type[i] == IND_CODE)
@@ -67,6 +61,7 @@ void		get_instruction(t_pvm *prms, t_process *process)
 		else if (process->param_type[i] == DIR_CODE)
 		{
 			process->param[i] = ft_strhex2dec((prms->memory)+(process->pc + j), ((op_tab[process->opcode].label_size == 1) ? 2 : 4));
+			printf("Ternaire = '%d'\nDIR HEXA = %d\n", ((op_tab[process->opcode].label_size == 1) ? 4 : 8), process->param[i]);
 			j += (op_tab[process->opcode].label_size == 1) ? 2 : 4;
 		}
 	}
@@ -143,6 +138,7 @@ int				main(int argc, char **argv)
 		init_vm(&prms);
 		ft_lstiter(prms.processes, &aux_print_champ);
 		print_memory(&prms);
+		printf("nbr = %d\n", ft_strhex2dec((unsigned char*)"fffb", 4));
 		start_vm(&prms);
 	}
 	return(0);
