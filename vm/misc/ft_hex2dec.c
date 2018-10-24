@@ -19,19 +19,9 @@ int	ft_strhex2dec(unsigned char *str, int len)
 
 	i = -1;
 	value = 0;
-	if (len == 1)
-	{
-		value = str[i + 1];
-	}
-	else
-	{
 	while (++i < len)
 	{
-		ft_putstr("str ");
-		ft_putnbr(str[i]);
-		ft_putendl("");
-		value += (str[i]) * ft_pow(16, len - (i * 2));
+		value += str[i] * ft_pow(16, (len - (i + 1)) * 2);
 	}
-}
 	return (value);
 }
