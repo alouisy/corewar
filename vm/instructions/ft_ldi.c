@@ -19,12 +19,10 @@
 void	ft_ldi(t_pvm *pvm, t_process *process)
 {
 	unsigned char	*ptr;
-	int				value;
 
 	ptr = pvm->memory + (process->param[0] + process->param[1]) % IDX_MOD;
-	value = ft_strhex2dec(ptr, 2);
-	process->r[process->param[2]] = value;
-	if (value == 0)
+	process->r[process->param[2]] = ft_strhex2dec(ptr, 1);
+	if (process->carry == 0)
 		process->carry = 1;
 	else
 		process->carry = 0;

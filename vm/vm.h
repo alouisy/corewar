@@ -29,9 +29,9 @@ typedef struct			s_process
 	int					pc;
 	int					pc2;
 	int					carry;
-/*	int					l_live;
+	int					l_live;
 	int					nb_live;
-*/	int					cycle_bf_exe;
+	int					cycle_bf_exe;
 	int					cycles_wo_live;
 	int					param[3];
 	char			param_type[3];
@@ -123,5 +123,6 @@ void					ft_lld(t_pvm *pvm, t_process *process);
 void					ft_lldi(t_pvm *pvm, t_process *process);
 void					ft_lfork(t_pvm *pvm, t_process *process);
 void					ft_aff(t_pvm *pvm, t_process *process);
+int		get_prm_value(t_pvm *pvm, t_process *process, int i);
 
 #endif

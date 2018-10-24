@@ -15,22 +15,18 @@
 void	print_memory(t_pvm *prms)
 {
 	int	i;
-	int	j;
 
 	i = 0;
-	j = 0;
 	while (i < MEM_SIZE)
 	{
-		if ((j % 64) == 0)
+		if ((i % 64) == 0)
 		{
 			ft_putchar('\n');
-			j = 0;
 		}
 		if (prms->memory[i] == 0)
 			ft_printf("00 ");
 		else
-			ft_printf("%.2hhx ", prms->memory[i]);
-		j++;
+			ft_printf("\033[32m%.2hhx \033[0m", prms->memory[i]);
 		i++;
 	}
 	ft_putchar('\n');

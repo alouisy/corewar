@@ -15,10 +15,12 @@
 void	ft_live(t_pvm *pvm, t_process *process)
 {
 	t_list	*node;
-(void)pvm;
-(void)node;
-ft_putnbr(process->param[0]);
-//	node = ft_lstfindbysize(pvm->champions, process->param[0]);
-//	ft_putstr((char*)(node->content));
-	ft_putendl(" is still not f****** dead. For god sake, kill him!!");
+
+	if ((node = ft_lstfindbysize(pvm->champions, process->param[0])))
+	{
+		process->nb_live ++;
+		process->l_live = pvm->total_cycles;
+		ft_putstr((char*)(node->content));
+		ft_putendl(" is still not f****** dead. For god sake, kill him!!");
+	}
 }

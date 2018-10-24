@@ -18,8 +18,8 @@
 
 void	ft_add(UNUSED t_pvm *pvm, t_process *process)
 {
-	process->r[process->param[2]] = process->r[process->param[0]] + process->r[process->param[1]];
-	if (process->r[process->param[2]] == 0)
+	process->r[process->param[2]] = get_prm_value(pvm, process, 0) + get_prm_value(pvm, process, 1);
+	if (process->carry)
 		process->carry = 0;
 	else
 		process->carry = 1;

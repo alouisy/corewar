@@ -18,9 +18,9 @@
 
 void	ft_ld(UNUSED t_pvm *pvm, t_process *process)
 {
-	process->r[process->param[1]] = process->param[0] % IDX_MOD;
-	if (process->param[0] == 0)
-		process->carry = 1;
-	else
+	process->r[process->param[1]] = get_prm_value(pvm, process, 0) % IDX_MOD;
+	if (process->carry)
 		process->carry = 0;
+	else
+		process->carry = 1;
 }

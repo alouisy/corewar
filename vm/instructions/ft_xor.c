@@ -18,8 +18,8 @@
 
 void	ft_xor(UNUSED t_pvm *pvm, t_process *process)
 {
-	process->param[2] = (process->param[0] ^ process->param[1]) % IDX_MOD;
-	if (process->param[2] == 0)
+	process->param[2] = (get_prm_value(pvm, process, 0) ^ get_prm_value(pvm, process, 1)) % IDX_MOD;
+	if (process->carry == 0)
 		process->carry = 1;
 	else
 		process->carry = 0;

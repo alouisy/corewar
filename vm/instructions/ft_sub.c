@@ -18,8 +18,8 @@
 
 void	ft_sub(UNUSED t_pvm *pvm, t_process *process)
 {
-	process->param[2] = process->param[0] - process->param[1];
-	if (process->param[2] == 0)
+	process->r[process->param[2]] = get_prm_value(pvm, process, 0) - get_prm_value(pvm, process, 1);
+	if (process->carry)
 		process->carry = 1;
 	else
 		process->carry = 0;

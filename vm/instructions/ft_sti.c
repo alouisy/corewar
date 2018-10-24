@@ -34,16 +34,3 @@ void	ft_sti(t_pvm *pvm, t_process *process)
 	else
 		process->carry = 0;
 }
-
-/*
-void	ft_sti(t_pvm *pvm, t_process *process)
-{
-	int	value;
-
-	value = (pvm->memory[process->param[0] + process->param[1]]) % IDX_MOD;
-	process->r[process->param[2]] = value;
-	if (value == 0)
-		process->carry = 1;
-	else
-		process->carry = 0;
-}*/

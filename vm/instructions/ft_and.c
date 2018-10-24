@@ -20,19 +20,10 @@ void	ft_and(UNUSED t_pvm *pvm, t_process *process)
 {
 	int		value;
 
-	value = (process->param[0] & process->param[1]) % IDX_MOD;
-	process->r[process->param[2]] = value;
-	if (value == 0)
-		process->carry = 1;
-	else
+	value = (get_prm_value(pvm, process, 0) & get_prm_value(pvm, process, 1));
+	process->r[process->param[2]] = value % IDX_MOD;
+	if (process->carry)
 		process->carry = 0;
+	else
+		process->carry = 1;
 }
-
-/*void	ft_and(UNUSED t_pvm *pvm, t_process *process)
-{	
-	process->param[2] = (process->param[0] & process->param[1]) % IDX_MOD;
-	if (process->param[2] == 0)
-		process->carry = 1;
-	else
-		process->carry = 0;
-}*/
