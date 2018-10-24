@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/18 18:47:27 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/10/20 18:10:19 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/10/24 17:34:25 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,4 @@ void	ft_ldi(t_pvm *pvm, t_process *process)
 
 	ptr = pvm->memory + (process->param[0] + process->param[1]) % IDX_MOD;
 	process->r[process->param[2]] = ft_strhex2dec(ptr, 1);
-	if (process->carry == 0)
-		process->carry = 1;
-	else
-		process->carry = 0;
 }

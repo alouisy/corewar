@@ -1,8 +1,5 @@
 .name "gg1"
 .comment "testing"
 
-l2:		sti r1, %:live, %1
-		and r1, %0, r1
-
-live:	live %1
+live:	lld -2, r1
 		zjmp %:live
