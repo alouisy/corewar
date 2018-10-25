@@ -6,7 +6,7 @@
 /*   By: zcugni <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 09:52:18 by zcugni            #+#    #+#             */
-/*   Updated: 2018/10/19 13:40:10 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/10/25 17:47:12 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,6 +186,7 @@ void						lst_clr(t_list **lst);
 char						*lst_to_str(t_list *lst);
 t_list						*ft_pop(t_list **lst);
 int							ft_pop_value(t_list **lst);
+t_list						*ft_lstpop(t_list *search, t_list *list);
 t_list						*lst_pop_pointer(t_list **lst);
 t_list						*lstp_pop_at(t_list **lst, void *p);
 t_list						*ft_lstsort(t_list *l1, int (*f)(t_list *node1, t_list *node2));

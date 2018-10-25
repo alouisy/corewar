@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 17:41:07 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/10/25 17:05:24 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/10/25 17:52:24 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ void		start_vm(t_pvm *vm)
 
 	while (vm->total_cycles != vm->dump && vm->processes)
 	{
+		cycle2die(vm);
 		tmp = vm->processes;
 		printf("It's now cycle %d\n", vm->total_cycles);
 		while (tmp)
@@ -102,11 +103,8 @@ void		start_vm(t_pvm *vm)
 		vm->total_cycles++;
 	}
 	print_memory(vm);
-	if (vm->winner)
-	{
-		champ = CHAMPION(vm->champions);
-		ft_printf("le joueur %d(%s) a gagne\n", champ->nbr, champ->header.prog_name);
-	}
+	champ = CHAMPION(vm->champions);
+	ft_printf("le joueur %d(%s) a gagne\n", champ->nbr, champ->header.prog_name);
 }
 
 void 	aux_print_champ(t_list *node)
