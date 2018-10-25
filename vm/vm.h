@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 17:41:26 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/10/25 17:04:22 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/10/25 17:05:03 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 # include "libft.h"
 # include "op.h"
 
-# define CONTENT(x) (t_process*)(x->content)
+# define PROCESS(x) (t_process*)(x->content)
 # define CHAMPION(x) (t_champion*)(x->content)
 # define UNUSED __attribute__((unused))
 

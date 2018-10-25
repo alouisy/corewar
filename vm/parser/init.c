@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 17:41:07 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/10/25 17:01:13 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/10/25 17:05:36 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ inline void		init_memory(t_pvm *vm)
 	ctmp = vm->champions;
 	while (ctmp)
 	{
-		process = CONTENT(ptmp);
+		process = PROCESS(ptmp);
 		champ = CHAMPION(ctmp);
 		champ->vm_pos = i++ * (MEM_SIZE / vm->nb_champ);
 		process->pc = champ->vm_pos;

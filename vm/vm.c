@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 17:41:07 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/10/23 17:18:30 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/10/25 17:05:24 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void		start_vm(t_pvm *vm)
 		printf("It's now cycle %d\n", vm->total_cycles);
 		while (tmp)
 		{
-			content = CONTENT(tmp);
+			content = PROCESS(tmp);
 			content->cycles_wo_live++;
 			if (content->opcode == -1)
 				get_instruction(vm, content);

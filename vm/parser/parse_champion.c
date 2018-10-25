@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/09 14:54:40 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/10/19 13:49:39 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/10/25 17:05:52 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 			champion = begin_list;
 			while (champion)
 			{
-				if ((CONTENT(champion))->r[0] == nb)
+				if ((PROCESS(champion))->r[0] == nb)
 					break ;
 				champion = champion->next;
 			}
