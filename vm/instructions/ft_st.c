@@ -22,13 +22,19 @@ void	ft_st(t_pvm *pvm, t_process *process)
 	int		address;
 
 	value = process->r[process->param[0] - 1];
-	address = process->pc + ((process->param[1] + process->param[2]) % IDX_MOD);
-	if (address < 0)
-		address += MEM_SIZE;
-	pvm->memory[(address + 3) % MEM_SIZE] = value;
-	pvm->memory[(address + 2) % MEM_SIZE] = (value >> 8);
-	pvm->memory[(address + 1) % MEM_SIZE] = (value >> 16);
-	pvm->memory[(address + 0) % MEM_SIZE] = (value >> 24);
+	if (process->param_type[1] == REG_CODE)
+		if (process->param[1] >= 1 && process->param[1] <= REG_NUMBER)
+			process->r[process->param[1] - 1] = value;
+	else
+	{
+		address = process->pc + (process->param[1] % IDX_MOD);
+		while (address < 0)
+			address += MEM_SIZE;
+		pvm->memory[(address + 3) % MEM_SIZE] = value;
+		pvm->memory[(address + 2) % MEM_SIZE] = (value >> 8);
+		pvm->memory[(address + 1) % MEM_SIZE] = (value >> 16);
+		pvm->memory[(address + 0) % MEM_SIZE] = (value >> 24);
+	}
 	if (value == 0)
 		process->carry = 1;
 	else

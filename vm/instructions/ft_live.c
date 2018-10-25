@@ -21,6 +21,8 @@ void	ft_live(t_pvm *pvm, t_process *process)
 		process->cycles_wo_live = 0;
 		(CHAMPION(node))->nb_live++;
 		(CHAMPION(node))->l_live = pvm->total_cycles;
+		pvm->sum_lives++;
+		pvm->last_live = process->param[0];
 		ft_putstr((char*)((CHAMPION(node))->header.prog_name));
 		ft_putendl(" is still not f****** dead. For god sake, kill him!!");
 	}

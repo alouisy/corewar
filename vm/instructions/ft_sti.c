@@ -22,7 +22,7 @@ void	ft_sti(t_pvm *pvm, t_process *process)
 	int		address;
 
 	value = process->r[process->param[0] - 1];
-	address = process->pc + ((process->param[1] + process->param[2]) % IDX_MOD);
+	address = process->pc + ((get_prm_value(pvm, process, 1) + get_prm_value(pvm, process, 2)) % IDX_MOD);
 	if (address < 0)
 		address += MEM_SIZE;
 	pvm->memory[(address + 3) % MEM_SIZE] = value;
