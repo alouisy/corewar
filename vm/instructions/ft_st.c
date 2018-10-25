@@ -23,8 +23,10 @@ void	ft_st(t_pvm *pvm, t_process *process)
 
 	value = process->r[process->param[0] - 1];
 	if (process->param_type[1] == REG_CODE)
+	{
 		if (process->param[1] >= 1 && process->param[1] <= REG_NUMBER)
 			process->r[process->param[1] - 1] = value;
+	}
 	else
 	{
 		address = process->pc + (process->param[1] % IDX_MOD);

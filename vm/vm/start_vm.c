@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vm.h"
+#include "../vm.h"
 
 void	process_instruction(t_pvm *vm, t_process *process)
 {

@@ -16,7 +16,7 @@ LIBFT= -L../libft -lft
 NAME= corewar
 LIB = ../libft/libft.a
 .phony: all clean fclean re
-SRC= $(wildcard *.c) $(wildcard parser/*.c) $(wildcard struct_process/*.c) $(wildcard print/*.c) $(wildcard misc/*.c) $(wildcard instructions/*.c)
+SRC= $(wildcard *.c) $(wildcard parser/*.c) $(wildcard vm/*.c) $(wildcard misc/*.c) $(wildcard instructions/*.c)
 OBJ= $(subst .c,.o, $(SRC))
 
 all: $(NAME)

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vm.h"
+#include "../vm.h"
 
 void ft_del(UNUSED void *content, UNUSED size_t t)
 {

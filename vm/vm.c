@@ -25,7 +25,7 @@ void 	aux_print_champ(t_list *node)
 		champion->header.comment);
 }
 
-int				main(int argc, char **argv)
+int		main(int argc, char **argv)
 {
 	t_pvm	vm;
 
