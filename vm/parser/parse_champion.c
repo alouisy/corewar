@@ -42,28 +42,21 @@ t_list	*parse_champion(char *path, int nb_prog, UNUSED t_pvm *vm)
 	int			fd;
 	t_champion	champion;
 	t_list		*node;
+	int			out;
 
 	node = NULL;
+	out = 0;
 	if ((fd = open(path, O_RDONLY)) != -1)
 	{
-		ft_putendl("Parse 1 init Champion");
 		init_champion(&champion, nb_prog);
-		ft_putendl("Parse 2 Header");
-		parse_champion_header(&champion, fd, path);
-		ft_putendl("Parse 3 Prog");
-		parse_champion_prog(&champion, fd);
-		ft_putendl("Parse 4 Finish");
+		if (parse_champion_header(&champion, fd, path)
+			&& parse_champion_prog(&champion, fd))
+			out = 1;
 		close(fd);
-		if (!(node = ft_lstnew((void*)(&champion), sizeof(t_champion))))
-		{
-			ft_strerror("ERROR while trying to malloc", 0);
-			return (NULL);
-		}
+		if (out && !(node = ft_lstnew((&champion), sizeof(t_champion))))
+			out = ft_strerror("ERROR while trying to malloc", 0);
 	}
 	else
-	{
 		ft_strerror(ft_strjoin("Can't read source file ", path), 1);
-		return (NULL);
-	}
-	return (node);
+	return (out? node : NULL);
 }

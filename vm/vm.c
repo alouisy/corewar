@@ -32,11 +32,13 @@ int				main(int argc, char **argv)
 	if (argc > 1)
 	{
 		init_vm(&vm);
-		parse_arg(&vm, argc, argv);
-		init_memory(&vm);
-		ft_lstiter(vm.champions, &aux_print_champ);
-		print_memory(&vm);
-		start_vm(&vm);
+		if (parse_arg(&vm, argc, argv))
+		{
+			init_memory(&vm);
+			ft_lstiter(vm.champions, &aux_print_champ);
+			print_memory(&vm);
+			start_vm(&vm);
+		}
 	}
 	return(0);
 }

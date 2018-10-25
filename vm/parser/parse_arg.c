@@ -12,14 +12,14 @@
 
 #include "../vm.h"
 
-static inline void		ft_check_champ_numb(t_list *champions, int nb)
+static inline int	ft_check_champ_numb(t_list *champions, int nb)
 {
 	t_list	*tmp;
 	t_list	*tmp2;
 
 	ft_putendl("Checking Champ Pos&Stuff...");
 	if (nb > 4)
-		exit_error("ERROR (MORE THAN 4 CHAMPIONS)", 1);
+		return (ft_strerror("ERROR (MORE THAN 4 CHAMPIONS)", 0));
 	tmp = champions;
 	while (tmp)
 	{
@@ -27,15 +27,16 @@ static inline void		ft_check_champ_numb(t_list *champions, int nb)
 		while (tmp2)
 		{
 			if ((CHAMPION(tmp))->nbr == (CHAMPION(tmp2))->nbr)
-				exit_error("ERROR (2 CHAMPIONS WITH THE SAME NUMBER)", 1);
+				return (ft_strerror("ERROR (2 CHAMPIONS WITH THE SAME NUMBER)", 0));
 			tmp2 = tmp2->next;
 		}
 		tmp = tmp->next;
 	}
 	ft_putendl("Checking Completed !");
+	return (1);
 }
 
-int	save_champ(char *path, int nb_prog, t_pvm *vm)
+inline int			save_champ(char *path, int nb_prog, t_pvm *vm)
 {
 	t_list		*champion;
 	t_list		*node;
@@ -44,25 +45,19 @@ int	save_champ(char *path, int nb_prog, t_pvm *vm)
 	if ((champion = parse_champion(path, nb_prog, vm)))
 	{
 		init_process(&process, -1, vm);	
-		if ((node = ft_lstnew(&process, sizeof(process))))
-		{
-			ft_putendl("One Champ Save...");
-			ft_lstadd(&vm->champions, champion);
-			ft_lstadd(&vm->processes, node);
-			ft_putendl("Save Completed !");
-		}
-		else
-		{
-			ft_strerror("ERROR (2 CHAMPIONS WITH THE SAME NUMBER)", 0);
-			return (0);
-		}
+		if (!(node = ft_lstnew(&process, sizeof(process))))
+			return (ft_strerror("Malloc fail", 0));
+		ft_putendl("One Champ Save...");
+		ft_lstadd(&vm->champions, champion);
+		ft_lstadd(&vm->processes, node);
+		ft_putendl("Save Completed !");
 	}
 	else
 		return (0);
 	return (1);
 }
 
-inline int				parse_arg(t_pvm *vm, int ac, char **av)
+inline int			parse_arg(t_pvm *vm, int ac, char **av)
 {
 	int	i;
 
@@ -78,8 +73,7 @@ inline int				parse_arg(t_pvm *vm, int ac, char **av)
 			vm->nb_champ++;
 		}
 	}
-	ft_check_champ_numb(vm->champions, vm->nb_champ);
-	return (1);
+	return (ft_check_champ_numb(vm->champions, vm->nb_champ));
 }
 //else if (!ft_strcmp("-n", av[i]) && ft_nbrisinteger(av[++i]))
 //	nb_prog = ft_atoi(av[i]);

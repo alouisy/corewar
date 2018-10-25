@@ -14,6 +14,7 @@
 
 inline void		init_champion(t_champion *champion, int nb_prog)
 {
+	ft_putendl("Parse 1 init Champion");
 	champion->nbr = nb_prog;
 	champion->vm_pos = 0;
 	champion->l_live = 0;
