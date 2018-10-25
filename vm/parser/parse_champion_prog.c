@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_process2.c                                   :+:      :+:    :+:   */
+/*   parse_champion2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,13 +12,13 @@
 
 #include "../vm.h"
 
-inline void	parse_process_prog(t_process *process, int fd)
+inline void	parse_champion_prog(t_champion *champion, int fd)
 {
 	char	verif_end[1];
 
-	ft_bzero(process->prog, CHAMP_MAX_SIZE);
-	if (read(fd, process->prog, process->header.prog_size + 4) !=
-		process->header.prog_size || read(fd, verif_end, 1) != 0)
+	ft_bzero(champion->prog, CHAMP_MAX_SIZE);
+	if (read(fd, champion->prog, champion->header.prog_size + 4) !=
+		champion->header.prog_size || read(fd, verif_end, 1) != 0)
 	{
 		exit_error("INVALID FORMAT (ERROR PROG_SIZE DOES NOT MATCH FILE DATA)", 1);
 	}

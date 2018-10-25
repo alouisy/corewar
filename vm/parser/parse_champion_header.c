@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_process2.c                                   :+:      :+:    :+:   */
+/*   parse_champion2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,7 +12,7 @@
 
 #include "../vm.h"
 
-static inline void		parse_process_magic_size(t_process *process, int fd, char *filename, int mode)
+static inline void		parse_champion_magic_size(t_champion *champion, int fd, char *filename, int mode)
 {
 	unsigned int	result;
 	unsigned char	current_byte;
@@ -27,9 +27,9 @@ static inline void		parse_process_magic_size(t_process *process, int fd, char *f
 	read(fd, &current_byte, 1);
 	result += current_byte;
 	if (mode == 0 && result == COREWAR_EXEC_MAGIC)
-		process->header.magic = result;
+		champion->header.magic = result;
 	else if (mode == 1 && result <= CHAMP_MAX_SIZE)
-		process->header.prog_size = result;
+		champion->header.prog_size = result;
 	else
 	{
 		if (mode == 0)
@@ -39,16 +39,16 @@ static inline void		parse_process_magic_size(t_process *process, int fd, char *f
 	}
 }
 
-inline void			parse_process_header(t_process *process, int fd, char *filename)
+inline void			parse_champion_header(t_champion *champion, int fd, char *filename)
 {
-	parse_process_magic_size(process, fd, filename, 0);
-	if (read(fd, process->header.prog_name, PROG_NAME_LENGTH) != PROG_NAME_LENGTH)
+	parse_champion_magic_size(champion, fd, filename, 0);
+	if (read(fd, champion->header.prog_name, PROG_NAME_LENGTH) != PROG_NAME_LENGTH)
 	{
 		exit_error("INVALID FORMAT (ERROR W/ NAME)", 1);
 	}
 	lseek(fd, 4, SEEK_CUR);
-	parse_process_magic_size(process, fd, filename, 1);
-	if (read(fd, process->header.comment, COMMENT_LENGTH) != COMMENT_LENGTH)
+	parse_champion_magic_size(champion, fd, filename, 1);
+	if (read(fd, champion->header.comment, COMMENT_LENGTH) != COMMENT_LENGTH)
 	{
 		exit_error("INVALID FORMAT (ERROR W/ COMMENT)", 1);
 	}

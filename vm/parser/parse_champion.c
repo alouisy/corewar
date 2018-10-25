@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_process.c                                    :+:      :+:    :+:   */
+/*   parse_champion.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,70 +12,57 @@
 
 #include "../vm.h"
 
-static inline int		get_champ_nb(int nb_prog, t_list *begin_list)
+/*int		get_champ_nb(int nb_prog, t_list *begin_list)
 {
-	t_list	*process;
+	t_list	*champion;
 	int		nb;
 
 	nb = 1;
 	if (nb_prog == -1)
+	{
 		while (1 || nb <= nb_prog)
 		{
-			process = begin_list;
-			while (process)
+			champion = begin_list;
+			while (champion)
 			{
-				if ((CONTENT(process))->r[0] == nb)
+				if ((CONTENT(champion))->r[0] == nb)
 					break ;
-				process = process->next;
+				champion = champion->next;
 			}
-			if (!process)
+			if (!champion)
 				return (nb);
 			nb++;
 		}
-	return (nb_prog);
-}
-
-static inline void		init_process(t_process *process, int nb_prog, int nb_champ, t_pvm *prms)
-{
-	int		i;
-
-	process->r[0] = get_champ_nb(nb_prog, prms->processes);
-	process->champ_nbr = process->r[0];
-	process->pid = nb_champ;
-/*	process->carry = 0;
-	process->nb_live = 0;
-	process->cycles_wo_live = 0;
-	process->opcode = -1;*/
-	i = 1;
-	while (i < REG_NUMBER)
-		process->r[i++] = 0;
-	i = 0;
-	while (i < 3)
-	{
-		process->param[i] = 0;
-		process->param_type[i++] = 0;
 	}
+	return (nb_prog);
+}*/
+
+void		init_champion(t_champion *champion, int nb_prog)
+{
+	champion->nbr = nb_prog;
+	champion->vm_pos = 0;
+	champion->l_live = 0;
+	champion->nb_live = 0;
 }
 
-inline t_list			*parse_process(char *path, int nb_prog, t_pvm *prms)
+t_list	*parse_champion(char *path, int nb_prog, UNUSED t_pvm *vm)
 {
 	int			fd;
-	t_process	process = {.opcode = -1};
+	t_champion	champion;
 	t_list		*node;
-	static int	nb_champ;
 
 	node = NULL;
 	if ((fd = open(path, O_RDONLY)) != -1)
 	{
-		ft_putendl("Parse 1 init Process");
-		init_process(&process, nb_prog, nb_champ++, prms);
+		ft_putendl("Parse 1 init Champion");
+		init_champion(&champion, nb_prog);
 		ft_putendl("Parse 2 Header");
-		parse_process_header(&process, fd, path);
+		parse_champion_header(&champion, fd, path);
 		ft_putendl("Parse 3 Prog");
-		parse_process_prog(&process, fd);
+		parse_champion_prog(&champion, fd);
 		ft_putendl("Parse 4 Finish");
 		close(fd);
-		node = ft_lstnew((void*)(&process), sizeof(t_process));
+		node = ft_lstnew((void*)(&champion), sizeof(t_champion));
 		if (!node)
 			exit_error("ERROR while trying to malloc", 1);
 	}

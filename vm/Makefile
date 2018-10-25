@@ -21,7 +21,7 @@ OBJ= $(subst .c,.o, $(SRC))
 
 all: $(NAME)
 
-$(NAME): $(OBJ) vm.h
+$(NAME): $(OBJ) vm.h op.h
 	@echo "compilation de "$(NAME)
 	@$(CC) $(OBJ) -o $(NAME) $(CFLAGS) $(LIBFT)
 

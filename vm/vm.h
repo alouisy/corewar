@@ -16,28 +16,34 @@
 # include "op.h"
 
 # define CONTENT(x) (t_process*)(x->content)
+# define CHAMPION(x) (t_champion*)(x->content)
 # define UNUSED __attribute__((unused))
 
 typedef struct			s_process
 {
-	header_t			header;
-	int					vm_pos;
-	unsigned char		prog[CHAMP_MAX_SIZE + 1];
-	int					pid;
 	int					champ_nbr;
-	int					r[REG_NUMBER];
+	int					pid;
+	int					r[100];
 	int					pc;
 	int					pc2;
 	int					carry;
-	int					l_live;
-	int					nb_live;
-	int					cycle_bf_exe;
 	int					cycles_wo_live;
+	int					cycle_bf_exe;
 	int					param[3];
-	char			param_type[3];
-	int				opcode;
+	char				param_type[3];
+	int					opcode;
 	char				ocp;
 }						t_process;
+
+typedef struct			s_champion
+{
+	header_t			header;
+	unsigned char		prog[CHAMP_MAX_SIZE + 1];
+	int					nbr;
+	int					vm_pos;
+	int					l_live;
+	int					nb_live;
+}						t_champion;
 
 typedef struct			s_pvm
 {
@@ -59,6 +65,9 @@ typedef struct			s_pvm
 	int					winner;
 }						t_pvm;
 
+/*
+** structure de descriptions des instructions
+*/
 typedef struct			s_op
 {
 	char				*name;
@@ -74,29 +83,30 @@ typedef struct			s_op
 extern t_op				op_tab[17];
 
 /*
-vm.c
+** vm.c
 */
-void					init_prms(t_pvm *prms);
-void					init_vm(t_pvm *prms);
-void					print_memory(t_pvm *prms);
-void					init_f(t_pvm *prms);
+void					init_vm(t_pvm *vm);
+void					init_f(t_pvm *vm);
+void					init_memory(t_pvm *vm);
+void					print_memory(t_pvm *vm);
 
 /*
-parse_arg.c
+** parse_arg.c
 */
-int						parse_arg(t_pvm *prms, int ac, char **av);
+int						parse_arg(t_pvm *vm, int ac, char **av);
 void					add_process(t_process **processes, t_process *new);
 
 /*
-parse_process.c
+** parse_process.c
 */
-t_list					*parse_process(char *path, int nb_prog, t_pvm *prms);
+void					save_champ(char *path, int nb_prog, t_pvm *vm);
+t_list					*parse_champion(char *path, int nb_prog, t_pvm *vm);
 
 /*
-parse_process2.c
+** parse_process2.c
 */
-void					parse_process_header(t_process *process, int fd, char *filename);
-void					parse_process_prog(t_process *process, int fd);
+void					parse_champion_header(t_champion *champion, int fd, char *filename);
+void					parse_champion_prog(t_champion *champion, int fd);
 
 /*
 ** misc
@@ -123,6 +133,6 @@ void					ft_lld(t_pvm *pvm, t_process *process);
 void					ft_lldi(t_pvm *pvm, t_process *process);
 void					ft_lfork(t_pvm *pvm, t_process *process);
 void					ft_aff(t_pvm *pvm, t_process *process);
-int		get_prm_value(t_pvm *pvm, t_process *process, int i);
+int						get_prm_value(t_pvm *pvm, t_process *process, int i);
 
 #endif

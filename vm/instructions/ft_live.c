@@ -18,9 +18,10 @@ void	ft_live(t_pvm *pvm, t_process *process)
 
 	if ((node = ft_lstfindbysize(pvm->champions, process->param[0])))
 	{
-		process->nb_live ++;
-		process->l_live = pvm->total_cycles;
-		ft_putstr((char*)(node->content));
+		process->cycles_wo_live = 0;
+		(CHAMPION(node))->nb_live++;
+		(CHAMPION(node))->l_live = pvm->total_cycles;
+		ft_putstr((char*)((CHAMPION(node))->header.prog_name));
 		ft_putendl(" is still not f****** dead. For god sake, kill him!!");
 	}
 }

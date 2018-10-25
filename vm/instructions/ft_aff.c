@@ -21,5 +21,5 @@ void	ft_aff(UNUSED t_pvm *pvm, t_process *process)
 	char	c;
 
 	c = process->r[process->param[0]] % 256;
-	ft_printf("%s: %c\n", process->header.prog_name, c);
+	ft_printf("%c\n", c);
 }

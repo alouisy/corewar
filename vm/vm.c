@@ -12,33 +12,33 @@
 
 #include "vm.h"
 
-void	process_instruction(t_pvm *prms, t_process *process)
+void	process_instruction(t_pvm *vm, t_process *process)
 {
 	printf("%d cycles before exe of '%s' : \n", process->cycle_bf_exe - 1, op_tab[process->opcode].name);
 	if (--process->cycle_bf_exe == 0)
 	{
-		prms->f[process->opcode - 1](prms, process);
+		vm->f[process->opcode - 1](vm, process);
 		process->pc = process->pc2;
 		process->opcode = -1;
 		process->ocp = 0;
 	}
 }
 
-void		get_instruction(t_pvm *prms, t_process *process)
+void		get_instruction(t_pvm *vm, t_process *process)
 {
 	int		i;
 	int		j;
 
- 	process->opcode = prms->memory[process->pc];
- 	printf("\npc = %d & memory[pc] = '%c' & opcode = %d\n",process->pc, prms->memory[process->pc], process->opcode);
+ 	process->opcode = vm->memory[process->pc];
+ 	printf("\npc = %d & memory[pc] = '%c' & opcode = %d\n",process->pc, vm->memory[process->pc], process->opcode);
 	i = -1;
 	j = 1;
 	if (op_tab[process->opcode].ocp)
 	{
-		process->ocp = prms->memory[process->pc + 1];
+		process->ocp = vm->memory[process->pc + 1];
 		while (++i < op_tab[process->opcode].nb_param)
 		{
-			process->param_type[i] = (prms->memory[process->pc + 1] & (0b11000000 >> (i * 2))) >> (6 - i * 2);
+			process->param_type[i] = (vm->memory[process->pc + 1] & (0b11000000 >> (i * 2))) >> (6 - i * 2);
 			printf("param[%d] = '%d'\n", i, process->param_type[i]);
 		}
 		j++;
@@ -50,17 +50,17 @@ void		get_instruction(t_pvm *prms, t_process *process)
 	{
 		if (process->param_type[i] == REG_CODE)
 		{
-			process->param[i] = ft_strhex2dec((prms->memory)+(process->pc + j), 1);
+			process->param[i] = ft_strhex2dec((vm->memory)+(process->pc + j), 1);
 			j += 1;
 		}
 		else if (process->param_type[i] == IND_CODE)
 		{
-			process->param[i] = ft_strhex2dec((prms->memory)+(process->pc + j), 2);
+			process->param[i] = ft_strhex2dec((vm->memory)+(process->pc + j), 2);
 			j += 2;
 		}
 		else if (process->param_type[i] == DIR_CODE)
 		{
-			process->param[i] = ft_strhex2dec((prms->memory)+(process->pc + j), ((op_tab[process->opcode].label_size == 1) ? 2 : 4));
+			process->param[i] = ft_strhex2dec((vm->memory)+(process->pc + j), ((op_tab[process->opcode].label_size == 1) ? 2 : 4));
 			printf("Ternaire = '%d'\nDIR HEXA = %d\n", ((op_tab[process->opcode].label_size == 1) ? 4 : 8), process->param[i]);
 			j += (op_tab[process->opcode].label_size == 1) ? 2 : 4;
 		}
@@ -68,8 +68,8 @@ void		get_instruction(t_pvm *prms, t_process *process)
 	process->pc2 = process->pc + j;
 	process->cycle_bf_exe = op_tab[process->opcode].nb_cycles - 1;
 	printf("PC : %d / MEM[PC] : '%.2hhx'\nPC2 : %d / MEM[PC2] : '%.2hhx'\nINSTUCTION : %s\nOPCODE : %d / %s\nNB_PARAMS : %d\nPARAM 1 : %d / %s\nPARAM 2 : %d / %s\nPARAM 3 : %d / %s\nCYCLE BEFORE EXE : %d\n\n",
-	process->pc, prms->memory[process->pc],
-	process->pc2, prms->memory[process->pc2],
+	process->pc, vm->memory[process->pc],
+	process->pc2, vm->memory[process->pc2],
 	op_tab[process->opcode].name,
 	process->opcode, ft_itoa_base(process->opcode, 16, 0),
 	op_tab[process->opcode].nb_param,
@@ -79,67 +79,62 @@ void		get_instruction(t_pvm *prms, t_process *process)
 	process->cycle_bf_exe);
 }
 
-void		start_vm(t_pvm *prms)
+void		start_vm(t_pvm *vm)
 {
-	int			len;
 	t_process	*content;
+	t_champion	*champ;
 	t_list		*tmp;
 
-	while (prms->total_cycles != prms->dump && prms->winner == 0)
+	while (vm->total_cycles != vm->dump && vm->winner == 0)
 	{
-		tmp = prms->processes;
-		len = ft_lstlength(tmp);
-		(void)len;
-		printf("It's now cycle %d\n", prms->total_cycles);
+		tmp = vm->processes;
+		printf("It's now cycle %d\n", vm->total_cycles);
 		while (tmp)
 		{
 			content = CONTENT(tmp);
+			content->cycles_wo_live++;
 			if (content->opcode == -1)
-				get_instruction(prms, content);
+				get_instruction(vm, content);
 			else
-				process_instruction(prms, content);
+				process_instruction(vm, content);
 			tmp = tmp->next;		
 		}
-		prms->total_cycles++;
+		vm->total_cycles++;
 	}
-	print_memory(prms);
-	if (prms->winner)
+	print_memory(vm);
+	if (vm->winner)
 	{
-		content = CONTENT(prms->processes);
-		ft_printf("le joueur %d(%s) a gagne\n", content->champ_nbr, content->header.prog_name);
+		champ = CHAMPION(vm->champions);
+		ft_printf("le joueur %d(%s) a gagne\n", champ->nbr, champ->header.prog_name);
 	}
 }
 
 void 	aux_print_champ(t_list *node)
 {
-	t_process	*tmp;
+	t_champion	*champion;
 
-	tmp = CONTENT(node);
-	ft_printf("Pos: %d\nMagic: %d\nProg_name: %s\nProg_size: %d\nComment: %s\nPid: %d\nR0: %d\nVm_Pos:% d\nPc: %d\n\n",
-		tmp->champ_nbr,
-		tmp->header.magic,
-		tmp->header.prog_name,
-		tmp->header.prog_size,
-		tmp->header.comment,
-		tmp->pid,
-		tmp->r[0],
-		tmp->vm_pos,
-		tmp->pc);
+	champion = CHAMPION(node);
+	ft_printf("Pos: %d\nMagic: %d\nProg_name: %s\nProg_size: %d\nComment: %s\n\n",
+		champion->nbr,
+		champion->header.magic,
+		champion->header.prog_name,
+		champion->header.prog_size,
+		champion->header.comment);
 }
 
 int				main(int argc, char **argv)
 {
-	t_pvm	prms;
+	t_pvm	vm;
 
 	if (argc > 1)
 	{
-		init_prms(&prms);
-		parse_arg(&prms, argc, argv);
-		init_vm(&prms);
-		ft_lstiter(prms.processes, &aux_print_champ);
-		print_memory(&prms);
+		init_vm(&vm);
+		parse_arg(&vm, argc, argv);
+		init_memory(&vm);
+		ft_lstiter(vm.champions, &aux_print_champ);
+		print_memory(&vm);
 		printf("nbr = %d\n", ft_strhex2dec((unsigned char*)"fffb", 4));
-		start_vm(&prms);
+		start_vm(&vm);
 	}
 	return(0);
 }
