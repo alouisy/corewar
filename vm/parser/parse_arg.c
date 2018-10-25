@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/09 14:51:21 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/10/19 13:47:55 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/10/25 19:03:41 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,33 @@ static inline void		ft_check_champ_numb(t_list *champions, int nb)
 	ft_putendl("Checking Completed !");
 }
 
+int	save_champ(char *path, int nb_prog, t_pvm *vm)
+{
+	t_list		*champion;
+	t_list		*node;
+	t_process	process;
+
+	if ((champion = parse_champion(path, nb_prog, vm)))
+	{
+		init_process(&process, -1, vm);	
+		if ((node = ft_lstnew(&process, sizeof(process))))
+		{
+			ft_putendl("One Champ Save...");
+			ft_lstadd(&vm->champions, champion);
+			ft_lstadd(&vm->processes, node);
+			ft_putendl("Save Completed !");
+		}
+		else
+		{
+			ft_strerror("ERROR (2 CHAMPIONS WITH THE SAME NUMBER)", 0);
+			return (0);
+		}
+	}
+	else
+		return (0);
+	return (1);
+}
+
 inline int				parse_arg(t_pvm *vm, int ac, char **av)
 {
 	int	i;
@@ -46,7 +73,8 @@ inline int				parse_arg(t_pvm *vm, int ac, char **av)
 			vm->dump = ft_atoi(av[i]);
 		else
 		{
-			save_champ(av[i], vm->nb_champ, vm);
+			if (!save_champ(av[i], vm->nb_champ, vm))
+				return(0);
 			vm->nb_champ++;
 		}
 	}

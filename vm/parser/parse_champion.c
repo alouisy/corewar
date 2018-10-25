@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/09 14:54:40 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/10/25 17:05:52 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/10/25 19:06:40 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,6 @@
 	return (nb_prog);
 }*/
 
-void		init_champion(t_champion *champion, int nb_prog)
-{
-	champion->nbr = nb_prog;
-	champion->vm_pos = 0;
-	champion->l_live = 0;
-	champion->nb_live = 0;
-}
-
 t_list	*parse_champion(char *path, int nb_prog, UNUSED t_pvm *vm)
 {
 	int			fd;
@@ -62,11 +54,16 @@ t_list	*parse_champion(char *path, int nb_prog, UNUSED t_pvm *vm)
 		parse_champion_prog(&champion, fd);
 		ft_putendl("Parse 4 Finish");
 		close(fd);
-		node = ft_lstnew((void*)(&champion), sizeof(t_champion));
-		if (!node)
-			exit_error("ERROR while trying to malloc", 1);
+		if (!(node = ft_lstnew((void*)(&champion), sizeof(t_champion))))
+		{
+			ft_strerror("ERROR while trying to malloc", 0);
+			return (NULL);
+		}
 	}
 	else
-		exit_error(ft_strjoin("Can't read source file ", path), 1);
+	{
+		ft_strerror(ft_strjoin("Can't read source file ", path), 1);
+		return (NULL);
+	}
 	return (node);
 }
