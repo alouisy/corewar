@@ -11,15 +11,17 @@
 /* ************************************************************************** */
 
 #include "asm.h"
+int y = 0;
 
 static t_param_def	*init_p(t_param_type param_type, int two_bytes, int ocp,
-														t_inst_def *inst_def)
+														t_inst_def *inst_def, t_asm_inf *asm_inf)
 {
 	t_param_def *param;
 
+	y++;
 	param = malloc(sizeof(t_param_def));
-	if (!param)
-		exit_error("malloc fail", 4);
+	ft_lstadd(&asm_inf->to_free, ft_lstnew_p(param, sizeof(param)));
+		exit_error("Malloc error", MALLOC_ERR, asm_inf->to_free);
 	param->name = inst_def->name;
 	param->nb = param_type.nb;
 	param->type[0] = param_type.type1;
@@ -55,59 +57,108 @@ static void			init_inst_def(t_inst_def *inst_def, char *name, int code)
 	inst_def->inst_code = code;
 }
 
-static void			init_last_param(t_list ***tab)
+static void			init_last_param(t_list ***tab, t_asm_inf *asm_inf)
 {
 	t_param_type	type;
 	int				size;
 	t_inst_def		inst_def;
+	t_list			*new;
 
 	size = sizeof(t_param_def);
 	init_type(2, 0, 0, &type);
 	init_inst_def(&inst_def, "fork", 12);
-	(*tab)[5] = ft_lstnew_p(init_p(type, 1, 0, &inst_def), size);
+	new = ft_lstnew_p(init_p(type, 1, 0, &inst_def, asm_inf), size);
+	ft_lstadd(&asm_inf->to_free, new);
+	(*tab)[5] = new;
+
 	init_inst_def(&inst_def, "zjmp", 9);
-	(*tab)[11] = ft_lstnew_p(init_p(type, 1, 0, &inst_def), size);
+	new = ft_lstnew_p(init_p(type, 1, 0, &inst_def, asm_inf), size);
+	ft_lstadd(&asm_inf->to_free, new);
+	(*tab)[11] = new;
+
 	init_inst_def(&inst_def, "lfork", 15);
-	ft_lstadd(&((*tab)[8]), ft_lstnew_p(init_p(type, 1, 0, &inst_def), size));
+	new = ft_lstnew_p(init_p(type, 1, 0, &inst_def, asm_inf), size);
+	ft_lstadd(&asm_inf->to_free, new);
+	ft_lstadd(&((*tab)[8]), new);
+
 	init_inst_def(&inst_def, "live", 1);
-	ft_lstadd(&((*tab)[12]), ft_lstnew_p(init_p(type, 0, 0, &inst_def), size));
+	new = ft_lstnew_p(init_p(type, 0, 0, &inst_def, asm_inf), size);
+	ft_lstadd(&asm_inf->to_free, new);
+	ft_lstadd(&((*tab)[12]), new);
+
 	init_type(7, 3, 1, &type);
 	init_inst_def(&inst_def, "ldi", 10);
-	(*tab)[7] = ft_lstnew_p(init_p(type, 1, 1, &inst_def), size);
+	new = ft_lstnew_p(init_p(type, 1, 1, &inst_def, asm_inf), size);
+	ft_lstadd(&asm_inf->to_free, new);
+	(*tab)[7] = new;
+
 	init_inst_def(&inst_def, "lldi", 15);
-	ft_lstadd(&((*tab)[10]), ft_lstnew_p(init_p(type, 1, 1, &inst_def), size));
+	new = ft_lstnew_p(init_p(type, 1, 1, &inst_def, asm_inf), size);
+	ft_lstadd(&asm_inf->to_free, new);
+	ft_lstadd(&((*tab)[10]), new);
+
 	init_type(1, 7, 3, &type);
 	init_inst_def(&inst_def, "sti", 11);
-	ft_lstadd(&((*tab)[12]), ft_lstnew_p(init_p(type, 1, 1, &inst_def), size));
+	new = ft_lstnew_p(init_p(type, 1, 1, &inst_def, asm_inf), size);
+	ft_lstadd(&asm_inf->to_free, new);
+	ft_lstadd(&((*tab)[12]), new);
+
 	init_type(1, 0, 0, &type);
 	init_inst_def(&inst_def, "aff", 16);
-	(*tab)[13] = ft_lstnew_p(init_p(type, 0, 1, &inst_def), size);
+	new = ft_lstnew_p(init_p(type, 0, 1, &inst_def, asm_inf), size);
+	ft_lstadd(&asm_inf->to_free, new);
+	(*tab)[13] = new;
 }
 
-void				init_param_def(t_list ***hash_tab, int size)
+void				init_param_def(t_list ***hash_tab, int size, t_asm_inf *asm_inf)
 {
 	t_param_type	type;
 	t_inst_def		inst;
+	t_list			*new;
 
 	init_type(7, 7, 1, &type);
 	init_inst_def(&inst, "or", 7);
-	(*hash_tab)[6] = ft_lstnew_p(init_p(type, 0, 1, &inst), size);
+	new = ft_lstnew_p(init_p(type, 0, 1, &inst, asm_inf), size);
+	ft_lstadd(&asm_inf->to_free, new);
+	(*hash_tab)[6] = new;
+	
 	init_inst_def(&inst, "and", 6);
-	(*hash_tab)[10] = ft_lstnew_p(init_p(type, 0, 1, &inst), size);
+	new = ft_lstnew_p(init_p(type, 0, 1, &inst, asm_inf), size);
+	ft_lstadd(&asm_inf->to_free, new);
+	(*hash_tab)[10] = new;
+
 	init_inst_def(&inst, "xor", 8);
-	(*hash_tab)[12] = ft_lstnew_p(init_p(type, 0, 1, &inst), size);
+	new = ft_lstnew_p(init_p(type, 0, 1, &inst, asm_inf), size);
+	ft_lstadd(&asm_inf->to_free, new);
+	(*hash_tab)[12] = new;
+
 	init_type(1, 5, 0, &type);
 	init_inst_def(&inst, "st", 3);
-	ft_lstadd(&((*hash_tab)[12]), ft_lstnew_p(init_p(type, 0, 1, &inst), size));
+	new = ft_lstnew_p(init_p(type, 0, 1, &inst, asm_inf), size);
+	ft_lstadd(&asm_inf->to_free, new);
+	ft_lstadd(&((*hash_tab)[12]), new);
+
 	init_type(1, 1, 1, &type);
 	init_inst_def(&inst, "sub", 5);
-	ft_lstadd(&((*hash_tab)[6]), ft_lstnew_p(init_p(type, 0, 1, &inst), size));
+	new = ft_lstnew_p(init_p(type, 0, 1, &inst, asm_inf), size);
+	ft_lstadd(&asm_inf->to_free, new);
+	ft_lstadd(&((*hash_tab)[6]), new);
+
+
 	init_inst_def(&inst, "add", 4);
-	(*hash_tab)[9] = ft_lstnew_p(init_p(type, 0, 1, &inst), size);
+	new = ft_lstnew_p(init_p(type, 0, 1, &inst, asm_inf), size);
+	ft_lstadd(&asm_inf->to_free, new);
+	(*hash_tab)[9] = new;
+
 	init_type(6, 1, 0, &type);
 	init_inst_def(&inst, "ld", 2);
-	(*hash_tab)[0] = ft_lstnew_p(init_p(type, 0, 1, &inst), size);
+	new = ft_lstnew_p(init_p(type, 0, 1, &inst, asm_inf), size);
+	ft_lstadd(&asm_inf->to_free, new);
+	(*hash_tab)[0] = new;
+
 	init_inst_def(&inst, "lld", 13);
-	ft_lstadd(&((*hash_tab)[10]), ft_lstnew_p(init_p(type, 0, 1, &inst), size));
-	init_last_param(hash_tab);
+	new = ft_lstnew_p(init_p(type, 0, 1, &inst, asm_inf), size);
+	ft_lstadd(&asm_inf->to_free, new);
+	ft_lstadd(&((*hash_tab)[10]), new);
+	init_last_param(hash_tab, asm_inf);
 }

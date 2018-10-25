@@ -41,6 +41,6 @@ char		*ft_itoa(long long n)
 	result = NULL;
 	divide(n, &result);
 	res_str = lst_to_str(result);
-	lst_clr(&result);
+	lst_clr(&result, free);
 	return (res_str);
 }

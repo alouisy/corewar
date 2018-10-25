@@ -12,17 +12,31 @@
 
 #include "asm.h"
 
-void		free_split(char **split)
+char		*trim_comment(char *line)
 {
-	int i;
+	int		i;
+	int		j;
+	char	*trimmed;
+	char	*tmp_trimmed;
+	int		is_direct;
 
 	i = 0;
-	while (split[i])
-	{
-		free(split[i]);
+	while (line[i] && !ft_iswhitespace(line[i]))
 		i++;
-	}
-	free(split);
+	j = i;
+	while (line[j] && ft_iswhitespace(line[j]))
+		j++;
+	if (line[j] && line[j] != COMMENT_CHAR)
+		exit_error("Wrong format\n", WRONG_FORMAT_ERR);
+	trimmed = ft_strtrim(line);
+	is_direct = 0;
+	if (trimmed[0] == 'r' || trimmed[0] == '%')
+		is_direct = 1;
+	tmp_trimmed = ft_strndup(&(trimmed[is_direct]), i);
+	free(trimmed);
+	trimmed = ft_strtrim(tmp_trimmed);
+	free(tmp_trimmed);
+	return (trimmed);
 }
 
 int			calc_weight(int pow)
@@ -41,12 +55,13 @@ void		add_lbl(char *lbl, t_write_inf *write_inf, t_asm_inf *asm_inf)
 {
 	t_holder_def	holder_def;
 
-	holder_def.lbl = lbl;
+	holder_def.lbl = ft_strdup(lbl);
 	holder_def.inst_pos = write_inf->inst_pos;
 	holder_def.lst_pos = asm_inf->current;
 	holder_def.lbl_bytes = write_inf->nb_bytes;
 	holder_def.has_ocp = write_inf->has_ocp;
-	ft_lstadd(&(asm_inf->holder_lst), ft_lstnew(&holder_def, sizeof(holder_def))); //je sais pas si je perds le .lbl du coup ?
+	ft_lstadd(&(asm_inf->holder_lst), ft_lstnew(&holder_def,
+													sizeof(t_holder_def)));
 	asm_inf->nb_bytes += write_inf->nb_bytes;
 }
 
@@ -57,7 +72,7 @@ char		*fill_binary(int nb_bytes, int val)
 
 	binary = malloc(nb_bytes);
 	if (!binary)
-		exit_error("malloc error\n", 1);
+		exit_error("malloc error\n", MALLOC_ERR);
 	i = 0;
 	while (nb_bytes > 0)
 	{

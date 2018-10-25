@@ -23,7 +23,7 @@ static int	if_return(char **rest, char **line, int index)
 	return (1);
 }
 
-char	*ft_strncpyat(char *dst, const char *src, int shift)
+char		*ft_strncpyat(char *dst, const char *src, int shift)
 {
 	int i;
 
@@ -56,7 +56,7 @@ static char	*ft_strjoin_overlap(char **s1, char **s2)
 		len_2 = ft_strlen(*s2);
 		str = malloc(len_1 + len_2 + 1);
 		if (!str)
-			exit_error("malloc error\n", 1);
+			exit_error("malloc error\n", MALLOC_ERR);
 		ft_strncpyat(str, *s1, 0);
 		ft_strncpyat(str, *s2, len_1);
 		ft_strdel(s1);

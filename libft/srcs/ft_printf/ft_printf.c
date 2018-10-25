@@ -44,13 +44,13 @@ static int	add_reset(t_detail *co_det, t_list **f_lst, t_pos *p, int add_null)
 				free(co_det->conv->str[j++]);
 			free(co_det->conv->str);
 			free(co_det->conv);
-			lst_clr(&(co_det->info));
+			lst_clr(&(co_det->info), free);
 			free(co_det->ori_str);
 			display(*f_lst, 1);
 			return (0);
 		}
 	add(co_det, f_lst, add_null);
-	lst_clr(&(co_det->info));
+	lst_clr(&(co_det->info), free);
 	p->start = p->i + 1;
 	p->mid = p->start;
 	return (1);

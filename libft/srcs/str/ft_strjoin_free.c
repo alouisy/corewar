@@ -24,7 +24,7 @@ char	*ft_strjoin_free(char *s1, char *s2, int side_to_free)
 		return (s1);
 	str = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
 	if (!str)
-		exit_error("malloc error\n", 1);
+		exit_error("malloc error\n", MALLOC_ERR);
 	str[0] = '\0';
 	ft_strcat(str, s1);
 	ft_strcat(str, s2);

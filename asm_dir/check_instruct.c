@@ -46,7 +46,7 @@ void		check_instruct(t_list **hash_tab, char *line, t_asm_inf *asm_inf)
 	while (line[i] && !ft_iswhitespace(line[i]))
 		i++;
 	if (i > 4 || i <= 1)
-		exit_error("unknown instruction\n", 7);
+		exit_error("unknown instruction\n", UNKNOWN_INST_ERR);
 	inst = ft_strndup(line, i);
 	tmp_list = hash_tab[hash_word(inst)];
 	ocp_s.ocp = 0;
@@ -60,5 +60,5 @@ void		check_instruct(t_list **hash_tab, char *line, t_asm_inf *asm_inf)
 	}
 	free(inst);
 	if (!ocp_s.ocp)
-		exit_error("unknown instruction\n", 10);
+		exit_error("unknown instruction\n", UNKNOWN_INST_ERR);
 }

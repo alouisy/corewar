@@ -13,6 +13,12 @@
 #ifndef LIBFT_H
 # define LIBFT_H
 # define BUFF_SIZE 320
+# define MALLOC_ERR 1
+# define READ_ERR 2
+# define OPEN_ERR 3
+# define MULT_ARGS_ERR 4
+# define MISSING_ARGS_ERR 5
+# define WRONG_FILE_NAME 6
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
@@ -173,7 +179,8 @@ t_list						*ft_lstnew(void const *content,
 														size_t content_size);
 t_list						*ft_lstnew_p(void *content,
 														size_t content_size);
-void						lst_clr(t_list **lst);
+void						lst_clr(t_list **lst,
+										void (*free_content)(void *content));
 char						*lst_to_str(t_list *lst);
 t_list						*ft_pop(t_list **lst);
 int							ft_pop_value(t_list **lst);
@@ -211,7 +218,7 @@ void						ft_putstr(const char *str);
 void						ft_putstr_fd(char const *s, int fd);
 int							get_next_line(const int fd, char **line,
 	char separator);
-void						exit_error(char *msg, int code);
+void						exit_error(char *msg, int code, t_list *to_free);
 /*
 **Mem
 */
@@ -260,7 +267,8 @@ int							display(t_list *final_lst, int error);
 **Misc
 */
 long long					ft_atoi(char *str);
-long long					ft_atoi_harsh(char *str, int accept_neg, int return_value);
+long long					ft_atoi_harsh(char *str, int accept_neg,
+												int return_value, int is_int);
 int							ft_isascii(int c);
 int							ft_isalnum(int c);
 int							ft_isalpha(int c);

@@ -12,8 +12,9 @@
 
 #include "libft.h"
 
-void	exit_error(char *msg, int code)
+void	exit_error(char *msg, int code, t_list *to_free)
 {
+	lst_clr(&to_free, free);
 	ft_printf("%s", msg);
 	exit(code);
 }

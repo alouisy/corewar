@@ -34,7 +34,7 @@ int			choose_write(char *line, t_param_def *param, t_asm_inf *asm_inf,
 		ocp = write_val(line, write_inf, asm_inf, 3);
 	}
 	else
-		exit_error("wrong param type\n", 11);
+		exit_error("wrong param type\n", WRONG_PARAM_TYPE_ERR);
 	return (ocp);
 }
 
@@ -96,7 +96,7 @@ void		write_lbl(t_asm_inf *asm_inf)
 		searched_index.str = tmp_holder->lbl;
 		found_node = find_in_tree(asm_inf->lbl_tree, searched_index);
 		if (!found_node)
-			exit_error("label reference inexistant\n", 12);
+			exit_error("Label reference inexistant\n", LBL_NOT_EXIST_ERR);
 		val = ((t_lbl_def *)found_node->content)->pos -
 													tmp_holder->inst_pos + 1;
 		if (val < 0)
@@ -104,34 +104,6 @@ void		write_lbl(t_asm_inf *asm_inf)
 		add_new(tmp_holder, val);
 		tmp_lst = tmp_lst->next;
 	}
-}
-
-char		*trim_comment(char *line)
-{
-	int		i;
-	int		j;
-	char	*trimmed;
-	char	*tmp_trimmed;
-	int		is_direct;
-
-	i = 0;
-	//i = is_direct; ?
-	while (line[i] && !ft_iswhitespace(line[i]))
-		i++;
-	j = i;
-	while (line[j] && ft_iswhitespace(line[j]))
-		j++;
-	if (line[j] && line[j] != COMMENT_CHAR)
-		exit_error("wrong format\n", 2);
-	trimmed = ft_strtrim(line);
-	is_direct = 0;
-	if (trimmed[0] == 'r' || trimmed[0] == '%')
-		is_direct = 1;
-	tmp_trimmed = ft_strndup(&(trimmed[is_direct]), i);
-	free(trimmed);
-	trimmed = ft_strtrim(tmp_trimmed);
-	free(tmp_trimmed);
-	return (trimmed);
 }
 
 int			write_val(char *line, t_write_inf *write_inf, t_asm_inf *asm_inf,
@@ -153,8 +125,8 @@ int			write_val(char *line, t_write_inf *write_inf, t_asm_inf *asm_inf,
 		binary = fill_binary(write_inf->nb_bytes, val);
 		asm_inf->current->next = ft_lstnew_p(binary, write_inf->nb_bytes);
 		asm_inf->current = asm_inf->current->next;
-		free(trimmed);
 	}
+	free(trimmed);
 	return (return_val);
 }
 
@@ -168,9 +140,9 @@ int			write_register(char *line, t_asm_inf *asm_inf)
 	trimmed = trim_comment(line);
 	nb_register = ft_atoi_harsh(trimmed, 0, -1, 0);
 	if (nb_register > REG_NUMBER)
-		exit_error("unknown register\n", 7);
+		exit_error("Unknown register\n", UNKNOWN_REG_ERR);
 	else if (nb_register < 0)
-		exit_error("wrong register format\n", 7);
+		exit_error("Wrong register format\n", WRONG_REG_FORMAT_ERR);
 	asm_inf->current->next = ft_lstnew(&nb_register, 1);
 	asm_inf->current = asm_inf->current->next;
 	asm_inf->nb_bytes += 1;

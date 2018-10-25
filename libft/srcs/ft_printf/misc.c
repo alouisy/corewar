@@ -31,7 +31,7 @@ int			display(t_list *final_lst, int error)
 		length += ft_strlen(tmp->content);
 		tmp = tmp->next;
 	}
-	lst_clr(&final_lst);
+	lst_clr(&final_lst, free);
 	if (error)
 		return (-1);
 	else

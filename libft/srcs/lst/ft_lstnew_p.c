@@ -18,7 +18,7 @@ t_list	*ft_lstnew_p(void *content, size_t content_size)
 
 	new = (t_list *)malloc(sizeof(t_list));
 	if (new == NULL)
-		exit_error("malloc error\n", 1);
+		exit_error("malloc error\n", MALLOC_ERR);
 	if (content == NULL)
 	{
 		new->content = NULL;

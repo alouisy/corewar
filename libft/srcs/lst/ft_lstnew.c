@@ -18,7 +18,7 @@ t_list	*ft_lstnew(void const *content, size_t content_size)
 
 	new = (t_list *)malloc(sizeof(t_list));
 	if (new == NULL)
-		exit_error("malloc error\n", 1);
+		exit_error("malloc error\n", MALLOC_ERR);
 	if (content == NULL)
 	{
 		new->content = NULL;
@@ -28,7 +28,7 @@ t_list	*ft_lstnew(void const *content, size_t content_size)
 	{
 		new->content = malloc(content_size);
 		if (new->content == NULL)
-			exit_error("malloc error\n", 1);
+			exit_error("malloc error\n", MALLOC_ERR);
 		ft_memcpy(new->content, content, content_size);
 		new->content_size = content_size;
 	}
