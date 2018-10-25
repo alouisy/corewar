@@ -15,6 +15,7 @@
 static inline int	aux_size(t_champion *champion, unsigned int result)
 {
 	ft_putnbr(result);
+	ft_putendl("");
 	if (result <= CHAMP_MAX_SIZE)
 		champion->header.prog_size = result;
 	else
@@ -25,6 +26,7 @@ static inline int	aux_size(t_champion *champion, unsigned int result)
 static inline int	aux_magic(t_champion *champion, unsigned int result)
 {
 	ft_putnbr(result);
+	ft_putendl("");
 	if (result == COREWAR_EXEC_MAGIC)
 		champion->header.magic = result;
 	else
@@ -42,15 +44,15 @@ static unsigned int	parse_champion_magic_size(int fd, char *filename)
 	if (!(str = ft_strjoin("Can't read source file ", filename)))
 		return (0);
 	bin = 24;
-	while (bin)
+	result = 0;
+	while (bin >= 0)
 	{
 		if (read(fd, &current_byte, 1) == -1)
 			return (ft_strerror(str, 1));
-		result = current_byte << bin;
+		result += current_byte << bin;
 		bin -= 8;
 	}
 	ft_strdel(&str);
-	result += current_byte;
 	return (result);
 }
 
@@ -81,7 +83,7 @@ inline int			parse_champion_header(t_champion *champion, int fd, char *filename)
 	str = "INVALID FORMAT (ERROR W/ COMMENT)";
 	if (!(size = parse_champion_magic_size(fd, filename))
 			|| !aux_size(champion, size)
-			|| aux_read(fd, champion->header.comment, COMMENT_LENGTH, str))
+			|| !aux_read(fd, champion->header.comment, COMMENT_LENGTH, str))
 		return (0);
 	return (1);
 }
