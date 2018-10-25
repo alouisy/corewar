@@ -21,7 +21,7 @@ int	ft_strhex2dec(unsigned char *str, int len)
 	value = 0;
 	while (++i < len)
 	{
-		value += str[i] * ft_pow(16, (len - (i + 1)) * 2);
+		value += str[i] * ft_pow(256, len - (i + 1));
 	}
 	return (value);
 }
