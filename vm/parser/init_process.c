@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_process.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/10/25 18:38:22 by jgroc-de          #+#    #+#             */
+/*   Updated: 2018/10/25 18:43:15 by jgroc-de         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../vm.h"
 
-void		init_process(t_process *process, UNUSED int nb_prog, t_pvm *vm)
+inline void	init_process(t_process *process, UNUSED int nb_prog, t_pvm *vm)
 {
 	int		i;
 
@@ -24,25 +36,4 @@ void		init_process(t_process *process, UNUSED int nb_prog, t_pvm *vm)
 	}
 	process->opcode = -1;
 	process->ocp = 0;
-}
-
-void		save_champ(char *path, int nb_prog, t_pvm *vm)
-{
-	t_list		*champion;
-	t_list		*node;
-	t_process	process;
-
-	if ((champion = parse_champion(path, nb_prog, vm)))
-	{
-		init_process(&process, -1, vm);	
-		if ((node = ft_lstnew(&process, sizeof(process))))
-		{
-			ft_putendl("One Champ Save...");
-			ft_lstadd(&vm->champions, champion);
-			ft_lstadd(&vm->processes, node);
-			ft_putendl("Save Completed !");
-		}
-		else
-			exit_error("ERROR (2 CHAMPIONS WITH THE SAME NUMBER)", 1);
-	}
 }

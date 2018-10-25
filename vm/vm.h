@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 17:41:26 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/10/25 18:32:21 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/10/25 19:07:52 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,6 @@ extern t_op				op_tab[17];
 /*
 ** vm.c
 */
-void					init_vm(t_pvm *vm);
-void					init_memory(t_pvm *vm);
 void					start_vm(t_pvm *vm);
 int						cycle2die(t_pvm *vm);
 void					print_memory(t_pvm *vm);
@@ -93,26 +91,22 @@ void					print_memory(t_pvm *vm);
 /*
 ** parse_arg.c
 */
+void					init_vm(t_pvm *vm);
+void					init_memory(t_pvm *vm);
+void					init_champion(t_champion *champion, int nb_prog);
+void					init_process(t_process *process, UNUSED int nb_prog, t_pvm *vm);
 int						parse_arg(t_pvm *vm, int ac, char **av);
 void					add_process(t_process **processes, t_process *new);
-
-/*
-** parse_process.c
-*/
-void					save_champ(char *path, int nb_prog, t_pvm *vm);
+int						save_champ(char *path, int nb_prog, t_pvm *vm);
 t_list					*parse_champion(char *path, int nb_prog, t_pvm *vm);
-
-/*
-** parse_process2.c
-*/
-void					parse_champion_header(t_champion *champion, int fd, char *filename);
-void					parse_champion_prog(t_champion *champion, int fd);
+int						parse_champion_header(t_champion *champion, int fd, char *filename);
+int						parse_champion_prog(t_champion *champion, int fd);
 
 /*
 ** misc
 */
 int						ft_strhex2dec(unsigned char *str, int len);
-
+int						ft_strerror(char *str, int free);
 
 /*
 ** jeu d'instruction
