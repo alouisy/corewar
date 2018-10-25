@@ -61,9 +61,7 @@ typedef struct			s_pvm
 	//nb live
 	int					sum_lives;
 	int					cur_cycle;
-	int					live;
 	int					last_live;
-	int					winner;
 }						t_pvm;
 
 /*

@@ -85,7 +85,7 @@ void		start_vm(t_pvm *vm)
 	t_champion	*champ;
 	t_list		*tmp;
 
-	while (vm->total_cycles != vm->dump && vm->winner == 0)
+	while (vm->total_cycles != vm->dump && vm->processes)
 	{
 		tmp = vm->processes;
 		printf("It's now cycle %d\n", vm->total_cycles);
