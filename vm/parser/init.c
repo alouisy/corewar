@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 17:41:07 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/10/19 13:46:11 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/10/25 17:01:13 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ inline void		init_memory(t_pvm *vm)
 	}
 }
 
-inline void		init_f(t_pvm *vm)
+static inline void		init_f(t_pvm *vm)
 {
 	vm->f[0] = &ft_live;
 	vm->f[1] = &ft_ld;
@@ -56,7 +56,7 @@ inline void		init_f(t_pvm *vm)
 	vm->f[15] = &ft_aff;
 }
 
-inline void		init_vm(t_pvm *vm)
+inline void				init_vm(t_pvm *vm)
 {
 	init_f(vm);
 	vm->processes = NULL;
