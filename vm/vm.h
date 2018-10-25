@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 17:41:26 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/10/25 17:51:51 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/10/25 18:32:21 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ extern t_op				op_tab[17];
 */
 void					init_vm(t_pvm *vm);
 void					init_memory(t_pvm *vm);
+void					start_vm(t_pvm *vm);
 int						cycle2die(t_pvm *vm);
 void					print_memory(t_pvm *vm);
 
