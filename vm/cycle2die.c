@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/25 17:26:50 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/10/25 17:51:02 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/10/25 17:57:24 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	cycle2die(t_pvm *vm)
 
 	node = vm->processes;
 	save = node;
+	vm->cur_cycle = 0;
 	while (node)
 	{
 		if ((PROCESS(node))->cycles_wo_live == 0)
