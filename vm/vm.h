@@ -23,7 +23,7 @@ typedef struct			s_process
 {
 	int					champ_nbr;
 	int					pid;
-	int					r[REG_SIZE];
+	int					r[REG_NUMBER];
 	int					pc;
 	int					pc2;
 	int					carry;
