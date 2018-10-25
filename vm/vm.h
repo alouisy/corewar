@@ -58,7 +58,6 @@ typedef struct			s_pvm
 	int					total_cycles;
 	int					cycles;
 	int					nb_checks;
-	//nb live
 	int					sum_lives;
 	int					cur_cycle;
 	int					last_live;
@@ -82,34 +81,25 @@ typedef struct			s_op
 extern t_op				op_tab[17];
 
 /*
-** vm.c
-*/
-void					start_vm(t_pvm *vm);
-int						cycle2die(t_pvm *vm);
-void					print_memory(t_pvm *vm);
-
-/*
-** parse_arg.c
+** parser
 */
 void					init_vm(t_pvm *vm);
 void					init_memory(t_pvm *vm);
 void					init_champion(t_champion *champion, int nb_prog);
 void					init_process(t_process *process, UNUSED int nb_prog, t_pvm *vm);
 int						parse_arg(t_pvm *vm, int ac, char **av);
-void					add_process(t_process **processes, t_process *new);
-int						save_champ(char *path, int nb_prog, t_pvm *vm);
 t_list					*parse_champion(char *path, int nb_prog, t_pvm *vm);
 int						parse_champion_header(t_champion *champion, int fd, char *filename);
 int						parse_champion_prog(t_champion *champion, int fd);
 
 /*
-** misc
+** vm
 */
-int						ft_strhex2dec(unsigned char *str, int len);
-int						ft_strerror(char *str, int free);
+void					start_vm(t_pvm *vm);
+int						cycle2die(t_pvm *vm);
 
 /*
-** jeu d'instruction
+** instructions
 */
 void					ft_live(t_pvm *pvm, t_process *process);
 void					ft_ld(t_pvm *pvm, t_process *process);
@@ -128,5 +118,14 @@ void					ft_lldi(t_pvm *pvm, t_process *process);
 void					ft_lfork(t_pvm *pvm, t_process *process);
 void					ft_aff(t_pvm *pvm, t_process *process);
 int						get_prm_value(t_pvm *pvm, t_process *process, int i);
+
+/*
+** misc
+*/
+void					print_memory(t_pvm *vm);
+int						ft_strhex2dec(unsigned char *str, int len);
+int						ft_strerror(char *str, int f);
+void					free_vm(t_pvm *vm);
+t_list					*ft_lstfindchamp(t_list *champ, int nbr);
 
 #endif

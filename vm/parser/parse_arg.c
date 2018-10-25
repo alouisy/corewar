@@ -36,7 +36,7 @@ static inline int	ft_check_champ_numb(t_list *champions, int nb)
 	return (1);
 }
 
-inline int			save_champ(char *path, int nb_prog, t_pvm *vm)
+static inline int	save_champ(char *path, int nb_prog, t_pvm *vm)
 {
 	t_list		*champion;
 	t_list		*node;

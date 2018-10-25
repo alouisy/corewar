@@ -39,6 +39,7 @@ int		main(int argc, char **argv)
 			print_memory(&vm);
 			start_vm(&vm);
 		}
+		free_vm(&vm);
 	}
 	return(0);
 }

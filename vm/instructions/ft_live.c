@@ -16,7 +16,7 @@ void	ft_live(t_pvm *pvm, t_process *process)
 {
 	t_list	*node;
 
-	if ((node = ft_lstfindbysize(pvm->champions, process->param[0])))
+	if ((node = ft_lstfindchamp(pvm->champions, process->param[0])))
 	{
 		process->cycles_wo_live = 0;
 		(CHAMPION(node))->nb_live++;
