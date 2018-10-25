@@ -23,7 +23,7 @@ typedef struct			s_process
 {
 	int					champ_nbr;
 	int					pid;
-	int					r[100];
+	int					r[REG_SIZE];
 	int					pc;
 	int					pc2;
 	int					carry;
@@ -60,9 +60,7 @@ typedef struct			s_pvm
 	int					nb_checks;
 	int					sum_lives;
 	int					cur_cycle;
-	int					live;
 	int					last_live;
-	int					winner;
 }						t_pvm;
 
 /*

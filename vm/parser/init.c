@@ -71,7 +71,5 @@ inline void		init_vm(t_pvm *vm)
 	vm->nb_checks = 0;
 	vm->sum_lives = 0;
 	vm->cur_cycle = 0;
-	vm->live = 0;
 	vm->last_live = 0;
-	vm->winner = 0;
 }
