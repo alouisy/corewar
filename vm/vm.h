@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 17:41:26 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/10/25 16:37:10 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/10/25 17:04:22 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ typedef struct			s_pvm
 	int					total_cycles;
 	int					cycles;
 	int					nb_checks;
+	//nb live
 	int					sum_lives;
 	int					cur_cycle;
 	int					live;
@@ -86,7 +87,6 @@ extern t_op				op_tab[17];
 ** vm.c
 */
 void					init_vm(t_pvm *vm);
-void					init_f(t_pvm *vm);
 void					init_memory(t_pvm *vm);
 void					print_memory(t_pvm *vm);
 
