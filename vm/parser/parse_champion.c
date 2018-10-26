@@ -51,7 +51,7 @@ inline int	parse_champion(char *path, int nb, t_pvm *vm)
 	if (!parse_champion_prog(&champion, fd))
 		return (0);
 	close(fd);
-	if (champion.nbr == -1)
+	if (champion.prog[0] == 0)
 		return(0);
 	if (!(node = ft_lstnew((&champion), sizeof(t_champion))))
 		return (ft_strerror("ERROR while trying to malloc", 0));

@@ -93,6 +93,7 @@ int						parse_champion_header(t_champion *champion, int fd, char *filename);
 int						parse_champion_prog(t_champion *champion, int fd);
 int						add_process(t_pvm *vm);
 int						check_champ_numb(t_list *champions);
+unsigned int			parse_magic_size(int fd, char *filename);
 
 /*
 ** vm
