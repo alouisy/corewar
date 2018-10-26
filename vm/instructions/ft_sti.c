@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/18 18:54:28 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/10/20 18:11:04 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/10/26 15:45:58 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,9 @@ void	ft_sti(t_pvm *pvm, t_process *process)
 	int		address;
 
 	value = process->r[process->param[0] - 1];
-	address = process->pc + ((get_prm_value(pvm, process, 1) + get_prm_value(pvm, process, 2)) % IDX_MOD);
+	address = process->pc
+		+ ((get_prm_value(pvm, process, 1) + get_prm_value(pvm, process, 2))
+		% IDX_MOD);
 	if (address < 0)
 		address += MEM_SIZE;
 	pvm->memory[(address + 3) % MEM_SIZE] = value;
