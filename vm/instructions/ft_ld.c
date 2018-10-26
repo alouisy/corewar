@@ -18,9 +18,15 @@
 
 void	ft_ld(UNUSED t_pvm *pvm, t_process *process)
 {
-	process->r[process->param[1] - 1] = get_prm_value(pvm, process, 0);
-	if (process->r[process->param[1] - 1])
-		process->carry = 0;
-	else
-		process->carry = 1;
+	int		value;
+
+	value = 0;
+	if (process->param[1] >= 1 && process->param[1] <= REG_NUMBER && get_prm_value(pvm, process, 0, &value))
+	{
+		process->r[process->param[1] - 1] = value;
+		if (process->r[process->param[1] - 1])
+			process->carry = 0;
+		else
+			process->carry = 1;
+	}
 }
