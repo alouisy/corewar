@@ -17,7 +17,7 @@ inline int	add_process(t_pvm *vm)
 	t_list		*node;
 	t_process	process;
 
-	init_process(&process, -1, vm);	
+	init_process(&process, vm);	
 	if (!(node = ft_lstnew(&process, sizeof(process))))
 		return (ft_strerror("Malloc fail", 0));
 	ft_lstadd(&vm->processes, node);

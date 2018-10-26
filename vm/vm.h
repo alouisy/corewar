@@ -86,14 +86,14 @@ extern t_op				op_tab[17];
 void					init_vm(t_pvm *vm);
 void					init_memory(t_pvm *vm);
 void					init_champion(t_champion *champion, int nb_prog);
-void					init_process(t_process *process, UNUSED int nb_prog, t_pvm *vm);
+void					init_process(t_process *process, t_pvm *vm);
 int						parse_arg(t_pvm *vm, int ac, char **av);
 int						parse_champion(char *path, int nb, t_pvm *vm);
 int						parse_champion_header(t_champion *champion, int fd, char *filename);
 int						parse_champion_prog(t_champion *champion, int fd);
 int						add_process(t_pvm *vm);
-int						check_champ_numb(t_list *champions);
 unsigned int			parse_magic_size(int fd, char *filename);
+int						get_champ_nb(int nb, t_list *champions);
 
 /*
 ** vm

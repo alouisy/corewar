@@ -12,19 +12,18 @@
 
 #include "../vm.h"
 
-inline void	init_process(t_process *process, UNUSED int nb_prog, t_pvm *vm)
+inline void	init_process(t_process *process, t_pvm *vm)
 {
 	int		i;
 
-	process->pid = vm->nb_champ;
-	//process->r[0] = get_champ_nb(nb_prog, vm->processes);
-	process->r[0] = vm->nb_champ;
-	process->pc = 0;
-	process->pc2 = 0;
+	process->champ_nbr = (CHAMPION(vm->champions))->nbr;
+	process->pid = ft_lstlength(vm->processes);
+	process->r[0] = process->champ_nbr;
 	i = 1;
 	while (i < REG_NUMBER)
 		process->r[i++] = 0;
-	process->champ_nbr = process->r[0];
+	process->pc = 0;
+	process->pc2 = 0;
 	process->carry = 0;
 	process->cycles_wo_live = 0;
 	process->cycle_bf_exe = 0;

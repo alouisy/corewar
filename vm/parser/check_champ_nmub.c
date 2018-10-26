@@ -12,23 +12,34 @@
 
 #include "../vm.h"
 
-inline int	check_champ_numb(t_list *champions)
+inline int	get_champ_nb(int nb, t_list *champions)
 {
-	t_list	*tmp;
-	t_list	*tmp2;
+	t_list	*champion;
 
-	tmp = champions;
-	while (tmp)
+	if (nb == -1)
 	{
-		tmp2 = tmp->next;
-		while (tmp2)
+		nb = ft_lstlength(champions);
+		champion = champions;
+		while (champion)
 		{
-			if ((CHAMPION(tmp))->nbr == (CHAMPION(tmp2))->nbr)
-				return (ft_strerror("ERROR (2 CHAMPIONS WITH THE SAME NUMBER)", 0));
-			tmp2 = tmp2->next;
+			if ((CHAMPION(champion))->nbr == nb)
+			{
+				nb++;
+				champion = champions;
+			}
+			else
+				champion = champion->next;
 		}
-		tmp = tmp->next;
 	}
-	ft_putendl("Checking Completed !");
-	return (1);
+	else
+	{
+		champion = champions;
+		while (champion)
+		{
+			if ((CHAMPION(champion))->nbr == nb)
+				(CHAMPION(champion))->nbr = get_champ_nb(-1, champions);
+			champion = champion->next;
+		}
+	}
+	return (nb);
 }

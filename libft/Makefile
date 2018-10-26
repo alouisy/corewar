@@ -28,7 +28,8 @@ SRCS_LST = ft_lstadd.c ft_lstiter.c ft_lstmap.c ft_lstcpy.c ft_lstnew.c \
 			lst_clr.c lst_to_str.c ft_lstlength.c lst_findi.c ft_pop.c \
 			ft_pop_value.c ft_lstnew_pointer.c lstp_pop_at.c lst_pop_pointer.c \
 			bubble_sort_lst.c remove_first_elem.c lst_partial_clr.c \
-			ft_lstsort.c ft_lstswap.c ft_lstfindbysize.c ft_lstpop.c
+			ft_lstsort.c ft_lstswap.c ft_lstfindbysize.c ft_lstpop.c \
+			ft_lstend.c
 
 SRCS_TREE = compare_index.c find_in_tree.c insert_rbt.c new_rbt_node.c \
 			rotate.c display_tree_id.c rbt_clear.c
