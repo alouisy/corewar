@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/09 14:54:40 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/10/25 19:06:40 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/10/26 15:49:15 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ inline int	parse_champion(char *path, int nb, t_pvm *vm)
 	t_list		*node;
 	int			fd;
 
+	ft_putendl("One Champ Save...");
 	nb = get_champ_nb(nb, vm->champions);
 	init_champion(&champion, nb);
 	if ((fd = open(path, O_RDONLY)) == -1)
@@ -28,7 +29,7 @@ inline int	parse_champion(char *path, int nb, t_pvm *vm)
 		return (0);
 	close(fd);
 	if (champion.prog[0] == 0)
-		return(0);
+		return (0);
 	if (!(node = ft_lstnew((&champion), sizeof(t_champion))))
 		return (ft_strerror("ERROR while trying to malloc", 0));
 	ft_lstadd(&vm->champions, node);

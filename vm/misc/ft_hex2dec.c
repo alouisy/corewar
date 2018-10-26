@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/18 19:05:11 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/10/18 19:23:44 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/10/26 15:33:54 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_strhex2dec(unsigned char *str, int len)
 {
-	int 	value;
+	int		value;
 	int		i;
 
 	i = -1;

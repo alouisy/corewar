@@ -1,26 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   add_process.c                                      :+:      :+:    :+:   */
+/*   vm.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/09 14:51:21 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/10/26 15:49:43 by jgroc-de         ###   ########.fr       */
+/*   Created: 2018/10/08 17:41:07 by alouisy-          #+#    #+#             */
+/*   Updated: 2018/10/26 17:34:51 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../vm.h"
 
-inline int	add_process(t_pvm *vm)
+void	process_instruction(t_pvm *vm, t_process *process)
 {
-	t_list		*node;
-	t_process	process;
-
-	init_process(&process, vm);
-	if (!(node = ft_lstnew(&process, sizeof(process))))
-		return (ft_strerror("Malloc fail", 0));
-	ft_lstadd(&vm->processes, node);
-	ft_putendl("Save Completed !");
-	return (1);
+	printf("%d cycles before exe of '%s' : \n", process->cycle_bf_exe - 1, g_op_tab[process->opcode].name);
+	if (--process->cycle_bf_exe == 0)
+	{
+		vm->f[process->opcode - 1](vm, process);
+		process->pc = process->pc2;
+		process->opcode = -1;
+		process->ocp = 0;
+	}
 }

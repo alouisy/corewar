@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/18 17:03:28 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/10/22 16:00:32 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/10/26 16:59:54 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,14 @@
 ** aritmetical addition
 */
 
-void	ft_add(UNUSED t_pvm *pvm, t_process *process)
+void	ft_add(__attribute__((unused)) t_pvm *pvm, t_process *process)
 {
 	int		i;
 	int 	error;
 
 	i = -1;
 	error = 0;
-	while (++i < op_tab[process->opcode].nb_param)
+	while (++i < g_op_tab[process->opcode].nb_param)
 		if (process->param[i] < 1 || process->param[i] > REG_NUMBER)
 			error = 1;
 	if (!error)

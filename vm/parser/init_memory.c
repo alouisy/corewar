@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vm.c                                               :+:      :+:    :+:   */
+/*   init_memory.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 17:41:07 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/10/25 18:37:47 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/10/26 17:14:08 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ inline void		init_memory(t_pvm *vm)
 	ctmp = vm->champions;
 	while (ctmp)
 	{
-		process = PROCESS(ptmp);
+		process = get_process(ptmp);
 		champ = CHAMPION(ctmp);
 		champ->vm_pos = i++ * (MEM_SIZE / vm->nb_champ);
 		process->pc = champ->vm_pos;

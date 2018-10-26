@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 17:41:26 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/10/25 19:07:52 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/10/26 17:34:28 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ typedef struct			s_process
 
 typedef struct			s_champion
 {
-	header_t			header;
+	t_header			header;
 	unsigned char		prog[CHAMP_MAX_SIZE + 1];
 	int					nbr;
 	int					vm_pos;
@@ -78,8 +78,7 @@ typedef struct			s_op
 	int					label_size;
 }						t_op;
 
-extern t_op				op_tab[17];
-
+extern t_op				g_op_tab[17];
 /*
 ** parser
 */
@@ -89,7 +88,8 @@ void					init_champion(t_champion *champion, int nb_prog);
 void					init_process(t_process *process, t_pvm *vm);
 int						parse_arg(t_pvm *vm, int ac, char **av);
 int						parse_champion(char *path, int nb, t_pvm *vm);
-int						parse_champion_header(t_champion *champion, int fd, char *filename);
+int						parse_champion_header(t_champion *champion,
+							int fd, char *filename);
 int						parse_champion_prog(t_champion *champion, int fd);
 int						add_process(t_pvm *vm);
 unsigned int			parse_magic_size(int fd, char *filename);
@@ -99,7 +99,9 @@ int						get_champ_nb(int nb, t_list *champions);
 ** vm
 */
 void					start_vm(t_pvm *vm);
-int						cycle2die(t_pvm *vm);
+void					cycle2die(t_pvm *vm);
+void					get_instruction(t_pvm *vm, t_process *process);
+void					process_instruction(t_pvm *vm, t_process *process);
 
 /*
 ** instructions
@@ -130,5 +132,7 @@ int						ft_strhex2dec(unsigned char *str, int len);
 int						ft_strerror(char *str, int f);
 void					free_vm(t_pvm *vm);
 t_list					*ft_lstfindchamp(t_list *champ, int nbr);
+t_champion				*get_champion(t_list *node);
+t_process				*get_process(t_list	*node);
 
 #endif
