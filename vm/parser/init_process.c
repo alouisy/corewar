@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/25 18:38:22 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/10/25 18:43:15 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/10/26 17:14:17 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ inline void	init_process(t_process *process, t_pvm *vm)
 {
 	int		i;
 
-	process->champ_nbr = (CHAMPION(vm->champions))->nbr;
+	process->champ_nbr = (get_champion(vm->champions))->nbr;
 	process->pid = ft_lstlength(vm->processes);
 	process->r[0] = process->champ_nbr;
 	i = 1;

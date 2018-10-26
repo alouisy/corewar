@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 17:41:26 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/10/26 16:58:31 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/10/26 17:11:15 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,5 +130,7 @@ int						ft_strhex2dec(unsigned char *str, int len);
 int						ft_strerror(char *str, int f);
 void					free_vm(t_pvm *vm);
 t_list					*ft_lstfindchamp(t_list *champ, int nbr);
+t_champion				*get_champion(t_list *node);
+t_process				*get_process(t_list	*node);
 
 #endif
