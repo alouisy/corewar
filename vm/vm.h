@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 17:41:26 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/10/26 17:11:15 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/10/26 17:34:28 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,9 @@ int						get_champ_nb(int nb, t_list *champions);
 ** vm
 */
 void					start_vm(t_pvm *vm);
-int						cycle2die(t_pvm *vm);
+void					cycle2die(t_pvm *vm);
+void					get_instruction(t_pvm *vm, t_process *process);
+void					process_instruction(t_pvm *vm, t_process *process);
 
 /*
 ** instructions
