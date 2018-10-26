@@ -6,11 +6,25 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 17:41:07 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/10/26 17:35:11 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/10/26 17:46:34 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../vm.h"
+
+void		debug(t_pvm *vm, t_process *process)
+{
+	printf("PC : %d / MEM[PC] : '%.2hhx'\nPC2 : %d / MEM[PC2] : '%.2hhx'\nINSTUCTION : %s\nOPCODE : %d / %s\nNB_PARAMS : %d\nPARAM 1 : %d / %s\nPARAM 2 : %d / %s\nPARAM 3 : %d / %s\nCYCLE BEFORE EXE : %d\n\n",
+	process->pc, vm->memory[process->pc],
+	process->pc2, vm->memory[process->pc2],
+	g_op_tab[process->opcode].name,
+	process->opcode, ft_itoa_base(process->opcode, 16, 0),
+	g_op_tab[process->opcode].nb_param,
+	process->param[0], ft_itoa_base(process->param[0], 16, 0),
+	process->param[1], ft_itoa_base(process->param[1], 16, 0),
+	process->param[2], ft_itoa_base(process->param[2], 16, 0),
+	process->cycle_bf_exe);
+}
 
 void		get_instruction(t_pvm *vm, t_process *process)
 {
@@ -55,14 +69,5 @@ void		get_instruction(t_pvm *vm, t_process *process)
 	}
 	process->pc2 = process->pc + j;
 	process->cycle_bf_exe = g_op_tab[process->opcode].nb_cycles - 1;
-	printf("PC : %d / MEM[PC] : '%.2hhx'\nPC2 : %d / MEM[PC2] : '%.2hhx'\nINSTUCTION : %s\nOPCODE : %d / %s\nNB_PARAMS : %d\nPARAM 1 : %d / %s\nPARAM 2 : %d / %s\nPARAM 3 : %d / %s\nCYCLE BEFORE EXE : %d\n\n",
-	process->pc, vm->memory[process->pc],
-	process->pc2, vm->memory[process->pc2],
-	g_op_tab[process->opcode].name,
-	process->opcode, ft_itoa_base(process->opcode, 16, 0),
-	g_op_tab[process->opcode].nb_param,
-	process->param[0], ft_itoa_base(process->param[0], 16, 0),
-	process->param[1], ft_itoa_base(process->param[1], 16, 0),
-	process->param[2], ft_itoa_base(process->param[2], 16, 0),
-	process->cycle_bf_exe);
+	debug(vm, process);
 }
