@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_arg.c                                        :+:      :+:    :+:   */
+/*   get_champ_nb.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,7 +12,20 @@
 
 #include "../vm.h"
 
-inline int	get_champ_nb(int nb, t_list *champions)
+static inline void	aux_change_number(int nb, t_list *champions)
+{
+	t_list	*champion;
+
+	champion = champions;
+	while (champion)
+	{
+		if ((CHAMPION(champion))->nbr == nb)
+			(CHAMPION(champion))->nbr = get_champ_nb(-1, champions);
+		champion = champion->next;
+	}
+}
+
+inline int			get_champ_nb(int nb, t_list *champions)
 {
 	t_list	*champion;
 
@@ -32,14 +45,6 @@ inline int	get_champ_nb(int nb, t_list *champions)
 		}
 	}
 	else
-	{
-		champion = champions;
-		while (champion)
-		{
-			if ((CHAMPION(champion))->nbr == nb)
-				(CHAMPION(champion))->nbr = get_champ_nb(-1, champions);
-			champion = champion->next;
-		}
-	}
+		aux_change_number(nb, champions);
 	return (nb);
 }
