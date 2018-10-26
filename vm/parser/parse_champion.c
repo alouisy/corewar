@@ -37,26 +37,24 @@
 	return (nb_prog);
 }*/
 
-t_list	*parse_champion(char *path, int nb_prog, UNUSED t_pvm *vm)
+inline int	parse_champion(char *path, int nb, t_pvm *vm)
 {
-	int			fd;
 	t_champion	champion;
 	t_list		*node;
-	int			out;
+	int			fd;
 
-	node = NULL;
-	out = 0;
-	if ((fd = open(path, O_RDONLY)) != -1)
-	{
-		init_champion(&champion, nb_prog);
-		if (parse_champion_header(&champion, fd, path)
-			&& parse_champion_prog(&champion, fd))
-			out = 1;
-		close(fd);
-		if (out && !(node = ft_lstnew((&champion), sizeof(t_champion))))
-			out = ft_strerror("ERROR while trying to malloc", 0);
-	}
-	else
-		ft_strerror(ft_strjoin("Can't read source file ", path), 1);
-	return (out? node : NULL);
+	init_champion(&champion, nb);
+	if ((fd = open(path, O_RDONLY)) == -1)
+		return (ft_strerror(ft_strjoin("Can't read source file ", path), 1));
+	if (!parse_champion_header(&champion, fd, path))
+		return (0);
+	if (!parse_champion_prog(&champion, fd))
+		return (0);
+	close(fd);
+	if (champion.nbr == -1)
+		return(0);
+	if (!(node = ft_lstnew((&champion), sizeof(t_champion))))
+		return (ft_strerror("ERROR while trying to malloc", 0));
+	ft_lstadd(&vm->champions, node);
+	return (1);
 }

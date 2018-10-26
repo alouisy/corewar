@@ -27,6 +27,7 @@ $(NAME): $(OBJ) vm.h op.h
 
 $(LIB):
 	make -C ../libft
+
 clean:
 	@rm $(OBJ)
 

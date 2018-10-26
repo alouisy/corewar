@@ -12,30 +12,23 @@
 
 #include "../vm.h"
 
-inline int			parse_arg(t_pvm *vm, int ac, char **av)
+inline int	check_champ_numb(t_list *champions)
 {
-	int	i;
+	t_list	*tmp;
+	t_list	*tmp2;
 
-	i = 0;
-	while (++i < ac)
+	tmp = champions;
+	while (tmp)
 	{
-		if (ft_strequ("-dump", av[i]) && ft_nbrisinteger(av[++i]))
-			vm->dump = ft_atoi(av[i]);
-//else if (ft_strequ("-n", av[i]) && ft_nbrisinteger(av[++i]))
-//	nb_prog = ft_atoi(av[i]);
-		else
+		tmp2 = tmp->next;
+		while (tmp2)
 		{
-			ft_putendl("One Champ Save...");
-			if (!parse_champion(av[i], vm->nb_champ, vm))
-				return(0);
-			if (!add_process(vm))
-				return(0);
-			ft_putendl("Save Completed !");
-			vm->nb_champ++;
+			if ((CHAMPION(tmp))->nbr == (CHAMPION(tmp2))->nbr)
+				return (ft_strerror("ERROR (2 CHAMPIONS WITH THE SAME NUMBER)", 0));
+			tmp2 = tmp2->next;
 		}
+		tmp = tmp->next;
 	}
-	ft_putendl("Checking Champ Pos&Stuff...");
-	if (vm->nb_champ > 4)
-		return (ft_strerror("ERROR (MORE THAN 4 CHAMPIONS)", 0));
-	return (check_champ_numb(vm->champions));
+	ft_putendl("Checking Completed !");
+	return (1);
 }

@@ -88,9 +88,11 @@ void					init_memory(t_pvm *vm);
 void					init_champion(t_champion *champion, int nb_prog);
 void					init_process(t_process *process, UNUSED int nb_prog, t_pvm *vm);
 int						parse_arg(t_pvm *vm, int ac, char **av);
-t_list					*parse_champion(char *path, int nb_prog, t_pvm *vm);
+int						parse_champion(char *path, int nb, t_pvm *vm);
 int						parse_champion_header(t_champion *champion, int fd, char *filename);
 int						parse_champion_prog(t_champion *champion, int fd);
+int						add_process(t_pvm *vm);
+int						check_champ_numb(t_list *champions);
 
 /*
 ** vm
