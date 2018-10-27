@@ -16,11 +16,22 @@
 ** aritmetical substraction
 */
 
-void	ft_sub(UNUSED t_pvm *pvm, t_process *process)
+void	ft_sub(__attribute__((unused)) t_pvm *pvm, t_process *process)
 {
-	process->r[process->param[2]] = get_prm_value(pvm, process, 0) - get_prm_value(pvm, process, 1);
-	if (process->carry)
-		process->carry = 1;
-	else
-		process->carry = 0;
+	int		i;
+	int 	error;
+
+	i = -1;
+	error = 0;
+	while (++i < 3)
+		if (process->param[i] < 1 || process->param[i] > REG_NUMBER)
+			error = 1;
+	if (!error)
+	{
+		process->r[process->param[2] - 1] = process->r[process->param[0] - 1] - process->r[process->param[1] - 1];
+		if (process->r[process->param[2] - 1])
+			process->carry = 0;
+		else
+			process->carry = 1;
+	}
 }

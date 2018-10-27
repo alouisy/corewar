@@ -23,7 +23,7 @@ void	ft_add(__attribute__((unused)) t_pvm *pvm, t_process *process)
 
 	i = -1;
 	error = 0;
-	while (++i < g_op_tab[process->opcode].nb_param)
+	while (++i < 3)
 		if (process->param[i] < 1 || process->param[i] > REG_NUMBER)
 			error = 1;
 	if (!error)
