@@ -18,7 +18,10 @@
 
 void	ft_or(UNUSED t_pvm *pvm, t_process *process)
 {
-	process->param[2] = (get_prm_value(pvm, process, 0) | get_prm_value(pvm, process, 1)) % IDX_MOD;
+	int value;
+
+	value = 0;
+	process->param[2] = (get_prm_value(pvm, process, 0, &value) | get_prm_value(pvm, process, 1, &value)) % IDX_MOD;
 	if (process->carry == 0)
 		process->carry = 1;
 	else

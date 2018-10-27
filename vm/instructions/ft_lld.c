@@ -18,7 +18,10 @@
 
 void	ft_lld(UNUSED t_pvm *pvm, t_process *process)
 {
-	process->r[process->param[1]] = get_prm_value(pvm, process, 0);
+	int value;
+
+	value = 0;
+	process->r[process->param[1]] = get_prm_value(pvm, process, 0, &value);
 	if (process->r[process->param[1]])
 		process->carry = 1;
 	else

@@ -14,6 +14,7 @@
 # define VM_H
 # include "libft.h"
 # include "op.h"
+# include <ncurses.h>
 
 # define PROCESS(x) (t_process*)(x->content)
 # define CHAMPION(x) (t_champion*)(x->content)
@@ -122,7 +123,7 @@ void					ft_lld(t_pvm *pvm, t_process *process);
 void					ft_lldi(t_pvm *pvm, t_process *process);
 void					ft_lfork(t_pvm *pvm, t_process *process);
 void					ft_aff(t_pvm *pvm, t_process *process);
-int						get_prm_value(t_pvm *pvm, t_process *process, int i);
+int						get_prm_value(t_pvm *pvm, t_process *process, int i, int *value);
 
 /*
 ** misc

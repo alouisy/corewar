@@ -20,7 +20,7 @@ void	ft_and(UNUSED t_pvm *pvm, t_process *process)
 {
 	int		value;
 
-	value = (get_prm_value(pvm, process, 0) & get_prm_value(pvm, process, 1));
+	value = (get_prm_value(pvm, process, 0, &value) & get_prm_value(pvm, process, 1, &value));
 	process->r[process->param[2]] = value % IDX_MOD;
 	if (process->carry)
 		process->carry = 0;

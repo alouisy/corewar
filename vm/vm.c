@@ -12,7 +12,12 @@
 
 #include "vm.h"
 
-void			aux_print_champ(t_list *node)
+static void	aux_help(void)
+{
+	ft_printf("./corewar [-dump bug] [-n] file [-n] file\n");
+}
+
+void		aux_print_champ(t_list *node)
 {
 	t_champion	*champion;
 
@@ -26,21 +31,48 @@ void			aux_print_champ(t_list *node)
 		champion->header.comment);
 }
 
-int				main(int argc, char **argv)
+void		aux_ncurses(void)
+{
+	WINDOW *haut, *bas;
+
+	initscr();
+	haut= subwin(stdscr, LINES / 2, COLS, 0, 0);
+    bas= subwin(stdscr, LINES / 2, COLS, LINES / 2, 0);
+	mvwprintw(haut, 1, 1, "Ceci est la fenetre du haut");
+    mvwprintw(bas, 1, 1, "Ceci est la fenetre du bas");
+	box(haut, ACS_VLINE, ACS_HLINE);
+    box(bas, ACS_VLINE, ACS_HLINE);
+	//attron(A_STANDOUT);
+	//printw("Hello World");
+	//attroff(A_STANDOUT);
+	//move(LINES / 2 - 1, COLS / 2 - 1);
+	//addch('.');
+	wrefresh(haut);
+	wrefresh(bas);
+	getch();
+	endwin();
+	free(haut);
+	free(bas);
+}
+
+int			main(int argc, char **argv)
 {
 	t_pvm	vm;
 
 	if (argc > 1)
 	{
+		aux_ncurses();
 		init_vm(&vm);
 		if (parse_arg(&vm, argc, argv))
 		{
 			init_memory(&vm);
 			ft_lstiter(vm.champions, &aux_print_champ);
 			print_memory(&vm);
-			start_vm(&vm);
+			//start_vm(&vm);
 		}
 		free_vm(&vm);
 	}
+	else
+		aux_help();
 	return (0);
 }
