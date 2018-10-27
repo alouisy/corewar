@@ -20,40 +20,27 @@ void	ft_sti(t_pvm *pvm, t_process *process)
 {
 	int		val1;
 	int		val2;
+	int		val3;
 	int		address;
 
-<<<<<<< HEAD
-	value = process->r[process->param[0] - 1];
-	address = process->pc
-		+ ((get_prm_value(pvm, process, 1, &value) + get_prm_value(pvm, process, 2, &value))
-		% IDX_MOD);
-	if (address < 0)
-		address += MEM_SIZE;
-	pvm->memory[(address + 3) % MEM_SIZE] = value;
-	pvm->memory[(address + 2) % MEM_SIZE] = (value >> 8);
-	pvm->memory[(address + 1) % MEM_SIZE] = (value >> 16);
-	pvm->memory[(address + 0) % MEM_SIZE] = (value >> 24);
-	if (value == 0)
-		process->carry = 1;
-	else
-		process->carry = 0;
-=======
 	val1 = 0;
 	val2 = 0;
+	val3 = 0;
 	address = 0;
-	if (process->param[0] >= 1 && process->param[0] <= REG_NUMBER && get_prm_value(pvm, process, 1, &val1), get_prm_value(pvm, process, 2, &val2))
+	if (process->param[0] >= 1 && process->param[0] <= REG_NUMBER
+		&& get_prm_value(pvm, process, 1, &val1), get_prm_value(pvm, process, 2, &val2))
 	{
 		address = process->pc + ((val1 + val2) % IDX_MOD);
 		if (address < 0)
 			address += MEM_SIZE;
-		pvm->memory[(address + 3) % MEM_SIZE] = process->r[process->param[0] - 1];
-		pvm->memory[(address + 2) % MEM_SIZE] = (process->r[process->param[0] - 1] >> 8);
-		pvm->memory[(address + 1) % MEM_SIZE] = (process->r[process->param[0] - 1] >> 16);
-		pvm->memory[(address + 0) % MEM_SIZE] = (process->r[process->param[0] - 1] >> 24);
+		val3 = process->r[process->param[0] - 1];
+		pvm->memory[(address + 3) % MEM_SIZE] = val3;
+		pvm->memory[(address + 2) % MEM_SIZE] = (val3 >> 8);
+		pvm->memory[(address + 1) % MEM_SIZE] = (val3 >> 16);
+		pvm->memory[(address + 0) % MEM_SIZE] = (val3 >> 24);
 		if (process->r[process->param[0] - 1] == 0)
 			process->carry = 1;
 		else
 			process->carry = 0;
 	}
->>>>>>> vm
 }

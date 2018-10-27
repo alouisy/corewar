@@ -29,16 +29,16 @@ void	process_cpy(t_process *old, t_process *new, int pc)
 	new->pc = pc;
 	new->pc2 = pc;
 	new->carry = old->carry;
-	new->cycles_wo_live = old->cycles_wo_live;
-	new->cycle_bf_exe = old->cycle_bf_exe;
-	new->param[0] = old->param[0];
-	new->param[1] = old->param[1];
-	new->param[2] = old->param[2];
-	new->param_type[0] = old->param_type[0];
-	new->param_type[1] = old->param_type[1];
-	new->param_type[2] = old->param_type[2];
-	new->opcode = old->opcode;
-	new->ocp = old->ocp;
+	new->cycles_wo_live = 0;
+	new->cycle_bf_exe = 0;
+	new->param[0] = 0;
+	new->param[1] = 0;
+	new->param[2] = 0;
+	new->param_type[0] = 0;
+	new->param_type[1] = 0;
+	new->param_type[2] = 0;
+	new->opcode = 0;
+	new->ocp = 0;
 }
 
 void	ft_fork(t_pvm *pvm, t_process *process)

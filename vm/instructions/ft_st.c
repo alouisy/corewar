@@ -36,11 +36,13 @@ void	ft_st(t_pvm *pvm, t_process *process)
 	if (get_prm_value(pvm, process, 0, &value))
 	{
 		if (process->param_type[1] == REG_CODE)
+		{
 			if (process->param[1] >= 1 && process->param[1] <= REG_NUMBER)
 			{
 				check = 1;
 				process->r[process->param[1] - 1] = value;
 			}
+		}
 		else
 		{
 			check = 1;
