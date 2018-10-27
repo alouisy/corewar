@@ -21,7 +21,7 @@ void	ft_zjmp(UNUSED t_pvm *pvm, t_process *process)
 	if (process->carry == 1)
 	{
 		process->pc += process->param[0];
-		process->pc %= 65535;
+	//	process->pc %= 65535;
 		process->pc2 = process->pc;
 	}
 }

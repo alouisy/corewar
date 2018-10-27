@@ -16,7 +16,7 @@
 ** direct load
 */
 
-void	ft_ld(UNUSED t_pvm *pvm, t_process *process)
+void	ft_ld(__attribute__((unused)) t_pvm *pvm, t_process *process)
 {
 	int		value;
 

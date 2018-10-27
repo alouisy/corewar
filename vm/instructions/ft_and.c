@@ -16,14 +16,20 @@
 ** loqical and
 */
 
-void	ft_and(UNUSED t_pvm *pvm, t_process *process)
+void	ft_and(__attribute__((unused)) t_pvm *pvm, t_process *process)
 {
-	int		value;
+	int		val1;
+	int		val2;
 
-	value = (get_prm_value(pvm, process, 0, &value) & get_prm_value(pvm, process, 1, &value));
-	process->r[process->param[2]] = value % IDX_MOD;
-	if (process->carry)
-		process->carry = 0;
-	else
-		process->carry = 1;
+	val1 = 0;
+	val2 = 0;
+	if (process->param[2] >= 1 && process->param[2] <= REG_NUMBER
+		&& get_prm_value(pvm, process, 0, &val1) && get_prm_value(pvm, process, 1, &val2))
+	{
+		process->r[process->param[2] - 1] = (val1 & val2);
+		if (process->r[process->param[2] - 1])
+			process->carry = 0;
+		else
+			process->carry = 1;
+	}
 }
