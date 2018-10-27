@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/11 15:40:47 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/10/25 19:17:53 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/10/27 19:37:34 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ inline int	parse_champion_prog(t_champion *champion, int fd)
 	int		size;
 	int		end;
 
-	ft_putendl("Parse 3 Prog");
+	//ft_putendl("Parse 3 Prog");
 	size = read(fd, champion->prog, champion->header.prog_size + 4);
 	end = read(fd, &verif_end, 1);
 	if (size != -1 && end != -1)
@@ -30,6 +30,6 @@ inline int	parse_champion_prog(t_champion *champion, int fd)
 	}
 	else
 		return (ft_strerror("READ FAIL", 0));
-	ft_putendl("Parse 4 Finish");
+	//ft_putendl("Parse 4 Finish");
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 17:41:07 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/10/26 17:46:34 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/10/27 19:35:10 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void		get_instruction(t_pvm *vm, t_process *process)
 	int		j;
 
  	process->opcode = vm->memory[process->pc];
- 	printf("\npc = %d & memory[pc] = '%c' & opcode = %d\n",process->pc, vm->memory[process->pc], process->opcode);
+ 	//printf("\npc = %d & memory[pc] = '%c' & opcode = %d\n",process->pc, vm->memory[process->pc], process->opcode);
 	i = -1;
 	j = 1;
 	if (g_op_tab[process->opcode].ocp)
@@ -41,7 +41,7 @@ void		get_instruction(t_pvm *vm, t_process *process)
 		while (++i < g_op_tab[process->opcode].nb_param)
 		{
 			process->param_type[i] = (vm->memory[process->pc + 1] & (0b11000000 >> (i * 2))) >> (6 - i * 2);
-			printf("param[%d] = '%d'\n", i, process->param_type[i]);
+			//printf("param[%d] = '%d'\n", i, process->param_type[i]);
 		}
 		j++;
 	}
@@ -63,11 +63,11 @@ void		get_instruction(t_pvm *vm, t_process *process)
 		else if (process->param_type[i] == DIR_CODE)
 		{
 			process->param[i] = ft_strhex2dec((vm->memory)+(process->pc + j), ((g_op_tab[process->opcode].label_size == 1) ? 2 : 4));
-			printf("Ternaire = '%d'\nDIR HEXA = %d\n", ((g_op_tab[process->opcode].label_size == 1) ? 4 : 8), process->param[i]);
+			//printf("Ternaire = '%d'\nDIR HEXA = %d\n", ((g_op_tab[process->opcode].label_size == 1) ? 4 : 8), process->param[i]);
 			j += (g_op_tab[process->opcode].label_size == 1) ? 2 : 4;
 		}
 	}
 	process->pc2 = process->pc + j;
 	process->cycle_bf_exe = g_op_tab[process->opcode].nb_cycles - 1;
-	debug(vm, process);
+	//debug(vm, process);
 }

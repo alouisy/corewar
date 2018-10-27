@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 17:41:07 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/10/26 17:42:10 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/10/27 19:33:28 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,12 @@ void				start_vm(t_pvm *vm)
 
 	while (vm->total_cycles != vm->dump && vm->processes)
 	{
+		if (vm->ncurses)
+			aux_ncurses(vm);
 		vm->cur_cycle++;
 		if (vm->cur_cycle == vm->cycle_to_die)
 			cycle2die(vm);
 		tmp = vm->processes;
-		printf("It's now cycle %d\n", vm->total_cycles);
 		while (tmp)
 		{
 			content = PROCESS(tmp);

@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/11 15:40:47 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/10/25 19:24:48 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/10/27 19:37:23 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ inline int			parse_champion_header(t_champion *champion, int fd,
 	char			*str;
 	unsigned int	size;
 
-	ft_putendl("Parse 2 Header");
+	//ft_putendl("Parse 2 Header");
 	str = "INVALID FORMAT (ERROR W/ NAME)";
 	if (!(size = parse_magic_size(fd, filename))
 			|| !aux_magic(champion, size)

@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 17:41:07 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/10/26 17:14:08 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/10/27 19:21:49 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ inline void		init_memory(t_pvm *vm)
 	{
 		process = get_process(ptmp);
 		champ = CHAMPION(ctmp);
-		champ->vm_pos = i++ * (MEM_SIZE / vm->nb_champ);
+		champ->vm_pos = (MEM_SIZE / vm->nb_champ) * i++;
 		process->pc = champ->vm_pos;
 		ft_memcpy(vm->memory + champ->vm_pos, champ->prog,
 			champ->header.prog_size);

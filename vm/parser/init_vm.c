@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 17:41:07 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/10/26 15:32:31 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/10/27 19:13:37 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,9 @@ inline void				init_vm(t_pvm *vm)
 	vm->champions = NULL;
 	ft_bzero(vm->memory, MEM_SIZE);
 	vm->dump = -1;
+	vm->ncurses = 0;
+	vm->wleft = NULL;
+	vm->wright = NULL;
 	vm->verbose = 0;
 	vm->nb_champ = 0;
 	vm->cycle_to_die = CYCLE_TO_DIE;

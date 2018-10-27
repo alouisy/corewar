@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 17:41:26 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/10/26 17:34:28 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/10/27 19:47:01 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,9 @@ typedef struct			s_pvm
 	unsigned char		memory[MEM_SIZE];
 	int					dump;
 	int					verbose;
+	int					ncurses;
+	WINDOW				*wleft;
+	WINDOW				*wright;
 	int					nb_champ;
 	int					cycle_to_die;
 	int					total_cycles;
@@ -135,5 +138,8 @@ void					free_vm(t_pvm *vm);
 t_list					*ft_lstfindchamp(t_list *champ, int nbr);
 t_champion				*get_champion(t_list *node);
 t_process				*get_process(t_list	*node);
+void					aux_ncurses(t_pvm *vm);
+void					close_ncurses(t_pvm *vm);
+void					init_ncurses(t_pvm *vm);
 
 #endif

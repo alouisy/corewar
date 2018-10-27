@@ -6,18 +6,21 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 17:41:07 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/10/26 16:36:48 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/10/27 19:48:15 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 
-static void	aux_help(void)
+static void	aux_usage(char *str)
 {
-	ft_printf("./corewar [-dump bug] [-n] file [-n] file\n");
+	ft_printf("Usaqe: %s [-nc] [-dump N] [-n N] file [-n N] <champion1.cor> [-n N] <...>\n", str);
+	ft_printf("	-dump N	: dump memory after N cycles then exit\n", str);
+	ft_printf("	-n N	: assign number N to champion from the following file\n", str);
+	ft_printf("	-nc		: ncurses graphical mode\n", str);
 }
 
-void		aux_print_champ(t_list *node)
+static void	aux_print_champ(t_list *node)
 {
 	t_champion	*champion;
 
@@ -31,48 +34,28 @@ void		aux_print_champ(t_list *node)
 		champion->header.comment);
 }
 
-void		aux_ncurses(void)
-{
-	WINDOW *haut, *bas;
-
-	initscr();
-	haut= subwin(stdscr, LINES / 2, COLS, 0, 0);
-    bas= subwin(stdscr, LINES / 2, COLS, LINES / 2, 0);
-	mvwprintw(haut, 1, 1, "Ceci est la fenetre du haut");
-    mvwprintw(bas, 1, 1, "Ceci est la fenetre du bas");
-	box(haut, ACS_VLINE, ACS_HLINE);
-    box(bas, ACS_VLINE, ACS_HLINE);
-	//attron(A_STANDOUT);
-	//printw("Hello World");
-	//attroff(A_STANDOUT);
-	//move(LINES / 2 - 1, COLS / 2 - 1);
-	//addch('.');
-	wrefresh(haut);
-	wrefresh(bas);
-	getch();
-	endwin();
-	free(haut);
-	free(bas);
-}
-
 int			main(int argc, char **argv)
 {
 	t_pvm	vm;
 
 	if (argc > 1)
 	{
-		aux_ncurses();
 		init_vm(&vm);
 		if (parse_arg(&vm, argc, argv))
 		{
+			if (vm.ncurses)
+				init_ncurses(&vm);
+			else
+				ft_lstiter(vm.champions, &aux_print_champ);
 			init_memory(&vm);
-			ft_lstiter(vm.champions, &aux_print_champ);
 			print_memory(&vm);
-			//start_vm(&vm);
+			start_vm(&vm);
+			if (vm.ncurses)
+				close_ncurses(&vm);
 		}
 		free_vm(&vm);
 	}
 	else
-		aux_help();
+		aux_usage(argv[0]);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/09 14:51:21 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/10/26 15:49:35 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/10/27 19:37:04 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ inline int			parse_arg(t_pvm *vm, int ac, char **av)
 	{
 		if (ft_strequ("-dump", av[i]) && ft_nbrisinteger(av[++i]))
 			vm->dump = ft_atoi(av[i]);
+		else if (ft_strequ("-nc", av[i]))
+			vm->ncurses = 1;
 		else if (ft_strequ("-n", av[i]) && ft_nbrisinteger(av[++i]))
 			champ_nb = ft_atoi(av[i]);
 		else
@@ -35,7 +37,7 @@ inline int			parse_arg(t_pvm *vm, int ac, char **av)
 			vm->nb_champ++;
 		}
 	}
-	ft_putendl("Checking Champ Pos&Stuff...");
+	//ft_putendl("Checking Champ Pos&Stuff...");
 	if (vm->nb_champ > 4)
 		return (ft_strerror("ERROR (MORE THAN 4 CHAMPIONS)", 0));
 	return (1);
