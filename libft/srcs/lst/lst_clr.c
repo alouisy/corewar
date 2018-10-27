@@ -12,14 +12,19 @@
 
 #include "libft.h"
 
-void	lst_clr(t_list **lst, void (*free_content)(void *content))
+void	lst_clr(t_list *lst)
 {
-	if (lst && *lst)
+	if (lst)
 	{
-		if ((*lst)->next)
-			lst_clr(&((*lst)->next), free_content);
-		free_content((*lst)->content);
-		(*lst)->content = NULL;
-		ft_memdel((void **)lst);
+		if (lst->next)
+			lst_clr(lst->next);
+		if (lst->content)
+		{
+			printf("content adress : %p\n", lst->content);
+			printf("has.. .%s.\n", (char *)lst->content);
+			ft_memdel((void **)&(lst->content));
+		}
+		printf("tat\n");
+		ft_memdel((void **)&lst);
 	}
 }

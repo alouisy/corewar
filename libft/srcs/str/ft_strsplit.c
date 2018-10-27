@@ -69,6 +69,7 @@ char		**ft_strsplit(char const *s, char c)
 		return (NULL);
 	nb_words = count_words(s, c);
 	tmp_arr = malloc(sizeof(char*) * (nb_words + 1));
+	ft_lstadd(&g_to_free, ft_lstnew_p(tmp_arr, 0, 0));
 	if (tmp_arr == NULL)
 		exit_error("malloc error\n", MALLOC_ERR);
 	add_words(s, c, tmp_arr);

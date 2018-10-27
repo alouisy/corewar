@@ -23,6 +23,7 @@ char	*ft_strjoin_free(char *s1, char *s2, int side_to_free)
 	if (s1 && !s2)
 		return (s1);
 	str = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+	ft_lstadd(&g_to_free, ft_lstnew_p(str, 0, 0));
 	if (!str)
 		exit_error("malloc error\n", MALLOC_ERR);
 	str[0] = '\0';

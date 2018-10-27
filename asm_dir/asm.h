@@ -76,7 +76,6 @@ typedef struct	s_asm_inf
 	char		*prog_name;
 	t_list		*binary_list;
 	t_list		*holder_prog_size;
-	t_list		*to_free;
 }				t_asm_inf;
 
 typedef struct	s_inst_def
@@ -93,10 +92,10 @@ typedef struct	s_write_inf
 	int		i;
 }				t_write_inf;
 
-t_list			**init_hash_tab(t_asm_inf *asm_inf);
+t_list			**init_hash_tab(void);
 int				init_prog(int argc, char **argv, t_asm_inf *asm_inf);
 void			write_header(t_asm_inf *asm_inf);
-void			init_param_def(t_list ***hash_tab, int size, t_asm_inf *asm_inf);
+void			init_param_def(t_list ***hash_tab, int size);
 void			write_header(t_asm_inf *asm_inf);
 int				write_val(char *line, t_write_inf *write_inf,
 							t_asm_inf *asm_inf, int return_val);
@@ -110,11 +109,6 @@ char			*fill_binary(int nb_bytes, int val);
 void			write_lbl(t_asm_inf *asm_inf);
 void			write_param(char *line, t_param_def *param, t_asm_inf *asm_inf,
 																t_ocp *ocp_s);
-void			free_split(char **split);
-void			free_hash(t_list ***hash_tab);
-void			free_node_content(void *content);
-void			free_lst_content(void *content);
-void			free_all(t_asm_inf *asm_inf, t_list ***hash_tab);
 int				calc_weight(int pow);
 void			add_lbl(char *line, t_write_inf *write_inf, t_asm_inf *asm_inf);
 char			*fill_binary(int nb_bytes, int val);

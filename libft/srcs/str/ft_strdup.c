@@ -21,6 +21,7 @@ char	*ft_strdup(const char *s1)
 	length = ft_strlen(s1);
 	i = 0;
 	str = (char *)malloc((length + 1) * sizeof(char));
+	ft_lstadd(&g_to_free, ft_lstnew_p(str, 0, 0));
 	if (!str)
 		exit_error("malloc error\n", MALLOC_ERR);
 	while (i < length)

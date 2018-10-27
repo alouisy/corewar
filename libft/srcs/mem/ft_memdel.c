@@ -16,6 +16,7 @@ void	ft_memdel(void **ap)
 {
 	if (ap)
 	{
+		printf("freed verif : %p\n", *ap);
 		free(*ap);
 		*ap = NULL;
 	}

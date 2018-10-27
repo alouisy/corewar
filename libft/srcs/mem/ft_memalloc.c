@@ -17,6 +17,8 @@ void	*ft_memalloc(size_t size)
 	char	*new;
 
 	new = (char *)malloc(size);
+	printf("address strnew : %p\n", new);
+	ft_lstadd(&g_to_free, ft_lstnew_p(new, 0, 0));
 	if (!new)
 		exit_error("malloc error\n", MALLOC_ERR);
 	ft_bzero(new, size);

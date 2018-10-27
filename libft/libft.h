@@ -56,6 +56,8 @@ typedef struct				s_bubble_sort
 	int		sorted;
 }							t_bubble_sort;
 
+extern t_list *g_to_free;
+
 /*
 **struct for printf
 */
@@ -176,11 +178,10 @@ void						ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 int							ft_lstlength(t_list *lst);
 t_list						*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 t_list						*ft_lstnew(void const *content,
-														size_t content_size);
+										size_t content_size, int add_to_free);
 t_list						*ft_lstnew_p(void *content,
-														size_t content_size);
-void						lst_clr(t_list **lst,
-										void (*free_content)(void *content));
+										size_t content_size, int add_to_free);
+void						lst_clr(t_list *lst);
 char						*lst_to_str(t_list *lst);
 t_list						*ft_pop(t_list **lst);
 int							ft_pop_value(t_list **lst);
@@ -218,7 +219,7 @@ void						ft_putstr(const char *str);
 void						ft_putstr_fd(char const *s, int fd);
 int							get_next_line(const int fd, char **line,
 	char separator);
-void						exit_error(char *msg, int code, t_list *to_free);
+void						exit_error(char *msg, int code);
 /*
 **Mem
 */

@@ -33,9 +33,9 @@ char		*trim_comment(char *line)
 	if (trimmed[0] == 'r' || trimmed[0] == '%')
 		is_direct = 1;
 	tmp_trimmed = ft_strndup(&(trimmed[is_direct]), i);
-	free(trimmed);
+	ft_memdel((void **)&trimmed);
 	trimmed = ft_strtrim(tmp_trimmed);
-	free(tmp_trimmed);
+	ft_memdel((void **)&tmp_trimmed);
 	return (trimmed);
 }
 
@@ -55,13 +55,14 @@ void		add_lbl(char *lbl, t_write_inf *write_inf, t_asm_inf *asm_inf)
 {
 	t_holder_def	holder_def;
 
+	printf("add?\n");
 	holder_def.lbl = ft_strdup(lbl);
 	holder_def.inst_pos = write_inf->inst_pos;
 	holder_def.lst_pos = asm_inf->current;
 	holder_def.lbl_bytes = write_inf->nb_bytes;
 	holder_def.has_ocp = write_inf->has_ocp;
 	ft_lstadd(&(asm_inf->holder_lst), ft_lstnew(&holder_def,
-													sizeof(t_holder_def)));
+													sizeof(t_holder_def), 1));
 	asm_inf->nb_bytes += write_inf->nb_bytes;
 }
 
@@ -71,6 +72,7 @@ char		*fill_binary(int nb_bytes, int val)
 	int		i;
 
 	binary = malloc(nb_bytes);
+	ft_lstadd(&g_to_free, ft_lstnew_p(binary, 0, 0));
 	if (!binary)
 		exit_error("malloc error\n", MALLOC_ERR);
 	i = 0;

@@ -17,6 +17,7 @@ static char	*set_value(int upper, int rest)
 	char	*letter;
 
 	letter = malloc(2);
+	ft_lstadd(&g_to_free, ft_lstnew_p(letter, 0, 0));
 	if (!letter)
 		exit_error("malloc error\n", MALLOC_ERR);
 	letter[0] = rest + 48;
@@ -47,10 +48,10 @@ char		*ft_itoa_base(unsigned int nb, int base, int upper)
 		rest = nb % base;
 		nb /= base;
 		tmp_str = set_value(upper, rest);
-		ft_lstadd(&tmp_result, ft_lstnew(tmp_str, 1));
-		free(tmp_str);
+		ft_lstadd(&tmp_result, ft_lstnew(tmp_str, 1, 1));
+		//free(tmp_str);
 	}
 	res = lst_to_str(tmp_result);
-	lst_clr(&tmp_result, free);
+	//lst_clr(&tmp_result, free);
 	return (res);
 }

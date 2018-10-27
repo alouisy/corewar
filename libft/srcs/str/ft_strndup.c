@@ -23,6 +23,7 @@ char	*ft_strndup(const char *s1, size_t n)
 	if (n != 0)
 	{
 		str = malloc((n + 1) * sizeof(char));
+		ft_lstadd(&g_to_free, ft_lstnew_p(str, 0, 0));
 		if (!str)
 			exit_error("malloc error\n", MALLOC_ERR);
 		while (i < n)

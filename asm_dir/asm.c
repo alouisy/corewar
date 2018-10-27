@@ -12,6 +12,8 @@
 
 #include "asm.h"
 
+t_list *g_to_free = NULL;
+
 void		write_binary(t_list *binary_list)
 {
 	t_list			*current;
@@ -20,7 +22,8 @@ void		write_binary(t_list *binary_list)
 
 	current = binary_list;
 	fd = open("binary.cor", O_CREAT | O_TRUNC | O_RDWR, 07777);
-	//tester open
+	if (fd == -1)
+		exit_error("Open error\n", OPEN_ERR);
 	while (current)
 	{
 		i = 0;
@@ -53,6 +56,9 @@ void		read_label(char *lbl, t_asm_inf *asm_inf)
 	if (!find_in_tree(asm_inf->lbl_tree, index))
 	{
 		lbl_def = malloc(sizeof(t_lbl_def));
+		ft_lstadd(&g_to_free, ft_lstnew_p(lbl_def, 0, 0));
+		if (!lbl_def)
+			exit_error("Malloc error\n", MALLOC_ERR);
 		lbl_def->name = lbl;
 		lbl_def->pos = asm_inf->nb_bytes;
 		node = new_rbt_node(lbl_def, index);
@@ -84,65 +90,78 @@ int			hash_word(char *word)
 		res = 0;
 		while (middle[i])
 			res += middle[i++] - 48;
-		free(middle);
+		ft_memdel((void **)&middle);
 	}
 	return (res);
 }
 
-static void	parse_line(char *line, t_asm_inf *asm_inf, t_list **hash_tab)
+/*static void	parse_line(char *line, t_asm_inf *asm_inf, t_list **hash_tab)
 {
 	int i;
 	int j;
 
-	if (line)
+	printf("yo\n");
+	
+	i = 0;
+	while (line[i] && ft_iswhitespace(line[i]))
+		i++;
+	j = i;
+	while (line[j] && !ft_iswhitespace(line[j]))
+		j++;
+	printf("oui?\n");
+	if (j != i && line[i] != COMMENT_CHAR)
 	{
-		i = 0;
-		while (line[i] && ft_iswhitespace(line[i]))
-			i++;
-		j = i;
-		while (line[j] && !ft_iswhitespace(line[j]))
-			j++;
-		if (j != i && line[i] != COMMENT_CHAR)
+		printf("dedans\n");
+		if (line[j - 1] == LABEL_CHAR)
 		{
-			if (line[j - 1] == LABEL_CHAR)
-			{
-				read_label(ft_strndup(&(line[i]), j - i - 1), asm_inf);
-				while (line[j] && ft_iswhitespace(line[j]))
-					j++;
-				if (line[j])
-					check_instruct(hash_tab, &(line[j]), asm_inf);
-			}
-			else
-				check_instruct(hash_tab, &(line[i]), asm_inf);
+			printf("tut\n");
+			read_label(ft_strndup(&(line[i]), j - i - 1), asm_inf);
+			printf("kopkpkop\n");
+			while (line[j] && ft_iswhitespace(line[j]))
+				j++;
+			if (line[j])
+				check_instruct(hash_tab, &(line[j]), asm_inf);
 		}
+		else
+			check_instruct(hash_tab, &(line[i]), asm_inf);
 	}
-}
+	printf("arf\n");
+}*/
 
 int			main(int argc, char **argv)
 {
 	int			fd;
 	char		*line;
-	t_list		**hash_tab;
+	//t_list		**hash_tab;
 	t_asm_inf	asm_inf;
 	t_list		*new;
 
 	line = NULL;
-	asm_inf.to_free = NULL;
-	hash_tab = init_hash_tab(&asm_inf);
+	//hash_tab = init_hash_tab();
 	fd = init_prog(argc, argv, &asm_inf);
 	get_dot_info(fd, &line, &asm_inf);
+	exit_error("exit\n", 1);
 	write_header(&asm_inf);
+	printf("test\n");
+	exit_error("exit\n", 1);
 	while (get_next_line(fd, &line, '\n'))
-	{
-		parse_line(line, &asm_inf, hash_tab);
-		free(line);
-	}
+		if (line) //je pense
+		{
+			//parse_line(line, &asm_inf, hash_tab);
+			printf("wesh\n");
+			ft_memdel((void **)&line);
+			exit_error("exit\n", 1);
+		}
+		printf("write?\n");
 	write_lbl(&asm_inf);
-	new = ft_lstnew_p(fill_binary(4, asm_inf.nb_bytes), 4);
+	printf("999\n");
+	new = ft_lstnew_p(fill_binary(4, asm_inf.nb_bytes), 4, 1);
 	new->next = asm_inf.holder_prog_size->next;
 	asm_inf.holder_prog_size->next = new;
+	printf("111\n");
 	write_binary(asm_inf.binary_list);
-	//close binary file
-	free_all(&asm_inf, &hash_tab);
+	printf("222\n");
+	lst_clr(g_to_free);
+	printf("333\n");
 	return (0);
 }

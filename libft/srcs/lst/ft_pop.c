@@ -17,10 +17,10 @@ t_list	*ft_pop(t_list **lst)
 	t_list	*new;
 	t_list	*tmp;
 
-	new = ft_lstnew((*lst)->content, (*lst)->content_size);
+	new = ft_lstnew((*lst)->content, (*lst)->content_size, 1);
 	tmp = *lst;
 	*lst = (*lst)->next;
-	free(tmp->content);
-	free(tmp);
+	//free(tmp->content); je sais pas si je devrais du coup
+	//free(tmp);
 	return (new);
 }

@@ -20,6 +20,7 @@ char	*ft_strsub_free(char *s, t_u_int start, size_t len)
 	if (!s)
 		return (NULL);
 	str = (char *)malloc((len + 1) * sizeof(char));
+	ft_lstadd(&g_to_free, ft_lstnew_p(str, 0, 0));
 	if (str == NULL)
 		exit_error("malloc error\n", MALLOC_ERR);
 	i = 0;

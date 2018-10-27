@@ -31,7 +31,7 @@ int			display(t_list *final_lst, int error)
 		length += ft_strlen(tmp->content);
 		tmp = tmp->next;
 	}
-	lst_clr(&final_lst, free);
+	//lst_clr(&final_lst, free);
 	if (error)
 		return (-1);
 	else
@@ -51,13 +51,13 @@ void		add(t_detail *det, t_list **fin_lst, int add_null)
 			while ((size_t)j < det->conv->size)
 			{
 				ft_lstappend(fin_lst, ft_lstnew(
-					det->conv->str[j], ft_strlen(det->conv->str[j]) + 1));
-				free(det->conv->str[j]);
+					det->conv->str[j], ft_strlen(det->conv->str[j]) + 1, 1));
+				//free(det->conv->str[j]);
 				j++;
 			}
 		if (add_null && !ft_lstfind(det->info, "-", 1))
-			ft_lstappend(fin_lst, ft_lstnew(ft_strdup("\0"), 0));
-		free(det->conv->str);
-		free(det->conv);
+			ft_lstappend(fin_lst, ft_lstnew(ft_strdup("\0"), 0, 1));
+		//free(det->conv->str);
+		//free(det->conv);
 	}
 }
