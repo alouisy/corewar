@@ -14,14 +14,11 @@
 
 void		init_ncurses(t_pvm *vm)
 {
-	int i;
-
 	initscr();
 	keypad(stdscr, TRUE);
 	set_color();
 	lstprint_champion(vm);
 	print_map(vm);
 	insert_champion(vm);
-	i = vm_status(vm);
-	process_status(vm, i + 2);
+	game_status(vm);
 }

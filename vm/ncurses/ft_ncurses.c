@@ -43,5 +43,4 @@ void	insert_champion(t_pvm *vm)
 		node = node->next;
 	}
 	wrefresh(vm->nc.wleft);
-	getch();
 }

@@ -50,9 +50,7 @@ void				start_vm(t_pvm *vm)
 		}
 		vm->total_cycles++;
 		if (vm->nc.ncurses)
-		{
-			process_status(vm, vm_status(vm) + 2);
-		}
+			game_status(vm);
 	}
 	print_winner(vm);
 }

@@ -155,7 +155,9 @@ void					insert_champion(t_pvm *vm);
 void					set_color();
 void 					print_map(t_pvm *vm);
 void					lstprint_champion(t_pvm *vm);
-void					process_status(t_pvm *vm, int i);
+void					game_status(t_pvm *vm);
 int						vm_status(t_pvm *vm);
+int						champion_status(t_pvm *vm, int i);
+void					process_status(t_pvm *vm, int i);
 
 #endif

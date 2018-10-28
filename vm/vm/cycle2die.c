@@ -30,14 +30,13 @@ void ft_del(UNUSED void *content, UNUSED size_t t)
 	//free(content);
 }
 
-void	cycle2die(t_pvm *vm)
+static void	check_node(t_pvm *vm)
 {
 	t_list	*node;
 	t_list	*save;
-
+	
 	node = vm->processes;
 	save = node;
-	dec_c2d(vm);
 	while (node)
 	{
 		if ((PROCESS(node))->cycles_wo_live == 0)
@@ -53,4 +52,23 @@ void	cycle2die(t_pvm *vm)
 		save = node;
 		node = node->next;
 	}
+}
+
+static void	reset_champion(t_pvm *vm)
+{
+	t_list	*node;
+	
+	node = vm->champions;
+	while (node)
+	{
+		(CHAMPION(node))->nb_live = 0;
+		node = node->next;
+	}
+}
+
+void	cycle2die(t_pvm *vm)
+{
+	dec_c2d(vm);
+	check_node(vm);
+	reset_champion(vm);
 }
