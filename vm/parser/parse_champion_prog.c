@@ -19,7 +19,6 @@ inline int	parse_champion_prog(t_champion *champion, int fd)
 	int		size;
 	int		end;
 
-	//ft_putendl("Parse 3 Prog");
 	size = read(fd, champion->prog, champion->header.prog_size + 4);
 	end = read(fd, &verif_end, 1);
 	if (size != -1 && end != -1)
@@ -30,6 +29,5 @@ inline int	parse_champion_prog(t_champion *champion, int fd)
 	}
 	else
 		return (ft_strerror("READ FAIL", 0));
-	//ft_putendl("Parse 4 Finish");
 	return (1);
 }

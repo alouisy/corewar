@@ -15,6 +15,7 @@
 void	close_ncurses(t_pvm *vm)
 {
 	endwin();
-	free(vm->wleft);
-	free(vm->wright);
+	(void)vm;
+	//free(vm->nc.wleft);
+	//free(vm->nc.wright);
 }

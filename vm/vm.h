@@ -44,7 +44,15 @@ typedef struct			s_champion
 	int					vm_pos;
 	int					l_live;
 	int					nb_live;
+	int					color;
 }						t_champion;
+
+typedef struct			s_ncurses
+{
+	int					ncurses;
+	WINDOW				*wleft;
+	WINDOW				*wright;
+}						t_ncurses;
 
 typedef struct			s_pvm
 {
@@ -54,9 +62,7 @@ typedef struct			s_pvm
 	unsigned char		memory[MEM_SIZE];
 	int					dump;
 	int					verbose;
-	int					ncurses;
-	WINDOW				*wleft;
-	WINDOW				*wright;
+	t_ncurses			nc;
 	int					nb_champ;
 	int					cycle_to_die;
 	int					total_cycles;
@@ -83,12 +89,13 @@ typedef struct			s_op
 }						t_op;
 
 extern t_op				g_op_tab[17];
+
 /*
 ** parser
 */
 void					init_vm(t_pvm *vm);
 void					init_memory(t_pvm *vm);
-void					init_champion(t_champion *champion, int nb_prog);
+void					init_champion(t_champion *champion, int nb_prog, int color);
 void					init_process(t_process *process, t_pvm *vm);
 int						parse_arg(t_pvm *vm, int ac, char **av);
 int						parse_champion(char *path, int nb, t_pvm *vm);
@@ -138,8 +145,17 @@ void					free_vm(t_pvm *vm);
 t_list					*ft_lstfindchamp(t_list *champ, int nbr);
 t_champion				*get_champion(t_list *node);
 t_process				*get_process(t_list	*node);
-void					aux_ncurses(t_pvm *vm);
+
+/*
+** ncurses
+*/
 void					close_ncurses(t_pvm *vm);
 void					init_ncurses(t_pvm *vm);
+void					insert_champion(t_pvm *vm);
+void					set_color();
+void 					print_map(t_pvm *vm);
+void					lstprint_champion(t_pvm *vm);
+void					process_status(t_pvm *vm, int i);
+int						vm_status(t_pvm *vm);
 
 #endif

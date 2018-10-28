@@ -14,10 +14,10 @@
 
 static void	aux_usage(char *str)
 {
-	ft_printf("Usaqe: %s [-nc] [-dump N] [-n N] file [-n N] <champion1.cor> [-n N] <...>\n", str);
+	ft_printf("Usage: %s [-nc] [-dump N] [-n N] file [-n N] <champion1.cor> [-n N] <...>\n", str);
 	ft_printf("	-dump N	: dump memory after N cycles then exit\n", str);
 	ft_printf("	-n N	: assign number N to champion from the following file\n", str);
-	ft_printf("	-nc		: ncurses graphical mode\n", str);
+	ft_printf("	-nc	: ncurses graphical mode\n", str);
 }
 
 static void	aux_print_champ(t_list *node)
@@ -43,15 +43,11 @@ int			main(int argc, char **argv)
 		init_vm(&vm);
 		if (parse_arg(&vm, argc, argv))
 		{
-			if (vm.ncurses)
-				init_ncurses(&vm);
-			else
-				ft_lstiter(vm.champions, &aux_print_champ);
 			init_memory(&vm);
+			if (!(vm.nc.ncurses))
+				ft_lstiter(vm.champions, &aux_print_champ);
 			print_memory(&vm);
 			start_vm(&vm);
-			if (vm.ncurses)
-				close_ncurses(&vm);
 		}
 		free_vm(&vm);
 	}

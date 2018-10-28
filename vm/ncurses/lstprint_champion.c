@@ -12,43 +12,32 @@
 
 #include "../vm.h"
 
-static void	print_champion(t_list *node, WINDOW *win)
+inline void	lstprint_champion(t_pvm *vm)
 {
+	t_list 		*node;
 	t_champion	*champion;
+	int			i;
+	int			j;
 	
-	champion = CHAMPION(node);
-	mvwprintw(win, 1, 1,
-		"Pos: %d\n Magic: %d\n Prog_name: %s\n Prog_size: %d\n Comment: %s\n",
-		champion->nbr,
-		champion->header.magic,
-		champion->header.prog_name,
-		champion->header.prog_size,
-		champion->header.comment);
-}
-
-void		init_ncurses(t_pvm *vm)
-{
-	t_list *tmp;
-
-	initscr();
-	keypad(stdscr, TRUE);
-	start_color();
-	init_pair(1, COLOR_GREEN, COLOR_BLACK);
-	vm->wleft = subwin(stdscr, LINES,  5 * COLS / 8, 0, 0);
-	vm->wright = subwin(stdscr, LINES,  3 * COLS / 8, 0, 5 * COLS / 8);
-	tmp = vm->champions;
-	while (tmp)
+	node = vm->champions;
+	while (node)
 	{
-		print_champion(tmp, vm->wleft);
-		tmp = tmp->next;
+		i = 2;
+		champion = CHAMPION(node);
+		j = ((((champion->color - 1) * COLS) + 1) / vm->nb_champ);
+		attron(COLOR_PAIR(champion->color));
+		mvprintw(i++, j, "Prog_name: %s", champion->header.prog_name);
+		attroff(COLOR_PAIR(champion->color));
+		mvprintw(i++, j, "Pos: %d", champion->nbr);
+		mvprintw(i++, j, "Magic: %d", champion->header.magic);
+		mvprintw(i++, j, "Prog_size: %d", champion->header.prog_size);
+		mvprintw(i++, j, "Comment: %s", champion->header.comment);
+		node = node->next;
 	}
-	wattron(vm->wleft, A_BOLD);
-	mvwprintw(vm->wleft, 6, 1, "Press any key:\n");
-	wattroff(vm->wleft, A_BOLD);
-	mvwprintw(vm->wright, 1, 1, "Process summary");
-	box(vm->wleft, ACS_VLINE, ACS_HLINE);
-	box(vm->wright, ACS_VLINE, ACS_HLINE);
-	wrefresh(vm->wleft);
-	wrefresh(vm->wright);
+	attron(A_BOLD);
+	mvprintw(0, 0, "Press any key:");
+	attroff(A_BOLD);
+	refresh();
 	getch();
+	clear();
 }

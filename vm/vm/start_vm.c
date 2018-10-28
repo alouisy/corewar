@@ -23,6 +23,8 @@ static inline void	print_winner(t_pvm *vm)
 			break ;
 		champ = champ->next;
 	}
+	if (vm->nc.ncurses)
+		clear();
 	ft_printf("le joueur %d(%s) a gagne\n", (CHAMPION(champ))->nbr, (CHAMPION(champ))->header.prog_name);
 }
 
@@ -33,8 +35,6 @@ void				start_vm(t_pvm *vm)
 
 	while (vm->total_cycles != vm->dump && vm->processes)
 	{
-		if (vm->ncurses)
-			aux_ncurses(vm);
 		vm->cur_cycle++;
 		if (vm->cur_cycle == vm->cycle_to_die)
 			cycle2die(vm);
@@ -50,6 +50,10 @@ void				start_vm(t_pvm *vm)
 			tmp = tmp->next;		
 		}
 		vm->total_cycles++;
+		if (vm->nc.ncurses)
+		{
+			process_status(vm, vm_status(vm) + 2);
+		}
 	}
 	print_winner(vm);
 }

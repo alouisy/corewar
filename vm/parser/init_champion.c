@@ -12,12 +12,12 @@
 
 #include "../vm.h"
 
-inline void		init_champion(t_champion *champion, int nb_prog)
+inline void		init_champion(t_champion *champion, int nb_prog, int color)
 {
-	//ft_putendl("Parse 1 init Champion");
 	champion->nbr = nb_prog;
-	champion->vm_pos = 0;
+	champion->vm_pos = (color - 1) * (MEM_SIZE / 4);
 	champion->l_live = 0;
 	champion->nb_live = 0;
 	ft_bzero(champion->prog, CHAMP_MAX_SIZE);
+	champion->color = color;
 }

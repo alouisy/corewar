@@ -21,6 +21,5 @@ inline int	add_process(t_pvm *vm)
 	if (!(node = ft_lstnew(&process, sizeof(process))))
 		return (ft_strerror("Malloc fail", 0));
 	ft_lstadd(&vm->processes, node);
-	//ft_putendl("Save Completed !");
 	return (1);
 }

@@ -24,7 +24,7 @@ inline int			parse_arg(t_pvm *vm, int ac, char **av)
 		if (ft_strequ("-dump", av[i]) && ft_nbrisinteger(av[++i]))
 			vm->dump = ft_atoi(av[i]);
 		else if (ft_strequ("-nc", av[i]))
-			vm->ncurses = 1;
+			vm->nc.ncurses = 1;
 		else if (ft_strequ("-n", av[i]) && ft_nbrisinteger(av[++i]))
 			champ_nb = ft_atoi(av[i]);
 		else
@@ -37,8 +37,7 @@ inline int			parse_arg(t_pvm *vm, int ac, char **av)
 			vm->nb_champ++;
 		}
 	}
-	//ft_putendl("Checking Champ Pos&Stuff...");
-	if (vm->nb_champ > 4)
-		return (ft_strerror("ERROR (MORE THAN 4 CHAMPIONS)", 0));
+	if (vm->nb_champ > 4 || vm->nb_champ == 0)
+		return (ft_strerror("ERROR (MORE THAN 4 OR NO CHAMPIONS)", 0));
 	return (1);
 }

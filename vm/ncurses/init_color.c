@@ -1,28 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_vm.c                                          :+:      :+:    :+:   */
+/*   init_ncurses.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/26 15:34:58 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/10/26 15:35:00 by jgroc-de         ###   ########.fr       */
+/*   Created: 2018/10/27 19:47:47 by jgroc-de          #+#    #+#             */
+/*   Updated: 2018/10/27 20:24:14 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../vm.h"
 
-static void	aux_del(void *content, UNUSED size_t size)
+inline void	set_color()
 {
-	free(content);
-}
-
-void		free_vm(t_pvm *vm)
-{
-	if (vm->champions)
-		ft_lstdel(&(vm->champions), &aux_del);
-	if (vm->processes)
-		ft_lstdel(&(vm->processes), &aux_del);
-	if (vm->nc.ncurses)
-		close_ncurses(vm);
+	start_color();
+	init_pair(1, COLOR_GREEN, COLOR_BLACK);
+	init_pair(2, COLOR_RED, COLOR_BLACK);
+	init_pair(3, COLOR_BLUE, COLOR_BLACK);
+	init_pair(4, COLOR_YELLOW, COLOR_BLACK);
+	init_pair(5, COLOR_BLACK, COLOR_WHITE);
 }

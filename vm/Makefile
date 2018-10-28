@@ -11,12 +11,12 @@
 # **************************************************************************** #
 
 CC= gcc
-CFLAGS= -Wall -Werror -Wextra -g -I ../libft
+CFLAGS= -lncurses -Wall -Werror -Wextra -g -I ../libft
 LIBFT= -L../libft -lft
 NAME= corewar
 LIB = ../libft/libft.a
 .phony: all clean fclean re
-SRC= $(wildcard *.c) $(wildcard parser/*.c) $(wildcard vm/*.c) $(wildcard misc/*.c) $(wildcard instructions/*.c)
+SRC= $(wildcard *.c) $(wildcard parser/*.c) $(wildcard vm/*.c) $(wildcard misc/*.c) $(wildcard instructions/*.c) $(wildcard ncurses/*.c)
 OBJ= $(subst .c,.o, $(SRC))
 
 all: $(NAME)

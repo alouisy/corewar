@@ -28,7 +28,7 @@ void	ft_sti(t_pvm *pvm, t_process *process)
 	val3 = 0;
 	address = 0;
 	if (process->param[0] >= 1 && process->param[0] <= REG_NUMBER
-		&& get_prm_value(pvm, process, 1, &val1), get_prm_value(pvm, process, 2, &val2))
+		&& get_prm_value(pvm, process, 1, &val1) && get_prm_value(pvm, process, 2, &val2))
 	{
 		address = process->pc + ((val1 + val2) % IDX_MOD);
 		if (address < 0)

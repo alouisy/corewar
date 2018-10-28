@@ -49,7 +49,6 @@ inline int			parse_champion_header(t_champion *champion, int fd,
 	char			*str;
 	unsigned int	size;
 
-	//ft_putendl("Parse 2 Header");
 	str = "INVALID FORMAT (ERROR W/ NAME)";
 	if (!(size = parse_magic_size(fd, filename))
 			|| !aux_magic(champion, size)

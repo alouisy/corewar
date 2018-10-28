@@ -12,27 +12,36 @@
 
 #include "../vm.h"
 
-void	print_memory(t_pvm *prms)
+void	insert_champion(t_pvm *vm)
 {
-	int	i;
+	unsigned int 	i;
+	int				pos;
+	t_list			*node;
 
 	i = 0;
-	if (prms->nc.ncurses)
-		init_ncurses(prms);
-	else
+	node = vm->champions;
+	while (node)
 	{
-		while (i < MEM_SIZE)
+		i = 0;
+		pos = (CHAMPION(node))->vm_pos;
+		wattron(vm->nc.wleft, COLOR_PAIR((CHAMPION(node))->color));
+		while (i < (CHAMPION(node))->header.prog_size)
 		{
-			if ((i % 64) == 0)
+			if (i == 0)
 			{
-				ft_putchar('\n');
+				wattroff(vm->nc.wleft, COLOR_PAIR((CHAMPION(node))->color));
+				wattron(vm->nc.wleft, COLOR_PAIR(5));
+				mvwprintw(vm->nc.wleft, (i + pos) / 64 + 1, ((i + pos) % 64) * 3 + 1, "%.2hhx", (CHAMPION(node))->prog[i]);
+				wattroff(vm->nc.wleft, COLOR_PAIR(5));
+				wattron(vm->nc.wleft, COLOR_PAIR((CHAMPION(node))->color));
 			}
-			if (prms->memory[i] == 0)
-				ft_printf("00 ");
 			else
-				ft_printf("\033[32m%.2hhx \033[0m", prms->memory[i]);
+				mvwprintw(vm->nc.wleft, (i + pos) / 64 + 1, ((i + pos) % 64) * 3 + 1, "%.2hhx", (CHAMPION(node))->prog[i]);
 			i++;
 		}
-		ft_putchar('\n');
+		wattroff(vm->nc.wleft, COLOR_PAIR((CHAMPION(node))->color));
+		node = node->next;
 	}
+	wrefresh(vm->nc.wleft);
+	getch();
 }

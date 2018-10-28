@@ -39,9 +39,9 @@ inline void				init_vm(t_pvm *vm)
 	vm->champions = NULL;
 	ft_bzero(vm->memory, MEM_SIZE);
 	vm->dump = -1;
-	vm->ncurses = 0;
-	vm->wleft = NULL;
-	vm->wright = NULL;
+	vm->nc.ncurses = 0;
+	vm->nc.wleft = NULL;
+	vm->nc.wright = NULL;
 	vm->verbose = 0;
 	vm->nb_champ = 0;
 	vm->cycle_to_die = CYCLE_TO_DIE;

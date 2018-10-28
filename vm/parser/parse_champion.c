@@ -18,9 +18,8 @@ inline int	parse_champion(char *path, int nb, t_pvm *vm)
 	t_list		*node;
 	int			fd;
 
-	//ft_putendl("One Champ Save...");
 	nb = get_champ_nb(nb, vm->champions);
-	init_champion(&champion, nb);
+	init_champion(&champion, nb, vm->nb_champ + 1);
 	if ((fd = open(path, O_RDONLY)) == -1)
 		return (ft_strerror(ft_strjoin("Can't read source file ", path), 1));
 	if (!parse_champion_header(&champion, fd, path))
