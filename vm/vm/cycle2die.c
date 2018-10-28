@@ -21,6 +21,8 @@ static void	dec_c2d(t_pvm *vm)
 	}
 	else
 		vm->nb_checks++;
+	vm->sum_lives = 0;
+	vm->cur_cycle = 0;
 }
 
 void ft_del(UNUSED void *content, UNUSED size_t t)
@@ -35,7 +37,7 @@ void	cycle2die(t_pvm *vm)
 
 	node = vm->processes;
 	save = node;
-	vm->cur_cycle = 0;
+	dec_c2d(vm);
 	while (node)
 	{
 		if ((PROCESS(node))->cycles_wo_live == 0)
@@ -51,5 +53,4 @@ void	cycle2die(t_pvm *vm)
 		save = node;
 		node = node->next;
 	}
-	dec_c2d(vm);
 }

@@ -34,6 +34,9 @@ void		process_status(t_pvm *vm, int i)
 				process->cycle_bf_exe);
 		node = node->next;
 	}
-	wrefresh(vm->nc.wright);
-	getch();
+	if (!(vm->cur_cycle % 5))
+	{
+		wrefresh(vm->nc.wright);
+		getch();
+	}
 }

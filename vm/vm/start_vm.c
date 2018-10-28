@@ -42,7 +42,6 @@ void				start_vm(t_pvm *vm)
 		while (tmp)
 		{
 			content = PROCESS(tmp);
-			content->cycles_wo_live++;
 			if (content->opcode == -1)
 				get_instruction(vm, content);
 			else

@@ -16,13 +16,13 @@ void	ft_live(t_pvm *pvm, t_process *process)
 {
 	t_list	*node;
 
+	process->cycles_wo_live = 1;
+	pvm->sum_lives++;
 	if ((node = ft_lstfindchamp(pvm->champions, process->param[0])))
 	{
-		process->cycles_wo_live = 0;
 		(CHAMPION(node))->nb_live++;
 		(CHAMPION(node))->l_live = pvm->total_cycles;
-		pvm->sum_lives++;
-		pvm->last_live = process->param[0];
+		pvm->last_live = pvm->total_cycles;
 		if (!(pvm->nc.ncurses))
 		{
 			ft_putstr((char*)((CHAMPION(node))->header.prog_name));
