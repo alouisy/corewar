@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/27 19:47:47 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/10/27 20:24:14 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/10/29 17:39:23 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ inline void print_map(t_pvm *vm)
 	while (i < MEM_SIZE)
 	{
 		mvwprintw(vm->nc.wleft, i / 64 + 1, (i % 64) * 3 + 1, "00");
-		if (!(i % 64) == 0)
+		if ((i % 64) == 0)
 			mvwprintw(vm->nc.wleft, i / 64 + 2, (i % 64) * 3 + 1, " ");
 		i++;
 	}
