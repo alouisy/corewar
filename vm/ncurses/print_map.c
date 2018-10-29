@@ -6,17 +6,17 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/27 19:47:47 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/10/29 19:04:33 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/10/29 19:26:36 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../vm.h"
 
-inline void print_map(t_pvm *vm)
+inline void	print_map(t_pvm *vm)
 {
-	unsigned int 	i;
+	unsigned int	i;
 
-	vm->nc.wleft = subwin(stdscr, LINES,  15 * COLS / 20, 0, 0);
+	vm->nc.wleft = subwin(stdscr, LINES, 15 * COLS / 20, 0, 0);
 	vm->nc.wright = subwin(stdscr, LINES, 5 * COLS / 20, 0, 15 * COLS / 20);
 	box(vm->nc.wleft, ACS_VLINE, ACS_HLINE);
 	box(vm->nc.wright, ACS_VLINE, ACS_HLINE);

@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/09 14:51:21 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/10/27 19:37:04 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/10/29 19:24:34 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,7 @@ inline int			parse_arg(t_pvm *vm, int ac, char **av)
 			champ_nb = ft_atoi(av[i]);
 		else
 		{
-			if (!parse_champion(av[i], champ_nb, vm))
-				return (0);
-			if (!add_process(vm))
+			if (!parse_champion(av[i], champ_nb, vm) || !add_process(vm))
 				return (0);
 			champ_nb = -1;
 			vm->nb_champ++;

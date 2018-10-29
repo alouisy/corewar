@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 17:41:26 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/10/29 19:03:13 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/10/29 19:33:03 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,8 @@ extern t_op				g_op_tab[17];
 */
 void					init_vm(t_pvm *vm);
 void					init_memory(t_pvm *vm);
-void					init_champion(t_champion *champion, int nb_prog, int color);
+void					init_champion(t_champion *champion,
+							int nb_prog, int color);
 void					init_process(t_process *process, t_pvm *vm);
 int						parse_arg(t_pvm *vm, int ac, char **av);
 int						parse_champion(char *path, int nb, t_pvm *vm);
@@ -135,7 +136,8 @@ void					ft_lld(t_pvm *pvm, t_process *process);
 void					ft_lldi(t_pvm *pvm, t_process *process);
 void					ft_lfork(t_pvm *pvm, t_process *process);
 void					ft_aff(t_pvm *pvm, t_process *process);
-int						get_prm_value(t_pvm *pvm, t_process *process, int i, int *value);
+int						get_prm_value(t_pvm *pvm,
+							t_process *process, int i, int *value);
 
 /*
 ** misc
@@ -155,7 +157,7 @@ void					close_ncurses();
 void					init_ncurses(t_pvm *vm);
 void					insert_champion(t_pvm *vm);
 void					set_color();
-void 					print_map(t_pvm *vm);
+void					print_map(t_pvm *vm);
 void					lstprint_champion(t_pvm *vm);
 void					game_status(t_pvm *vm);
 int						vm_status(t_pvm *vm);

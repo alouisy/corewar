@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/27 19:47:47 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/10/29 19:04:21 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/10/29 19:28:10 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 inline void	lstprint_champion(t_pvm *vm)
 {
-	t_list 		*node;
+	t_list		*node;
 	t_champion	*champion;
 	int			i;
 	int			j;
-	
+
 	node = vm->champions;
 	while (node)
 	{
@@ -39,5 +39,4 @@ inline void	lstprint_champion(t_pvm *vm)
 	attroff(A_BOLD);
 	refresh();
 	getch();
-	clear();
 }

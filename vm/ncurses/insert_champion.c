@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/29 19:06:24 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/10/29 19:06:25 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/10/29 19:29:16 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	insert_champion(t_pvm *vm)
 {
-	unsigned int 	i;
+	unsigned int	i;
 	int				pos;
 	t_list			*node;
 
@@ -31,16 +31,23 @@ void	insert_champion(t_pvm *vm)
 			{
 				wattroff(vm->nc.wleft, COLOR_PAIR((CHAMPION(node))->color));
 				wattron(vm->nc.wleft, COLOR_PAIR((CHAMPION(node))->color + 4));
-				mvwprintw(vm->nc.wleft, (i + pos) / 64 + 1, ((i + pos) % 64) * 3 + 1, "%.2hhx", (CHAMPION(node))->prog[i]);
+				mvwprintw(vm->nc.wleft,
+						(i + pos) / 64 + 1,
+						((i + pos) % 64) * 3 + 1,
+						"%.2hhx",
+						(CHAMPION(node))->prog[i]);
 				wattroff(vm->nc.wleft, COLOR_PAIR((CHAMPION(node))->color + 4));
 				wattron(vm->nc.wleft, COLOR_PAIR((CHAMPION(node))->color));
 			}
 			else
-				mvwprintw(vm->nc.wleft, (i + pos) / 64 + 1, ((i + pos) % 64) * 3 + 1, "%.2hhx", (CHAMPION(node))->prog[i]);
+				mvwprintw(vm->nc.wleft,
+						(i + pos) / 64 + 1,
+						((i + pos) % 64) * 3 + 1,
+						"%.2hhx",
+						(CHAMPION(node))->prog[i]);
 			i++;
 		}
 		wattroff(vm->nc.wleft, COLOR_PAIR((CHAMPION(node))->color));
 		node = node->next;
 	}
-	wrefresh(vm->nc.wleft);
 }

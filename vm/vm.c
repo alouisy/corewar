@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 17:41:07 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/10/29 18:45:06 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/10/29 19:34:17 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 
 static void	aux_usage(char *str)
 {
-	ft_printf("Usage: %s [-nc] [-dump N] [-n N] file [-n N] <champion1.cor> [-n N] <...>\n", str);
+	ft_printf("Usage: %s [-nc] [-dump N] ", str);
+	ft_printf("[-n N] <champion1.cor> [-n N] <...>\n");
 	ft_printf("	-dump N	: dump memory after N cycles then exit\n", str);
-	ft_printf("	-n N	: assign number N to champion from the following file\n", str);
+	ft_printf("	-n N\t: assign number N to champion from the following file\n");
 	ft_printf("	-nc	: ncurses graphical mode\n", str);
 }
 
