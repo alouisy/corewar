@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 17:41:26 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/10/29 18:27:16 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/10/29 19:03:13 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct			s_ncurses
 	int					ncurses;
 	WINDOW				*wleft;
 	WINDOW				*wright;
+	unsigned char		memory[MEM_SIZE];
 }						t_ncurses;
 
 typedef struct			s_pvm
@@ -150,7 +151,7 @@ t_process				*get_process(t_list	*node);
 /*
 ** ncurses
 */
-void					close_ncurses(t_pvm *vm);
+void					close_ncurses();
 void					init_ncurses(t_pvm *vm);
 void					insert_champion(t_pvm *vm);
 void					set_color();
@@ -160,5 +161,6 @@ void					game_status(t_pvm *vm);
 int						vm_status(t_pvm *vm);
 int						champion_status(t_pvm *vm, int i);
 void					process_status(t_pvm *vm, int i);
+void					update_process(t_pvm *vm, t_process *process);
 
 #endif

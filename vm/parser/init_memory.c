@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 17:41:07 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/10/27 19:21:49 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/10/29 18:52:02 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,5 @@ inline void		init_memory(t_pvm *vm)
 		ptmp = ptmp->next;
 		ctmp = ctmp->next;
 	}
+	ft_memcpy(vm->nc.memory, vm->memory, MEM_SIZE);
 }

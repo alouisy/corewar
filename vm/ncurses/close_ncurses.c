@@ -6,16 +6,13 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/27 19:46:02 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/10/27 19:52:39 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/10/29 19:02:47 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../vm.h"
 
-void	close_ncurses(t_pvm *vm)
+void	close_ncurses()
 {
 	endwin();
-	(void)vm;
-	//free(vm->nc.wleft);
-	//free(vm->nc.wright);
 }
