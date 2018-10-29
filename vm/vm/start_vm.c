@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 17:41:07 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/10/27 19:33:28 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/10/29 18:40:56 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,18 @@ static inline void	print_winner(t_pvm *vm)
 	ft_printf("le joueur %d(%s) a gagne\n", (CHAMPION(champ))->nbr, (CHAMPION(champ))->header.prog_name);
 }
 
+void	update_process(t_pvm *vm, t_process *process)
+{
+	int	i;
+
+	i = 4;
+	if (process->cycle_bf_exe == 1)
+		i = 0;
+	wattron(vm->nc.wleft, COLOR_PAIR((CHAMPION(process->champ))->color + i));
+	mvwprintw(vm->nc.wleft, process->pc / 64 + 1, (process->pc % 64) * 3 + 1, "%.2hhx", vm->memory[process->pc]);
+	wattroff(vm->nc.wleft, COLOR_PAIR((CHAMPION(process->champ))->color + i));
+}
+
 void				start_vm(t_pvm *vm)
 {
 	t_process	*content;
@@ -46,7 +58,8 @@ void				start_vm(t_pvm *vm)
 				get_instruction(vm, content);
 			else
 				process_instruction(vm, content);
-			tmp = tmp->next;		
+			update_process(vm, content);
+			tmp = tmp->next;
 		}
 		vm->total_cycles++;
 		if (vm->nc.ncurses)

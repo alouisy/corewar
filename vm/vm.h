@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 17:41:26 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/10/27 19:47:01 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/10/29 18:27:16 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 typedef struct			s_process
 {
 	int					champ_nbr;
+	t_list				*champ;
 	int					pid;
 	int					r[REG_NUMBER];
 	int					pc;

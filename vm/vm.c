@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 17:41:07 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/10/27 19:48:15 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/10/29 18:00:38 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,10 @@ int			main(int argc, char **argv)
 {
 	t_pvm	vm;
 
+	printf("%d\n", COLOR_GREEN);
+	printf("%d\n", COLOR_RED);
+	printf("%d\n", COLOR_BLUE);
+	printf("%d\n", COLOR_YELLOW);
 	if (argc > 1)
 	{
 		init_vm(&vm);

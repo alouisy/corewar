@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/27 19:47:47 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/10/27 20:24:14 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/10/29 18:09:09 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,12 @@
 inline void	set_color()
 {
 	start_color();
-	init_pair(1, COLOR_GREEN, COLOR_BLACK);
-	init_pair(2, COLOR_RED, COLOR_BLACK);
-	init_pair(3, COLOR_BLUE, COLOR_BLACK);
-	init_pair(4, COLOR_YELLOW, COLOR_BLACK);
-	init_pair(5, COLOR_BLACK, COLOR_WHITE);
+	init_pair(1, 1, COLOR_BLACK);
+	init_pair(2, 2, COLOR_BLACK);
+	init_pair(3, 3, COLOR_BLACK);
+	init_pair(4, 4, COLOR_BLACK);
+	init_pair(5, COLOR_BLACK, 1);
+	init_pair(6, COLOR_BLACK, 2);
+	init_pair(7, COLOR_BLACK, 3);
+	init_pair(8, COLOR_BLACK, 4);
 }

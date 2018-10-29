@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 17:41:07 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/10/27 20:23:42 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/10/29 18:06:39 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ void	insert_champion(t_pvm *vm)
 			if (i == 0)
 			{
 				wattroff(vm->nc.wleft, COLOR_PAIR((CHAMPION(node))->color));
-				wattron(vm->nc.wleft, COLOR_PAIR(5));
+				wattron(vm->nc.wleft, COLOR_PAIR((CHAMPION(node))->color + 4));
 				mvwprintw(vm->nc.wleft, (i + pos) / 64 + 1, ((i + pos) % 64) * 3 + 1, "%.2hhx", (CHAMPION(node))->prog[i]);
-				wattroff(vm->nc.wleft, COLOR_PAIR(5));
+				wattroff(vm->nc.wleft, COLOR_PAIR((CHAMPION(node))->color + 4));
 				wattron(vm->nc.wleft, COLOR_PAIR((CHAMPION(node))->color));
 			}
 			else
