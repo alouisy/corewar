@@ -19,7 +19,7 @@ void		game_status(t_pvm *vm)
 	i = vm_status(vm);
 	i = champion_status(vm, i + 1);
 	process_status(vm, i + 2);
-	if (!(vm->cur_cycle % 2))
+	if (!(vm->cur_cycle % 1))
 	{
 		wrefresh(vm->nc.wleft);
 		wrefresh(vm->nc.wright);

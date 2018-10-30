@@ -6,6 +6,8 @@ int		get_prm_value(t_pvm *pvm, t_process *process, int i, int *value)
 	int		j;
 
 	address = 0;
+	if (process->param[i] > 2048)
+		process->param[i] -= MEM_SIZE;
 	if (process->param_type[i] == REG_CODE)
 	{
 		if (process->param[i] >= 1 && process->param[i] <= REG_NUMBER)
