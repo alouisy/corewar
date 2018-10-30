@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/21 14:17:45 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/01/30 14:38:40 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/10/30 18:10:24 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,5 @@ t_list	*ft_lstpop(t_list *search, t_list *list)
 		if (node)
 			save->next = node->next;
 	}
-	search->next = NULL;
 	return (search);
 }

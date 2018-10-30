@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 17:41:26 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/10/29 19:33:03 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/10/30 18:13:59 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 
 # define PROCESS(x) (t_process*)(x->content)
 # define CHAMPION(x) (t_champion*)(x->content)
+# define BUFFER(x) (t_buffer*)(x->content)
 # define UNUSED __attribute__((unused))
 
 typedef struct			s_process
@@ -48,12 +49,20 @@ typedef struct			s_champion
 	int					color;
 }						t_champion;
 
+typedef struct			s_buffer
+{
+	int	i;
+	int color;
+	int cycle;
+}						t_buffer;
+
 typedef struct			s_ncurses
 {
 	int					ncurses;
 	WINDOW				*wleft;
 	WINDOW				*wright;
 	unsigned char		memory[MEM_SIZE];
+	t_list				*buffer;
 }						t_ncurses;
 
 typedef struct			s_pvm
@@ -165,6 +174,6 @@ void					game_status(t_pvm *vm);
 int						vm_status(t_pvm *vm);
 int						champion_status(t_pvm *vm, int i);
 void					process_status(t_pvm *vm, int i);
-void					update_process(t_pvm *vm, t_process *process);
+int						update_process(t_pvm *vm, t_process *process);
 
 #endif
