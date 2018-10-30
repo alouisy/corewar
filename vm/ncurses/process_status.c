@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/27 19:47:47 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/10/30 17:04:36 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/10/30 17:09:56 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,16 @@ void		registre_status(t_pvm *vm, int i)
 			process->param_type[0],
 			process->param_type[1],
 			process->param_type[2]);
+	i++;
+	int j;
+
+	j = 0;
+	while (j < REG_NUMBER)
+	{
+		mvwprintw(vm->nc.wright, i++, 0,
+			"| reg%2d | %7d |", j, process->r[j]);
+		j++;
+	}
 }
 
 void		process_status(t_pvm *vm, int i)
