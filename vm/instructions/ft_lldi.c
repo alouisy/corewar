@@ -18,12 +18,25 @@
 
 void	ft_lldi(t_pvm *pvm, t_process *process)
 {
-	unsigned char	*ptr;
+	int		val1;
+	int		val2;
+	int		address;
 
-	ptr = pvm->memory + (process->param[0] + process->param[1]) % MEM_SIZE;
-	process->r[process->param[2]] = ft_strhex2dec(ptr, 1);
-	if (process->r[process->param[2]])
-		process->carry = 1;
-	else
-		process->carry = 0;
+	val1 = 0;
+	val2 = 0;
+	address = 0;
+	if (process->param[2] >= 1 && process->param[2] <= REG_NUMBER
+		&& lget_prm_value(pvm, process, 0, &val1)
+		&& lget_prm_value(pvm, process, 1, &val2))
+	{
+		address = process->pc + (val1 + val2);
+		if (address < 0)
+			address += MEM_SIZE;		
+		val1 = ft_strhex2dec((pvm->memory + address), 4);
+		process->r[process->param[2] - 1] = val1;
+		if (process->r[process->param[2] - 1])
+			process->carry = 0;
+		else
+			process->carry = 1;
+	}
 }

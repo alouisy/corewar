@@ -20,6 +20,14 @@ void	ft_aff(UNUSED t_pvm *pvm, t_process *process)
 {
 	char	c;
 
-	c = process->r[process->param[0]] % 256;
-	ft_printf("%c\n", c);
+	c = 0;
+	if (process->param[0] >= 1 && process->param[0] <= REG_NUMBER)
+	{
+		c = process->r[process->param[0] - 1] % 256;
+		ft_printf("%c\n", c);
+		if (c == '\0')
+			process->carry = 1;
+		else
+			process->carry = 0;
+	}
 }

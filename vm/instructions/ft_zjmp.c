@@ -20,8 +20,8 @@ void	ft_zjmp(UNUSED t_pvm *pvm, t_process *process)
 {
 	if (process->carry == 1)
 	{
-		process->pc += process->param[0] - 1;
-		process->pc %= 65535;
+		process->pc += process->param[0];
+		process->pc %= MEM_SIZE;
 		process->pc2 = process->pc;
 	}
 }

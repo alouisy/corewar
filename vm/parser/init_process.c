@@ -20,6 +20,7 @@ inline void	init_process(t_process *process, t_pvm *vm)
 	process->champ = vm->champions;
 	process->pid = ft_lstlength(vm->processes);
 	process->r[0] = process->champ_nbr;
+//	process->r[0] = process->champ_nbr * -1;
 	i = 1;
 	while (i < REG_NUMBER)
 		process->r[i++] = 0;
