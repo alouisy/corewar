@@ -63,8 +63,8 @@ void		get_instruction(t_pvm *vm, t_process *process)
 		else if (process->param_type[i] == DIR_CODE)
 		{
 			process->param[i] = ft_strhex2dec((vm->memory)+(process->pc + j), ((g_op_tab[process->opcode].label_size == 1) ? 2 : 4));
-			if (process->param[i] > IDX_MOD)
-				process->param[i] -= 0xFFFF;
+			if (process->param[i] > MEM_SIZE)
+				process->param[i] = (process->param[i] % MEM_SIZE) - MEM_SIZE;
 			//printf("Ternaire = '%d'\nDIR HEXA = %d\n", ((g_op_tab[process->opcode].label_size == 1) ? 4 : 8), process->param[i]);
 			j += (g_op_tab[process->opcode].label_size == 1) ? 2 : 4;
 		}
