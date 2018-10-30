@@ -28,11 +28,13 @@ void	ft_sti(t_pvm *pvm, t_process *process)
 	val3 = 0;
 	address = 0;
 	if (process->param[0] >= 1 && process->param[0] <= REG_NUMBER
-		&& get_prm_value(pvm, process, 1, &val1) && get_prm_value(pvm, process, 2, &val2))
+		&& lget_prm_value(pvm, process, 1, &val1) && lget_prm_value(pvm, process, 2, &val2))
 	{
 		address = process->pc + ((val1 + val2) % IDX_MOD);
+	//	printf("pc = %d address sti = %d val1 = %d val2 = %d\n", process->pc, address, val1, val2);
 		if (address < 0)
 			address += MEM_SIZE;
+	//	printf("pc = %d address sti = %d val1 = %d val2 = %d\n", process->pc, address, val1, val2);
 		val3 = process->r[process->param[0] - 1];
 		pvm->memory[(address + 3) % MEM_SIZE] = val3;
 		pvm->memory[(address + 2) % MEM_SIZE] = (val3 >> 8);

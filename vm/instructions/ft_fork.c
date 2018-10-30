@@ -37,7 +37,7 @@ static void	process_cpy(t_process *old, t_process *new, int pc)
 	new->param_type[0] = 0;
 	new->param_type[1] = 0;
 	new->param_type[2] = 0;
-	new->opcode = 0;
+	new->opcode = -1;
 	new->ocp = 0;
 }
 
