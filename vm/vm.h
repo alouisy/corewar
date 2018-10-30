@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 17:41:26 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/10/30 18:32:15 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/10/30 18:36:35 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,9 @@ typedef struct			s_op
 	int					label_size;
 }						t_op;
 
+/*
+** structure for process then for champion
+*/
 typedef struct			s_process
 {
 	int					champ_nbr;
@@ -63,6 +66,9 @@ typedef struct			s_champion
 	int					color;
 }						t_champion;
 
+/*
+** structure nécessaire au fonctionnement de ncurses
+*/
 typedef struct			s_buffer
 {
 	int	i;
@@ -79,6 +85,9 @@ typedef struct			s_ncurses
 	t_list				*buffer;
 }						t_ncurses;
 
+/*
+** main structure
+*/
 typedef struct			s_pvm
 {
 	void				(*f[16])(struct s_pvm *, t_process *);
