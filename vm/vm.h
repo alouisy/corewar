@@ -138,6 +138,8 @@ void					ft_lfork(t_pvm *pvm, t_process *process);
 void					ft_aff(t_pvm *pvm, t_process *process);
 int						get_prm_value(t_pvm *pvm,
 							t_process *process, int i, int *value);
+int						lget_prm_value(t_pvm *pvm,
+							t_process *process, int i, int *value);
 
 /*
 ** misc

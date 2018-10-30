@@ -17,7 +17,7 @@
 ** implémentation fausse
 */
 
-void	process_cpy(t_process *old, t_process *new, int pc)
+static void	process_cpy(t_process *old, t_process *new, int pc)
 {
 	int		i;
 
@@ -41,7 +41,7 @@ void	process_cpy(t_process *old, t_process *new, int pc)
 	new->ocp = 0;
 }
 
-void	ft_fork(t_pvm *pvm, t_process *process)
+void		ft_fork(t_pvm *pvm, t_process *process)
 {
 	int			address;
 	t_process	new;
