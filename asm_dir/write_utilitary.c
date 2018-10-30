@@ -55,7 +55,6 @@ void		add_lbl(char *lbl, t_write_inf *write_inf, t_asm_inf *asm_inf)
 {
 	t_holder_def	holder_def;
 
-	printf("add?\n");
 	holder_def.lbl = ft_strdup(lbl);
 	holder_def.inst_pos = write_inf->inst_pos;
 	holder_def.lst_pos = asm_inf->current;

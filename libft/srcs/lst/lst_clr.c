@@ -18,13 +18,11 @@ void	lst_clr(t_list *lst)
 	{
 		if (lst->next)
 			lst_clr(lst->next);
-		if (lst->content)
+		if (lst->content && ((char *)(lst->content))[0])
 		{
-			printf("content adress : %p\n", lst->content);
-			printf("has.. .%s.\n", (char *)lst->content);
+			printf("lst_clear : %s, .%c.\n", lst->content, ((char *)(lst->content))[0]);
 			ft_memdel((void **)&(lst->content));
 		}
-		printf("tat\n");
 		ft_memdel((void **)&lst);
 	}
 }

@@ -17,17 +17,14 @@ static void	act_on_inst(t_asm_inf *asm_inf, t_param_def *param, t_ocp *ocp_s,
 {
 	int i;
 
-	printf("jusqu'a ou je dois aller ?\n");
 	i = 0;
 	asm_inf->nb_bytes += 1;
-	asm_inf->current->next = ft_lstnew(&(param->inst_code), 1, 1);
+	asm_inf->current->next = ft_lstnew(&(param->inst_code), 1, 1); //logiquement je devrais tout le temps utiliser le _p
 	asm_inf->current = asm_inf->current->next;
 	ocp_s->holder = asm_inf->current;
 	while (ft_iswhitespace(line[i]))
 		i++;
-	printf("come on\n");
 	write_param(&(line[i]), param, asm_inf, ocp_s);
-	printf("lets's find\n");
 	if (param->ocp)
 	{
 		ocp_s->new = ft_lstnew(&ocp_s->ocp, 1, 1);
@@ -46,16 +43,13 @@ void		check_instruct(t_list **hash_tab, char *line, t_asm_inf *asm_inf)
 	t_list		*tmp_list;
 
 	i = 0;
-	printf("aller\n");
 	while (line[i] && !ft_iswhitespace(line[i]))
 		i++;
 	if (i > 4 || i <= 1)
 		exit_error("unknown instruction\n", UNKNOWN_INST_ERR);
 	inst = ft_strndup(line, i);
-	printf("qwer : %s\n", inst);
 	tmp_list = hash_tab[hash_word(inst)];
 	ocp_s.ocp = 0;
-	printf("???\n");
 	while (tmp_list && !ocp_s.ocp)
 	{
 		param = tmp_list->content;
@@ -64,7 +58,6 @@ void		check_instruct(t_list **hash_tab, char *line, t_asm_inf *asm_inf)
 		else
 			tmp_list = tmp_list->next;
 	}
-	printf("fight\n");
 	ft_memdel((void **)&inst);
 	if (!ocp_s.ocp)
 		exit_error("unknown instruction\n", UNKNOWN_INST_ERR);

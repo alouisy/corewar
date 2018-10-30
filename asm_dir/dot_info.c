@@ -46,18 +46,19 @@ void		get_dot_info(int fd, char **line, t_asm_inf *asm_inf)
 	int read;
 
 	read = get_next_line(fd, line, '\n');
-	/*while (read > 0 && (!*line || (*line && (*line)[0] == '#')))
+	while (read > 0 && (!*line || (*line && (*line)[0] == '#')))
 	{
+		printf("la ?\n");
 		ft_memdel((void **)line);
 		read = get_next_line(fd, line, '\n');
-	}*/
-	//if (!*line)
-		exit_error("Read error\n", READ_ERR);
+	}
 	i = 0;
 	while (ft_iswhitespace((*line)[i]))
 		i++;
 	asm_inf->prog_name = get_inf(&((*line)[i]), NAME_CMD_STRING);
+	printf("ici ? \n");
 	ft_memdel((void **)line);
+	exit_error("exit\n", 1);
 	get_next_line(fd, line, '\n');
 	if (!*line)
 		exit_error("Read error\n", READ_ERR);

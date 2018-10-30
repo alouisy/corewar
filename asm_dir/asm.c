@@ -95,28 +95,22 @@ int			hash_word(char *word)
 	return (res);
 }
 
-/*static void	parse_line(char *line, t_asm_inf *asm_inf, t_list **hash_tab)
+static void	parse_line(char *line, t_asm_inf *asm_inf, t_list **hash_tab)
 {
 	int i;
 	int j;
 
-	printf("yo\n");
-	
 	i = 0;
 	while (line[i] && ft_iswhitespace(line[i]))
 		i++;
 	j = i;
 	while (line[j] && !ft_iswhitespace(line[j]))
 		j++;
-	printf("oui?\n");
 	if (j != i && line[i] != COMMENT_CHAR)
 	{
-		printf("dedans\n");
 		if (line[j - 1] == LABEL_CHAR)
 		{
-			printf("tut\n");
 			read_label(ft_strndup(&(line[i]), j - i - 1), asm_inf);
-			printf("kopkpkop\n");
 			while (line[j] && ft_iswhitespace(line[j]))
 				j++;
 			if (line[j])
@@ -125,43 +119,36 @@ int			hash_word(char *word)
 		else
 			check_instruct(hash_tab, &(line[i]), asm_inf);
 	}
-	printf("arf\n");
-}*/
+}
 
 int			main(int argc, char **argv)
 {
 	int			fd;
 	char		*line;
-	//t_list		**hash_tab;
+	t_list		**hash_tab;
 	t_asm_inf	asm_inf;
 	t_list		*new;
 
 	line = NULL;
-	//hash_tab = init_hash_tab();
+	
 	fd = init_prog(argc, argv, &asm_inf);
 	get_dot_info(fd, &line, &asm_inf);
-	exit_error("exit\n", 1);
+
+	exit_error("exit\n", 0);
+	hash_tab = init_hash_tab();
 	write_header(&asm_inf);
-	printf("test\n");
-	exit_error("exit\n", 1);
 	while (get_next_line(fd, &line, '\n'))
 		if (line) //je pense
 		{
-			//parse_line(line, &asm_inf, hash_tab);
-			printf("wesh\n");
+			parse_line(line, &asm_inf, hash_tab);
 			ft_memdel((void **)&line);
-			exit_error("exit\n", 1);
 		}
-		printf("write?\n");
 	write_lbl(&asm_inf);
-	printf("999\n");
 	new = ft_lstnew_p(fill_binary(4, asm_inf.nb_bytes), 4, 1);
 	new->next = asm_inf.holder_prog_size->next;
 	asm_inf.holder_prog_size->next = new;
-	printf("111\n");
 	write_binary(asm_inf.binary_list);
-	printf("222\n");
+	printf("avant clr\n");
 	lst_clr(g_to_free);
-	printf("333\n");
 	return (0);
 }

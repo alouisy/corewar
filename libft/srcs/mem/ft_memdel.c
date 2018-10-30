@@ -16,8 +16,10 @@ void	ft_memdel(void **ap)
 {
 	if (ap)
 	{
-		printf("freed verif : %p\n", *ap);
+		printf("culprit?\n");
+		ft_memset(*ap, 0, 1);
 		free(*ap);
 		*ap = NULL;
+		printf("yes\n");
 	}
 }

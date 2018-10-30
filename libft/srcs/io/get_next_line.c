@@ -15,7 +15,6 @@
 static int	if_return(char **rest, char **line, int index)
 {
 	*line = ft_strndup(*rest, index);
-	exit_error("c'est quoi ton probleme ??\n", 0);
 	if (index == (int)ft_strlen(*rest) - 1)
 		ft_memdel((void **)rest);
 	else
@@ -46,17 +45,10 @@ static char	*ft_strjoin_overlap(char **s1, char **s2)
 	int		len_1;
 	int		len_2;
 
-	char *test = "test\n";
-
-	//str = ft_strdup(*s2);
-
 	if (!*s2)
 		return (NULL);
 	if (!*s1)
-	{
-		printf("effectivement\n");
-		str = ft_strdup(test);
-	}
+		str = ft_strdup(*s2);
 	else
 	{
 		i = 0;
@@ -71,12 +63,7 @@ static char	*ft_strjoin_overlap(char **s1, char **s2)
 		ft_memdel((void **)s1);
 		str[len_1 + len_2] = '\0';
 	}
-	printf("freed adress : %p\n", *s2);
 	ft_memdel((void **)s2);
-	if (*s2)
-		printf("whaaat\n");
-	else
-		printf("alors? %p\n", *s2);
 	return (str);
 }
 
@@ -106,24 +93,11 @@ int			get_next_line(const int fd, char **line, char separator)
 	{
 		if ((index = ft_strchri(rest, separator)) == -1)
 		{
-			//char test = "arf\n";
 			buff = ft_strnew(BUFF_SIZE + 1);
-			//exit_error("serieux?\n", 1);
 			state = read(fd, buff, BUFF_SIZE);
-			//exit_error("serieux?\n", 1);
 			if (state <= 0)
 				return (stopped_reading(&buff, state, line, &rest));
 			rest = ft_strjoin_overlap(&rest, &buff);
-			if (buff)
-				printf("whaaat %p\n", buff);
-			else
-				printf("alors? %p\n", buff);
-
-			if (g_to_free->next->content)
-				printf("whaaat %p\n", g_to_free->next->content);
-			else
-				printf("alors? %p\n", g_to_free->next->content);
-			exit_error("serieux?\n", 1);
 		}
 		else
 			return (if_return(&rest, line, index));
