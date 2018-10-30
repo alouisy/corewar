@@ -169,6 +169,7 @@ t_list					*ft_lstfindchamp(t_list *champ, int nbr);
 t_champion				*get_champion(t_list *node);
 t_process				*get_process(t_list	*node);
 t_buffer				*get_buffer(t_list *node);
+void					reset_param(t_process *process);
 
 /*
 ** ncurses

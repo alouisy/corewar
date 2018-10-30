@@ -29,12 +29,7 @@ inline void	init_process(t_process *process, t_pvm *vm)
 	process->carry = 0;
 	process->cycles_wo_live = 0;
 	process->cycle_bf_exe = 0;
-	i = 0;
-	while (i < 3)
-	{
-		process->param[i] = 0;
-		process->param_type[i++] = 0;
-	}
+	reset_param(process);
 	process->opcode = -1;
 	process->ocp = 0;
 }

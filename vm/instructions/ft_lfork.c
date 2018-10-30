@@ -31,12 +31,7 @@ static void	process_cpy(t_process *old, t_process *new, int pc)
 	new->carry = old->carry;
 	new->cycles_wo_live = 0;
 	new->cycle_bf_exe = 0;
-	new->param[0] = 0;
-	new->param[1] = 0;
-	new->param[2] = 0;
-	new->param_type[0] = 0;
-	new->param_type[1] = 0;
-	new->param_type[2] = 0;
+	reset_param(new);
 	new->opcode = 0;
 	new->ocp = 0;
 }
