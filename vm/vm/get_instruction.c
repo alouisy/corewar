@@ -12,7 +12,7 @@
 
 #include "../vm.h"
 
-void		debug(t_pvm *vm, t_process *process)
+void			debug(t_pvm *vm, t_process *process)
 {
 	printf("PC : %d / MEM[PC] : '%.2hhx'\nPC2 : %d / MEM[PC2] : '%.2hhx'\nINSTUCTION : %s\nOPCODE : %d / %s\nNB_PARAMS : %d\nPARAM 1 : %d / %s\nPARAM 2 : %d / %s\nPARAM 3 : %d / %s\nCYCLE BEFORE EXE : %d\n\n",
 	process->pc, vm->memory[process->pc],
@@ -26,27 +26,10 @@ void		debug(t_pvm *vm, t_process *process)
 	process->cycle_bf_exe);
 }
 
-void		get_instruction(t_pvm *vm, t_process *process)
+static int		get_param(t_pvm *vm, t_process *process, int j)
 {
 	int		i;
-	int		j;
 
- 	process->opcode = vm->memory[process->pc];
- 	//printf("\npc = %d & memory[pc] = '%c' & opcode = %d\n",process->pc, vm->memory[process->pc], process->opcode);
-	i = -1;
-	j = 1;
-	if (g_op_tab[process->opcode].ocp)
-	{
-		process->ocp = vm->memory[process->pc + 1];
-		while (++i < g_op_tab[process->opcode].nb_param)
-		{
-			process->param_type[i] = (vm->memory[process->pc + 1] & (0b11000000 >> (i * 2))) >> (6 - i * 2);
-			//printf("param[%d] = '%d'\n", i, process->param_type[i]);
-		}
-		j++;
-	}
-	else
-		process->param_type[0] = DIR_CODE;
 	i = -1;
 	while (++i < g_op_tab[process->opcode].nb_param)
 	{
@@ -57,19 +40,44 @@ void		get_instruction(t_pvm *vm, t_process *process)
 		}
 		else if (process->param_type[i] == IND_CODE)
 		{
-			process->param[i] = ft_strhex2dec((vm->memory)+(process->pc + j), 2);
+			process->param[i] = (ft_strhex2dec((vm->memory)+(process->pc + j), 2)) % MEM_SIZE;
 			j += 2;
 		}
 		else if (process->param_type[i] == DIR_CODE)
 		{
-			process->param[i] = ft_strhex2dec((vm->memory)+(process->pc + j), ((g_op_tab[process->opcode].label_size == 1) ? 2 : 4));
-			if (process->param[i] > MEM_SIZE)
-				process->param[i] = (process->param[i] % MEM_SIZE) - MEM_SIZE;
-			//printf("Ternaire = '%d'\nDIR HEXA = %d\n", ((g_op_tab[process->opcode].label_size == 1) ? 4 : 8), process->param[i]);
+			process->param[i] = (ft_strhex2dec((vm->memory)+(process->pc + j), ((g_op_tab[process->opcode].label_size == 1) ? 2 : 4))) % MEM_SIZE;
 			j += (g_op_tab[process->opcode].label_size == 1) ? 2 : 4;
 		}
 	}
-	process->pc2 = process->pc + j;
+	return(j);
+}
+
+static int		get_ocp(t_pvm *vm, t_process *process)
+{
+	int		i;
+
+	i = -1;
+	if (g_op_tab[process->opcode].ocp)
+	{
+		process->ocp = vm->memory[process->pc + 1];
+		while (++i < g_op_tab[process->opcode].nb_param)
+		{
+			process->param_type[i] = (vm->memory[process->pc + 1] & (0b11000000 >> (i * 2))) >> (6 - i * 2);
+			//printf("param[%d] = '%d'\n", i, process->param_type[i]);
+		}
+		return(2);
+	}
+	process->param_type[0] = DIR_CODE;
+	return(1);
+}
+
+void			get_instruction(t_pvm *vm, t_process *process)
+{
+	int		cursor;
+     
+ 	process->opcode = vm->memory[process->pc % MEM_SIZE];
+	cursor = get_param(vm, process, get_ocp(vm, process));
+	process->pc2 = process->pc + cursor;
 	process->cycle_bf_exe = g_op_tab[process->opcode].nb_cycles - 1;
 	//debug(vm, process);
 }
