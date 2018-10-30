@@ -42,7 +42,7 @@ void				start_vm(t_pvm *vm)
 		while (tmp)
 		{
 			content = PROCESS(tmp);
-			if (content->opcode == -1)
+			if (content->opcode <= 0)
 				get_instruction(vm, content);
 			else
 				process_instruction(vm, content);

@@ -12,15 +12,27 @@
 
 #include "../vm.h"
 
+void	reset_param(t_process *process)
+{
+	int i;
+
+	i = 0;
+	while (i < 3)
+	{
+		process->param_type[i] = 0;;
+		process->param[i] = 0;;
+		i++;
+	}
+}
+
 void	process_instruction(t_pvm *vm, t_process *process)
 {
-	//printf("It's now cycle %d\n", vm->total_cycles);
-	//printf("%d cycles before exe of '%s' : \n", process->cycle_bf_exe - 1, g_op_tab[process->opcode].name);
 	if (--process->cycle_bf_exe == 0)
 	{
 		vm->f[process->opcode - 1](vm, process);
+		reset_param(process);
 		process->pc = process->pc2;
-		process->opcode = -1;
+		process->opcode = 0;
 		process->ocp = 0;
 	}
 }

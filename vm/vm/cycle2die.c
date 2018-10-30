@@ -42,7 +42,7 @@ static void	check_node(t_pvm *vm)
 		if ((PROCESS(node))->cycles_wo_live == 0)
 		{
 			node = ft_lstpop(node, vm->processes);
-			ft_lstdelone(&node, &ft_del);
+			//ft_lstdelone(&node, &ft_del);
 			node = save;
 		}
 		else
