@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/29 18:49:38 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/10/30 18:19:47 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/10/30 18:33:28 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,21 +28,27 @@ static inline void	update_buffer(t_pvm *vm)
 	todel = NULL;
 	while (node)
 	{
-		if ((BUFFER(node))->cycle)
-			(BUFFER(node))->cycle--;
+		if ((get_buffer(node))->cycle)
+			(get_buffer(node))->cycle--;
 		else
 		{
-			i = (BUFFER(node))->i;
-			wattron(vm->nc.wleft, COLOR_PAIR((BUFFER(node))->color));
+			i = (get_buffer(node))->i;
+			wattron(vm->nc.wleft, COLOR_PAIR((get_buffer(node))->color));
 			mvwprintw(vm->nc.wleft,
 					i / 64 + 1,
 					(i % 64) * 3 + 1,
 					"%.2hhx",
 					vm->memory[i]);
-			wattroff(vm->nc.wleft, COLOR_PAIR((BUFFER(node))->color));
+			wattroff(vm->nc.wleft, COLOR_PAIR((get_buffer(node))->color));
 			todel = ft_lstpop(node, vm->nc.buffer);
 		}
 		node = node->next;
+		if (todel)
+		{
+			//ft_lstdelone(&todel, &ft_del1);
+			//free(todel);
+			todel = NULL;
+		}
 	}
 }
 

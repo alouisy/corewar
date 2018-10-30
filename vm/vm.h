@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 17:41:26 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/10/30 18:13:59 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/10/30 18:32:15 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,22 @@
 
 # define PROCESS(x) (t_process*)(x->content)
 # define CHAMPION(x) (t_champion*)(x->content)
-# define BUFFER(x) (t_buffer*)(x->content)
 # define UNUSED __attribute__((unused))
+
+/*
+** structure de descriptions des instructions
+*/
+typedef struct			s_op
+{
+	char				*name;
+	int					nb_param;
+	int					param[3];
+	int					op_code;
+	int					nb_cycles;
+	char				*description;
+	int					ocp;
+	int					label_size;
+}						t_op;
 
 typedef struct			s_process
 {
@@ -84,21 +98,6 @@ typedef struct			s_pvm
 	int					last_live;
 }						t_pvm;
 
-/*
-** structure de descriptions des instructions
-*/
-typedef struct			s_op
-{
-	char				*name;
-	int					nb_param;
-	int					param[3];
-	int					op_code;
-	int					nb_cycles;
-	char				*description;
-	int					ocp;
-	int					label_size;
-}						t_op;
-
 extern t_op				g_op_tab[17];
 
 /*
@@ -160,6 +159,7 @@ void					free_vm(t_pvm *vm);
 t_list					*ft_lstfindchamp(t_list *champ, int nbr);
 t_champion				*get_champion(t_list *node);
 t_process				*get_process(t_list	*node);
+t_buffer				*get_buffer(t_list *node);
 
 /*
 ** ncurses
