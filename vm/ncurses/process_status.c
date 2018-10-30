@@ -6,11 +6,32 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/27 19:47:47 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/10/29 19:27:32 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/10/30 17:04:36 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../vm.h"
+
+void		registre_status(t_pvm *vm, int i)
+{
+	t_process	*process;
+	
+	process = PROCESS(vm->processes);
+	mvwprintw(vm->nc.wright, i++, 0,
+		"| param 0 | param 1 | param 2 |");
+	mvwprintw(vm->nc.wright, i++, 0,
+			"| %7d | %7d | %7d |",
+			process->param[0],
+			process->param[1],
+			process->param[2]);
+	mvwprintw(vm->nc.wright, i++, 0,
+		"| type0 | type1 | type2 |");
+	mvwprintw(vm->nc.wright, i++, 0,
+			"| %5d | %5d | %5d |",
+			process->param_type[0],
+			process->param_type[1],
+			process->param_type[2]);
+}
 
 void		process_status(t_pvm *vm, int i)
 {
@@ -37,4 +58,5 @@ void		process_status(t_pvm *vm, int i)
 				process->cycle_bf_exe);
 		node = node->next;
 	}
+	registre_status(vm, i + 1);
 }
