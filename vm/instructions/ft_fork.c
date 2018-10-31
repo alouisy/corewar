@@ -24,7 +24,7 @@ static void	process_cpy(t_process *old, t_process *new, int pc)
 	i = -1;
 	new->champ_nbr = old->champ_nbr;
 	new->champ = old->champ;
-	new->pid = old->pid;
+	new->pid = old->pid + 11;
 	while (++i < REG_NUMBER)
 		new->r[i] = old->r[i];
 	new->pc = pc;

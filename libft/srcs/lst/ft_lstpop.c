@@ -12,19 +12,19 @@
 
 #include "libft.h"
 
-t_list	*ft_lstpop(t_list *search, t_list *list)
+t_list	*ft_lstpop(t_list *search, t_list **list)
 {
 	t_list	*node;
 	t_list	*save;
 
-	if (list == search)
+	if (*list == search)
 	{
-		list = list->next;
+		*list = (*list)->next;
 	}
 	else
 	{
-		node = list;
-		save = list;
+		node = *list;
+		save = *list;
 		while (node && node != search)
 		{
 			save = node;

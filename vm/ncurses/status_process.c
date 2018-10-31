@@ -21,6 +21,7 @@ int registre_status(t_pvm *vm, int i)
 	int j;
 	t_process	*process;
 	
+
 	process = PROCESS(vm->processes);	
 	j = 0;
 	while (j < REG_NUMBER)
@@ -35,17 +36,17 @@ int registre_status(t_pvm *vm, int i)
 int	param_status(t_pvm *vm, int i)
 {
 	t_process	*process;
-	
+
 	process = PROCESS(vm->processes);
 	mvwprintw(vm->nc.wright, i++, 0,
-		"| param 0 | param 1 | param 2 |");
+			"| param 0 | param 1 | param 2 |");
 	mvwprintw(vm->nc.wright, i++, 0,
 			"| %7d | %7d | %7d |",
 			process->param[0],
 			process->param[1],
 			process->param[2]);
 	mvwprintw(vm->nc.wright, i++, 0,
-		"| type0 | type1 | type2 |");
+			"| type0 | type1 | type2 |");
 	mvwprintw(vm->nc.wright, i++, 0,
 			"| %5d | %5d | %5d |",
 			process->param_type[0],
@@ -79,6 +80,9 @@ void		status_process(t_pvm *vm, int i)
 				process->cycle_bf_exe);
 		node = node->next;
 	}
-	i = param_status(vm, i + 1);
-	registre_status(vm, i + 1);
+	if (vm->processes)
+	{
+		i = param_status(vm, i + 1);
+		registre_status(vm, i + 1);
+	}
 }
