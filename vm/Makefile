@@ -6,7 +6,7 @@
 #    By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/02/06 11:23:09 by jgroc-de          #+#    #+#              #
-#    Updated: 2018/10/29 17:38:49 by jgroc-de         ###   ########.fr        #
+#    Updated: 2018/10/31 17:36:37 by jgroc-de         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,8 @@ all: $(NAME)
 $(NAME): $(OBJ) vm.h op.h
 	@echo "compilation de "$(NAME)
 	@$(CC) -lncurses $(OBJ) -o $(NAME) $(CFLAGS) $(LIBFT)
+
+$(OBJ): vm.h op.h
 
 $(LIB):
 	make -C ../libft

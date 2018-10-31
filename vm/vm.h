@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 17:41:26 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/10/31 15:30:49 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/10/31 17:33:47 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # define PROCESS(x) (t_process*)(x->content)
 # define CHAMPION(x) (t_champion*)(x->content)
 # define UNUSED __attribute__((unused))
+# define CHAMP_MAX3		(CHAMP_MAX_SIZE * 3)
 
 /*
 ** structure de descriptions des instructions
@@ -53,6 +54,7 @@ typedef struct			s_process
 	char				param_type[3];
 	int					opcode;
 	char				ocp;
+	int					wait;
 }						t_process;
 
 typedef struct			s_champion
@@ -184,7 +186,7 @@ int						status_vm(t_pvm *vm);
 int						status_champion(t_pvm *vm, int i);
 void					status_process(t_pvm *vm, int i);
 int						update_process(t_pvm *vm, t_process *process);
-void					print_case(WINDOW *win, int i, int pos, unsigned char *str);
+void					print_case(WINDOW *win, int pos, unsigned char c);
 void					close_ncurses();
 
 #endif

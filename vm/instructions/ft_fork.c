@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/26 15:46:33 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/10/26 15:46:55 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/10/31 17:34:22 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ static void	process_cpy(t_process *old, t_process *new, int pc)
 	reset_param(new);
 	new->opcode = -1;
 	new->ocp = 0;
+	new->wait = 0;
 }
 
 void		ft_fork(t_pvm *pvm, t_process *process)

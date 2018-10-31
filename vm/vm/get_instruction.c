@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 17:41:07 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/10/27 19:35:10 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/10/31 17:32:46 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,14 @@ void		get_instruction(t_pvm *vm, t_process *process)
 	{
 		process->opcode = 0;
 		process->pc += 1;
+		process->pc %= MEM_SIZE;
 	}
 	else
 	{
 		shift += get_opcode(vm, process);
 		shift = get_param(vm, process, shift);
-		process->pc2 = process->pc + shift;
+		process->pc2 = (process->pc + shift) % MEM_SIZE;
 		process->cycle_bf_exe = g_op_tab[process->opcode].nb_cycles - 1;
 	}
+	process->wait = 1;
 }

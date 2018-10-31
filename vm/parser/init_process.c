@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/25 18:38:22 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/10/29 18:30:43 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/10/31 17:34:01 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,5 @@ inline void	init_process(t_process *process, t_pvm *vm)
 	reset_param(process);
 	process->opcode = -1;
 	process->ocp = 0;
+	process->wait = 0;
 }
