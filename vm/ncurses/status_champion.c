@@ -12,7 +12,11 @@
 
 #include "../vm.h"
 
-int	champion_status(t_pvm *vm, int i)
+/*
+** print information about champions in right panel
+*/
+
+int	status_champion(t_pvm *vm, int i)
 {
 	t_list		*node;
 	t_champion	*champion;

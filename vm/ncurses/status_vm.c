@@ -12,7 +12,11 @@
 
 #include "../vm.h"
 
-int		vm_status(t_pvm *vm)
+/*
+** print information about vm in right panel
+*/
+
+int		status_vm(t_pvm *vm)
 {
 	int	i;
 

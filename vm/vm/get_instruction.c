@@ -57,7 +57,7 @@ void		get_instruction(t_pvm *vm, t_process *process)
 
 	shift = 1;
  	process->opcode = vm->memory[process->pc];
-	if (process->opcode < 1 || process->opcode > 15)
+	if (process->opcode < 1 || process->opcode > 16)
 	{
 		process->opcode = 0;
 		process->pc += 1;

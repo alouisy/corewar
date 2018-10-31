@@ -59,6 +59,7 @@ typedef struct			s_champion
 {
 	t_header			header;
 	unsigned char		prog[CHAMP_MAX_SIZE + 1];
+	unsigned char		memory[MEM_SIZE];
 	int					nbr;
 	int					vm_pos;
 	int					l_live;
@@ -81,7 +82,6 @@ typedef struct			s_ncurses
 	int					ncurses;
 	WINDOW				*wleft;
 	WINDOW				*wright;
-	unsigned char		memory[MEM_SIZE];
 	t_list				*buffer;
 }						t_ncurses;
 
@@ -174,16 +174,16 @@ void					reset_param(t_process *process);
 /*
 ** ncurses
 */
-void					close_ncurses();
 void					init_ncurses(t_pvm *vm);
-void					insert_champion(t_pvm *vm);
-void					set_color();
-void					print_map(t_pvm *vm);
-void					lstprint_champion(t_pvm *vm);
-void					game_status(t_pvm *vm);
-int						vm_status(t_pvm *vm);
-int						champion_status(t_pvm *vm, int i);
-void					process_status(t_pvm *vm, int i);
+void					init_colors();
+void					init_left_panel(t_pvm *vm);
+void					intro_champions(t_pvm *vm);
+void					status_game(t_pvm *vm);
+int						status_vm(t_pvm *vm);
+int						status_champion(t_pvm *vm, int i);
+void					status_process(t_pvm *vm, int i);
 int						update_process(t_pvm *vm, t_process *process);
+void					print_case(WINDOW *win, int i, int pos, unsigned char *str);
+void					close_ncurses();
 
 #endif

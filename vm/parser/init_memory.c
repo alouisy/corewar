@@ -31,8 +31,9 @@ inline void		init_memory(t_pvm *vm)
 		process->pc = champ->vm_pos;
 		ft_memcpy(vm->memory + champ->vm_pos, champ->prog,
 			champ->header.prog_size);
+		ft_memcpy(champ->memory + champ->vm_pos, champ->prog,
+			champ->header.prog_size);
 		ptmp = ptmp->next;
 		ctmp = ctmp->next;
 	}
-	ft_memcpy(vm->nc.memory, vm->memory, MEM_SIZE);
 }

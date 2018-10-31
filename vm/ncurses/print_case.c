@@ -1,30 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_color.c                                        :+:      :+:    :+:   */
+/*   print_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/27 19:47:47 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/10/30 17:19:39 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/10/29 19:26:36 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../vm.h"
 
-inline void	set_color(void)
+/*
+** print one case
+*/
+
+void	print_case(WINDOW *win, int i, int pos, unsigned char *str)
 {
-	start_color();
-	init_pair(1, 1, COLOR_BLACK);
-	init_pair(2, 2, COLOR_BLACK);
-	init_pair(3, 3, COLOR_BLACK);
-	init_pair(4, 4, COLOR_BLACK);
-	init_pair(5, COLOR_BLACK, 1);
-	init_pair(6, COLOR_BLACK, 2);
-	init_pair(7, COLOR_BLACK, 3);
-	init_pair(8, COLOR_BLACK, 4);
-	init_pair(9, 1, COLOR_WHITE);
-	init_pair(10, 2, COLOR_WHITE);
-	init_pair(11, 3, COLOR_WHITE);
-	init_pair(12, 4, COLOR_WHITE);
+	if (str[i] == 0)
+	{
+		wattron(win, COLOR_PAIR(0));
+		mvwprintw(win, (pos) / 64 + 1, ((pos) % 64) * 3 + 1, "00");
+		wattroff(win, COLOR_PAIR(0));
+	}
+	else
+		mvwprintw(win, (pos) / 64 + 1, ((pos) % 64) * 3 + 1, "%.2hhx", str[i]);
 }

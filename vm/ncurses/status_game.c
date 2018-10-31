@@ -12,16 +12,22 @@
 
 #include "../vm.h"
 
-void		game_status(t_pvm *vm)
+/*
+** manage right panel during the game
+*/
+
+void		status_game(t_pvm *vm)
 {
 	int i;
 
-	i = vm_status(vm);
-	i = champion_status(vm, i + 1);
-	process_status(vm, i + 2);
-	if (!(vm->cur_cycle % 1))
+	wrefresh(vm->nc.wleft);
+	if (!(vm->cur_cycle % 20))
 	{
-		wrefresh(vm->nc.wleft);
+		wclear(vm->nc.wright);
+		box(vm->nc.wright, ACS_VLINE, ACS_HLINE);
+		i = status_vm(vm);
+		i = status_champion(vm, i + 1);
+		status_process(vm, i + 2);
 		wrefresh(vm->nc.wright);
 		getch();
 	}

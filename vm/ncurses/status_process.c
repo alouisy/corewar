@@ -12,6 +12,10 @@
 
 #include "../vm.h"
 
+/*
+** print information about processes in right panel
+*/
+
 int registre_status(t_pvm *vm, int i)
 {
 	int j;
@@ -22,7 +26,7 @@ int registre_status(t_pvm *vm, int i)
 	while (j < REG_NUMBER)
 	{
 		mvwprintw(vm->nc.wright, i++, 0,
-			"| reg %2d | %7d |", j, process->r[j]);
+			"| reg %2d | %10d |", j, process->r[j]);
 		j++;
 	}
 	return (i);
@@ -50,7 +54,7 @@ int	param_status(t_pvm *vm, int i)
 	return (i);
 }
 
-void		process_status(t_pvm *vm, int i)
+void		status_process(t_pvm *vm, int i)
 {
 	t_list		*node;
 	t_process	*process;

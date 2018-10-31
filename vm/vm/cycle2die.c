@@ -36,21 +36,22 @@ static void	check_node(t_pvm *vm)
 	t_list	*save;
 	
 	node = vm->processes;
-	save = node;
+	save = vm->processes;
 	while (node)
 	{
 		if ((PROCESS(node))->cycles_wo_live == 0)
 		{
-			node = ft_lstpop(node, vm->processes);
+			save = node->next;
+			ft_lstpop(node, vm->processes);
 			//ft_lstdelone(&node, &ft_del);
 			node = save;
 		}
 		else
 		{
 			(PROCESS(node))->cycles_wo_live = 0;
+			node = node->next;
 		}
 		save = node;
-		node = node->next;
 	}
 }
 

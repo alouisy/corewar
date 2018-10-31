@@ -12,7 +12,11 @@
 
 #include "../vm.h"
 
-inline void	lstprint_champion(t_pvm *vm)
+/*
+** present each champions in first screen
+*/
+
+inline void intro_champions(t_pvm *vm)
 {
 	t_list		*node;
 	t_champion	*champion;
