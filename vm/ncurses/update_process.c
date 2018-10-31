@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/29 18:49:38 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/10/31 17:33:30 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/10/31 17:51:29 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ft_del1(void *content, size_t size)
 	(void)size;
 }
 
-static inline void	update_buffer(t_pvm *vm)
+void	update_buffer(t_pvm *vm)
 {
 	int		i;
 	t_list	*node;
@@ -86,7 +86,7 @@ int					store_buffer(t_pvm *vm, int i, int color, int cycles)
 	return (1);
 }
 
-static inline int	update_memory(t_pvm *vm, t_process *process)
+int	update_memory(t_pvm *vm, t_process *process)
 {
 	int	i;
 
@@ -120,7 +120,7 @@ static inline int	update_pc(t_pvm *vm, t_process *process)
 		color = (CHAMPION(process->champ))->color + 4;
 		cycles = process->cycle_bf_exe;
 		if (vm->memory[process->pc] == 0)
-			cycles = 1;
+			cycles = 0;
 		wattron(vm->nc.wleft, COLOR_PAIR(color));
 		print_case(vm->nc.wleft, process->pc, vm->memory[process->pc]);
 		if (!store_buffer(vm, process->pc, (CHAMPION(process->champ))->color, cycles))
