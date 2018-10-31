@@ -18,7 +18,7 @@
 
 static void	write_in_memory(t_pvm *pvm, int address, int value)
 {
-	if (address < 0)
+	while (address < 0)
 		address += MEM_SIZE;
 	pvm->memory[(address + 3) % MEM_SIZE] = (value >> 0);
 	pvm->memory[(address + 2) % MEM_SIZE] = (value >> 8);

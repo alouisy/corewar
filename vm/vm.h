@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 17:41:26 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/10/31 17:33:47 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/10/31 17:40:09 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # define CHAMPION(x) (t_champion*)(x->content)
 # define UNUSED __attribute__((unused))
 # define CHAMP_MAX3		(CHAMP_MAX_SIZE * 3)
+# define ABS(x) ((x) < 0 ? (-(x)) : (x))
 
 /*
 ** structure de descriptions des instructions
