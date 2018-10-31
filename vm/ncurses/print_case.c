@@ -20,9 +20,7 @@ void	print_case(WINDOW *win, int i, int pos, unsigned char *str)
 {
 	if (str[i] == 0)
 	{
-		wattron(win, COLOR_PAIR(0));
 		mvwprintw(win, (pos) / 64 + 1, ((pos) % 64) * 3 + 1, "00");
-		wattroff(win, COLOR_PAIR(0));
 	}
 	else
 		mvwprintw(win, (pos) / 64 + 1, ((pos) % 64) * 3 + 1, "%.2hhx", str[i]);

@@ -133,6 +133,7 @@ void					start_vm(t_pvm *vm);
 void					cycle2die(t_pvm *vm);
 void					get_instruction(t_pvm *vm, t_process *process);
 void					process_instruction(t_pvm *vm, t_process *process);
+void					print_winner(t_pvm *vm);
 
 /*
 ** instructions

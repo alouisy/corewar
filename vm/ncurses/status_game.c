@@ -20,9 +20,9 @@ void		status_game(t_pvm *vm)
 {
 	int i;
 
-	wrefresh(vm->nc.wleft);
 	if (!(vm->cur_cycle % 20))
 	{
+		wrefresh(vm->nc.wleft);
 		wclear(vm->nc.wright);
 		box(vm->nc.wright, ACS_VLINE, ACS_HLINE);
 		i = status_vm(vm);

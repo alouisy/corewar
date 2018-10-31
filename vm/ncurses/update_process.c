@@ -50,8 +50,8 @@ static inline void	update_buffer(t_pvm *vm)
 		node = node->next;
 		if (todel)
 		{
-			//ft_lstdelone(&todel, &ft_del1);
-			//free(todel);
+			ft_lstdelone(&todel, &ft_del1);
+			free(todel);
 			todel = NULL;
 		}
 	}
@@ -83,18 +83,23 @@ static inline int	update_memory(t_pvm *vm, t_process *process)
 	{
 		if (vm->memory[i] != (CHAMPION(process->champ))->memory[i])
 		{
-			wattron(vm->nc.wleft,
-					COLOR_PAIR((CHAMPION(process->champ))->color + 8));
-			print_case(vm->nc.wleft, i, i, vm->memory);
-			mem.i = i;
-			mem.color = (CHAMPION(process->champ))->color;
-			mem.cycle = 10;
-			if (!(node = ft_lstnew(&mem, sizeof(mem))))
-				return (0);
-			ft_lstadd(&(vm->nc.buffer), node);
-			wattroff(vm->nc.wleft,
-					COLOR_PAIR((CHAMPION(process->champ))->color + 8));
-			aux_erase(vm, process, i);
+			if (vm->memory[i])
+			{
+				wattron(vm->nc.wleft,
+						COLOR_PAIR((CHAMPION(process->champ))->color + 8));
+				print_case(vm->nc.wleft, i, i, vm->memory);
+				wattroff(vm->nc.wleft,
+						COLOR_PAIR((CHAMPION(process->champ))->color + 8));
+				mem.i = i;
+				mem.color = (CHAMPION(process->champ))->color;
+				mem.cycle = 10;
+				if (!(node = ft_lstnew(&mem, sizeof(mem))))
+					return (0);
+				ft_lstadd(&(vm->nc.buffer), node);
+				aux_erase(vm, process, i);
+			}
+			else
+				print_case(vm->nc.wleft, i, i, vm->memory);
 		}
 		i++;
 	}
@@ -106,7 +111,7 @@ static inline void	update_pc(t_pvm *vm, t_process *process)
 	int	i;
 
 	i = 4;
-	if (process->cycle_bf_exe == 1)
+	if (process->cycle_bf_exe == 1 || process->cycle_bf_exe == 0)
 		i = 0;
 	wattron(vm->nc.wleft, COLOR_PAIR((CHAMPION(process->champ))->color + i));
 	print_case(vm->nc.wleft, process->pc, process->pc, vm->memory);

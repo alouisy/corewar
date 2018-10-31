@@ -55,7 +55,7 @@ int	param_status(t_pvm *vm, int i)
 	return (i);
 }
 
-void		status_process(t_pvm *vm, int i)
+static inline int	current_status(t_pvm *vm, int i)
 {
 	t_list		*node;
 	t_process	*process;
@@ -80,6 +80,12 @@ void		status_process(t_pvm *vm, int i)
 				process->cycle_bf_exe);
 		node = node->next;
 	}
+	return (i);
+}
+
+void		status_process(t_pvm *vm, int i)
+{
+	i = current_status(vm, i);
 	if (vm->processes)
 	{
 		i = param_status(vm, i + 1);

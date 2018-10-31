@@ -43,7 +43,8 @@ static void	check_process(t_pvm *vm)
 		{
 			save = node->next;
 			ft_lstpop(node, &(vm->processes));
-			//ft_lstdelone(&node, &ft_del);
+			ft_lstdelone(&node, &ft_del);
+			free(node);
 			node = save;
 		}
 		else

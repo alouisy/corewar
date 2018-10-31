@@ -38,9 +38,6 @@ inline void intro_champions(t_pvm *vm)
 		mvprintw(i++, j, "Comment: %s", champion->header.comment);
 		node = node->next;
 	}
-	attron(A_BOLD);
-	mvprintw(0, 0, "Press any key:");
-	attroff(A_BOLD);
 	refresh();
 	getch();
 }

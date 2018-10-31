@@ -12,31 +12,23 @@
 
 #include "../vm.h"
 
-void				start_vm(t_pvm *vm)
+inline void	print_winner(t_pvm *vm)
 {
-	t_process	*content;
-	t_list		*tmp;
+	t_list	*champ;
 
-	while (vm->total_cycles != vm->dump && vm->processes)
+	champ = vm->champions;
+	while (champ)
 	{
-		vm->cur_cycle++;
-		if (vm->cur_cycle == vm->cycle_to_die)
-			cycle2die(vm);
-		tmp = vm->processes;
-		while (tmp)
-		{
-			content = PROCESS(tmp);
-			if (content->opcode <= 0)
-				get_instruction(vm, content);
-			else
-				process_instruction(vm, content);
-			if (vm->nc.ncurses)
-				update_process(vm, content);
-			tmp = tmp->next;
-		}
-		vm->total_cycles++;
-		if (vm->nc.ncurses)
-			status_game(vm);
+		if ((CHAMPION(champ))->l_live >= vm->last_live)
+			break ;
+		champ = champ->next;
 	}
-	print_winner(vm);
+	if (vm->nc.ncurses)
+	{
+		clear();
+		mvprintw(LINES / 2, COLS / 2, "le joueur %s(%d) a gagne\n", (CHAMPION(champ))->header.prog_name, (CHAMPION(champ))->nbr);
+		getch();
+	}
+	else
+		ft_printf("le joueur %d(%s) a gagne\n", (CHAMPION(champ))->nbr, (CHAMPION(champ))->header.prog_name);
 }
