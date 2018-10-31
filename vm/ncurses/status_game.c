@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/29 19:03:36 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/10/29 19:03:37 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/10/31 15:29:07 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,9 @@ void		status_game(t_pvm *vm)
 {
 	int i;
 
-	if (!(vm->cur_cycle % 20))
+	wrefresh(vm->nc.wleft);
+	if (!(vm->cur_cycle % 2))
 	{
-		wrefresh(vm->nc.wleft);
-		wclear(vm->nc.wright);
 		box(vm->nc.wright, ACS_VLINE, ACS_HLINE);
 		i = status_vm(vm);
 		i = status_champion(vm, i + 1);
