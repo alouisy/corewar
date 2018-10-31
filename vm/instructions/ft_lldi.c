@@ -26,8 +26,8 @@ void	ft_lldi(t_pvm *pvm, t_process *process)
 	val2 = 0;
 	address = 0;
 	if (process->param[2] >= 1 && process->param[2] <= REG_NUMBER
-		&& lget_prm_value(pvm, process, 0, &val1)
-		&& lget_prm_value(pvm, process, 1, &val2))
+		&& get_prm_value(pvm, process, 0, &val1)
+		&& get_prm_value(pvm, process, 1, &val2))
 	{
 		address = process->pc + (val1 + val2);
 		while (address < 0)

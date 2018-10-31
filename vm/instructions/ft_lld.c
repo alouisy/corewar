@@ -19,12 +19,17 @@
 void	ft_lld(UNUSED t_pvm *pvm, t_process *process)
 {
 	int		value;
+	int		address;
 
 	value = 0;
+	address = 0;
 	if (process->param[1] >= 1 && process->param[1] <= REG_NUMBER
-		&& lget_prm_value(pvm, process, 0, &value))
+		&& get_prm_value(pvm, process, 0, &value))
 	{
-		process->r[process->param[1] - 1] = value;
+		address = (process->pc + value) % MEM_SIZE;
+		while (address < 0)
+			address += MEM_SIZE;
+		process->r[process->param[1] - 1] = ft_strhex2dec((pvm->memory + (address % MEM_SIZE)), 4);
 		if (process->r[process->param[1] - 1])
 			process->carry = 0;
 		else

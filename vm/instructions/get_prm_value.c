@@ -17,6 +17,8 @@ int		get_prm_value(t_pvm *pvm, t_process *process, int i, int *value)
 	else 
 	{
 		address = process->pc + (process->param[i] % IDX_MOD);
+		if (process->param[i] == 0xFFFF)
+			address %= IDX_MOD;
 		while (address < 0)
 			address += MEM_SIZE;
 		*value = ft_strhex2dec((pvm->memory + (address % MEM_SIZE)), 4);
