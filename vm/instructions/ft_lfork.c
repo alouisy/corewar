@@ -17,17 +17,18 @@
 ** implémentation fausse
 */
 
-static void	process_cpy(t_process *old, t_process *new, int pc)
+static void	process_cpy(t_pvm *pvm, t_process *old, t_process *new, int new_pc)
 {
 	int		i;
 
 	i = -1;
 	new->champ_nbr = old->champ_nbr;
-	new->pid = old->pid;
+	new->champ = old->champ;
+	new->pid = ++pvm->nb_champ;
 	while (++i < REG_NUMBER)
 		new->r[i] = old->r[i];
-	new->pc = pc;
-	new->pc2 = pc;
+	new->pc = new_pc;
+	new->pc2 = old->pc;
 	new->carry = old->carry;
 	new->cycles_wo_live = 0;
 	new->cycle_bf_exe = 0;
@@ -38,15 +39,16 @@ static void	process_cpy(t_process *old, t_process *new, int pc)
 
 void	ft_lfork(t_pvm *pvm, t_process *process)
 {
-	int			address;
+	int			new_pc;
 	t_process	new;
 	t_list		*node;
 
 	(void)node;
-	address = process->pc + process->param[0];
-	if (address < 0)
-		address += MEM_SIZE;
-	process_cpy(process, &new, address);
+	new_pc = (process->pc + process->param[0]) % MEM_SIZE;
+	if (new_pc < 0)
+		new_pc = (new_pc + MEM_SIZE) % MEM_SIZE;
+//		new_pc = (MEM_SIZE + process->pc - ABS(process->param[0])) % MEM_SIZE;
+	process_cpy(pvm, process, &new, new_pc);
 	node = ft_lstnew((&new), sizeof(t_process));
 	ft_lstadd(&pvm->processes, node);
 }

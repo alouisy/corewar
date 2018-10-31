@@ -30,9 +30,9 @@ void	ft_lldi(t_pvm *pvm, t_process *process)
 		&& lget_prm_value(pvm, process, 1, &val2))
 	{
 		address = process->pc + (val1 + val2);
-		if (address < 0)
+		while (address < 0)
 			address += MEM_SIZE;		
-		val1 = ft_strhex2dec((pvm->memory + address), 4);
+		val1 = ft_strhex2dec((pvm->memory + (address % MEM_SIZE)), 4);
 		process->r[process->param[2] - 1] = val1;
 		if (process->r[process->param[2] - 1])
 			process->carry = 0;

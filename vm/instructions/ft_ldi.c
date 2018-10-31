@@ -25,12 +25,14 @@ void	ft_ldi(t_pvm *pvm, t_process *process)
 	val1 = 0;
 	val2 = 0;
 	address = 0;
-	if (process->param[2] >= 1 && process->param[2] <= REG_NUMBER && get_prm_value(pvm, process, 0, &val1) && get_prm_value(pvm, process, 1, &val2))
+	if (process->param[2] >= 1 && process->param[2] <= REG_NUMBER
+		&& get_prm_value(pvm, process, 0, &val1)
+		&& get_prm_value(pvm, process, 1, &val2))
 	{
 		address = process->pc + ((val1 + val2) % IDX_MOD);
-		if (address < 0)
+		while (address < 0)
 			address += MEM_SIZE;		
-		process->r[process->param[2] - 1] = ft_strhex2dec((pvm->memory + address), 4);
+		process->r[process->param[2] - 1] = ft_strhex2dec((pvm->memory + (address % MEM_SIZE)), 4);
 		if (process->r[process->param[2] - 1])
 			process->carry = 0;
 		else

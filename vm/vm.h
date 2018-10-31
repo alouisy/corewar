@@ -19,7 +19,7 @@
 # define PROCESS(x) (t_process*)(x->content)
 # define CHAMPION(x) (t_champion*)(x->content)
 # define UNUSED __attribute__((unused))
-
+# define ABS(x) ((x) < 0 ? (-(x)) : (x))
 /*
 ** structure de descriptions des instructions
 */
