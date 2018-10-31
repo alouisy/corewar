@@ -18,9 +18,8 @@ static void	init(int *i, wchar_t *nb_arr, t_result **res)
 	while (nb_arr[*i])
 		(*i)++;
 	(*res)->str = malloc((*i + 1) * sizeof(char *));
-	ft_lstadd(&g_to_free, ft_lstnew_p((*res)->str, 0, 0));
 	if (!(*res)->str)
-		exit_error("malloc_error\n", MALLOC_ERR);
+		return (NULL); // ?
 	(*res)->size = *i;
 	(*res)->str[*i] = NULL;
 	*i = 0;
@@ -33,9 +32,8 @@ t_result	*convert_ls(wchar_t *nb_arr)
 	char		*tmp;
 
 	res = malloc(sizeof(t_result));
-	ft_lstadd(&g_to_free, ft_lstnew_p(res, 0, 0));
 	if (!res)
-		exit_error("malloc_error\n", MALLOC_ERR);
+		return (NULL);
 	if (nb_arr)
 	{
 		init(&i, nb_arr, &res);
@@ -48,9 +46,8 @@ t_result	*convert_ls(wchar_t *nb_arr)
 	else if (!nb_arr)
 	{
 		res->str = malloc(sizeof(char *));
-		ft_lstadd(&g_to_free, ft_lstnew_p(res->str, 0, 0));
 		if (!res->str)
-			exit_error("malloc_error\n", MALLOC_ERR);
+			return (NULL);
 		res->str[0] = ft_strdup("(null)");
 		res->size = 1;
 	}

@@ -17,9 +17,8 @@ t_rbt_node	*new_rbt_node(void *content, t_tree_index index)
 	t_rbt_node *node;
 
 	node = malloc(sizeof(t_rbt_node));
-	ft_lstadd(&g_to_free, ft_lstnew_p(node, 0, 0));
 	if (!node)
-		exit_error("malloc error\n", MALLOC_ERR);
+		return (NULL);
 	node->red = 1;
 	node->right_child = NULL;
 	node->left_child = NULL;

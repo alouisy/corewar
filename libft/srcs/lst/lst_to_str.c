@@ -20,9 +20,8 @@ char	*lst_to_str(t_list *lst)
 
 	tmp_lst = lst;
 	str = malloc(ft_lstlength(lst) + 1);
-	ft_lstadd(&g_to_free, ft_lstnew_p(str, 0, 1));
-	if (str == NULL)
-		exit_error("malloc error", MALLOC_ERR);
+	if (!str)
+		return (NULL);
 	i = 0;
 	while (tmp_lst)
 	{

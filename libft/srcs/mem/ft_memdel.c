@@ -14,12 +14,9 @@
 
 void	ft_memdel(void **ap)
 {
-	if (ap)
+	if (*ap) /// ?
 	{
-		printf("culprit?\n");
-		ft_memset(*ap, 0, 1);
 		free(*ap);
 		*ap = NULL;
-		printf("yes\n");
 	}
 }

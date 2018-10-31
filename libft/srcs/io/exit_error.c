@@ -15,6 +15,5 @@
 void	exit_error(char *msg, int code)
 {
 	ft_putstr(msg);
-	lst_clr(g_to_free);
 	exit(code);
 }

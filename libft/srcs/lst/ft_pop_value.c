@@ -20,7 +20,7 @@ int		ft_pop_value(t_list **lst)
 	value = *((int *)(*lst)->content);
 	tmp = *lst;
 	*lst = (*lst)->next;
-	free(tmp->content);
-	free(tmp);
+	ft_memdel((void **)&tmp->content);
+	ft_memdel((void **)&tmp);
 	return (value);
 }

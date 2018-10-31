@@ -23,15 +23,14 @@ char	*ft_strjoin_free(char *s1, char *s2, int side_to_free)
 	if (s1 && !s2)
 		return (s1);
 	str = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
-	ft_lstadd(&g_to_free, ft_lstnew_p(str, 0, 0));
 	if (!str)
-		exit_error("malloc error\n", MALLOC_ERR);
+		return (NULL);
 	str[0] = '\0';
 	ft_strcat(str, s1);
 	ft_strcat(str, s2);
 	if (side_to_free == 0 || side_to_free == 2)
-		free(s1);
+		ft_memdel((void **)s1);
 	if (side_to_free == 1 || side_to_free == 2)
-		free(s2);
+		ft_memdel((void **)s2);
 	return (str);
 }

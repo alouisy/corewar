@@ -133,8 +133,6 @@ int			main(int argc, char **argv)
 	
 	fd = init_prog(argc, argv, &asm_inf);
 	get_dot_info(fd, &line, &asm_inf);
-
-	exit_error("exit\n", 0);
 	hash_tab = init_hash_tab();
 	write_header(&asm_inf);
 	while (get_next_line(fd, &line, '\n'))
@@ -148,7 +146,6 @@ int			main(int argc, char **argv)
 	new->next = asm_inf.holder_prog_size->next;
 	asm_inf.holder_prog_size->next = new;
 	write_binary(asm_inf.binary_list);
-	printf("avant clr\n");
 	lst_clr(g_to_free);
 	return (0);
 }

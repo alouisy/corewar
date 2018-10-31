@@ -19,10 +19,8 @@ void	free_str_arr(t_char_arr *str_parts)
 	i = 0;
 	while (i < str_parts->len)
 	{
-		free(str_parts->arr[i]);
-		str_parts->arr[i] = NULL;
+		ft_memdel((void **)&str_parts->arr[i]);
 		i++;
 	}
-	free(str_parts->arr);
-	str_parts->arr = NULL;
+	ft_memdel((void **)str_parts->arr);
 }

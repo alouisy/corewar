@@ -22,9 +22,8 @@ char	*ft_strmap(char const *s, char (*f)(char))
 		return (NULL);
 	len = ft_strlen(s);
 	str = malloc(len + 1);
-	ft_lstadd(&g_to_free, ft_lstnew_p(str, 0, 0));
-	if (str == NULL)
-		exit_error("malloc error\n", MALLOC_ERR);
+	if (!str)
+		return (NULL);
 	i = 0;
 	while (s[i])
 	{

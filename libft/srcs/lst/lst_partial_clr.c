@@ -12,6 +12,8 @@
 
 #include "libft.h"
 
+////je devrais pas avoir besoin de ca
+
 void		lst_partial_clr(t_list **lst)
 {
 	if (lst && *lst)

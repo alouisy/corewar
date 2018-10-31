@@ -18,11 +18,7 @@ void	lst_clr(t_list *lst)
 	{
 		if (lst->next)
 			lst_clr(lst->next);
-		if (lst->content && ((char *)(lst->content))[0])
-		{
-			printf("lst_clear : %s, .%c.\n", lst->content, ((char *)(lst->content))[0]);
-			ft_memdel((void **)&(lst->content));
-		}
+		ft_memdel((void **)&(lst->content));
 		ft_memdel((void **)&lst);
 	}
 }

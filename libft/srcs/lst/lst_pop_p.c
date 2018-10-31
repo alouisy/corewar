@@ -20,10 +20,12 @@ t_list	*lst_pop_p(t_list **lst)
 	new = NULL;
 	if (lst && *lst)
 	{
-		new = ft_lstnew_p((*lst)->content, (*lst)->content_size, 1);
+		new = ft_lstnew_p((*lst)->content, (*lst)->content_size);
+		if (!new)
+			return (NULL);
 		tmp = *lst;
 		*lst = (*lst)->next;
-		//free(tmp); je sias pas si je devrais
+		ft_memdel((void **)&tmp);
 	}
 	return (new);
 }

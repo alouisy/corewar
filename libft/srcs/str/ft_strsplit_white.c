@@ -34,7 +34,7 @@ static int	count_words(char const *s)
 	return (nb_words);
 }
 
-static void	add_words(char const *s, char **tmp_arr)
+static int add_words(char const *s, char **tmp_arr)
 {
 	int		first_word;
 	size_t	size;
@@ -54,25 +54,38 @@ static void	add_words(char const *s, char **tmp_arr)
 				while (s[i + size] && !ft_iswhitespace(s[i + size]))
 					size++;
 				tmp_arr[nb_words] = ft_strndup(&s[i], size);
+				if (!tmp_arr[nb_words])
+					return (0);
 				nb_words++;
 			}
 		i++;
 	}
+	return (1);
 }
 
 char		**ft_strsplit_white(char const *s)
 {
 	char	**tmp_arr;
 	int		nb_words;
+	int		i;
 
 	if (!s)
 		return (NULL);
 	nb_words = count_words(s);
 	tmp_arr = malloc(sizeof(char*) * (nb_words + 1));
-	ft_lstadd(&g_to_free, ft_lstnew_p(tmp_arr, 0, 0));
-	if (tmp_arr == NULL)
-		exit_error("malloc error\n", MALLOC_ERR);
-	add_words(s, tmp_arr);
+	if (!tmp_arr)
+		return (NULL);
+	if (!add_words(s, tmp_arr))
+	{
+		i = 0;
+		while (i < nb_words)
+		{
+			ft_memdel((void **)&(tmp_arr[i]));
+			i++;
+		}
+		ft_memdel((void **)tmp_arr);
+		return (NULL);
+	}
 	tmp_arr[nb_words] = 0;
 	return (tmp_arr);
 }

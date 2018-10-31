@@ -24,6 +24,8 @@ char	*join_parts(t_char_arr *str_parts, char *sep, int limit)
 		if (sep)
 		{
 			joined_str = ft_strjoin(str_parts->arr[0], sep);
+			if (!joined_str)
+				return (NULL);
 			joined_str = ft_strjoin_free(joined_str, str_parts->arr[1], 0);
 		}
 		else
@@ -31,11 +33,17 @@ char	*join_parts(t_char_arr *str_parts, char *sep, int limit)
 	}
 	else
 		joined_str = ft_strdup(str_parts->arr[0]);
+	if (!joined_str)
+		return (NULL);
 	i = 2;
 	while (i < limit)
 	{
 		if (sep)
+		{
 			joined_str = ft_strjoin_free(joined_str, sep, 0);
+			if (!joined_str)
+				return (NULL);
+		}
 		joined_str = ft_strjoin_free(joined_str, str_parts->arr[i++], 0);
 	}
 	return (joined_str);

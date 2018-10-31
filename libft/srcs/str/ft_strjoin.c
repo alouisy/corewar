@@ -23,9 +23,8 @@ char	*ft_strjoin(const char *s1, const char *s2)
 	if (s1 && !s2)
 		return (ft_strdup(s1));
 	str = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
-	ft_lstadd(&g_to_free, ft_lstnew_p(str, 0, 0));
 	if (!str)
-		exit_error("malloc error\n", MALLOC_ERR);
+		return (NULL);
 	str[0] = '\0';
 	ft_strcat(str, s1);
 	ft_strcat(str, s2);

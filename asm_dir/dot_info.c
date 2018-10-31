@@ -22,7 +22,6 @@ static char	*get_inf(char *line, char *cmd_string)
 	while (!ft_iswhitespace(line[i]))
 		i++;
 	dot_str = ft_strndup(line, i++);
-	ft_lstadd(&g_to_free, ft_lstnew_p(dot_str, 0, 0));
 	if (ft_strcmp(dot_str, cmd_string))
 		exit_error("Wrong caracter in name/comment\n", WRONG_DOT_ERR);
 	ft_memdel((void **)&dot_str);
@@ -48,7 +47,6 @@ void		get_dot_info(int fd, char **line, t_asm_inf *asm_inf)
 	read = get_next_line(fd, line, '\n');
 	while (read > 0 && (!*line || (*line && (*line)[0] == '#')))
 	{
-		printf("la ?\n");
 		ft_memdel((void **)line);
 		read = get_next_line(fd, line, '\n');
 	}
@@ -56,9 +54,7 @@ void		get_dot_info(int fd, char **line, t_asm_inf *asm_inf)
 	while (ft_iswhitespace((*line)[i]))
 		i++;
 	asm_inf->prog_name = get_inf(&((*line)[i]), NAME_CMD_STRING);
-	printf("ici ? \n");
 	ft_memdel((void **)line);
-	exit_error("exit\n", 1);
 	get_next_line(fd, line, '\n');
 	if (!*line)
 		exit_error("Read error\n", READ_ERR);
