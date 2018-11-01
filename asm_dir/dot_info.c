@@ -53,11 +53,14 @@ void		get_dot_info(int fd, char **line, t_asm_inf *asm_inf)
 	i = 0;
 	while (ft_iswhitespace((*line)[i]))
 		i++;
+	printf("why\n");
 	asm_inf->prog_name = get_inf(&((*line)[i]), NAME_CMD_STRING);
 	ft_memdel((void **)line);
+	printf("why\n");
 	get_next_line(fd, line, '\n');
 	if (!*line)
 		exit_error("Read error\n", READ_ERR);
+	printf("why\n");
 	while (ft_iswhitespace((*line)[i]))
 		i++;
 	asm_inf->comment = get_inf(&((*line)[i]), COMMENT_CMD_STRING);

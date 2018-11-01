@@ -25,7 +25,7 @@
 # include "op.h"
 # include <fcntl.h>
 
-typedef struct	s_param_type
+/*typedef struct	s_param_type
 {
 	int	nb;
 	int type1;
@@ -41,12 +41,21 @@ typedef struct	s_param_def
 	int		two_bytes;
 	int		inst_code;
 	int		ocp;
-}				t_param_def;
+}				t_param_def;*/
+
+typedef struct			s_op
+{
+	char				*name;
+	int					nb_param;
+	int					param[3];
+	int					op_code;
+	int					ocp;
+	int					two_bytes; //ils l'appelle label?size mais c'est con
+}						t_op;
 
 typedef struct	s_ocp
 {
 	int		ocp;
-	int		weight;
 	t_list	*holder;
 	t_list	*new;
 }				t_ocp;
@@ -92,22 +101,20 @@ typedef struct	s_write_inf
 	int		i;
 }				t_write_inf;
 
-t_list			**init_hash_tab(void);
+extern t_op		g_op_tab[16];
+
 int				init_prog(int argc, char **argv, t_asm_inf *asm_inf);
-void			write_header(t_asm_inf *asm_inf);
-void			init_param_def(t_list ***hash_tab, int size);
 void			write_header(t_asm_inf *asm_inf);
 int				write_val(char *line, t_write_inf *write_inf,
 							t_asm_inf *asm_inf, int return_val);
 int				write_register(char *line, t_asm_inf *asm_inf);
 void			write_binary(t_list *binary_list);
 void			get_dot_info(int fd, char **line, t_asm_inf *asm_inf);
-void			check_instruct(t_list **hash_tab, char *line,
-															t_asm_inf *asm_inf);
+void			check_instruct(char *line, t_asm_inf *asm_inf);
 int				hash_word(char *word);
 char			*fill_binary(int nb_bytes, int val);
 void			write_lbl(t_asm_inf *asm_inf);
-void			write_param(char *line, t_param_def *param, t_asm_inf *asm_inf,
+void			write_param(char *line, t_op *op, t_asm_inf *asm_inf,
 																t_ocp *ocp_s);
 int				calc_weight(int pow);
 void			add_lbl(char *line, t_write_inf *write_inf, t_asm_inf *asm_inf);

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lstp_pop_at.c                                      :+:      :+:    :+:   */
+/*   lst_pop_at.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zcugni <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-t_list	*lstp_pop_at(t_list **lst, void *p)
+t_list	*lst_pop_at(t_list **lst, void *p)
 {
 	t_list *current_elem;
 	t_list *prev_elem;

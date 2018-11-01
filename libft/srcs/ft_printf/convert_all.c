@@ -73,7 +73,6 @@ static void	handle_sc(char *t, char *width_mod, t_detail *conv_det, va_list ap)
 	else if (*t == 'c' && width_mod == NULL)
 	{
 		conv_det->conv->str[0] = malloc(2);
-		ft_lstadd(&g_to_free, ft_lstnew_p(conv_det->conv->str[0], 0, 0));
 		if (conv_det->conv->str[0])
 			exit_error("malloc error\n", MALLOC_ERR);
 		conv_det->conv->str[0][0] = (char)va_arg(ap, int);
@@ -86,12 +85,10 @@ static void	handle_sc(char *t, char *width_mod, t_detail *conv_det, va_list ap)
 static void	init(char **width_mod, char **type, t_detail *conv_detail)
 {
 	conv_detail->conv = malloc(sizeof(t_result));
-	ft_lstadd(&g_to_free, ft_lstnew_p(conv_detail->conv, 0, 0));
 	if (!conv_detail->conv)
 		exit_error("malloc error\n", MALLOC_ERR);
 	conv_detail->conv->size = 1;
 	conv_detail->conv->str = malloc(sizeof(char *));
-	ft_lstadd(&g_to_free, ft_lstnew_p(conv_detail->conv->str, 0, 0));
 	if (!conv_detail->conv->str)
 		exit_error("malloc error\n", MALLOC_ERR);
 	*width_mod = conv_detail->info->next->content;
@@ -108,7 +105,7 @@ void		convert(va_list ap, t_detail *conv_detail)
 		handle_sc(type, width_mod, conv_detail, ap);
 	else if (*type == 'p')
 	{
-		ft_lstappend(&(conv_detail->info), ft_lstnew("#", 1, 1));
+		ft_lstappend(&(conv_detail->info), ft_lstnew("#", 1));
 		conv_detail->conv->str[0] = ft_itoa_base_2_long(
 									(t_ull)va_arg(ap, void *), 16, 0);
 	}

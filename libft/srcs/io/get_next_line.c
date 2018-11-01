@@ -12,12 +12,14 @@
 
 #include "libft.h"
 
-////// a faire
-
-
 static int	if_return(char **rest, char **line, int index)
 {
 	*line = ft_strndup(*rest, index);
+	if (!*line)
+	{
+		ft_strdel(rest);
+		return (0);
+	}
 	if (index == (int)ft_strlen(*rest) - 1)
 		ft_memdel((void **)rest);
 	else
@@ -40,10 +42,8 @@ char		*ft_strncpyat(char *dst, const char *src, int shift)
 	return (dst);
 }
 
-static char	*ft_strjoin_overlap(char **s1, char **s2)
+static char	*ft_strjoin_overlap(char **s1, char *s2)
 {
-	size_t	i;
-	size_t	j;
 	char	*str;
 	int		len_1;
 	int		len_2;
@@ -51,33 +51,37 @@ static char	*ft_strjoin_overlap(char **s1, char **s2)
 	if (!*s2)
 		return (NULL);
 	if (!*s1)
-		str = ft_strdup(*s2);
+		str = ft_strdup(s2);
 	else
 	{
-		i = 0;
 		len_1 = ft_strlen(*s1);
-		len_2 = ft_strlen(*s2);
+		len_2 = ft_strlen(s2);
 		str = malloc(len_1 + len_2 + 1);
 		if (!str)
-			exit_error("malloc error\n", MALLOC_ERR);
+		{
+			ft_strdel(s1);
+			return (NULL);
+		}
 		ft_strncpyat(str, *s1, 0);
-		ft_strncpyat(str, *s2, len_1);
-		ft_memdel((void **)s1);
+		ft_strncpyat(str, s2, len_1);
+		ft_strdel(s1);
 		str[len_1 + len_2] = '\0';
 	}
-	ft_memdel((void **)s2);
+	//ft_memdel((void **)s2);
 	return (str);
 }
 
-static int	stopped_reading(char **buff, int state, char **line, char **rest)
+static int	stopped_reading(int state, char **line, char **rest)
 {
-	free(*buff);
+	//ft_strdel(buff);
 	if (state == 0)
 	{
 		if (!*rest)
 			return (0);
 		*line = ft_strdup(*rest);
 		ft_strdel(rest);
+		if (!*line)
+			return (0);
 		return (1);
 	}
 	else
@@ -87,7 +91,7 @@ static int	stopped_reading(char **buff, int state, char **line, char **rest)
 int			get_next_line(const int fd, char **line, char separator)
 {
 	static char *rest = NULL;
-	char		*buff;
+	char		buff[BUFF_SIZE];
 	int			state;
 	int			index;
 
@@ -95,15 +99,19 @@ int			get_next_line(const int fd, char **line, char separator)
 	{
 		if ((index = ft_strchri(rest, separator)) == -1)
 		{
-			buff = ft_strnew(BUFF_SIZE + 1);
-			if (!buff)
-				return (0); //ca va pas tout le temps etre le cas ?
+			printf("oui?\n");
+			//buff = ft_strnew(BUFF_SIZE + 1);
+			//if (!buff)
+			//	return (0);
 			state = read(fd, buff, BUFF_SIZE);
 			if (state <= 0)
-				return (stopped_reading(&buff, state, line, &rest));
-			rest = ft_strjoin_overlap(&rest, &buff);
+				return (stopped_reading(state, line, &rest));
+			rest = ft_strjoin_overlap(&rest, &buff[0]);
 			if (!rest)
-				return (0); // a faire autre
+			{
+				//ft_strdel(&buff);
+				return (0);
+			}
 		}
 		else
 			return (if_return(&rest, line, index));

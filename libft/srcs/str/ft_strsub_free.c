@@ -29,6 +29,6 @@ char	*ft_strsub_free(char *s, t_u_int start, size_t len)
 		i++;
 	}
 	str[i] = '\0';
-	ft_memdel((void **)&s);
+	ft_strdel(&s);
 	return (str);
 }

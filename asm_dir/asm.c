@@ -56,7 +56,6 @@ void		read_label(char *lbl, t_asm_inf *asm_inf)
 	if (!find_in_tree(asm_inf->lbl_tree, index))
 	{
 		lbl_def = malloc(sizeof(t_lbl_def));
-		ft_lstadd(&g_to_free, ft_lstnew_p(lbl_def, 0, 0));
 		if (!lbl_def)
 			exit_error("Malloc error\n", MALLOC_ERR);
 		lbl_def->name = lbl;
@@ -68,22 +67,42 @@ void		read_label(char *lbl, t_asm_inf *asm_inf)
 		exit_error("Ce label existe déjà", LBL_EXIST_ERR);
 }
 
+int			hard_code(int *res, int nb_letters)
+{
+	int origin;
+
+	origin = *res;
+	if (*res == 16)
+		*res = 0;
+	else if (*res == 31)
+		*res = 2;
+	else if (*res == 41 && nb_letters == 2)
+		*res = 3;
+	else if (*res == 51)
+		*res = 10;
+	else if (*res == 45)
+		*res = 11;
+	else if (*res == 54)
+		*res = 14;
+	if (*res != origin)
+		return (1);
+	return (0);
+}
+
 int			hash_word(char *word)
 {
 	int		res;
 	int		i;
 	char	*middle;
+	int		hard_coded;
 
 	i = 0;
 	res = 0;
 	while (word[i])
-	{
-		res += word[i] - 96;
-		i++;
-	}
-	if (res == 16)
-		res = 0;
-	else if (res > 16)
+		res += word[i++] - 96;
+	res += i;
+	hard_coded = hard_code(&res, i);
+	if (!hard_coded && res > 9)
 	{
 		middle = ft_itoa(res);
 		i = 0;
@@ -95,7 +114,7 @@ int			hash_word(char *word)
 	return (res);
 }
 
-static void	parse_line(char *line, t_asm_inf *asm_inf, t_list **hash_tab)
+static void	parse_line(char *line, t_asm_inf *asm_inf)
 {
 	int i;
 	int j;
@@ -110,14 +129,15 @@ static void	parse_line(char *line, t_asm_inf *asm_inf, t_list **hash_tab)
 	{
 		if (line[j - 1] == LABEL_CHAR)
 		{
+			printf("?????\n");
 			read_label(ft_strndup(&(line[i]), j - i - 1), asm_inf);
 			while (line[j] && ft_iswhitespace(line[j]))
 				j++;
 			if (line[j])
-				check_instruct(hash_tab, &(line[j]), asm_inf);
+				check_instruct(&(line[j]), asm_inf);
 		}
 		else
-			check_instruct(hash_tab, &(line[i]), asm_inf);
+			check_instruct(&(line[i]), asm_inf);
 	}
 }
 
@@ -125,24 +145,26 @@ int			main(int argc, char **argv)
 {
 	int			fd;
 	char		*line;
-	t_list		**hash_tab;
 	t_asm_inf	asm_inf;
 	t_list		*new;
 
 	line = NULL;
 	
+	printf("fdp\n");
 	fd = init_prog(argc, argv, &asm_inf);
 	get_dot_info(fd, &line, &asm_inf);
-	hash_tab = init_hash_tab();
+	printf("header?\n");
 	write_header(&asm_inf);
+	printf("tut\n");
 	while (get_next_line(fd, &line, '\n'))
 		if (line) //je pense
 		{
-			parse_line(line, &asm_inf, hash_tab);
+			printf("fdp\n");
+			parse_line(line, &asm_inf);
 			ft_memdel((void **)&line);
 		}
 	write_lbl(&asm_inf);
-	new = ft_lstnew_p(fill_binary(4, asm_inf.nb_bytes), 4, 1);
+	new = ft_lstnew(fill_binary(4, asm_inf.nb_bytes), 4);
 	new->next = asm_inf.holder_prog_size->next;
 	asm_inf.holder_prog_size->next = new;
 	write_binary(asm_inf.binary_list);

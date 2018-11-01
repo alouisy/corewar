@@ -12,23 +12,23 @@
 
 #include "asm.h"
 
-int			choose_write(char *line, t_param_def *param, t_asm_inf *asm_inf,
+int			choose_write(char *line, t_op *op, t_asm_inf *asm_inf,
 														t_write_inf *write_inf)
 {
 	int ocp;
 
 	ocp = 0;
-	if (line[0] == DIRECT_CHAR && (param->type[write_inf->i] == 2 ||
-			param->type[write_inf->i] == 3 || param->type[write_inf->i] >= 6))
+	if (line[0] == DIRECT_CHAR && (op->param[write_inf->i] == 2 ||
+			op->param[write_inf->i] == 3 || op->param[write_inf->i] >= 6)) //j'dois surement refaire les calculs et verifier que ca marche bien comme prevu
 	{
 		write_inf->nb_bytes = DIR_SIZE;
-		if (param->two_bytes)
+		if (op->two_bytes)
 			write_inf->nb_bytes = 2;
 		ocp = write_val(line, write_inf, asm_inf, 2);
 	}
-	else if (line[0] == 'r' && param->type[write_inf->i] % 2 != 0)
+	else if (line[0] == 'r' && op->param[write_inf->i] % 2 != 0) //changer les vals
 		ocp = write_register(line, asm_inf);
-	else if (param->type[write_inf->i] >= 4)
+	else if (op->param[write_inf->i] >= 4) //changer les vals
 	{
 		write_inf->nb_bytes = IND_SIZE;
 		ocp = write_val(line, write_inf, asm_inf, 3);
@@ -50,24 +50,23 @@ void		free_split(char **split)
 	}
 }
 
-void		write_param(char *line, t_param_def *param, t_asm_inf *asm_inf,
-																t_ocp *ocp_s)
+void		write_param(char *line, t_op *op, t_asm_inf *asm_inf, t_ocp *ocp_s)
 {
 	char		**split;
 	char		*trimmed;
 	t_write_inf	write_inf;
+	int			weight;
 
 	write_inf.inst_pos = asm_inf->nb_bytes;
 	split = ft_strsplit(line, SEPARATOR_CHAR);
 	write_inf.i = 0;
 	ocp_s->ocp = 0;
-	while (write_inf.i < param->nb)
+	while (write_inf.i < op->nb_param)
 	{
-		write_inf.has_ocp = param->ocp - write_inf.i;
-		ocp_s->weight = calc_weight(write_inf.i);
+		write_inf.has_ocp = op->ocp - write_inf.i;
+		weight = calc_weight(write_inf.i);
 		trimmed = ft_strtrim(split[write_inf.i]);
-		ocp_s->ocp += choose_write(trimmed, param, asm_inf, &write_inf)
-														* ocp_s->weight;
+		ocp_s->ocp += choose_write(trimmed, op, asm_inf, &write_inf) * weight;
 		write_inf.i++;
 		ft_memdel((void **)&trimmed);
 	}
@@ -78,8 +77,8 @@ void		add_new(t_holder_def *tmp_holder, int val)
 {
 	t_list	*new;
 
-	new = ft_lstnew_p(fill_binary(tmp_holder->lbl_bytes, val),
-												tmp_holder->lbl_bytes, 1);
+	new = ft_lstnew(fill_binary(tmp_holder->lbl_bytes, val),
+												tmp_holder->lbl_bytes);
 	if (tmp_holder->has_ocp > 0)
 	{
 		new->next = tmp_holder->lst_pos->next->next;
@@ -135,7 +134,7 @@ int			write_val(char *line, t_write_inf *write_inf, t_asm_inf *asm_inf,
 			val = calc_neg_val(val, write_inf->nb_bytes);
 		asm_inf->nb_bytes += write_inf->nb_bytes;
 		binary = fill_binary(write_inf->nb_bytes, val);
-		asm_inf->current->next = ft_lstnew_p(binary, write_inf->nb_bytes, 1);
+		asm_inf->current->next = ft_lstnew(binary, write_inf->nb_bytes);
 		asm_inf->current = asm_inf->current->next;
 		ft_memdel((void **)&binary);
 	}
@@ -156,7 +155,7 @@ int			write_register(char *line, t_asm_inf *asm_inf)
 		exit_error("Unknown register\n", UNKNOWN_REG_ERR);
 	else if (nb_register < 0)
 		exit_error("Wrong register format\n", WRONG_REG_FORMAT_ERR);
-	asm_inf->current->next = ft_lstnew(&nb_register, 1, 1);
+	asm_inf->current->next = ft_lstnew(&nb_register, 1);
 	asm_inf->current = asm_inf->current->next;
 	asm_inf->nb_bytes += 1;
 	ft_memdel((void **)&trimmed);

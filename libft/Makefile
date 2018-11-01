@@ -20,14 +20,12 @@ SRCS_STR = ft_strcat.c ft_strdup.c ft_strncmp.c ft_strstr.c ft_strcpy.c \
 			ft_strequ.c ft_strnequ.c ft_strsub.c ft_strjoin.c ft_strtrim.c \
 			ft_strsplit.c ft_strsub_free.c ft_strjoin_free.c ft_strcmp.c \
 			ft_strlen.c ft_strnstr.c ft_toupper.c ft_tolower.c ft_strndup.c \
-			ft_strchri.c ft_strchr.c ft_strlcat.c is_strdigit.c \
-			free_str_arr.c join_parts.c ft_strsplit_white.c
+			ft_strchri.c ft_strchr.c ft_strlcat.c ft_strsplit_white.c
 
 SRCS_LST = ft_lstadd.c ft_lstiter.c ft_lstmap.c ft_lstcpy.c ft_lstnew.c \
 			ft_lstdelone.c ft_lstdel.c ft_lstfind.c ft_lstappend.c \
 			lst_clr.c lst_to_str.c ft_lstlength.c lst_findi.c ft_pop.c \
-			ft_pop_value.c ft_lstnew_p.c lstp_pop_at.c lst_pop_p.c \
-			bubble_sort_lst.c remove_first_elem.c lst_partial_clr.c
+			lst_pop_at.c bubble_sort_lst.c remove_first_elem.c
 
 SRCS_TREE = compare_index.c find_in_tree.c insert_rbt.c new_rbt_node.c \
 			rotate.c display_tree_id.c rbt_clear.c

@@ -14,7 +14,7 @@ static void	write_magic(t_list **binary_list, t_list **current)
 		nb_bytes--;
 		i++;
 	}
-	(*binary_list) = ft_lstnew(&magic, 4, 1);
+	(*binary_list) = ft_lstnew(&magic, 4);
 	*current = *binary_list;
 }
 
@@ -25,39 +25,22 @@ void		write_header(t_asm_inf *asm_inf)
 
 	write_magic(&(asm_inf->binary_list), &(asm_inf->current));
 	size = ft_strlen(asm_inf->prog_name);
-	asm_inf->current->next = ft_lstnew_p(asm_inf->prog_name, size, 1);
+	asm_inf->current->next = ft_lstnew(asm_inf->prog_name, size);
 	asm_inf->current = asm_inf->current->next;
-	new = ft_lstnew_p(ft_strnew(PROG_NAME_LENGTH - size + 4),
-											PROG_NAME_LENGTH - size + 4, 1);
+	new = ft_lstnew(ft_strnew(PROG_NAME_LENGTH - size + 4),
+											PROG_NAME_LENGTH - size + 4);
 	asm_inf->current->next = new;
 	asm_inf->current = asm_inf->current->next;
 	asm_inf->holder_prog_size = asm_inf->current;
 	size = 0;
 	if (asm_inf->comment)
 		size = ft_strlen(asm_inf->comment);
-	asm_inf->current->next = ft_lstnew_p(asm_inf->comment, size, 1);
+	asm_inf->current->next = ft_lstnew(asm_inf->comment, size);
 	asm_inf->current = asm_inf->current->next;
-	new = ft_lstnew_p(ft_strnew(COMMENT_LENGTH - size + 4),
-											COMMENT_LENGTH - size + 4, 1);
+	new = ft_lstnew(ft_strnew(COMMENT_LENGTH - size + 4),
+											COMMENT_LENGTH - size + 4);
 	asm_inf->current->next = new;
 	asm_inf->current = asm_inf->current->next;
-}
-
-t_list		**init_hash_tab(void)
-{
-	t_list **hash_tab;
-
-	hash_tab = malloc(sizeof(t_param_def) * 13);
-	ft_lstadd(&g_to_free, ft_lstnew_p(hash_tab, 0, 0));
-	if (!hash_tab)
-		exit_error("Malloc error\n", 1);
-	hash_tab[1] = NULL;
-	hash_tab[2] = NULL;
-	hash_tab[3] = NULL;
-	hash_tab[4] = NULL;
-	hash_tab[8] = NULL;
-	init_param_def(&hash_tab, sizeof(t_param_def));
-	return (hash_tab);
 }
 
 int			init_prog(int argc, char **argv, t_asm_inf *asm_inf)

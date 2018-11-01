@@ -34,7 +34,7 @@ static int	count_words(char const *s)
 	return (nb_words);
 }
 
-static int add_words(char const *s, char **tmp_arr)
+static int	add_words(char const *s, char **tmp_arr)
 {
 	int		first_word;
 	size_t	size;

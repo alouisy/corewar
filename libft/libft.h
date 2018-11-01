@@ -42,12 +42,6 @@ typedef struct				s_list
 	struct s_list	*next;
 }							t_list;
 
-typedef struct				s_char_arr
-{
-	char	**arr;
-	int		len;
-}							t_char_arr;
-
 typedef struct				s_bubble_sort
 {
 	t_list	*first_el;
@@ -122,8 +116,7 @@ void						ft_strclr(char *s);
 char						*ft_strcpy(char *dst, const char *src);
 int							ft_strcmp(const char *s1, const char *s2);
 void						ft_strdel(char **as);
-void						free_str_arr(t_char_arr *str_arr);
-char	*ft_strdup(const char *s1);
+char						*ft_strdup(const char *s1);
 int							ft_strequ(char const *s1, char const *s2);
 void						ft_striter(char *s, void (*f)(char *));
 void						ft_striteri(char *s, void (*f)(t_u_int, char *));
@@ -133,29 +126,28 @@ char						*ft_strjoin_free(char *s1, char *s2,
 size_t						ft_strlcat(char *dst, const char *src, size_t size);
 size_t						ft_strlen(const char *s);
 char						*ft_strmap(char const *s, char (*f)(char));
-char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
+char						*ft_strmapi(char const *s,
+												char (*f)(unsigned int, char));
 char						*ft_strncat(char *s1, const char *s2, size_t n);
 int							ft_strncmp(const char *s1, const char *s2,
 	size_t n);
 char						*ft_strncpy(char *dst, const char *src, size_t len);
-char	*ft_strndup(const char *s1, size_t n);
+char						*ft_strndup(const char *s1, size_t n);
 int							ft_strnequ(char const *s1, char const *s2,
 	size_t n);
 char						*ft_strnew(size_t size);
 char						*ft_strnstr(const char *haystack,
-	const char *needle, size_t len);
+											const char *needle, size_t len);
 char						*ft_strrchr(const char *s, int c);
-char		**ft_strsplit(char const *s, char c);
+char						**ft_strsplit(char const *s, char c);
 char						*ft_strstr(const char *haystack,
-	const char *needle);
-char	*ft_strsub(char const *s, t_u_int start, size_t len);
-char	*ft_strsub_free(char *s, t_u_int start, size_t len);
-char			*ft_strtrim(char const *s);
+													const char *needle);
+char						*ft_strsub(char const *s, t_u_int start,
+																	size_t len);
+char						*ft_strsub_free(char *s, t_u_int start, size_t len);
+char						*ft_strtrim(char const *s);
 int							ft_toupper(int c);
 int							ft_tolower(int c);
-int							is_strdigit(char *str, int accept_neg);
-char						*join_parts(t_char_arr *str_parts,
-													char *sep, int limit);
 char						**ft_strsplit_white(char const *s);
 /*
 **Lst
@@ -173,26 +165,22 @@ int							lst_findi(t_list *list, void *content, size_t size);
 void						ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 int							ft_lstlength(t_list *lst);
 t_list						*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
-t_list						*ft_lstnew(void const *content,
-										size_t content_size);
-t_list	*ft_lstnew_p(void *content, size_t content_size);
+t_list						*ft_lstnew(void *content, size_t content_size);
 void						lst_clr(t_list *lst);
 char						*lst_to_str(t_list *lst);
 t_list						*ft_pop(t_list **lst);
 int							ft_pop_value(t_list **lst);
-t_list						*lst_pop_p(t_list **lst);
-t_list						*lstp_pop_at(t_list **lst, void *p);
+t_list						*lst_pop_at(t_list **lst, void *p);
 void						bubble_sort_lst(t_list **lst,
 												int (*get_nb)(t_list *lst));
 void						remove_first_elem(t_list **lst);
-void						lst_partial_clr(t_list **lst);
 /*
 **Tree
 */
 t_rbt_node					*find_in_tree(t_rbt_node *rbt,
 												t_tree_index searched_index);
 void						rotate(t_rbt_node *node, int rotate_right);
-t_rbt_node	*new_rbt_node(void *content, t_tree_index index);
+t_rbt_node					*new_rbt_node(void *content, t_tree_index index);
 void						insert_rbt(t_rbt_node **rbt, t_rbt_node *current,
 															t_rbt_node *new);
 int							is_inf(t_tree_index rbt_index_1,
@@ -213,7 +201,7 @@ void						ft_putnbr_fd(int n, int fd);
 void						ft_putstr(const char *str);
 void						ft_putstr_fd(char const *s, int fd);
 int							get_next_line(const int fd, char **line,
-	char separator);
+															char separator);
 void						exit_error(char *msg, int code);
 /*
 **Mem
@@ -225,7 +213,7 @@ void						*ft_memccpy(void *dst, const void *src, int c,
 	size_t n);
 void						*ft_memchr(const void *s, int c, size_t n);
 void						*ft_memcpy(void *dst, const void *src, size_t n);
-void	ft_memdel(void **ap);
+void						ft_memdel(void **ap);
 void						*ft_memmove(void *dst, const void *src, size_t len);
 void						*ft_memset(void *b, int c, size_t len);
 void						get_leaks(char *msg);
@@ -241,21 +229,21 @@ char						*convert_unsigned(t_ull nb);
 char						*convert_lc(wchar_t nb);
 char						*convert_c(char c);
 void						get_info(t_pos *p, t_detail *conv_detail,
-	va_list ap);
+												va_list ap);
 int							get_nb(const char *str, int *i);
 int							get_precision(const char *str, int *i);
 void						get_width_modifier(const char **str,
-	t_list **info, int *i);
+												t_list **info, int *i);
 void						add(t_detail *det, t_list **fin_lst, int add_null);
 void						act_on_flag(t_detail *conv_detail);
 void						pad_width(t_detail *conv_detail, char chara,
-	int right);
+													int right);
 void						pad_precision(t_detail conv_detail, char type);
 char						*ft_itoa_base_long(unsigned long nb,
-	int base, int upper);
+													int base, int upper);
 char						*ft_itoa_base_2_long(t_ull nb, int base, int upper);
 char						*ft_itoa_base_uintmax(uintmax_t nb, int base,
-	int upper);
+												int upper);
 long						ft_atoi_long(char *str);
 long long					ft_atoi_2_long(char *str);
 int							display(t_list *final_lst, int error);

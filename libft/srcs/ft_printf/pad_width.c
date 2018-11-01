@@ -19,7 +19,6 @@ char		*fill_new_str(char chara, int len)
 
 	i = 0;
 	str = malloc(len);
-	ft_lstadd(&g_to_free, ft_lstnew_p(str, 0, 0));
 	if (!str)
 		exit_error("malloc error\n", 1);
 	while (i < len)
