@@ -21,6 +21,7 @@
 # define UNKNOWN_REG_ERR 13
 # define WRONG_REG_FORMAT_ERR 14
 # define WRONG_FORMAT_ERR 15
+# define OTHER_ERR 16
 # include "../libft/libft.h"
 # include "op.h"
 # include <fcntl.h>

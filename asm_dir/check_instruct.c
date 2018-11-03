@@ -19,6 +19,15 @@ static void	act_on_inst(t_asm_inf *asm_inf, t_op *op, t_ocp *ocp_s, char *line)
 	i = 0;
 	asm_inf->nb_bytes += 1;
 	asm_inf->current->next = ft_lstnew(&(op->op_code), 1, 0);
+	if (!asm_inf->current->next)
+	{
+		//plus ?
+		ft_strdel(asm_inf->prog_name);
+		ft_strdel(asm_inf->comment);
+		lst_clr(asm_inf->binary_list);
+		rbt_clear(asm_inf->lbl_tree, free_content);
+		exit_error("Malloc error\n", MALLOC_ERR);
+	}
 	asm_inf->current = asm_inf->current->next;
 	ocp_s->holder = asm_inf->current;
 	while (ft_iswhitespace(line[i]))
@@ -44,14 +53,30 @@ void		check_instruct(char *line, t_asm_inf *asm_inf)
 	while (line[i] && !ft_iswhitespace(line[i]))
 		i++;
 	if (i > 4 || i <= 1)
+	{
+		//plus ?
+		ft_strdel(asm_inf->prog_name);
+		ft_strdel(asm_inf->comment);
+		lst_clr(asm_inf->binary_list);
+		rbt_clear(asm_inf->lbl_tree, free_content);
 		exit_error("unknown instruction\n", UNKNOWN_INST_ERR);
+	}
 	inst = ft_strndup(line, i);
+	if (!inst)
+	{
+		//plus ?
+		ft_strdel(asm_inf->prog_name);
+		ft_strdel(asm_inf->comment);
+		lst_clr(asm_inf->binary_list);
+		rbt_clear(asm_inf->lbl_tree, free_content);
+		exit_error("Malloc error", MALLOC_ERR);
+	}
 	index = hash_word(inst);
 	while (i < 3 && !ft_strcmp(g_op_tab[index].name, inst))
 		i++;
+	ft_memdel((void **)&inst);
 	ocp_s.ocp = 0;
 	act_on_inst(asm_inf, &g_op_tab[index], &ocp_s, &(line[i]));
-	ft_memdel((void **)&inst);
 	if (!ocp_s.ocp)
 		exit_error("unknown instruction\n", UNKNOWN_INST_ERR);
 }

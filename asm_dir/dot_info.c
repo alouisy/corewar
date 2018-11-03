@@ -22,9 +22,14 @@ static char	*get_inf(char *line, char *cmd_string)
 	while (!ft_iswhitespace(line[i]))
 		i++;
 	dot_str = ft_strndup(line, i++);
+	if (!dot_str)
+		return (NULL);
 	if (ft_strcmp(dot_str, cmd_string))
-		exit_error("Wrong caracter in name/comment\n", WRONG_DOT_ERR);
-	ft_memdel((void **)&dot_str);
+	{
+		ft_strdel(&dot_str);
+		return (NULL);
+	}
+	ft_strdel(&dot_str);
 	while (ft_iswhitespace(line[i]))
 		i++;
 	j = i;
@@ -34,8 +39,6 @@ static char	*get_inf(char *line, char *cmd_string)
 			j++;
 		return (ft_strndup(&(line[i + 1]), j - i - 1));
 	}
-	else
-		exit_error("Wrong caracter in name/comment\n", WRONG_DOT_ERR);
 	return (NULL);
 }
 
@@ -47,19 +50,29 @@ void		get_dot_info(int fd, char **line, t_asm_inf *asm_inf)
 	read = get_next_line(fd, line, '\n');
 	while (read > 0 && (!*line || (*line && (*line)[0] == '#')))
 	{
-		ft_memdel((void **)line);
+		ft_strdel(line);
 		read = get_next_line(fd, line, '\n');
 	}
+	if (read < 0)
+		exit_error("Read or malloc error\n", OTHER_ERR);
 	i = 0;
 	while (ft_iswhitespace((*line)[i]))
 		i++;
 	asm_inf->prog_name = get_inf(&((*line)[i]), NAME_CMD_STRING);
-	ft_memdel((void **)line);
+	ft_strdel(line);
+	if (!asm_inf->prog_name)
+		exit_error("Wrong char in name/comment\n", WRONG_DOT_ERR);
 	get_next_line(fd, line, '\n');
 	if (!*line)
 		exit_error("Read error\n", READ_ERR);
 	while (ft_iswhitespace((*line)[i]))
 		i++;
+	
 	asm_inf->comment = get_inf(&((*line)[i]), COMMENT_CMD_STRING);
-	ft_memdel((void **)line);
+	ft_strdel(line);
+	if (!asm_inf->prog_name)
+	{
+		free(asm_inf->prog_name);
+		exit_error("Wrong char in name/comment\n", WRONG_DOT_ERR);
+	}
 }

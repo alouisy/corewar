@@ -37,6 +37,11 @@ void		write_binary(t_list *binary_list)
 	close(fd);
 }
 
+void		free_content(t_lbl_def *lbl_def)
+{
+	ft_strdel(lbl_def->name);
+}
+
 void		read_label(char *lbl, t_asm_inf *asm_inf)
 {
 	int				i;
@@ -48,7 +53,14 @@ void		read_label(char *lbl, t_asm_inf *asm_inf)
 	while (lbl[i])
 	{
 		if (!ft_strchr(LABEL_CHARS, lbl[i]))
+		{
+			ft_strdel(asm_inf->prog_name);
+			ft_strdel(asm_inf->comment);
+			lst_clr(asm_inf->binary_list);
+			rbt_clear(asm_inf->lbl_tree, free_content);
+			//a voir s'il faudra pas rajouter des trucs
 			exit_error("Caractere non valide dans le nom du label", LBL_NAME_ERR);
+		}
 		i++;
 	}
 	index.is_nb = 0;
@@ -57,14 +69,27 @@ void		read_label(char *lbl, t_asm_inf *asm_inf)
 	{
 		lbl_def = malloc(sizeof(t_lbl_def));
 		if (!lbl_def)
+		{
+			//a voir s'il faudra pas rajouter des trucs apres
+			ft_strdel(asm_inf->prog_name);
+			ft_strdel(asm_inf->comment);
+			lst_clr(asm_inf->binary_list);
+			rbt_clear(asm_inf->lbl_tree, free_content);
 			exit_error("Malloc error\n", MALLOC_ERR);
+		}
 		lbl_def->name = lbl;
 		lbl_def->pos = asm_inf->nb_bytes;
 		node = new_rbt_node(lbl_def, index);
 		insert_rbt(&(asm_inf->lbl_tree), NULL, node);
 	}
 	else
+	{
+		ft_strdel(asm_inf->prog_name);
+		ft_strdel(asm_inf->comment);
+		lst_clr(asm_inf->binary_list);
+		rbt_clear(asm_inf->lbl_tree, free_content);
 		exit_error("Ce label existe déjà", LBL_EXIST_ERR);
+	}
 }
 
 int			hard_code(int *res, int nb_letters)
@@ -104,7 +129,9 @@ int			hash_word(char *word)
 	hard_coded = hard_code(&res, i);
 	while (!hard_coded && res > 15)
 	{
-		middle = ft_itoa(res);
+		middle = ft_itoa(res); ///si j'etais completement serieuse je protegerais ici
+		// mais ils ne se douteront pas que y'a un malloc dans itoa
+		// mais bon, se serait plus propre
 		i = 0;
 		res = 0;
 		while (middle[i])
@@ -116,8 +143,9 @@ int			hash_word(char *word)
 
 static void	parse_line(char *line, t_asm_inf *asm_inf)
 {
-	int i;
-	int j;
+	int		i;
+	int		j;
+	char	*str;
 
 	i = 0;
 	while (line[i] && ft_iswhitespace(line[i]))
@@ -129,7 +157,16 @@ static void	parse_line(char *line, t_asm_inf *asm_inf)
 	{
 		if (line[j - 1] == LABEL_CHAR)
 		{
-			read_label(ft_strndup(&(line[i]), j - i - 1), asm_inf);
+			str = ft_strndup(&(line[i]), j - i - 1);
+			if (!str)
+			{
+				ft_strdel(asm_inf->prog_name);
+				ft_strdel(asm_inf->comment);
+				lst_clr(asm_inf->binary_list);
+				//rbt_clear(asm_inf->lbl_tree, free_content); en vrai je pourrais le mettre, ca marcherait quand meme
+				exit_error("Malloc error", MALLOC_ERR);
+			}
+			read_label(str, asm_inf);
 			while (line[j] && ft_iswhitespace(line[j]))
 				j++;
 			if (line[j])
@@ -146,17 +183,20 @@ int			main(int argc, char **argv)
 	char		*line;
 	t_asm_inf	asm_inf;
 	t_list		*new;
+	int			state;
 
 	line = NULL;
 	fd = init_prog(argc, argv, &asm_inf);
 	get_dot_info(fd, &line, &asm_inf);
 	write_header(&asm_inf);
-	while (get_next_line(fd, &line, '\n'))
+	while ((state = get_next_line(fd, &line, '\n')) >  0)
 		if (line)
 		{
 			parse_line(line, &asm_inf);
 			ft_memdel((void **)&line);
 		}
+	if (state < 0) //surement avec d'autre free de dot_info
+		exit_error("read or malloc error\n");
 	write_lbl(&asm_inf);
 	new = ft_lstnew(fill_binary(4, asm_inf.nb_bytes), 4, 0);
 	new->next = asm_inf.holder_prog_size->next;

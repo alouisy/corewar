@@ -33,8 +33,6 @@ int			choose_write(char *line, t_op *op, t_asm_inf *asm_inf,
 		write_inf->nb_bytes = IND_SIZE;
 		ocp = write_val(line, write_inf, asm_inf, 3);
 	}
-	else
-		exit_error("wrong param type\n", WRONG_PARAM_TYPE_ERR);
 	return (ocp);
 }
 
@@ -56,9 +54,19 @@ void		write_param(char *line, t_op *op, t_asm_inf *asm_inf, t_ocp *ocp_s)
 	char		*trimmed;
 	t_write_inf	write_inf;
 	int			weight;
+	int			write_val;
 
 	write_inf.inst_pos = asm_inf->nb_bytes;
 	split = ft_strsplit(line, SEPARATOR_CHAR);
+	if (!split)
+	{
+		//plus ?
+		ft_strdel(asm_inf->prog_name);
+		ft_strdel(asm_inf->comment);
+		lst_clr(asm_inf->binary_list);
+		rbt_clear(asm_inf->lbl_tree, free_content);
+		exit_error("Malloc error\n", MALLOC_ERR);
+	}
 	write_inf.i = 0;
 	ocp_s->ocp = 0;
 	while (write_inf.i < op->nb_param)
@@ -66,7 +74,29 @@ void		write_param(char *line, t_op *op, t_asm_inf *asm_inf, t_ocp *ocp_s)
 		write_inf.has_ocp = op->ocp - write_inf.i;
 		weight = calc_weight(write_inf.i);
 		trimmed = ft_strtrim(split[write_inf.i]);
-		ocp_s->ocp += choose_write(trimmed, op, asm_inf, &write_inf) * weight;
+		if (!trimmed)
+		{
+			free_split(split);
+			//tout ce qui est en dessous pourra aller dans une fonction
+			ft_strdel(asm_inf->prog_name);
+			ft_strdel(asm_inf->comment);
+			lst_clr(asm_inf->binary_list);
+			rbt_clear(asm_inf->lbl_tree, free_content);
+			exit_error("Malloc error\n", MALLOC_ERR);
+		}
+		write_val = choose_write(trimmed, op, asm_inf, &write_inf) * weight;
+		if (!write_val)
+		{
+			free_split(split);
+			//tout ce qui est en dessous pourra aller dans une fonction
+			ft_strdel(asm_inf->prog_name);
+			ft_strdel(asm_inf->comment);
+			lst_clr(asm_inf->binary_list);
+			rbt_clear(asm_inf->lbl_tree, free_content);
+			exit_error("... impossible de definir une erreur sensible\n", MALLOC_ERR);
+		}
+		
+		ocp_s->ocp += write_val;
 		write_inf.i++;
 		ft_memdel((void **)&trimmed);
 	}
@@ -123,10 +153,17 @@ int			write_val(char *line, t_write_inf *write_inf, t_asm_inf *asm_inf,
 	long long	val;
 	char		*trimmed;
 	char		*binary;
+	int			state;
 
 	trimmed = trim_comment(line);
+	if (!trimmed)
+		return (0);
 	if (trimmed[0] == LABEL_CHAR)
-		add_lbl(&(trimmed[1]), write_inf, asm_inf);
+	{
+		state = add_lbl(trimmed, write_inf, asm_inf); //a voir
+		if (!state)
+			return_val = 0; //j'pourrais faire du ternaire si besoin
+	}
 	else
 	{
 		val = ft_atoi_harsh(trimmed, 1, 0, 0);
@@ -134,10 +171,21 @@ int			write_val(char *line, t_write_inf *write_inf, t_asm_inf *asm_inf,
 			val = calc_neg_val(val, write_inf->nb_bytes);
 		asm_inf->nb_bytes += write_inf->nb_bytes;
 		binary = fill_binary(write_inf->nb_bytes, val);
+		if (!binary)
+		{
+			ft_strdel(trimmed);
+			return (0);
+		}
 		asm_inf->current->next = ft_lstnew(binary, write_inf->nb_bytes, 0);
+		if (!asm_inf->current->next)
+		{
+			ft_strdel(trimmed);
+			ft_strdel(binary);
+			return (0);
+		}
 		asm_inf->current = asm_inf->current->next;
 	}
-	ft_memdel((void **)&trimmed);
+	ft_strdel(trimmed);
 	return (return_val);
 }
 
@@ -149,14 +197,16 @@ int			write_register(char *line, t_asm_inf *asm_inf)
 
 	i = 1;
 	trimmed = trim_comment(line);
+	if (!trimmed)
+		return (0);
 	nb_register = ft_atoi_harsh(trimmed, 0, -1, 0);
-	if (nb_register > REG_NUMBER)
-		exit_error("Unknown register\n", UNKNOWN_REG_ERR);
-	else if (nb_register < 0)
-		exit_error("Wrong register format\n", WRONG_REG_FORMAT_ERR);
+	if (nb_register > REG_NUMBER || nb_register < 0)
+		return (0);
 	asm_inf->current->next = ft_lstnew(&nb_register, 1, 1);
+	if (!asm_inf->current->next)
+		return (0);
 	asm_inf->current = asm_inf->current->next;
 	asm_inf->nb_bytes += 1;
-	ft_memdel((void **)&trimmed);
+	ft_strdel(&trimmed);
 	return (1);
 }
