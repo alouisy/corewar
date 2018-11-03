@@ -12,13 +12,14 @@
 
 #include "libft.h"
 
-void	lst_clr(t_list *lst)
+void	lst_clr(t_list *lst, int content_malloced)
 {
 	if (lst)
 	{
 		if (lst->next)
-			lst_clr(lst->next);
-		ft_memdel((void **)&(lst->content));
+			lst_clr(lst->next, content_malloced);
+		if (content_malloced)
+			ft_memdel((void **)&(lst->content));
 		ft_memdel((void **)&lst);
 	}
 }

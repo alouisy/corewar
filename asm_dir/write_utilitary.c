@@ -61,7 +61,7 @@ void		add_lbl(char *lbl, t_write_inf *write_inf, t_asm_inf *asm_inf)
 	holder_def.lbl_bytes = write_inf->nb_bytes;
 	holder_def.has_ocp = write_inf->has_ocp;
 	ft_lstadd(&(asm_inf->holder_lst), ft_lstnew(&holder_def,
-													sizeof(t_holder_def)));
+													sizeof(t_holder_def), 1));
 	asm_inf->nb_bytes += write_inf->nb_bytes;
 }
 

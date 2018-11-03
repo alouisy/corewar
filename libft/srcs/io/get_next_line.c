@@ -15,7 +15,7 @@
 static int	if_return(char **rest, char **line, int index)
 {
 	*line = ft_strndup(*rest, index);
-	if (!*line)
+	if (!*line && index != 0)
 	{
 		ft_strdel(rest);
 		return (0);
@@ -67,13 +67,11 @@ static char	*ft_strjoin_overlap(char **s1, char *s2)
 		ft_strdel(s1);
 		str[len_1 + len_2] = '\0';
 	}
-	//ft_memdel((void **)s2);
 	return (str);
 }
 
 static int	stopped_reading(int state, char **line, char **rest)
 {
-	//ft_strdel(buff);
 	if (state == 0)
 	{
 		if (!*rest)
@@ -91,7 +89,7 @@ static int	stopped_reading(int state, char **line, char **rest)
 int			get_next_line(const int fd, char **line, char separator)
 {
 	static char *rest = NULL;
-	char		buff[BUFF_SIZE];
+	char		buff[BUFF_SIZE + 1];
 	int			state;
 	int			index;
 
@@ -99,19 +97,13 @@ int			get_next_line(const int fd, char **line, char separator)
 	{
 		if ((index = ft_strchri(rest, separator)) == -1)
 		{
-			printf("oui?\n");
-			//buff = ft_strnew(BUFF_SIZE + 1);
-			//if (!buff)
-			//	return (0);
 			state = read(fd, buff, BUFF_SIZE);
+			buff[BUFF_SIZE] = '\0';
 			if (state <= 0)
 				return (stopped_reading(state, line, &rest));
 			rest = ft_strjoin_overlap(&rest, &buff[0]);
 			if (!rest)
-			{
-				//ft_strdel(&buff);
 				return (0);
-			}
 		}
 		else
 			return (if_return(&rest, line, index));

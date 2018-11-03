@@ -12,7 +12,7 @@
 
 #ifndef LIBFT_H
 # define LIBFT_H
-# define BUFF_SIZE 320
+# define BUFF_SIZE 20
 # define MALLOC_ERR 1
 # define READ_ERR 2
 # define OPEN_ERR 3
@@ -154,7 +154,7 @@ char						**ft_strsplit_white(char const *s);
 */
 void						ft_lstadd(t_list **alst, t_list *new);
 void						ft_lstappend(t_list **alst, t_list *new);
-t_list						*ft_lstcpy(t_list *ori);
+t_list						*ft_lstcpy(t_list *ori, int need_malloc);
 void						ft_lstdel(t_list **alst,
 												void (*del)(void *, size_t));
 void						ft_lstdelone(t_list **alst,
@@ -165,8 +165,8 @@ int							lst_findi(t_list *list, void *content, size_t size);
 void						ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 int							ft_lstlength(t_list *lst);
 t_list						*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
-t_list						*ft_lstnew(void *content, size_t content_size);
-void						lst_clr(t_list *lst);
+t_list						*ft_lstnew(void *content, size_t content_size, int need_malloc);
+void						lst_clr(t_list *lst, int content_malloced);
 char						*lst_to_str(t_list *lst);
 t_list						*ft_pop(t_list **lst);
 int							ft_pop_value(t_list **lst);

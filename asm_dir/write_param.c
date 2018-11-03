@@ -19,16 +19,16 @@ int			choose_write(char *line, t_op *op, t_asm_inf *asm_inf,
 
 	ocp = 0;
 	if (line[0] == DIRECT_CHAR && (op->param[write_inf->i] == 2 ||
-			op->param[write_inf->i] == 3 || op->param[write_inf->i] >= 6)) //j'dois surement refaire les calculs et verifier que ca marche bien comme prevu
+			op->param[write_inf->i] == 3 || op->param[write_inf->i] >= 6))
 	{
 		write_inf->nb_bytes = DIR_SIZE;
 		if (op->two_bytes)
 			write_inf->nb_bytes = 2;
 		ocp = write_val(line, write_inf, asm_inf, 2);
 	}
-	else if (line[0] == 'r' && op->param[write_inf->i] % 2 != 0) //changer les vals
+	else if (line[0] == 'r' && op->param[write_inf->i] % 2 != 0)
 		ocp = write_register(line, asm_inf);
-	else if (op->param[write_inf->i] >= 4) //changer les vals
+	else if (op->param[write_inf->i] >= 4)
 	{
 		write_inf->nb_bytes = IND_SIZE;
 		ocp = write_val(line, write_inf, asm_inf, 3);
@@ -78,7 +78,7 @@ void		add_new(t_holder_def *tmp_holder, int val)
 	t_list	*new;
 
 	new = ft_lstnew(fill_binary(tmp_holder->lbl_bytes, val),
-												tmp_holder->lbl_bytes);
+												tmp_holder->lbl_bytes, 0);
 	if (tmp_holder->has_ocp > 0)
 	{
 		new->next = tmp_holder->lst_pos->next->next;
@@ -134,9 +134,8 @@ int			write_val(char *line, t_write_inf *write_inf, t_asm_inf *asm_inf,
 			val = calc_neg_val(val, write_inf->nb_bytes);
 		asm_inf->nb_bytes += write_inf->nb_bytes;
 		binary = fill_binary(write_inf->nb_bytes, val);
-		asm_inf->current->next = ft_lstnew(binary, write_inf->nb_bytes);
+		asm_inf->current->next = ft_lstnew(binary, write_inf->nb_bytes, 0);
 		asm_inf->current = asm_inf->current->next;
-		ft_memdel((void **)&binary);
 	}
 	ft_memdel((void **)&trimmed);
 	return (return_val);
@@ -155,7 +154,7 @@ int			write_register(char *line, t_asm_inf *asm_inf)
 		exit_error("Unknown register\n", UNKNOWN_REG_ERR);
 	else if (nb_register < 0)
 		exit_error("Wrong register format\n", WRONG_REG_FORMAT_ERR);
-	asm_inf->current->next = ft_lstnew(&nb_register, 1);
+	asm_inf->current->next = ft_lstnew(&nb_register, 1, 1);
 	asm_inf->current = asm_inf->current->next;
 	asm_inf->nb_bytes += 1;
 	ft_memdel((void **)&trimmed);

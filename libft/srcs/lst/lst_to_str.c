@@ -27,7 +27,7 @@ char	*lst_to_str(t_list *lst)
 	{
 		str[i] = ((char *)(tmp_lst)->content)[0];
 		i++;
-		tmp_lst = (tmp_lst)->next;
+		tmp_lst = tmp_lst->next;
 	}
 	str[i] = '\0';
 	return (str);

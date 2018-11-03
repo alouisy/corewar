@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-t_list	*ft_lstcpy(t_list *ori)
+t_list	*ft_lstcpy(t_list *ori, int need_malloc)
 {
 	t_list *new;
 	t_list *first_elem;
@@ -20,14 +20,14 @@ t_list	*ft_lstcpy(t_list *ori)
 
 	if (!ori)
 		return (NULL);
-	new = ft_lstnew(ori->content, ori->content_size);
+	new = ft_lstnew(ori->content, ori->content_size, need_malloc);
 	if (!new)
 		return (NULL);
 	first_elem = new;
 	current = ori->next;
 	while (current)
 	{
-		new->next = ft_lstnew(current->content, current->content_size);
+		new->next = ft_lstnew(current->content, current->content_size, need_malloc);
 		if (!new->next)
 			return (NULL);
 		new = new->next;

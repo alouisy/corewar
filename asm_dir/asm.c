@@ -79,7 +79,7 @@ int			hard_code(int *res, int nb_letters)
 	else if (*res == 41 && nb_letters == 2)
 		*res = 3;
 	else if (*res == 51)
-		*res = 10;
+		*res = 1;
 	else if (*res == 45)
 		*res = 11;
 	else if (*res == 54)
@@ -102,14 +102,14 @@ int			hash_word(char *word)
 		res += word[i++] - 96;
 	res += i;
 	hard_coded = hard_code(&res, i);
-	if (!hard_coded && res > 9)
+	while (!hard_coded && res > 15)
 	{
 		middle = ft_itoa(res);
 		i = 0;
 		res = 0;
 		while (middle[i])
 			res += middle[i++] - 48;
-		ft_memdel((void **)&middle);
+		ft_strdel(&middle);
 	}
 	return (res);
 }
@@ -129,7 +129,6 @@ static void	parse_line(char *line, t_asm_inf *asm_inf)
 	{
 		if (line[j - 1] == LABEL_CHAR)
 		{
-			printf("?????\n");
 			read_label(ft_strndup(&(line[i]), j - i - 1), asm_inf);
 			while (line[j] && ft_iswhitespace(line[j]))
 				j++;
@@ -149,25 +148,19 @@ int			main(int argc, char **argv)
 	t_list		*new;
 
 	line = NULL;
-	
-	printf("fdp\n");
 	fd = init_prog(argc, argv, &asm_inf);
 	get_dot_info(fd, &line, &asm_inf);
-	printf("header?\n");
 	write_header(&asm_inf);
-	printf("tut\n");
 	while (get_next_line(fd, &line, '\n'))
-		if (line) //je pense
+		if (line)
 		{
-			printf("fdp\n");
 			parse_line(line, &asm_inf);
 			ft_memdel((void **)&line);
 		}
 	write_lbl(&asm_inf);
-	new = ft_lstnew(fill_binary(4, asm_inf.nb_bytes), 4);
+	new = ft_lstnew(fill_binary(4, asm_inf.nb_bytes), 4, 0);
 	new->next = asm_inf.holder_prog_size->next;
 	asm_inf.holder_prog_size->next = new;
 	write_binary(asm_inf.binary_list);
-	lst_clr(g_to_free);
 	return (0);
 }

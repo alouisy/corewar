@@ -34,7 +34,7 @@ static char	*set_value(int upper, int rest)
 
 static char	*clear_ret(t_list **lst, char *str, int free_str)
 {
-	lst_clr(*lst);
+	lst_clr(*lst, 1);
 	if (free_str)
 		ft_strdel(&str);
 	return (NULL);
@@ -58,13 +58,12 @@ char		*ft_itoa_base(unsigned int nb, int base, int upper)
 		tmp_str = set_value(upper, rest);
 		if (!tmp_str)
 			return (clear_ret(&tmp_result, tmp_str, 0));
-		new = ft_lstnew(tmp_str, 1);
+		new = ft_lstnew(tmp_str, 1, 0);
 		if (!new)
 			return (clear_ret(&tmp_result, tmp_str, 1));
 		ft_lstadd(&tmp_result, new);
-		ft_strdel(&tmp_str);
 	}
 	res = lst_to_str(tmp_result);
-	lst_clr(tmp_result);
+	lst_clr(tmp_result, 1);
 	return (res);
 }

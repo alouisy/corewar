@@ -23,7 +23,7 @@ static int	divide(long long tmp_int, t_list **result)
 			tmp_char = -(tmp_int % 10) + 48;
 		else
 			tmp_char = tmp_int % 10 + 48;
-		new = ft_lstnew(&tmp_char, 1);
+		new = ft_lstnew(&tmp_char, 1, 1);
 		if (!new)
 			return (0);
 		ft_lstadd(result, new);
@@ -38,16 +38,17 @@ static int	cast(long long n, t_list **result)
 
 	if (n == 0)
 	{
-		new = ft_lstnew("0", 1);
+		new = ft_lstnew("0", 1, 1);
 		if (!new)
 			return (0);
 		ft_lstadd(result, new);
 	}
 	if (!divide(n, result))
 		return (0);
+	
 	if (n < 0)
 	{
-		new = ft_lstnew("-", 1);
+		new = ft_lstnew("-", 1, 1);
 		if (!new)
 			return (0);
 		ft_lstadd(result, new);
@@ -63,10 +64,10 @@ char		*ft_itoa(long long n)
 	result = NULL;
 	if (!cast(n, &result))
 	{
-		lst_clr(result);
+		lst_clr(result, 0);
 		return (NULL);
 	}
 	res_str = lst_to_str(result);
-	lst_clr(result);
+	lst_clr(result, 0);
 	return (res_str);
 }

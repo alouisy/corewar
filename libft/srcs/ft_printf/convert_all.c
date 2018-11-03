@@ -105,7 +105,7 @@ void		convert(va_list ap, t_detail *conv_detail)
 		handle_sc(type, width_mod, conv_detail, ap);
 	else if (*type == 'p')
 	{
-		ft_lstappend(&(conv_detail->info), ft_lstnew("#", 1));
+		ft_lstappend(&(conv_detail->info), ft_lstnew("#", 1, 1));
 		conv_detail->conv->str[0] = ft_itoa_base_2_long(
 									(t_ull)va_arg(ap, void *), 16, 0);
 	}
