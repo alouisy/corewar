@@ -29,7 +29,15 @@ void	ft_lldi(t_pvm *pvm, t_process *process)
 		&& get_prm_value(pvm, process, 0, &val1)
 		&& get_prm_value(pvm, process, 1, &val2))
 	{
+		if (process->param_type[0] == DIR_CODE)
+			val1 = (short int)val1;
+		val2 = (short int)process->param[1];
 		address = process->pc + (val1 + val2);
+		if (!(pvm->nc.ncurses) && pvm->verbose)
+		{
+			ft_printf("P% 5d | lldi %d %d r%d\n", process->champ_nbr, val1, val2, process->param[2]);
+			ft_printf("       | -> load from %d + %d = %d (with pc and mod %d)\n", val1, val2, (val1 + val2), address);
+		}
 		while (address < 0)
 			address += MEM_SIZE;		
 		val1 = ft_strhex2dec((pvm->memory + (address % MEM_SIZE)), 4);

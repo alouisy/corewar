@@ -17,19 +17,12 @@
 ** implémentation fausse
 */
 
-static void	process_cpy(t_pvm *pvm, t_process *old, t_process *new, int new_pc)
+static void	new_process_init(t_pvm *pvm, t_process *old, t_process *new, int new_pc)
 {
-	int		i;
-
-	i = -1;
-	new->champ_nbr = old->champ_nbr;
-	new->champ = old->champ;
-	new->pid = ++pvm->nb_champ;
-	while (++i < REG_NUMBER)
-		new->r[i] = old->r[i];
+	new->champ_nbr = ++pvm->nb_champ;
+	new->pid = pvm->nb_champ;
 	new->pc = new_pc;
 	new->pc2 = old->pc;
-	new->carry = old->carry;
 	new->cycles_wo_live = 0;
 	new->cycle_bf_exe = 0;
 	reset_param(new);
@@ -40,16 +33,21 @@ static void	process_cpy(t_pvm *pvm, t_process *old, t_process *new, int new_pc)
 
 void	ft_lfork(t_pvm *pvm, t_process *process)
 {
+	int			value;
 	int			new_pc;
-	t_process	new;
 	t_list		*node;
 
 	(void)node;
-	new_pc = (process->pc + process->param[0]) % MEM_SIZE;
+	value = (short int)process->param[0];
+	new_pc = (process->pc + value) % MEM_SIZE;
 	if (new_pc < 0)
 		new_pc = (new_pc + MEM_SIZE) % MEM_SIZE;
-//		new_pc = (MEM_SIZE + process->pc - ABS(process->param[0])) % MEM_SIZE;
-	process_cpy(pvm, process, &new, new_pc);
-	node = ft_lstnew((&new), sizeof(t_process));
+//		new_pc = (MEM_SIZE + process->pc - ABS(value)) % MEM_SIZE;
+	node = ft_lstnew(process, sizeof(t_process));
+	new_process_init(pvm, process, (PROCESS(node)), new_pc);
 	ft_lstadd(&pvm->processes, node);
+	if (!(pvm->nc.ncurses) && pvm->verbose)
+	{
+		ft_printf("P% 5d | lfork %d (%d)\n", process->champ_nbr, value, (process->pc + value));
+	}
 }

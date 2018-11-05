@@ -166,6 +166,7 @@ int						lget_prm_value(t_pvm *pvm,
 ** misc
 */
 void					print_memory(t_pvm *vm);
+void					print_champ(t_list *champ);
 int						ft_strhex2dec(unsigned char *str, int len);
 int						ft_strerror(char *str, int f);
 void					free_vm(t_pvm *vm);

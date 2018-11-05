@@ -21,11 +21,13 @@ void	print_memory(t_pvm *prms)
 		init_ncurses(prms);
 	else
 	{
+		ft_printf("0x0000 : ");
 		while (i < MEM_SIZE)
 		{
 			if ((i % 64) == 0)
 			{
 				ft_putchar('\n');
+				ft_printf("%#.4x : ", i);
 			}
 			if (prms->memory[i] == 0)
 				ft_printf("00 ");
@@ -35,4 +37,19 @@ void	print_memory(t_pvm *prms)
 		}
 		ft_putchar('\n');
 	}
+}
+
+void	print_champ(t_list *champ)
+{
+	if (champ == NULL)
+	{
+		ft_printf("Introducing contestants...\n");
+		return ;
+	}
+	print_champ(champ->next);
+	ft_printf("* Player %i, weighing %i bytes, \"%s\" (\"%s\") !\n",\
+		(CHAMPION(champ))->nbr,\
+		(CHAMPION(champ))->header.prog_size,\
+		(CHAMPION(champ))->header.prog_name,\
+		(CHAMPION(champ))->header.comment);
 }

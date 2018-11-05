@@ -29,5 +29,9 @@ void	ft_ld(__attribute__((unused)) t_pvm *pvm, t_process *process)
 			process->carry = 0;
 		else
 			process->carry = 1;
+		if (!(pvm->nc.ncurses) && pvm->verbose)
+		{
+			ft_printf("P% 5d | ld %d r%d\n", process->champ_nbr, value, process->param[1]);
+		}
 	}
 }

@@ -38,5 +38,7 @@ void				start_vm(t_pvm *vm)
 		if (vm->nc.ncurses)
 			status_game(vm);
 	}
+	if (vm->total_cycles == vm->dump)
+		print_memory(vm);
 	print_winner(vm);
 }

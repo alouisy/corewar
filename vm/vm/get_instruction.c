@@ -45,7 +45,7 @@ int			get_param(t_pvm *vm, t_process *process, int shift)
 		else if (label_size == IND_CODE)
 			label_size -= 1;
 		process->param[i] = ft_strhex2dec(vm->memory + ((process->pc + shift) % MEM_SIZE), label_size);
-		if (label_size == 2)
+		if (label_size == 2 && process->param_type[i] == IND_CODE)
 			process->param[i] = (short int)process->param[i];
 		shift += label_size;
 		i++;

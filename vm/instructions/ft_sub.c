@@ -30,6 +30,10 @@ void	ft_sub(__attribute__((unused)) t_pvm *pvm, t_process *process)
 	{
 		process->r[process->param[2] - 1] = process->r[process->param[0] - 1]
 		- process->r[process->param[1] - 1];
+		if (!(pvm->nc.ncurses) && pvm->verbose)
+		{
+			ft_printf("P% 5d | sub r%d r%d r%d\n", process->champ_nbr, process->param[0], process->param[1], process->param[2]);
+		}
 		if (process->r[process->param[2] - 1])
 			process->carry = 0;
 		else
