@@ -1,0 +1,53 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   free.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: zcugni <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/11/05 23:40:57 by zcugni            #+#    #+#             */
+/*   Updated: 2018/11/05 23:40:58 by zcugni           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "asm.h"
+
+static void	free_list_node(void *content)
+{
+	ft_strdel(&((t_holder_def *)content)->lbl);
+}
+
+static void	free_rbt_node(void *content)
+{
+	ft_strdel(&((t_lbl_def *)content)->name);
+}
+
+void		free_all(t_asm_inf *asm_inf, char *msg, int err)
+{
+	ft_strdel(&asm_inf->prog_name);
+	ft_strdel(&asm_inf->comment);
+	lst_clr(asm_inf->binary_list, 1, free); //1 je pense
+	rbt_clear(&asm_inf->lbl_tree, free_rbt_node);
+	lst_clr(asm_inf->holder_lst, 1, free_list_node);
+	exit_error(msg, err);
+}
+
+void		free_split(char **split)
+{
+	int i;
+
+	i = 0;
+	while (split[i])
+	{
+		ft_memdel((void **)&(split[i]));
+		i++;
+	}
+}
+
+int			free_tmp(char **trimmed, char **binary, t_write_inf *write_inf)
+{
+	ft_strdel(trimmed);
+	ft_strdel(binary);
+	write_inf->err = MALLOC_ERR;
+	return (0);
+}

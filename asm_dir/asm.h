@@ -19,40 +19,22 @@
 # define WRONG_DOT_ERR 11
 # define WRONG_PARAM_TYPE_ERR 12
 # define UNKNOWN_REG_ERR 13
-# define WRONG_REG_FORMAT_ERR 14
+# define NEG_REG_ERR 14
 # define WRONG_FORMAT_ERR 15
 # define OTHER_ERR 16
 # include "../libft/libft.h"
 # include "op.h"
 # include <fcntl.h>
 
-/*typedef struct	s_param_type
+typedef struct	s_op
 {
-	int	nb;
-	int type1;
-	int type2;
-	int type3;
-}				t_param_type;
-
-typedef struct	s_param_def
-{
-	char	*name;
-	int		nb;
-	int		type[3];
-	int		two_bytes;
-	int		inst_code;
-	int		ocp;
-}				t_param_def;*/
-
-typedef struct			s_op
-{
-	char				*name;
-	int					nb_param;
-	int					param[3];
-	int					op_code;
-	int					ocp;
-	int					two_bytes; //ils l'appelle label?size mais c'est con
-}						t_op;
+	char		*name;
+	int			nb_param;
+	int			param[3];
+	int			op_code;
+	int			ocp;
+	int			two_bytes; //ils l'appelle label?size mais c'est con
+}				t_op;
 
 typedef struct	s_ocp
 {
@@ -100,6 +82,7 @@ typedef struct	s_write_inf
 	int		nb_bytes;
 	int		has_ocp;
 	int		i;
+	int		err;
 }				t_write_inf;
 
 extern t_op		g_op_tab[16];
@@ -108,8 +91,7 @@ int				init_prog(int argc, char **argv, t_asm_inf *asm_inf);
 void			write_header(t_asm_inf *asm_inf);
 int				write_val(char *line, t_write_inf *write_inf,
 							t_asm_inf *asm_inf, int return_val);
-int				write_register(char *line, t_asm_inf *asm_inf);
-void			write_binary(t_list *binary_list);
+int				write_register(char *line, t_asm_inf *asm_inf, t_write_inf *write_inf);
 void			get_dot_info(int fd, char **line, t_asm_inf *asm_inf);
 void			check_instruct(char *line, t_asm_inf *asm_inf);
 int				hash_word(char *word);
@@ -118,9 +100,12 @@ void			write_lbl(t_asm_inf *asm_inf);
 void			write_param(char *line, t_op *op, t_asm_inf *asm_inf,
 																t_ocp *ocp_s);
 int				calc_weight(int pow);
-void			add_lbl(char *line, t_write_inf *write_inf, t_asm_inf *asm_inf);
+int				add_lbl(char *lbl, t_write_inf *write_inf, t_asm_inf *asm_inf, int return_val);
 char			*fill_binary(int nb_bytes, int val);
 int				calc_neg_val(int val, int lbl_bytes);
-char			*trim_comment(char *line);
+char			*trim_comment(char *line, int *err);
+void			free_all(t_asm_inf *asm_inf, char *msg, int err);
+void			free_split(char **split);
+int				free_tmp(char **trimmed, char **binary, t_write_inf *write_inf);
 
 #endif

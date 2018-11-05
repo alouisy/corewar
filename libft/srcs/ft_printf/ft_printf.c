@@ -42,13 +42,13 @@ static int	add_reset(t_detail *co_det, t_list **f_lst, t_pos *p, int add_null)
 				ft_strdel(&co_det->conv->str[j++]);
 			ft_memdel((void **)&co_det->conv->str);
 			ft_memdel((void **)&co_det->conv);
-			lst_clr(co_det->info, 1);
+			lst_clr(co_det->info, 1, free);
 			ft_strdel(&co_det->ori_str);
 			display(*f_lst, 1);
 			return (0);
 		}
 	add(co_det, f_lst, add_null);
-	lst_clr(co_det->info, 0);
+	lst_clr(co_det->info, 0, free);
 	p->start = p->i + 1;
 	p->mid = p->start;
 	return (1);

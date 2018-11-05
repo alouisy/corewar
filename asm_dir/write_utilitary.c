@@ -12,7 +12,7 @@
 
 #include "asm.h"
 
-char		*trim_comment(char *line)
+char		*trim_comment(char *line, int *err)
 {
 	int		i;
 	int		j;
@@ -27,10 +27,16 @@ char		*trim_comment(char *line)
 	while (line[j] && ft_iswhitespace(line[j]))
 		j++;
 	if (line[j] && line[j] != COMMENT_CHAR)
+	{
+		*err = UNKNOWN_INST_ERR; // en vrai c'est plus un mauvais char qu'une instruction inconnue..
 		return (NULL);
+	}
 	trimmed = ft_strtrim(line);
 	if (!trimmed)
-		return (NULL); //surement
+	{
+		*err = MALLOC_ERR;
+		return (NULL);
+	}
 	is_direct = 0;
 	if (trimmed[0] == 'r' || trimmed[0] == '%')
 		is_direct = 1;
@@ -38,6 +44,8 @@ char		*trim_comment(char *line)
 	ft_strdel(&trimmed);
 	trimmed = ft_strtrim(tmp_trimmed);
 	ft_strdel(&tmp_trimmed);
+	if (!trimmed)
+		*err = MALLOC_ERR;
 	return (trimmed);
 }
 
@@ -53,22 +61,30 @@ int			calc_weight(int pow)
 	return (weight);
 }
 
-void		add_lbl(char *lbl, t_write_inf *write_inf, t_asm_inf *asm_inf)
+int			add_lbl(char *lbl, t_write_inf *write_inf, t_asm_inf *asm_inf, int return_val)
 {
 	t_holder_def	holder_def;
+	t_list			*new;
 
 	holder_def.lbl = ft_strdup(&(lbl[1]));
 	if (!holder_def.lbl)
+	{
+		write_inf->err = MALLOC_ERR;
 		return (0);
+	}
 	holder_def.inst_pos = write_inf->inst_pos;
 	holder_def.lst_pos = asm_inf->current;
 	holder_def.lbl_bytes = write_inf->nb_bytes;
 	holder_def.has_ocp = write_inf->has_ocp;
-	//faut que je fasse un free_content avec un lst_clear qui s'occupe de mon label
-	// et que je mette ca dans ma fonction principale de free
-	ft_lstadd(&(asm_inf->holder_lst), ft_lstnew(&holder_def,
-													sizeof(t_holder_def), 1));
+	new = ft_lstnew(&holder_def, sizeof(t_holder_def), 1);
+	if (!new)
+	{
+		write_inf->err = MALLOC_ERR;
+		return (0);
+	}
+	ft_lstadd(&(asm_inf->holder_lst), new);
 	asm_inf->nb_bytes += write_inf->nb_bytes;
+	return (return_val);
 }
 
 char		*fill_binary(int nb_bytes, int val)

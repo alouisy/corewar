@@ -166,7 +166,7 @@ void						ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 int							ft_lstlength(t_list *lst);
 t_list						*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 t_list						*ft_lstnew(void *content, size_t content_size, int need_malloc);
-void						lst_clr(t_list *lst, int content_malloced);
+void						lst_clr(t_list *lst, int content_malloced, void (*free_content)(void *content));
 char						*lst_to_str(t_list *lst);
 t_list						*ft_pop(t_list **lst);
 int							ft_pop_value(t_list **lst);

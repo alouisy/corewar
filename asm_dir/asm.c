@@ -14,16 +14,16 @@
 
 t_list *g_to_free = NULL;
 
-void		write_binary(t_list *binary_list)
+void		write_binary(t_list *binary_list, t_asm_inf *asm_inf)
 {
 	t_list			*current;
 	int				fd;
 	unsigned long	i;
 
 	current = binary_list;
-	fd = open("binary.cor", O_CREAT | O_TRUNC | O_RDWR, 07777);
+	fd = open("binary.cor", O_CREAT | O_TRUNC | O_RDWR, 07777); //changer le nom du ficher
 	if (fd == -1)
-		exit_error("Open error\n", OPEN_ERR);
+		free_all(asm_inf, "Open error\n", OPEN_ERR);
 	while (current)
 	{
 		i = 0;
@@ -37,59 +37,53 @@ void		write_binary(t_list *binary_list)
 	close(fd);
 }
 
-void		free_content(t_lbl_def *lbl_def)
+static t_lbl_def	*create_lbl_def(char *lbl, t_asm_inf *asm_inf)
 {
-	ft_strdel(lbl_def->name);
+	t_lbl_def *lbl_def;
+
+	lbl_def = malloc(sizeof(t_lbl_def));
+	if (!lbl_def)
+		free_all(asm_inf, "Malloc error\n", MALLOC_ERR);
+	lbl_def->name = lbl;
+	lbl_def->pos = asm_inf->nb_bytes;
+	return (lbl_def);
 }
 
-void		read_label(char *lbl, t_asm_inf *asm_inf)
+static void			check_lbl_name(char *lbl, t_asm_inf *asm_inf)
 {
-	int				i;
-	t_tree_index	index;
-	t_rbt_node		*node;
-	t_lbl_def		*lbl_def;
+	int i;
 
 	i = 0;
 	while (lbl[i])
 	{
 		if (!ft_strchr(LABEL_CHARS, lbl[i]))
-		{
-			ft_strdel(asm_inf->prog_name);
-			ft_strdel(asm_inf->comment);
-			lst_clr(asm_inf->binary_list);
-			rbt_clear(asm_inf->lbl_tree, free_content);
-			//a voir s'il faudra pas rajouter des trucs
-			exit_error("Caractere non valide dans le nom du label", LBL_NAME_ERR);
-		}
+			free_all(asm_inf, "Invalid char in label name\n", LBL_NAME_ERR);
 		i++;
 	}
+}
+
+void		read_label(char *lbl, t_asm_inf *asm_inf)
+{
+	t_tree_index	index;
+	t_rbt_node		*node;
+	t_lbl_def		*lbl_def;
+
+	check_lbl_name(lbl, asm_inf);
 	index.is_nb = 0;
 	index.str = lbl;
 	if (!find_in_tree(asm_inf->lbl_tree, index))
 	{
-		lbl_def = malloc(sizeof(t_lbl_def));
-		if (!lbl_def)
-		{
-			//a voir s'il faudra pas rajouter des trucs apres
-			ft_strdel(asm_inf->prog_name);
-			ft_strdel(asm_inf->comment);
-			lst_clr(asm_inf->binary_list);
-			rbt_clear(asm_inf->lbl_tree, free_content);
-			exit_error("Malloc error\n", MALLOC_ERR);
-		}
-		lbl_def->name = lbl;
-		lbl_def->pos = asm_inf->nb_bytes;
+		lbl_def = create_lbl_def(lbl, asm_inf);
 		node = new_rbt_node(lbl_def, index);
+		if (!node)
+		{
+			ft_memdel((void **)lbl_def);
+			free_all(asm_inf, "Malloc error\n", MALLOC_ERR);
+		}
 		insert_rbt(&(asm_inf->lbl_tree), NULL, node);
 	}
 	else
-	{
-		ft_strdel(asm_inf->prog_name);
-		ft_strdel(asm_inf->comment);
-		lst_clr(asm_inf->binary_list);
-		rbt_clear(asm_inf->lbl_tree, free_content);
-		exit_error("Ce label existe déjà", LBL_EXIST_ERR);
-	}
+		free_all(asm_inf, "Label already exist\n", LBL_EXIST_ERR);
 }
 
 int			hard_code(int *res, int nb_letters)
@@ -159,13 +153,7 @@ static void	parse_line(char *line, t_asm_inf *asm_inf)
 		{
 			str = ft_strndup(&(line[i]), j - i - 1);
 			if (!str)
-			{
-				ft_strdel(asm_inf->prog_name);
-				ft_strdel(asm_inf->comment);
-				lst_clr(asm_inf->binary_list);
-				//rbt_clear(asm_inf->lbl_tree, free_content); en vrai je pourrais le mettre, ca marcherait quand meme
-				exit_error("Malloc error", MALLOC_ERR);
-			}
+				free_all(asm_inf, "Malloc error\n", MALLOC_ERR);
 			read_label(str, asm_inf);
 			while (line[j] && ft_iswhitespace(line[j]))
 				j++;
@@ -184,23 +172,32 @@ int			main(int argc, char **argv)
 	t_asm_inf	asm_inf;
 	t_list		*new;
 	int			state;
+	char		*binary;
 
 	line = NULL;
 	fd = init_prog(argc, argv, &asm_inf);
 	get_dot_info(fd, &line, &asm_inf);
 	write_header(&asm_inf);
-	while ((state = get_next_line(fd, &line, '\n')) >  0)
+	while ((state = get_next_line(fd, &line, '\n')) > 0)
 		if (line)
 		{
 			parse_line(line, &asm_inf);
 			ft_memdel((void **)&line);
 		}
-	if (state < 0) //surement avec d'autre free de dot_info
-		exit_error("read or malloc error\n");
+	if (state < 0)
+		free_all(&asm_inf, "Read or malloc error\n", OTHER_ERR);
 	write_lbl(&asm_inf);
-	new = ft_lstnew(fill_binary(4, asm_inf.nb_bytes), 4, 0);
+	binary = fill_binary(4, asm_inf.nb_bytes);
+	if (!binary)
+		free_all(&asm_inf, "Malloc error\n", MALLOC_ERR);
+	new = ft_lstnew(binary, 4, 0);
+	if (!new)
+	{
+		ft_strdel(&binary);
+		free_all(&asm_inf, "Malloc error\n", MALLOC_ERR);
+	}
 	new->next = asm_inf.holder_prog_size->next;
 	asm_inf.holder_prog_size->next = new;
-	write_binary(asm_inf.binary_list);
+	write_binary(asm_inf.binary_list, &asm_inf); //plus malin
 	return (0);
 }

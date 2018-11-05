@@ -64,10 +64,10 @@ char		*ft_itoa(long long n)
 	result = NULL;
 	if (!cast(n, &result))
 	{
-		lst_clr(result, 0);
+		lst_clr(result, 0, free);
 		return (NULL);
 	}
 	res_str = lst_to_str(result);
-	lst_clr(result, 0);
+	lst_clr(result, 0, free);
 	return (res_str);
 }

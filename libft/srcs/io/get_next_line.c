@@ -18,7 +18,7 @@ static int	if_return(char **rest, char **line, int index)
 	if (!*line && index != 0)
 	{
 		ft_strdel(rest);
-		return (0);
+		return (-1);
 	}
 	if (index == (int)ft_strlen(*rest) - 1)
 		ft_memdel((void **)rest);
@@ -79,7 +79,7 @@ static int	stopped_reading(int state, char **line, char **rest)
 		*line = ft_strdup(*rest);
 		ft_strdel(rest);
 		if (!*line)
-			return (0);
+			return (-1);
 		return (1);
 	}
 	else
@@ -103,7 +103,7 @@ int			get_next_line(const int fd, char **line, char separator)
 				return (stopped_reading(state, line, &rest));
 			rest = ft_strjoin_overlap(&rest, &buff[0]);
 			if (!rest)
-				return (0);
+				return (-1);
 		}
 		else
 			return (if_return(&rest, line, index));
