@@ -24,6 +24,7 @@ void	init_ncurses(t_pvm *vm)
 	vm->nc.wright = subwin(stdscr, LINES, 5 * COLS / 20, 0, 15 * COLS / 20);
 	vm->nc.step = 10;
 	vm->nc.clear = 0;
+	vm->nc.buffer = NULL;
 	box(vm->nc.wleft, ACS_VLINE, ACS_HLINE);
 	box(vm->nc.wright, ACS_VLINE, ACS_HLINE);
 	print_map(vm);

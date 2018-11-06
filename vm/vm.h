@@ -163,6 +163,7 @@ int						get_prm_value(t_pvm *pvm,
 int						lget_prm_value(t_pvm *pvm,
 							t_process *process, int i, int *value);
 void					new_process_init(t_pvm *pvm, t_process *old, t_process *new, int new_pc);
+void					write_in_memory(t_pvm *pvm, t_process *process, int value, short int value2);
 
 /*
 ** misc
@@ -189,9 +190,10 @@ void					status_game(t_pvm *vm);
 int						status_vm(t_pvm *vm);
 int						status_champion(t_pvm *vm, int i);
 void					status_process(t_pvm *vm, int i);
-int						update_process(t_pvm *vm, t_process *process);
 void					print_case(WINDOW *win, int pos, unsigned char c);
-void					print_4case(WINDOW *win, int pos, unsigned char *str);
+void					print_4case(t_pvm *vm, int pos, int color);
+int						store_buffer(t_pvm *vm, int i, int color, int cycles);
+void					update_buffer(t_pvm *vm);
 
 void					close_ncurses();
 

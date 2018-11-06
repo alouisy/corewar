@@ -15,7 +15,7 @@
 /*
 ** update process state champion's memory in left panel
 */
-/*
+
 void	ft_del1(void *content, size_t size)
 {
 	(void)(content);
@@ -34,25 +34,14 @@ void	update_buffer(t_pvm *vm)
 	while (node)
 	{
 		buffer = get_buffer(node);
-		i = buffer->i;
-		if (buffer->cycle)
-			buffer->cycle--;
-		if (buffer->cycle == 10)
+		i = buffer->position;
+		if (buffer->cycles_bf_end)
 		{
-			wattron(vm->nc.wleft, COLOR_PAIR(buffer->color + 8));
-			print_4case(vm->nc.wleft, i, (unsigned char*)buffer->str);
-			wattroff(vm->nc.wleft, COLOR_PAIR(buffer->color + 8));
+			buffer->cycles_bf_end--;
+			print_4case(vm, i, buffer->color);
 		}
-		else if (!(buffer->cycle))
+		else if (!(buffer->cycles_bf_end))
 		{
-			if (vm->memory[i] == 0)
-				print_case(vm->nc.wleft, i, vm->memory[i]);
-			else
-			{
-				wattron(vm->nc.wleft, COLOR_PAIR(buffer->color));
-				print_4case(vm->nc.wleft, i, vm->memory + i);
-				wattroff(vm->nc.wleft, COLOR_PAIR(buffer->color));
-			}
 			todel = ft_lstpop(node, &(vm->nc.buffer));
 		}
 		node = node->next;
@@ -64,7 +53,7 @@ void	update_buffer(t_pvm *vm)
 		}
 	}
 }
-*/
+
 int	store_buffer(t_pvm *vm, int i, int color, int cycles)
 {
 	t_list 		*node;

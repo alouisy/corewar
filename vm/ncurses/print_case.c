@@ -26,17 +26,19 @@ void	print_case(WINDOW *win, int pos, unsigned char c)
 		mvwprintw(win, (pos) / 64 + 1, ((pos) % 64) * 3 + 1, "%.2hhx", c);
 }
 
-void	print_4case(WINDOW *win, int pos, unsigned char *str)
+void	print_4case(t_pvm *vm, int pos, int color)
 {
 	int i;
 
 	i = 0;
+	wattron(vm->nc.wleft, COLOR_PAIR(color));
 	while (i < 4)
 	{
-		if (str[i] == 0)
-			mvwprintw(win, (pos) / 64 + 1, ((pos) % 64) * 3 + 1, "00");
+		if (vm->memory[i] == 0)
+			mvwprintw(vm->nc.wleft, ((pos + i) / 64 + 1) % 64, ((pos + i) % 64) * 3 + 1, "00");
 		else
-			mvwprintw(win, (pos) / 64 + 1, ((pos) % 64) * 3 + 1, "%.2hhx ", str[i]);
+			mvwprintw(vm->nc.wleft, ((pos + i) / 64 + 1) % 64, ((pos + i) % 64) * 3 + 1, "%.2hhx", vm->memory[pos]);
 		i++;
 	}
+	wattroff(vm->nc.wleft, COLOR_PAIR(color));
 }

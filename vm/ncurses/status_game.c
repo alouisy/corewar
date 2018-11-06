@@ -71,6 +71,7 @@ void		status_game(t_pvm *vm)
 	i = status_champion(vm, i + 1);
 	status_process(vm, i + 2);
 	print_map(vm);
+	update_buffer(vm);
 	update_pc(vm);
 	wrefresh(vm->nc.wleft);
 	wrefresh(vm->nc.wright);
