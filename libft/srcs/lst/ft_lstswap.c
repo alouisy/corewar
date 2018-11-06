@@ -1,22 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memdel.c                                        :+:      :+:    :+:   */
+/*   ft_lstprint.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zcugni <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/09 14:26:18 by zcugni            #+#    #+#             */
-/*   Updated: 2017/11/09 14:26:22 by zcugni           ###   ########.fr       */
+/*   Created: 2018/09/24 18:14:24 by jgroc-de          #+#    #+#             */
+/*   Updated: 2018/10/16 16:50:48 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_memdel(void **ap)
+void	ft_lstswap(t_list *node1, t_list *node2)
 {
-	if (*ap)
-	{
-		free(*ap);
-		*ap = NULL;
-	}
+	void	*content;
+	int		size;
+
+	content = node1->content;
+	size = node1->content_size;
+	node1->content = node2->content;
+	node1->content_size = node2->content_size;
+	node2->content = content;
+	node2->content_size = size;
 }

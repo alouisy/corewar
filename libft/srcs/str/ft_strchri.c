@@ -1,22 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memdel.c                                        :+:      :+:    :+:   */
+/*   ft_strchri.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zcugni <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/09 14:26:18 by zcugni            #+#    #+#             */
-/*   Updated: 2017/11/09 14:26:22 by zcugni           ###   ########.fr       */
+/*   Created: 2017/12/07 13:07:18 by zcugni            #+#    #+#             */
+/*   Updated: 2017/12/07 13:07:20 by zcugni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_memdel(void **ap)
+int	ft_strchri(const char *s, int c)
 {
-	if (*ap)
+	int i;
+
+	if (s)
 	{
-		free(*ap);
-		*ap = NULL;
+		if (c == 0)
+			return (ft_strlen(s));
+		i = 0;
+		while (s[i])
+		{
+			if (s[i] == (char)c)
+				return (i);
+			i++;
+		}
 	}
+	return (-1);
 }

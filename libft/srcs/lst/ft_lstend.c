@@ -1,22 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memdel.c                                        :+:      :+:    :+:   */
+/*   ft_lstend.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zcugni <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/09 14:26:18 by zcugni            #+#    #+#             */
-/*   Updated: 2017/11/09 14:26:22 by zcugni           ###   ########.fr       */
+/*   Created: 2018/09/24 18:20:43 by jgroc-de          #+#    #+#             */
+/*   Updated: 2018/09/24 18:20:45 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_memdel(void **ap)
+/*
+** return the last node of a list
+*/
+
+t_list	*ft_lstend(t_list *list)
 {
-	if (*ap)
+	if (list)
 	{
-		free(*ap);
-		*ap = NULL;
+		while (list->next)
+			list = list->next;
 	}
+	return (list);
 }

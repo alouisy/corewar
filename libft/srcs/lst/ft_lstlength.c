@@ -1,22 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memdel.c                                        :+:      :+:    :+:   */
+/*   ft_lstlength.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zcugni <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/09 14:26:18 by zcugni            #+#    #+#             */
-/*   Updated: 2017/11/09 14:26:22 by zcugni           ###   ########.fr       */
+/*   Created: 2017/12/12 15:56:10 by zcugni            #+#    #+#             */
+/*   Updated: 2017/12/12 15:56:16 by zcugni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_memdel(void **ap)
+int	ft_lstlength(t_list *lst)
 {
-	if (*ap)
+	t_list	*tmp;
+	int		i;
+
+	i = 0;
+	tmp = lst;
+	while (tmp)
 	{
-		free(*ap);
-		*ap = NULL;
+		tmp = tmp->next;
+		i++;
 	}
+	return (i);
 }

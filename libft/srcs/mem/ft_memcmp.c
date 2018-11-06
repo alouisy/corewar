@@ -1,22 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memdel.c                                        :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zcugni <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/09 14:26:18 by zcugni            #+#    #+#             */
-/*   Updated: 2017/11/09 14:26:22 by zcugni           ###   ########.fr       */
+/*   Created: 2017/11/08 15:21:40 by zcugni            #+#    #+#             */
+/*   Updated: 2017/11/13 19:01:36 by zcugni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_memdel(void **ap)
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	if (*ap)
+	size_t	i;
+
+	if (n == 0)
+		return (0);
+	i = 0;
+	while (i < n)
 	{
-		free(*ap);
-		*ap = NULL;
+		if (((t_u_char *)s1)[i] != ((t_u_char *)s2)[i])
+			return (((t_u_char *)s1)[i] - ((t_u_char *)s2)[i]);
+		i++;
 	}
+	return (0);
 }

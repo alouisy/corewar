@@ -1,22 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memdel.c                                        :+:      :+:    :+:   */
+/*   ft_max.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zcugni <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/09 14:26:18 by zcugni            #+#    #+#             */
-/*   Updated: 2017/11/09 14:26:22 by zcugni           ###   ########.fr       */
+/*   Created: 2017/11/11 17:25:19 by jgroc-de          #+#    #+#             */
+/*   Updated: 2018/01/30 14:30:13 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_memdel(void **ap)
+intmax_t	ft_max(intmax_t a, intmax_t b)
 {
-	if (*ap)
-	{
-		free(*ap);
-		*ap = NULL;
-	}
+	if (a > b)
+		return (a);
+	else
+		return (b);
 }

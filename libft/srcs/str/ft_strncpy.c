@@ -1,22 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memdel.c                                        :+:      :+:    :+:   */
+/*   ft_strncpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zcugni <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/09 14:26:18 by zcugni            #+#    #+#             */
-/*   Updated: 2017/11/09 14:26:22 by zcugni           ###   ########.fr       */
+/*   Created: 2017/07/10 11:00:48 by zcugni            #+#    #+#             */
+/*   Updated: 2017/11/08 17:35:25 by zcugni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_memdel(void **ap)
+char	*ft_strncpy(char *dst, const char *src, size_t len)
 {
-	if (*ap)
+	size_t src_len;
+	size_t i;
+
+	src_len = ft_strlen(src);
+	i = 0;
+	while (i < len)
 	{
-		free(*ap);
-		*ap = NULL;
+		if (i > src_len)
+			dst[i] = '\0';
+		else
+			dst[i] = src[i];
+		i++;
 	}
+	return (dst);
 }

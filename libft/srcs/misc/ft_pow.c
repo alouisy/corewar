@@ -1,22 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memdel.c                                        :+:      :+:    :+:   */
+/*   ft_pow.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zcugni <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/09 14:26:18 by zcugni            #+#    #+#             */
-/*   Updated: 2017/11/09 14:26:22 by zcugni           ###   ########.fr       */
+/*   Created: 2017/11/14 14:13:24 by zcugni            #+#    #+#             */
+/*   Updated: 2017/11/20 09:42:08 by zcugni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_memdel(void **ap)
+long long	ft_pow(int nb, int power)
 {
-	if (*ap)
-	{
-		free(*ap);
-		*ap = NULL;
-	}
+	if (power < 0)
+		return (0);
+	else if (power == 0)
+		return (1);
+	else
+		return (nb * ft_pow(nb, power - 1));
 }

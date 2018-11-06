@@ -1,22 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memdel.c                                        :+:      :+:    :+:   */
+/*   lst_findi.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zcugni <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/09 14:26:18 by zcugni            #+#    #+#             */
-/*   Updated: 2017/11/09 14:26:22 by zcugni           ###   ########.fr       */
+/*   Created: 2018/05/02 14:34:26 by zcugni            #+#    #+#             */
+/*   Updated: 2018/05/02 14:34:28 by zcugni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../libft.h"
 
-void	ft_memdel(void **ap)
+int	lst_findi(t_list *list, void *content, size_t size)
 {
-	if (*ap)
+	t_list	*tmp;
+	int		i;
+
+	tmp = list;
+	i = 1;
+	while (tmp)
 	{
-		free(*ap);
-		*ap = NULL;
+		if (tmp->content)
+			if (ft_memcmp((const void *)tmp->content,
+			(const void *)content, size) == 0)
+				return (i);
+		tmp = tmp->next;
+		i++;
 	}
+	return (-1);
 }
