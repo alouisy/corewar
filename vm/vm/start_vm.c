@@ -20,7 +20,7 @@ void				start_vm(t_pvm *vm)
 	while (vm->total_cycles != vm->dump && vm->processes)
 	{
 		vm->cur_cycle++;
-		if (vm->cur_cycle <= vm->cycle_to_die)
+		if (vm->cur_cycle >= vm->cycle_to_die)
 			cycle2die(vm);
 		tmp = vm->processes;
 		while (tmp)
