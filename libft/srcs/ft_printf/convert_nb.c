@@ -50,7 +50,7 @@ char		*ft_itoa_base_long(unsigned long nb, int base, int upper)
 		ft_lstadd(&tmp_result, ft_lstnew(tmp_str, 2, 0));
 	}
 	res = lst_to_str(tmp_result);
-	lst_clr(tmp_result, 1, free);
+	ft_lstdel(&tmp_result, 1, free);
 	return (res);
 }
 
@@ -72,7 +72,7 @@ char		*ft_itoa_base_2_long(unsigned long long nb, int base, int upper)
 		ft_lstadd(&tmp_result, ft_lstnew(tmp_str, 2, 0));
 	}
 	res = lst_to_str(tmp_result);
-	lst_clr(tmp_result, 1, free);
+	ft_lstdel(&tmp_result, 1, free);
 	return (res);
 }
 
@@ -94,6 +94,6 @@ char		*ft_itoa_base_uintmax(uintmax_t nb, int base, int upper)
 		ft_lstadd(&tmp_result, ft_lstnew(tmp_str, 2, 0));
 	}
 	res = lst_to_str(tmp_result);
-	lst_clr(tmp_result, 1, free);
+	ft_lstdel(&tmp_result, 1, free);
 	return (res);
 }

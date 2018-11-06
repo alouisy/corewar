@@ -12,7 +12,13 @@
 
 #include "libft.h"
 
-t_list	*ft_lstnew(void *content, size_t content_size, int need_malloc)
+static void *free_ret(t_list **new)
+{
+	ft_memdel((void **)new);
+	return (NULL);
+}
+
+t_list		*ft_lstnew(void *content, size_t content_size, int need_malloc)
 {
 	t_list	*new;
 
@@ -30,10 +36,7 @@ t_list	*ft_lstnew(void *content, size_t content_size, int need_malloc)
 		{
 			new->content = malloc(content_size);
 			if (!new->content)
-			{
-				ft_memdel((void **)new);
-				return (NULL);
-			}
+				return (free_ret(&new));
 			ft_memcpy(new->content, content, content_size);
 		}
 		else

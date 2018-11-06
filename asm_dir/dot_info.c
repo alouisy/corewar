@@ -20,7 +20,7 @@ static int	get_inf(char *line, char *cmd_string, char **str)
 	i = 0;
 	while (!ft_iswhitespace(line[i]))
 		i++;
-	if (!(*str = ft_strndup(line, i++))) //normalement ca marche
+	if (!(*str = ft_strndup(line, i++)))
 		return (1);
 	if (ft_strcmp(*str, cmd_string))
 	{
@@ -62,20 +62,24 @@ static void	display_err(int err, int is_name, char **line, t_asm_inf *asm_inf)
 	if (err != 0)
 	{
 		if (err == 1)
-		exit_error("Malloc error\n", MALLOC_ERR);
+			exit_error("Malloc error\n", MALLOC_ERR);
 		else if (err == 2)
 		{
 			if (is_name)
-				exit_error("Wrong program name command string ('.name')\n", WRONG_DOT_ERR);
+				exit_error("Wrong program name command string ('.name')\n",
+															WRONG_DOT_ERR);
 			ft_strdel(&asm_inf->prog_name);
-			exit_error("Wrong program comment command string ('.comment')\n", WRONG_DOT_ERR);
+			exit_error("Wrong program comment command string ('.comment')\n",
+																WRONG_DOT_ERR);
 		}
 		else if (err == 3)
 		{
 			if (is_name)
-				exit_error("Wrong char in program name string\n", WRONG_DOT_ERR);
+				exit_error("Wrong char in program name string\n",
+																WRONG_DOT_ERR);
 			ft_strdel(&asm_inf->prog_name);
-			exit_error("Wrong char in program comment string\n", WRONG_DOT_ERR);
+			exit_error("Wrong char in program comment string\n",
+																WRONG_DOT_ERR);
 		}
 	}
 }
@@ -85,15 +89,15 @@ void		get_dot_info(int fd, char **line, t_asm_inf *asm_inf)
 	int i;
 	int err;
 
-	if (!skip_comment(fd, line)) //dans l'etat des choses je peux pas etre plus precise sur l'erreur
-		exit_error("....\n", OTHER_ERR); //changer
+	if (!skip_comment(fd, line))
+		free_all(asm_inf, "...", 1);
 	i = 0;
 	while (ft_iswhitespace((*line)[i]))
 		i++;
 	err = get_inf(&((*line)[i]), NAME_CMD_STRING, &asm_inf->prog_name);
 	display_err(err, 1, line, asm_inf);
 	if (!skip_comment(fd, line))
-		free_all(asm_inf, "...", 1); //ca devrait marcher vu que tout est proteger, mais je suis pas forcement obligee
+		free_all(asm_inf, "...", 1);
 	while (ft_iswhitespace((*line)[i]))
 		i++;
 	err = get_inf(&((*line)[i]), COMMENT_CMD_STRING, &asm_inf->comment);

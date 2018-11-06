@@ -24,11 +24,14 @@ static void	free_rbt_node(void *content)
 
 void		free_all(t_asm_inf *asm_inf, char *msg, int err)
 {
-	ft_strdel(&asm_inf->prog_name);
-	ft_strdel(&asm_inf->comment);
-	lst_clr(asm_inf->binary_list, 1, free); //1 je pense
+	if (!asm_inf->binary_list)
+	{
+		ft_strdel(&asm_inf->prog_name);
+		ft_strdel(&asm_inf->comment);
+	}
+	ft_lstdel(&asm_inf->binary_list, 1, free);
 	rbt_clear(&asm_inf->lbl_tree, free_rbt_node);
-	lst_clr(asm_inf->holder_lst, 1, free_list_node);
+	ft_lstdel(&asm_inf->holder_lst, 1, free_list_node);
 	exit_error(msg, err);
 }
 

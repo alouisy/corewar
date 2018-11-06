@@ -42,13 +42,13 @@ static int	add_reset(t_detail *co_det, t_list **f_lst, t_pos *p, int add_null)
 				ft_strdel(&co_det->conv->str[j++]);
 			ft_memdel((void **)&co_det->conv->str);
 			ft_memdel((void **)&co_det->conv);
-			lst_clr(co_det->info, 1, free);
+			ft_lstdel(&co_det->info, 1, free);
 			ft_strdel(&co_det->ori_str);
 			display(*f_lst, 1);
 			return (0);
 		}
 	add(co_det, f_lst, add_null);
-	lst_clr(co_det->info, 0, free);
+	ft_lstdel(&co_det->info, 0, free);
 	p->start = p->i + 1;
 	p->mid = p->start;
 	return (1);
@@ -111,7 +111,8 @@ int			ft_printf(const char *str, ...)
 	if (p.i != p.start)
 	{
 		conv_det.ori_str = ft_strsub((char *)str, p.start, p.i - p.start);
-		ft_lstappend(&fin_lst, ft_lstnew(conv_det.ori_str, p.i - p.start + 1, 0));
+		ft_lstappend(&fin_lst,
+							ft_lstnew(conv_det.ori_str, p.i - p.start + 1, 0));
 	}
 	va_end(ap);
 	return (display(fin_lst, 0));

@@ -27,7 +27,8 @@ t_list	*ft_lstcpy(t_list *ori, int need_malloc)
 	current = ori->next;
 	while (current)
 	{
-		new->next = ft_lstnew(current->content, current->content_size, need_malloc);
+		new->next = ft_lstnew(current->content, current->content_size,
+															need_malloc);
 		if (!new->next)
 			return (NULL);
 		new = new->next;

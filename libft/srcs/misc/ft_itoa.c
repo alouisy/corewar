@@ -45,7 +45,6 @@ static int	cast(long long n, t_list **result)
 	}
 	if (!divide(n, result))
 		return (0);
-	
 	if (n < 0)
 	{
 		new = ft_lstnew("-", 1, 1);
@@ -64,10 +63,10 @@ char		*ft_itoa(long long n)
 	result = NULL;
 	if (!cast(n, &result))
 	{
-		lst_clr(result, 0, free);
+		ft_lstdel(&result, 0, free);
 		return (NULL);
 	}
 	res_str = lst_to_str(result);
-	lst_clr(result, 0, free);
+	ft_lstdel(&result, 0, free);
 	return (res_str);
 }

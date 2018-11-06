@@ -17,7 +17,6 @@ char		*trim_comment(char *line, int *err)
 	int		i;
 	int		j;
 	char	*trimmed;
-	char	*tmp_trimmed;
 	int		is_direct;
 
 	i = 0;
@@ -28,22 +27,11 @@ char		*trim_comment(char *line, int *err)
 		j++;
 	if (line[j] && line[j] != COMMENT_CHAR)
 	{
-		*err = UNKNOWN_INST_ERR; // en vrai c'est plus un mauvais char qu'une instruction inconnue..
-		return (NULL);
-	}
-	trimmed = ft_strtrim(line);
-	if (!trimmed)
-	{
-		*err = MALLOC_ERR;
+		*err = WRONG_CHAR_INST_ERR;
 		return (NULL);
 	}
 	is_direct = 0;
-	if (trimmed[0] == 'r' || trimmed[0] == '%')
-		is_direct = 1;
-	tmp_trimmed = ft_strndup(&(trimmed[is_direct]), i);
-	ft_strdel(&trimmed);
-	trimmed = ft_strtrim(tmp_trimmed);
-	ft_strdel(&tmp_trimmed);
+	trimmed = ft_strndup(line, i);
 	if (!trimmed)
 		*err = MALLOC_ERR;
 	return (trimmed);
@@ -59,32 +47,6 @@ int			calc_weight(int pow)
 	else
 		weight = 64 / weight;
 	return (weight);
-}
-
-int			add_lbl(char *lbl, t_write_inf *write_inf, t_asm_inf *asm_inf, int return_val)
-{
-	t_holder_def	holder_def;
-	t_list			*new;
-
-	holder_def.lbl = ft_strdup(&(lbl[1]));
-	if (!holder_def.lbl)
-	{
-		write_inf->err = MALLOC_ERR;
-		return (0);
-	}
-	holder_def.inst_pos = write_inf->inst_pos;
-	holder_def.lst_pos = asm_inf->current;
-	holder_def.lbl_bytes = write_inf->nb_bytes;
-	holder_def.has_ocp = write_inf->has_ocp;
-	new = ft_lstnew(&holder_def, sizeof(t_holder_def), 1);
-	if (!new)
-	{
-		write_inf->err = MALLOC_ERR;
-		return (0);
-	}
-	ft_lstadd(&(asm_inf->holder_lst), new);
-	asm_inf->nb_bytes += write_inf->nb_bytes;
-	return (return_val);
 }
 
 char		*fill_binary(int nb_bytes, int val)
@@ -113,4 +75,30 @@ int			calc_neg_val(int val, int lbl_bytes)
 	val = ft_pow(2, 8 * lbl_bytes);
 	val += neg_val - 1;
 	return (val);
+}
+
+void		add_new(t_holder_def *tmp_holder, int val, t_asm_inf *asm_inf)
+{
+	t_list	*new;
+	char	*binary;
+
+	binary = fill_binary(tmp_holder->lbl_bytes, val);
+	if (!binary)
+		free_all(asm_inf, "Malloc error\n", MALLOC_ERR);
+	new = ft_lstnew(binary, tmp_holder->lbl_bytes, 0);
+	if (!new)
+	{
+		ft_strdel(&binary);
+		free_all(asm_inf, "Malloc error\n", MALLOC_ERR);
+	}
+	if (tmp_holder->has_ocp > 0)
+	{
+		new->next = tmp_holder->lst_pos->next->next;
+		tmp_holder->lst_pos->next->next = new;
+	}
+	else
+	{
+		new->next = tmp_holder->lst_pos->next;
+		tmp_holder->lst_pos->next = new;
+	}
 }

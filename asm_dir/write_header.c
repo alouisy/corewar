@@ -70,22 +70,3 @@ void			write_header(t_asm_inf *asm_inf)
 		free_all(asm_inf, "Malloc error\n", MALLOC_ERR);
 	add_str(asm_inf, str, COMMENT_LENGTH - size + 4);
 }
-
-int				init_prog(int argc, char **argv, t_asm_inf *asm_inf)
-{
-	int fd;
-
-	if (argc > 2)
-		exit_error("too many args\n", MULT_ARGS_ERR);
-	else if (argc <= 1)
-		exit_error(".cor file missing\n", WRONG_FILE_NAME);
-	fd = open(argv[1], O_RDONLY);
-	if (fd == -1)
-		exit_error("Ouverture du fichier impossible", OPEN_ERR);
-	asm_inf->holder_lst = NULL;
-	asm_inf->prog_name = NULL;
-	asm_inf->comment = NULL;
-	asm_inf->lbl_tree = NULL;
-	asm_inf->nb_bytes = 0;
-	return (fd);
-}
