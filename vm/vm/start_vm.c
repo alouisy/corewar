@@ -34,10 +34,6 @@ void				start_vm(t_pvm *vm)
 			{
 				process_instruction(vm, content);
 			}
-			if (vm->nc.ncurses)
-			{
-				update_process(vm, content);
-			}
 			tmp = tmp->next;
 		}
 		vm->total_cycles++;

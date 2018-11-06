@@ -21,6 +21,8 @@ static void	aux_usage(char *str)
 	ft_printf("	-nc	: ncurses graphical mode\n", str);
 	ft_printf("		command: w/z : +/-1  cycle/s\n", str);
 	ft_printf("		         +/- : +/-10 cycles/s\n", str);
+	ft_printf("		         space : pause\n", str);
+	ft_printf("		         any key : continue\n", str);
 }
 /*
 static void	aux_print_champ(t_list *node)

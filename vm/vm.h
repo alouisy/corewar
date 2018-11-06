@@ -55,14 +55,12 @@ typedef struct			s_process
 	char				param_type[3];
 	int					opcode;
 	char				ocp;
-	int					wait;
 }						t_process;
 
 typedef struct			s_champion
 {
 	t_header			header;
 	unsigned char		prog[CHAMP_MAX_SIZE + 1];
-	unsigned char		memory[MEM_SIZE];
 	int					nbr;
 	int					vm_pos;
 	int					l_live;
@@ -75,9 +73,9 @@ typedef struct			s_champion
 */
 typedef struct			s_buffer
 {
-	int	i;
-	int color;
-	int cycle;
+	int					position;
+	int					color;
+	int 				cycles_bf_end;
 }						t_buffer;
 
 typedef struct			s_ncurses
@@ -99,6 +97,7 @@ typedef struct			s_pvm
 	t_list				*processes;
 	t_list				*champions;
 	unsigned char		memory[MEM_SIZE];
+	char				mem_color[MEM_SIZE];
 	int					dump;
 	int					verbose;
 	t_ncurses			nc;
@@ -163,6 +162,7 @@ int						get_prm_value(t_pvm *pvm,
 							t_process *process, int i, int *value);
 int						lget_prm_value(t_pvm *pvm,
 							t_process *process, int i, int *value);
+void					new_process_init(t_pvm *pvm, t_process *old, t_process *new, int new_pc);
 
 /*
 ** misc
@@ -183,7 +183,7 @@ void					reset_param(t_process *process);
 */
 void					init_ncurses(t_pvm *vm);
 void					init_colors();
-void					init_left_panel(t_pvm *vm);
+void					print_map(t_pvm *vm);
 void					intro_champions(t_pvm *vm);
 void					status_game(t_pvm *vm);
 int						status_vm(t_pvm *vm);
@@ -191,6 +191,8 @@ int						status_champion(t_pvm *vm, int i);
 void					status_process(t_pvm *vm, int i);
 int						update_process(t_pvm *vm, t_process *process);
 void					print_case(WINDOW *win, int pos, unsigned char c);
+void					print_4case(WINDOW *win, int pos, unsigned char *str);
+
 void					close_ncurses();
 
 #endif

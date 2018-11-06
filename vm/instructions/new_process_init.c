@@ -16,24 +16,16 @@
 ** long fork
 */
 
-void	ft_lfork(t_pvm *pvm, t_process *process)
+void	new_process_init(t_pvm *pvm, t_process *old, t_process *new, int new_pc)
 {
-	int			value;
-	int			new_pc;
-	t_list		*node;
-
-	(void)node;
-	value = (short int)process->param[0];
-	new_pc = (process->pc + value) % MEM_SIZE;
-	if (new_pc < 0)
-		new_pc = (new_pc + MEM_SIZE) % MEM_SIZE;
-//		new_pc = (MEM_SIZE + process->pc - ABS(value)) % MEM_SIZE;
-	node = ft_lstnew(process, sizeof(t_process));
-	new_process_init(pvm, process, (PROCESS(node)), new_pc);
-	ft_lstadd(&pvm->processes, node);
-	if (!(pvm->nc.ncurses) && pvm->verbose)
-	{
-		ft_printf("P% 5d | lfork %d (%d)\n", process->champ_nbr, value, (process->pc + value));
-	}
-	pvm->nc.clear = 1;
+	new->champ_nbr = old->champ_nbr; //gg: faut pas toucher sinon segfault
+	new->champ = old->champ; //idem
+	new->pid = pvm->nb_champ + 1; //gg: ca je m'en fou
+	new->pc = new_pc;
+	new->pc2 = old->pc;
+	new->cycles_wo_live = 0;
+	new->cycle_bf_exe = 0;
+	reset_param(new);
+	new->opcode = 0;
+	new->ocp = 0;
 }

@@ -14,15 +14,10 @@
 
 inline void		init_champion(t_champion *champion, int nb_prog, int color)
 {
-	int i;
-
 	champion->nbr = nb_prog;
 	champion->vm_pos = (color - 1) * (MEM_SIZE / 4);
 	champion->l_live = 0;
 	champion->nb_live = 0;
 	ft_bzero(champion->prog, CHAMP_MAX_SIZE);
 	champion->color = color;
-	i = 0;
-	while (i < MEM_SIZE)
-		champion->memory[i++] = 0;
 }

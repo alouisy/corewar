@@ -72,5 +72,4 @@ void		get_instruction(t_pvm *vm, t_process *process)
 		process->pc2 = (process->pc + shift) % MEM_SIZE;
 		process->cycle_bf_exe = g_op_tab[process->opcode].nb_cycles - 1;
 	}
-	process->wait = 1;
 }
