@@ -21,7 +21,6 @@ void	rbt_clear(t_rbt_node **rbt, void (*free_content)(void *content))
 		if ((*rbt)->right_child)
 			rbt_clear(&(*rbt)->right_child, free_content);
 		free_content((*rbt)->content);
-		free((*rbt));
-		(*rbt) = NULL;
+		ft_memdel((void **)rbt);
 	}
 }

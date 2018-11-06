@@ -6,13 +6,18 @@
 /*   By: zcugni <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 18:09:32 by zcugni            #+#    #+#             */
-/*   Updated: 2018/10/19 13:35:46 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2017/11/09 18:09:34 by zcugni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-inline int	ft_putstr(char const *str)
+void	ft_putstr(char const *str)
 {
-	return (write(1, str, ft_strlen(str)));
+	if (str)
+		while (*str)
+		{
+			ft_putchar(*str);
+			str++;
+		}
 }

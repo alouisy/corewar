@@ -20,14 +20,14 @@ char	*lst_to_str(t_list *lst)
 
 	tmp_lst = lst;
 	str = malloc(ft_lstlength(lst) + 1);
-	if (str == NULL)
-		exit_error("malloc error", 1);
+	if (!str)
+		return (NULL);
 	i = 0;
 	while (tmp_lst)
 	{
 		str[i] = ((char *)(tmp_lst)->content)[0];
 		i++;
-		tmp_lst = (tmp_lst)->next;
+		tmp_lst = tmp_lst->next;
 	}
 	str[i] = '\0';
 	return (str);

@@ -74,7 +74,7 @@ static void	handle_sc(char *t, char *width_mod, t_detail *conv_det, va_list ap)
 	{
 		conv_det->conv->str[0] = malloc(2);
 		if (conv_det->conv->str[0])
-			exit_error("malloc error\n", 1);
+			exit_error("malloc error\n", MALLOC_ERR);
 		conv_det->conv->str[0][0] = (char)va_arg(ap, int);
 		conv_det->conv->str[0][1] = '\0';
 	}
@@ -86,11 +86,11 @@ static void	init(char **width_mod, char **type, t_detail *conv_detail)
 {
 	conv_detail->conv = malloc(sizeof(t_result));
 	if (!conv_detail->conv)
-		exit_error("malloc error\n", 1);
+		exit_error("malloc error\n", MALLOC_ERR);
 	conv_detail->conv->size = 1;
 	conv_detail->conv->str = malloc(sizeof(char *));
 	if (!conv_detail->conv->str)
-		exit_error("malloc error\n", 1);
+		exit_error("malloc error\n", MALLOC_ERR);
 	*width_mod = conv_detail->info->next->content;
 	*type = &((char *)conv_detail->info->content)[0];
 }
@@ -105,7 +105,7 @@ void		convert(va_list ap, t_detail *conv_detail)
 		handle_sc(type, width_mod, conv_detail, ap);
 	else if (*type == 'p')
 	{
-		ft_lstappend(&(conv_detail->info), ft_lstnew("#", 1));
+		ft_lstappend(&(conv_detail->info), ft_lstnew("#", 1, 1));
 		conv_detail->conv->str[0] = ft_itoa_base_2_long(
 									(t_ull)va_arg(ap, void *), 16, 0);
 	}

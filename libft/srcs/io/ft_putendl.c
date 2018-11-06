@@ -6,7 +6,7 @@
 /*   By: zcugni <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 18:09:43 by zcugni            #+#    #+#             */
-/*   Updated: 2018/10/19 13:30:19 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2017/11/09 18:09:46 by zcugni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,11 @@ void	ft_putendl(char const *str)
 {
 	if (str)
 	{
-		ft_putstr(str);
+		while (*str)
+		{
+			ft_putchar(*str);
+			str++;
+		}
 		ft_putchar('\n');
 	}
 }

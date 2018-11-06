@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lstp_pop_at.c                                      :+:      :+:    :+:   */
+/*   lst_pop_at.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zcugni <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/17 14:20:42 by zcugni            #+#    #+#             */
-/*   Updated: 2018/06/17 14:20:43 by zcugni           ###   ########.fr       */
+/*   Created: 2018/11/06 20:28:20 by zcugni            #+#    #+#             */
+/*   Updated: 2018/11/06 20:28:22 by zcugni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*lstp_pop_at(t_list **lst, void *p)
+t_list	*lst_pop_at(t_list **lst, void *p)
 {
 	t_list *current_elem;
 	t_list *prev_elem;
