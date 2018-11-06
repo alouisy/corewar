@@ -12,61 +12,29 @@
 
 #include "libft.h"
 
-static int	divide(long long tmp_int, t_list **result)
+char			*ft_itoa(intmax_t n)
 {
-	char	tmp_char;
-	t_list	*new;
+	char		*str;
+	size_t		i;
+	intmax_t	number;
 
-	while (tmp_int != 0)
-	{
-		if (tmp_int < 0)
-			tmp_char = -(tmp_int % 10) + 48;
-		else
-			tmp_char = tmp_int % 10 + 48;
-		new = ft_lstnew(&tmp_char, 1, 1);
-		if (!new)
-			return (0);
-		ft_lstadd(result, new);
-		tmp_int /= 10;
-	}
-	return (1);
-}
-
-static int	cast(long long n, t_list **result)
-{
-	t_list		*new;
-
-	if (n == 0)
-	{
-		new = ft_lstnew("0", 1, 1);
-		if (!new)
-			return (0);
-		ft_lstadd(result, new);
-	}
-	if (!divide(n, result))
-		return (0);
+	i = 0;
+	number = n;
+	while ((number = number / 10))
+		i++;
 	if (n < 0)
+		i++;
+	if ((str = ft_strnew(i + 1)))
 	{
-		new = ft_lstnew("-", 1, 1);
-		if (!new)
-			return (0);
-		ft_lstadd(result, new);
+		if (n < 0)
+			str[0] = '-';
+		else if (n == 0)
+			*str = '0';
+		while (n)
+		{
+			str[i--] = ft_abs(n % 10) + '0';
+			n = n / 10;
+		}
 	}
-	return (1);
-}
-
-char		*ft_itoa(long long n)
-{
-	t_list	*result;
-	char	*res_str;
-
-	result = NULL;
-	if (!cast(n, &result))
-	{
-		ft_lstdel(&result, 0, free);
-		return (NULL);
-	}
-	res_str = lst_to_str(result);
-	ft_lstdel(&result, 0, free);
-	return (res_str);
+	return (str);
 }

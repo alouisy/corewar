@@ -270,7 +270,7 @@ int							ft_isalpha(int c);
 int							ft_isdigit(int c);
 int							ft_isprint(int c);
 int							ft_iswhitespace(int c);
-char						*ft_itoa(long long nb);
+char						*ft_itoa(intmax_t n);
 char						*ft_itoa_base(unsigned int nb, int base, int upper);
 char						*ft_itoa_base2(uintmax_t n, const char *base);
 long long					ft_pow(int nb, int power);
