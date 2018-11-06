@@ -16,7 +16,7 @@
 ** insert each champion's programme in left panel
 */
 
-static char aux_hexa(int i)
+char aux_hexa(int i)
 {
 	char *str;
 
@@ -24,7 +24,7 @@ static char aux_hexa(int i)
 	return (str[i]);
 }
 
-static void			aux_strncpy(char dest[CHAMP_MAX3], unsigned char *src, unsigned int len)
+void			aux_strncpy(char dest[CHAMP_MAX3], unsigned char *src, unsigned int len)
 {
 	unsigned int	i;
 
@@ -38,7 +38,7 @@ static void			aux_strncpy(char dest[CHAMP_MAX3], unsigned char *src, unsigned in
 	}
 }
 
-static inline void	insert_champion(t_pvm *vm)
+void	insert_champion(t_pvm *vm)
 {
 	unsigned int	i;
 	int				pos;
@@ -51,6 +51,7 @@ static inline void	insert_champion(t_pvm *vm)
 		pos = (CHAMPION(node))->vm_pos / 64;
 		wattron(vm->nc.wleft, COLOR_PAIR((CHAMPION(node))->color));
 		aux_strncpy(str, (CHAMPION(node))->prog, (CHAMPION(node))->header.prog_size);
+		str[(CHAMPION(node))->header.prog_size * 3] = '\0';
 		i = 0;
 		while (i < (CHAMPION(node))->header.prog_size)
 		{
@@ -72,7 +73,7 @@ static inline void	init_map(t_pvm *vm)
 	char			str[192];
 
 	i = 0;
-	while (i < 192)
+	while (i < 191)
 	{
 		if (i % 3 == 2)
 			str[i] = ' ';
@@ -80,10 +81,11 @@ static inline void	init_map(t_pvm *vm)
 			str[i] = '0';
 		i++;
 	}
+	str[191] = '\0';
 	i = 0;
 	while (i < 64)
 	{
-		mvwprintw(vm->nc.wleft, i + 1, 1, "%s", str);
+		mvwprintw(vm->nc.wleft, i + 1, 1, "%.192s", str);
 		i++;
 	}
 }

@@ -21,6 +21,8 @@ int		status_vm(t_pvm *vm)
 	int	i;
 
 	i = 1;
+	mvwprintw(vm->nc.wright, i++, 2, "step:	%d cycles / s", vm->nc.step);
+	i++;
 	mvwprintw(vm->nc.wright, i++, 2, "champions:	%8d", vm->nb_champ);
 	mvwprintw(vm->nc.wright, i++, 2, "processes:	%8d",
 			ft_lstlength(vm->processes));
