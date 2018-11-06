@@ -20,7 +20,7 @@ void	new_process_init(t_pvm *pvm, t_process *old, t_process *new, int new_pc)
 {
 	new->champ_nbr = old->champ_nbr; //gg: faut pas toucher sinon segfault
 	new->champ = old->champ; //idem
-	new->pid = pvm->nb_champ + 1; //gg: ca je m'en fou
+	new->pid = (PROCESS(pvm->processes))->pid + 1; //gg: ca je m'en fou
 	new->pc = new_pc;
 	new->pc2 = old->pc;
 	new->cycles_wo_live = 0;

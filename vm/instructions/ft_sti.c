@@ -16,16 +16,6 @@
 ** indirect store
 */
 
-static void	write_in_memory(t_pvm *pvm, int address, int value)
-{
-	while (address < 0)
-		address += MEM_SIZE;
-	pvm->memory[(address + 3) % MEM_SIZE] = (value >> 0);
-	pvm->memory[(address + 2) % MEM_SIZE] = (value >> 8);
-	pvm->memory[(address + 1) % MEM_SIZE] = (value >> 16);
-	pvm->memory[(address + 0) % MEM_SIZE] = (value >> 24);
-}
-
 void	ft_sti(t_pvm *pvm, t_process *process)
 {
 	int		val1;
@@ -51,7 +41,7 @@ void	ft_sti(t_pvm *pvm, t_process *process)
 		}
 	//	printf("pc = %d address sti = %d val1 = %d val2 = %d\n", process->pc, address, val1, val2);
 		val3 = process->r[process->param[0] - 1];
-		write_in_memory(pvm, address, val3);
+		write_in_memory(pvm, process, val3, val1 + val2);
 		if (process->r[process->param[0] - 1] == 0)
 			process->carry = 1;
 		else

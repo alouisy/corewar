@@ -71,7 +71,7 @@ static inline int	current_status(t_pvm *vm, int i)
 		mvwprintw(vm->nc.wright, i++, 0,
 				"| %5d | %5d | %5d | %5d | %6d | %5d | %5d | %4d |",
 				process->pid,
-				process->champ_nbr,
+				(CHAMPION(process->champ))->nbr,
 				process->pc,
 				process->pc2,
 				process->opcode,
