@@ -48,11 +48,13 @@ int			main(int argc, char **argv)
 			if (!(vm.nc.ncurses))
 				print_champ(vm.champions);
 				//ft_lstiter(vm.champions, &aux_print_champ);
+			else
+				init_ncurses(&vm);
 			start_vm(&vm);
 		}
 		free_vm(&vm);
 	}
 	else
 		aux_usage(argv[0]);
-	return (0);
+	return (EXIT_SUCCESS);
 }

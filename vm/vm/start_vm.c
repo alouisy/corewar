@@ -27,17 +27,24 @@ void				start_vm(t_pvm *vm)
 		{
 			content = PROCESS(tmp);
 			if (content->opcode <= 0)
+			{
 				get_instruction(vm, content);
+			}
 			else
+			{
 				process_instruction(vm, content);
+			}
 			if (vm->nc.ncurses)
+			{
 				update_process(vm, content);
+			}
 			tmp = tmp->next;
 		}
 		vm->total_cycles++;
 		if (vm->nc.ncurses)
 			status_game(vm);
 	}
+	ft_printf("end\n");
 	if (vm->total_cycles == vm->dump)
 		print_memory(vm);
 	print_winner(vm);
