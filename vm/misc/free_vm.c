@@ -23,6 +23,8 @@ void		free_vm(t_pvm *vm)
 		ft_lstdel(&(vm->champions), &aux_del);
 	if (vm->processes)
 		ft_lstdel(&(vm->processes), &aux_del);
+	if (vm->nc.buffer)
+		ft_lstdel(&(vm->nc.buffer), &aux_del);
 	if (vm->nc.ncurses)
 		close_ncurses(vm);
 }

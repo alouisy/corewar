@@ -40,6 +40,7 @@ inline void				init_vm(t_pvm *vm)
 	ft_bzero(vm->memory, MEM_SIZE);
 	vm->dump = -1;
 	vm->nc.ncurses = 0;
+	vm->nc.buffer = NULL;
 	vm->nc.wleft = NULL;
 	vm->nc.wright = NULL;
 	vm->verbose = 0;

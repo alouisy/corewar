@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 NAME = libft.a
-FLAG = -Wall -Werror -Wextra
+FLAG = -Wall -Werror -Wextra -g
 HEADER_PATH = .
 
 SRCS_STR = ft_strcat.c ft_strdup.c ft_strncmp.c ft_strstr.c ft_strcpy.c \
