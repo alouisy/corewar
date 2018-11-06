@@ -28,7 +28,7 @@ void	ft_lfork(t_pvm *pvm, t_process *process)
 	if (new_pc < 0)
 		new_pc = (new_pc + MEM_SIZE) % MEM_SIZE;
 //		new_pc = (MEM_SIZE + process->pc - ABS(value)) % MEM_SIZE;
-	node = ft_lstnew(process, sizeof(t_process));
+	node = ft_lstnew2(process, sizeof(t_process));
 	new_process_init(pvm, process, (PROCESS(node)), new_pc);
 	ft_lstadd(&pvm->processes, node);
 	if (!(pvm->nc.ncurses) && pvm->verbose)

@@ -16,10 +16,9 @@
 ** update highlight in left panel of ncurses
 */
 
-void	ft_del1(void *content, size_t size)
+void	ft_del1(void *content)
 {
 	(void)(content);
-	(void)size;
 }
 
 void	update_buffer(t_pvm *vm)

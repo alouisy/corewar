@@ -14,6 +14,6 @@
 
 void	exit_error(char *msg, int code)
 {
-	ft_printf("%s", msg);
+	ft_putstr(msg);
 	exit(code);
 }

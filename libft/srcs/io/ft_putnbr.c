@@ -3,30 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zcugni <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/07/10 09:59:25 by zcugni            #+#    #+#             */
-/*   Updated: 2017/07/10 10:57:21 by zcugni           ###   ########.fr       */
+/*   Created: 2017/11/10 12:42:32 by jgroc-de          #+#    #+#             */
+/*   Updated: 2018/01/30 15:15:50 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putnbr(int nb)
+size_t	ft_putnbr(int n)
 {
-	if (nb < 10 && nb >= 0)
-		ft_putchar(nb + 48);
-	else if (nb > -10 && nb < 0)
+	size_t	res;
+
+	res = 0;
+	if (n > 0 && n / 10)
 	{
-		ft_putchar('-');
-		ft_putchar(-nb + 48);
+		res += (ft_putnbr(n / 10));
+		res += (ft_putchar((n % 10) + '0'));
 	}
-	else
+	else if (n == -2147483648)
 	{
-		ft_putnbr(nb / 10);
-		if (nb < 0)
-			ft_putchar(-(nb % 10) + 48);
-		else
-			ft_putchar((nb % 10) + 48);
+		res += (ft_putstr("-2"));
+		res += (ft_putnbr(147483648));
 	}
+	else if (n < 0)
+	{
+		res += (ft_putchar('-'));
+		res += (ft_putnbr(-n));
+	}
+	else if (n >= 0 && !(n / 10))
+		res += (ft_putchar(n + '0'));
+	return (res);
 }

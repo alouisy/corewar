@@ -16,7 +16,7 @@
 
 void	get_leaks(char *msg)
 {
-	system("leaks lem-in");
+	system("leaks asm");
 	ft_printf("\033[31m%s\033[0m", msg);
 	getchar();
 }

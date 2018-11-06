@@ -29,7 +29,7 @@ inline int	parse_champion(char *path, int nb, t_pvm *vm)
 	close(fd);
 	if (champion.prog[0] == 0)
 		return (0);
-	if (!(node = ft_lstnew((&champion), sizeof(t_champion))))
+	if (!(node = ft_lstnew2((&champion), sizeof(t_champion))))
 		return (ft_strerror("ERROR while trying to malloc", 0));
 	ft_lstadd(&vm->champions, node);
 	return (1);

@@ -20,8 +20,8 @@ char	*ft_strsub_free(char *s, t_u_int start, size_t len)
 	if (!s)
 		return (NULL);
 	str = (char *)malloc((len + 1) * sizeof(char));
-	if (str == NULL)
-		exit_error("malloc error\n", 1);
+	if (!str)
+		return (NULL);
 	i = 0;
 	while (i < len)
 	{
@@ -29,6 +29,6 @@ char	*ft_strsub_free(char *s, t_u_int start, size_t len)
 		i++;
 	}
 	str[i] = '\0';
-	free(s);
+	ft_strdel(&s);
 	return (str);
 }

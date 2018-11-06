@@ -20,6 +20,6 @@ void	remove_first_elem(t_list **lst)
 	{
 		tmp = *lst;
 		*lst = (*lst)->next;
-		free(tmp);
+		ft_memdel((void **)tmp);
 	}
 }

@@ -17,10 +17,11 @@ t_list	*ft_pop(t_list **lst)
 	t_list	*new;
 	t_list	*tmp;
 
-	new = ft_lstnew((*lst)->content, (*lst)->content_size);
+	new = ft_lstnew((*lst)->content, (*lst)->content_size, 0);
+	if (!new)
+		return (NULL);
 	tmp = *lst;
 	*lst = (*lst)->next;
-	free(tmp->content);
-	free(tmp);
+	ft_memdel((void **)&tmp);
 	return (new);
 }

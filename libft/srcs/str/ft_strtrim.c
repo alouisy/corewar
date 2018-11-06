@@ -54,8 +54,8 @@ char			*ft_strtrim(char const *s)
 	to_trim = find_nb_to_trim(s);
 	new_len = ft_strlen(s) - (to_trim.start + to_trim.end);
 	str = malloc(new_len + 1);
-	if (str == NULL)
-		exit_error("malloc error\n", 1);
+	if (!str)
+		return (NULL);
 	j = 0;
 	i = to_trim.start;
 	while (i < ft_strlen(s) - to_trim.end)
