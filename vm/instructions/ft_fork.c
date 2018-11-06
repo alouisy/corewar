@@ -50,4 +50,5 @@ void		ft_fork(t_pvm *pvm, t_process *process)
 	{
 		ft_printf("P% 5d | fork %d (%d)\n", process->champ_nbr, value, (process->pc + (value % IDX_MOD)));
 	}
+	pvm->nc.clear = 1;
 }

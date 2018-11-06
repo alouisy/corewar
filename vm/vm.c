@@ -19,6 +19,8 @@ static void	aux_usage(char *str)
 	ft_printf("	-dump N	: dump memory after N cycles then exit\n", str);
 	ft_printf("	-n N\t: assign number N to champion from the following file\n");
 	ft_printf("	-nc	: ncurses graphical mode\n", str);
+	ft_printf("		command: w/z : +/-1  cycle/s\n", str);
+	ft_printf("		         +/- : +/-10 cycles/s\n", str);
 }
 /*
 static void	aux_print_champ(t_list *node)

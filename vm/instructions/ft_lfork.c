@@ -50,4 +50,5 @@ void	ft_lfork(t_pvm *pvm, t_process *process)
 	{
 		ft_printf("P% 5d | lfork %d (%d)\n", process->champ_nbr, value, (process->pc + value));
 	}
+	pvm->nc.clear = 1;
 }

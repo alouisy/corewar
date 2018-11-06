@@ -86,6 +86,8 @@ typedef struct			s_ncurses
 	WINDOW				*wleft;
 	WINDOW				*wright;
 	t_list				*buffer;
+	int					step;
+	int					clear;
 }						t_ncurses;
 
 /*

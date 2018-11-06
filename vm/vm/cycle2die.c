@@ -46,6 +46,7 @@ static void	check_process(t_pvm *vm)
 			ft_lstdelone(&node, &ft_del);
 			free(node);
 			node = save;
+			vm->nc.clear = 1;
 		}
 		else
 		{

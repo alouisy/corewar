@@ -26,7 +26,8 @@ inline void	print_winner(t_pvm *vm)
 	if (vm->nc.ncurses)
 	{
 		clear();
-		mvprintw(LINES / 2, COLS / 2, "le joueur %s(%d) a gagne\n", (CHAMPION(champ))->header.prog_name, (CHAMPION(champ))->nbr);
+		timeout(-1);
+		mvprintw(LINES / 2, COLS / 2 - 30, "le joueur %s(%d) a gagne\n", (CHAMPION(champ))->header.prog_name, (CHAMPION(champ))->nbr);
 		getch();
 	}
 	else
