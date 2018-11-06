@@ -12,7 +12,7 @@
 
 CC = gcc
 NAME = libft.a
-CFLAGS = -Wall -Werror -Wextra -I src/ft_printf/
+CFLAGS = -Wall -Werror -Wextra -g -I src/ft_printf/
 HEADER_PATH = .
 
 SRCS_STR = ft_strcat.c ft_strdup.c ft_strncmp.c ft_strstr.c ft_strcpy.c \

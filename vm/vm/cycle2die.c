@@ -27,7 +27,7 @@ static void	decremente_c2d(t_pvm *vm)
 
 void ft_del(UNUSED void *content)
 {
-	//free(content);
+	free(content);
 }
 
 static void	check_process(t_pvm *vm)
