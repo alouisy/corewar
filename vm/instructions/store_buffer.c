@@ -26,7 +26,7 @@ int	store_buffer(t_pvm *vm, int i, int color, int cycles)
 		mem.position = i;
 		mem.color = color;
 		mem.cycles_bf_end = cycles;
-		if (!(node = ft_lstnew(&mem, sizeof(mem))))
+		if (!(node = ft_lstnew2(&mem, sizeof(mem))))
 			return (0);
 		ft_lstadd(&(vm->nc.buffer), node);
 	}
