@@ -32,5 +32,4 @@ inline void	init_process(t_process *process, t_pvm *vm)
 	reset_param(process);
 	process->opcode = -1;
 	process->ocp = 0;
-	process->wait = 0;
 }

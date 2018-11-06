@@ -16,14 +16,23 @@
 ** direct store
 */
 
-static void	write_in_memory(t_pvm *pvm, int address, int value)
+static void	write_in_memory(t_pvm *pvm, t_process *process, int value)
 {
+	int address;
+	int	color;
+	int i;
+
+	address = process->pc + (((short int)process->param[1]) % IDX_MOD);
 	while (address < 0)
 		address += MEM_SIZE;
-	pvm->memory[(address + 3) % MEM_SIZE] = (value >> 0);
-	pvm->memory[(address + 2) % MEM_SIZE] = (value >> 8);
-	pvm->memory[(address + 1) % MEM_SIZE] = (value >> 16);
-	pvm->memory[(address + 0) % MEM_SIZE] = (value >> 24);
+	color = (CHAMPION(ft_lstfindchamp(pvm->champions, process->champ_nbr)))->color;
+	i = 0;
+	while (i < 4)
+	{
+		pvm->memory[(address + 3 - i) % MEM_SIZE] = (value >> i * 8);
+		pvm->mem_color[(address + 3 - i) % MEM_SIZE] = color;
+		i++;
+	}
 }
 
 void	ft_st(t_pvm *pvm, t_process *process)
@@ -50,7 +59,7 @@ void	ft_st(t_pvm *pvm, t_process *process)
 		else
 		{
 			check = 1;
-			write_in_memory(pvm, (process->pc + (((short int)process->param[1]) % IDX_MOD)), value);
+			write_in_memory(pvm, process, value);
 			if (!(pvm->nc.ncurses) && pvm->verbose)
 			{
 				ft_printf("P% 5d | st r%d %d\n", process->champ_nbr, process->param[0], ((short int)process->param[1]));

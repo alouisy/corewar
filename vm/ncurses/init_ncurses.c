@@ -26,7 +26,7 @@ void	init_ncurses(t_pvm *vm)
 	vm->nc.clear = 0;
 	box(vm->nc.wleft, ACS_VLINE, ACS_HLINE);
 	box(vm->nc.wright, ACS_VLINE, ACS_HLINE);
-	init_left_panel(vm);
+	print_map(vm);
 	status_game(vm);
 	timeout(1000 / vm->nc.step);
 	vm->nc.buffer = NULL;

@@ -16,82 +16,23 @@
 ** insert each champion's programme in left panel
 */
 
-char aux_hexa(int i)
-{
-	char *str;
-
-	str = "0123456789abcdef";
-	return (str[i]);
-}
-
-void			aux_strncpy(char dest[CHAMP_MAX3], unsigned char *src, unsigned int len)
-{
-	unsigned int	i;
-
-	i = 0;
-	while (i < len)
-	{
-		dest[i * 3] = aux_hexa(src[i] / 16);
-		dest[i * 3 + 1] = aux_hexa(src[i] % 16);
-		dest[i * 3 + 2] = ' ';
-		i++;
-	}
-}
-
-void	insert_champion(t_pvm *vm)
-{
-	unsigned int	i;
-	int				pos;
-	t_list			*node;
-	char			str[CHAMP_MAX3];
-
-	node = vm->champions;
-	while (node)
-	{
-		pos = (CHAMPION(node))->vm_pos / 64;
-		wattron(vm->nc.wleft, COLOR_PAIR((CHAMPION(node))->color));
-		aux_strncpy(str, (CHAMPION(node))->prog, (CHAMPION(node))->header.prog_size);
-		str[(CHAMPION(node))->header.prog_size * 3] = '\0';
-		i = 0;
-		while (i < (CHAMPION(node))->header.prog_size)
-		{
-			mvwprintw(vm->nc.wleft, 1 + pos++, 1, "%.192s", str + i * 3);	
-			i += 64;
-		}
-		wattroff(vm->nc.wleft, COLOR_PAIR((CHAMPION(node))->color));
-		node = node->next;
-	}
-}
-
 /*
 ** first print of map with "00" only
 */
 
-static inline void	init_map(t_pvm *vm)
+void	print_map(t_pvm *vm)
 {
-	unsigned int	i;
-	char			str[192];
+	int	i;
 
 	i = 0;
-	while (i < 191)
+	while (i < MEM_SIZE)
 	{
-		if (i % 3 == 2)
-			str[i] = ' ';
+		wattron(vm->nc.wleft, COLOR_PAIR(vm->mem_color[i]));
+		if (vm->memory[i] == 0)
+			mvwprintw(vm->nc.wleft, 1 + i / 64, 1 + (i % 64) * 3, "00 ");
 		else
-			str[i] = '0';
+			mvwprintw(vm->nc.wleft, 1 + i / 64, 1 + (i % 64) * 3, "%.2hhx", vm->memory[i]);
+		wattroff(vm->nc.wleft, COLOR_PAIR(vm->mem_color[i]));
 		i++;
 	}
-	str[191] = '\0';
-	i = 0;
-	while (i < 64)
-	{
-		mvwprintw(vm->nc.wleft, i + 1, 1, "%.192s", str);
-		i++;
-	}
-}
-
-void	init_left_panel(t_pvm *vm)
-{
-	init_map(vm);
-	insert_champion(vm);
 }

@@ -29,6 +29,8 @@ void	ft_zjmp(UNUSED t_pvm *pvm, t_process *process)
 		}
 		process->pc += value % IDX_MOD;
 		process->pc %= MEM_SIZE;
+		while (process->pc < 0)
+			process->pc += MEM_SIZE;
 		process->pc2 = process->pc;
 	}
 	else

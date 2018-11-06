@@ -15,7 +15,7 @@
 /*
 ** update process state champion's memory in left panel
 */
-
+/*
 void	ft_del1(void *content, size_t size)
 {
 	(void)(content);
@@ -24,26 +24,34 @@ void	ft_del1(void *content, size_t size)
 
 void	update_buffer(t_pvm *vm)
 {
-	int		i;
-	t_list	*node;
-	t_list	*todel;
+	int			i;
+	t_list		*node;
+	t_list		*todel;
+	t_buffer	*buffer;
 
 	node = vm->nc.buffer;
 	todel = NULL;
 	while (node)
 	{
-		if ((get_buffer(node))->cycle)
-			(get_buffer(node))->cycle--;
-		else
+		buffer = get_buffer(node);
+		i = buffer->i;
+		if (buffer->cycle)
+			buffer->cycle--;
+		if (buffer->cycle == 10)
 		{
-			i = (get_buffer(node))->i;
+			wattron(vm->nc.wleft, COLOR_PAIR(buffer->color + 8));
+			print_4case(vm->nc.wleft, i, (unsigned char*)buffer->str);
+			wattroff(vm->nc.wleft, COLOR_PAIR(buffer->color + 8));
+		}
+		else if (!(buffer->cycle))
+		{
 			if (vm->memory[i] == 0)
 				print_case(vm->nc.wleft, i, vm->memory[i]);
 			else
 			{
-				wattron(vm->nc.wleft, COLOR_PAIR((get_buffer(node))->color));
-				print_case(vm->nc.wleft, i, vm->memory[i]);
-				wattroff(vm->nc.wleft, COLOR_PAIR((get_buffer(node))->color));
+				wattron(vm->nc.wleft, COLOR_PAIR(buffer->color));
+				print_4case(vm->nc.wleft, i, vm->memory + i);
+				wattroff(vm->nc.wleft, COLOR_PAIR(buffer->color));
 			}
 			todel = ft_lstpop(node, &(vm->nc.buffer));
 		}
@@ -56,85 +64,17 @@ void	update_buffer(t_pvm *vm)
 		}
 	}
 }
-
-static void	aux_erase(t_pvm *vm, t_process *process, int i)
-{
-	t_list *node;
-
-	node = vm->champions;
-	while (node)
-	{
-		if (node == process->champ)
-			(CHAMPION(process->champ))->memory[i] = vm->memory[i];
-		else
-			(CHAMPION(node))->memory[i] = 0;
-		node = node->next;
-	}
-}
-
-int					store_buffer(t_pvm *vm, int i, int color, int cycles)
+*/
+int	store_buffer(t_pvm *vm, int i, int color, int cycles)
 {
 	t_list 		*node;
 	t_buffer	mem;
 
-	mem.i = i;
+	mem.position = i;
 	mem.color = color;
-	mem.cycle = cycles;
+	mem.cycles_bf_end = cycles;
 	if (!(node = ft_lstnew(&mem, sizeof(mem))))
 		return (0);
 	ft_lstadd(&(vm->nc.buffer), node);
-	return (1);
-}
-
-int	update_memory(t_pvm *vm, t_process *process)
-{
-	int	i;
-
-	i = 0;
-	while (i < MEM_SIZE)
-	{
-		if (vm->memory[i] != (CHAMPION(process->champ))->memory[i])
-		{
-			wattron(vm->nc.wleft,
-					COLOR_PAIR((CHAMPION(process->champ))->color + 8));
-			print_case(vm->nc.wleft, i, vm->memory[i]);
-			wattroff(vm->nc.wleft,
-					COLOR_PAIR((CHAMPION(process->champ))->color + 8));
-			if (!store_buffer(vm, i, (CHAMPION(process->champ))->color, 10))
-				return (0);
-			aux_erase(vm, process, i);
-		}
-		i++;
-	}
-	return (1);
-}
-
-static inline int	update_pc(t_pvm *vm, t_process *process)
-{
-	int	color;
-	int cycles;
-
-	if (process->wait)
-	{
-		process->wait = 0;
-		color = (CHAMPION(process->champ))->color + 4;
-		cycles = process->cycle_bf_exe;
-		if (vm->memory[process->pc] == 0)
-			cycles = 0;
-		wattron(vm->nc.wleft, COLOR_PAIR(color));
-		print_case(vm->nc.wleft, process->pc, vm->memory[process->pc]);
-		if (!store_buffer(vm, process->pc, (CHAMPION(process->champ))->color, cycles))
-			return (0);
-		wattroff(vm->nc.wleft, COLOR_PAIR(color));
-	}
-	return (1);
-}
-
-int					update_process(t_pvm *vm, t_process *process)
-{
-	update_buffer(vm);
-	update_pc(vm, process);
-	if (!update_memory(vm, process))
-		return (0);
 	return (1);
 }
