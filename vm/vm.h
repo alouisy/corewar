@@ -116,28 +116,28 @@ extern t_op				g_op_tab[17];
 /*
 ** parser
 */
-void					init_vm(t_pvm *vm);
-void					init_memory(t_pvm *vm);
+int						add_process(t_pvm *vm);
+int						get_champ_nb(int nb, t_list *champions);
 void					init_champion(t_champion *champion,
 							int nb_prog, int color);
+void					init_memory(t_pvm *vm);
+void					init_vm(t_pvm *vm);
 void					init_process(t_process *process, t_pvm *vm);
 int						parse_arg(t_pvm *vm, int ac, char **av);
 int						parse_champion(char *path, int nb, t_pvm *vm);
 int						parse_champion_header(t_champion *champion,
 							int fd, char *filename);
 int						parse_champion_prog(t_champion *champion, int fd);
-int						add_process(t_pvm *vm);
 unsigned int			parse_magic_size(int fd, char *filename);
-int						get_champ_nb(int nb, t_list *champions);
 
 /*
 ** vm
 */
-void					start_vm(t_pvm *vm);
 void					cycle2die(t_pvm *vm);
 void					get_instruction(t_pvm *vm, t_process *process);
-void					process_instruction(t_pvm *vm, t_process *process);
 void					print_winner(t_pvm *vm);
+void					process_instruction(t_pvm *vm, t_process *process);
+void					start_vm(t_pvm *vm);
 
 /*
 ** instructions
@@ -168,33 +168,32 @@ void					write_in_memory(t_pvm *pvm, t_process *process, int value, short int va
 /*
 ** misc
 */
-void					print_memory(t_pvm *vm);
-void					print_champ(t_list *champ);
-int						ft_strhex2dec(unsigned char *str, int len);
-int						ft_strerror(char *str, int f);
 void					free_vm(t_pvm *vm);
 t_list					*ft_lstfindchamp(t_list *champ, int nbr);
+int						ft_strhex2dec(unsigned char *str, int len);
+int						ft_strerror(char *str, int f);
 t_champion				*get_champion(t_list *node);
 t_process				*get_process(t_list	*node);
 t_buffer				*get_buffer(t_list *node);
+void					print_memory(t_pvm *vm);
+void					print_champ(t_list *champ);
 void					reset_param(t_process *process);
 
 /*
 ** ncurses
 */
-void					init_ncurses(t_pvm *vm);
+void					close_ncurses();
 void					init_colors();
-void					print_map(t_pvm *vm);
 void					intro_champions(t_pvm *vm);
+void					init_ncurses(t_pvm *vm);
+void					print_case(WINDOW *win, int pos, int color, unsigned char c);
+void					print_4case(t_pvm *vm, int pos, int color);
+void					print_map(t_pvm *vm);
 void					status_game(t_pvm *vm);
 int						status_vm(t_pvm *vm);
 int						status_champion(t_pvm *vm, int i);
 void					status_process(t_pvm *vm, int i);
-void					print_case(WINDOW *win, int pos, unsigned char c);
-void					print_4case(t_pvm *vm, int pos, int color);
 int						store_buffer(t_pvm *vm, int i, int color, int cycles);
 void					update_buffer(t_pvm *vm);
-
-void					close_ncurses();
 
 #endif

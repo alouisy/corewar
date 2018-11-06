@@ -27,9 +27,7 @@ int	update_pc(t_pvm *vm)
 	{
 		process = PROCESS(node);
 		color = (CHAMPION(process->champ))->color + 4;
-		wattron(vm->nc.wleft, COLOR_PAIR(color));
-		print_case(vm->nc.wleft, process->pc, vm->memory[process->pc]);
-		wattroff(vm->nc.wleft, COLOR_PAIR(color));
+		print_case(vm->nc.wleft, process->pc, color, vm->memory[process->pc]);
 		node = node->next;
 	}
 	return (1);
@@ -65,8 +63,8 @@ void		status_game(t_pvm *vm)
 	{
 		wclear(vm->nc.wright);
 		vm->nc.clear = 0;
+		box(vm->nc.wright, ACS_VLINE, ACS_HLINE);
 	}
-	box(vm->nc.wright, ACS_VLINE, ACS_HLINE);
 	i = status_vm(vm);
 	i = status_champion(vm, i + 1);
 	status_process(vm, i + 2);
