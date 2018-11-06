@@ -1,23 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr.c                                        :+:      :+:    :+:   */
+/*   ft_putwchar.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/10 12:33:22 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/01/30 15:07:49 by jgroc-de         ###   ########.fr       */
+/*   Created: 2018/02/13 16:47:20 by jgroc-de          #+#    #+#             */
+/*   Updated: 2018/02/13 17:17:54 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_putstr(const char *s)
+size_t		ft_wcharlen(int chr)
 {
-	const char *save;
+	size_t	i;
 
-	save = s;
-	while (*s)
-		s++;
-	return (write(1, save, s - save));
+	i = 0;
+	while (chr)
+	{
+		chr = chr >> 1;
+		i++;
+	}
+	if (i > 18)
+		i = 4;
+	else if (i > 12)
+		i = 3;
+	else if (i > 7)
+		i = 2;
+	else
+		i = 1;
+	return (i);
 }

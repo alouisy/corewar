@@ -25,7 +25,7 @@ static void	decremente_c2d(t_pvm *vm)
 	vm->cur_cycle = 0;
 }
 
-void ft_del(UNUSED void *content, UNUSED size_t t)
+void ft_del(UNUSED void *content)
 {
 	//free(content);
 }

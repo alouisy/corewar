@@ -1,23 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr.c                                        :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/10 12:33:22 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/01/30 15:07:49 by jgroc-de         ###   ########.fr       */
+/*   Created: 2017/11/12 20:53:17 by jgroc-de          #+#    #+#             */
+/*   Updated: 2018/01/30 14:21:27 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_putstr(const char *s)
+int	ft_atoi2(const char *str)
 {
-	const char *save;
+	int		res;
+	int		neg;
 
-	save = s;
-	while (*s)
-		s++;
-	return (write(1, save, s - save));
+	res = 0;
+	neg = 1;
+	while ((*str == ' ' || (*str >= 9 && *str <= 13)) && *str != '\200')
+		str++;
+	if (*str == '-' || *str == '+')
+	{
+		if (*str == '-')
+			neg = -1;
+		str++;
+	}
+	while (*str >= '0' && *str <= '9')
+		res = res * 10 + (*(str++) - '0');
+	return (res * neg);
 }

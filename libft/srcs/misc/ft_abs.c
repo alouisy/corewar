@@ -1,23 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr.c                                        :+:      :+:    :+:   */
+/*   ft_abs.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/10 12:33:22 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/01/30 15:07:49 by jgroc-de         ###   ########.fr       */
+/*   Created: 2017/11/11 17:18:22 by jgroc-de          #+#    #+#             */
+/*   Updated: 2018/01/30 14:20:27 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_putstr(const char *s)
+int		ft_abs(int n)
 {
-	const char *save;
-
-	save = s;
-	while (*s)
-		s++;
-	return (write(1, save, s - save));
+	if (n < 0)
+		n = -n;
+	return (n);
 }

@@ -1,23 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr.c                                        :+:      :+:    :+:   */
+/*   ft_d_size_2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/10 12:33:22 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/01/30 15:07:49 by jgroc-de         ###   ########.fr       */
+/*   Created: 2018/02/08 16:55:18 by jgroc-de          #+#    #+#             */
+/*   Updated: 2018/02/10 16:47:28 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "libprintf.h"
+#include <stdarg.h>
+#include <stdint.h>
 
-size_t	ft_putstr(const char *s)
+char	*ft_d_size_z(va_list *ap, t_printf *all)
 {
-	const char *save;
+	ssize_t	nbr;
 
-	save = s;
-	while (*s)
-		s++;
-	return (write(1, save, s - save));
+	nbr = va_arg(*ap, ssize_t);
+	all->str = ft_itoa(nbr);
+	return (all->str);
+}
+
+char	*ft_d_size_(va_list *ap, t_printf *all)
+{
+	int	nbr;
+
+	nbr = va_arg(*ap, int);
+	all->str = ft_itoa(nbr);
+	return (all->str);
 }

@@ -12,7 +12,7 @@
 
 #include "../vm.h"
 
-static void	aux_del(void *content, UNUSED size_t size)
+static void	aux_del(void *content)
 {
 	free(content);
 }
@@ -20,9 +20,9 @@ static void	aux_del(void *content, UNUSED size_t size)
 void		free_vm(t_pvm *vm)
 {
 	if (vm->champions)
-		ft_lstdel(&(vm->champions), &aux_del);
+		ft_lstdel(&(vm->champions), 1, &aux_del);
 	if (vm->processes)
-		ft_lstdel(&(vm->processes), &aux_del);
+		ft_lstdel(&(vm->processes), 1, &aux_del);
 	if (vm->nc.ncurses)
 		close_ncurses(vm);
 }

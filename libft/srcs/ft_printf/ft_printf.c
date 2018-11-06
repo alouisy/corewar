@@ -3,117 +3,58 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zcugni <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/12/15 18:26:38 by zcugni            #+#    #+#             */
-/*   Updated: 2017/12/15 18:26:40 by zcugni           ###   ########.fr       */
+/*   Created: 2018/01/28 15:01:40 by jgroc-de          #+#    #+#             */
+/*   Updated: 2018/02/20 20:08:51 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <stdarg.h>
+#include "libprintf.h"
 
-static void	handle_2_percent(t_pos *pos, t_list **final_lst, t_detail *co_det)
+static void	aux_printf(t_printf *all, const char *restrict *format,
+		va_list *arg_var, t_conv *conversion_tab)
 {
-	if (co_det->ori_str[pos->i + 1])
+	const char *tmp;
+
+	tmp = *format;
+	while (**format)
 	{
-		if (pos->start != pos->i)
+		if (**format == '%')
 		{
-			ft_lstappend(final_lst, ft_lstnew(ft_strsub(co_det->ori_str,
-				pos->start, pos->i - pos->start), pos->i - pos->start + 1, 0));
+			all->result += write(1, tmp, *format - tmp);
+			init_t_printf(all);
+			tmp = ++(*format);
+			if (ft_option((const char **)format, all))
+			{
+				if (conversion_tab[all->index].fct(arg_var, all))
+				{
+					all->result += ft_putstr(all->str);
+					ft_memdel((void*)&(all->str));
+				}
+				tmp = *format + 1;
+			}
 		}
-		ft_lstappend(final_lst, ft_lstnew("%", 2, 1));
-	}
-	if (co_det->ori_str[pos->i + 2])
-		pos->i++;
-	pos->start = pos->i + 1;
-	pos->mid = pos->start;
-}
-
-static int	add_reset(t_detail *co_det, t_list **f_lst, t_pos *p, int add_null)
-{
-	int j;
-
-	j = 0;
-	while ((size_t)j < co_det->conv->size)
-		if (co_det->conv->str[j++] == NULL)
+		if (**format)
 		{
-			j = 0;
-			while ((size_t)j < co_det->conv->size)
-				ft_strdel(&co_det->conv->str[j++]);
-			ft_memdel((void **)&co_det->conv->str);
-			ft_memdel((void **)&co_det->conv);
-			ft_lstdel(&co_det->info, 1, free);
-			ft_strdel(&co_det->ori_str);
-			display(*f_lst, 1);
-			return (0);
+			++(*format);
 		}
-	add(co_det, f_lst, add_null);
-	ft_lstdel(&co_det->info, 0, free);
-	p->start = p->i + 1;
-	p->mid = p->start;
-	return (1);
+	}
+	if (tmp && *tmp)
+		all->result += ft_putstr(tmp);
 }
 
-static int	handle_conv(t_detail *co_det, t_pos *p, va_list ap, t_list **f_lst)
+int			ft_printf(const char *restrict format, ...)
 {
-	char	type;
-	int		add_null;
-	char	*tmp;
+	va_list		arg_var;
+	t_printf	all;
+	t_conv		conversion_tab[18];
 
-	add_null = 0;
-	get_info(p, co_det, ap);
-	type = ((char *)co_det->info->content)[0];
-	if (p->start != p->mid && co_det->conv->str[0])
-	{
-		tmp = ft_strsub(co_det->ori_str, p->start, p->mid - p->start);
-		ft_lstappend(f_lst, ft_lstnew(tmp, p->mid - p->start + 1, 0));
-	}
-	if ((type == 'c' || type == 'C') && co_det->conv->str[0]
-		&& ft_strlen(co_det->conv->str[0]) == 0)
-	{
-		if (ft_lstfind(co_det->info, "-", 1))
-			ft_lstappend(f_lst, ft_lstnew("\0", 0, 1));
-		(co_det->width)--;
-		add_null = 1;
-	}
-	act_on_flag(co_det);
-	return (add_reset(co_det, f_lst, p, add_null));
-}
-
-static void	init(t_pos *pos, t_list **fin_lst, t_detail *conv_det, char *str)
-{
-	pos->i = 0;
-	pos->start = 0;
-	pos->mid = 0;
-	*fin_lst = NULL;
-	conv_det->ori_str = ft_strdup(str);
-}
-
-int			ft_printf(const char *str, ...)
-{
-	t_list		*fin_lst;
-	va_list		ap;
-	t_detail	conv_det;
-	t_pos		p;
-
-	va_start(ap, str);
-	init(&p, &fin_lst, &conv_det, (char *)str);
-	while (str[p.i])
-	{
-		if (str[p.i] == '%' && (!str[p.i + 1] || str[p.i + 1] == '%'))
-			handle_2_percent(&p, &fin_lst, &conv_det);
-		else if (str[p.i] == '%')
-			if (!handle_conv(&conv_det, &p, ap, &fin_lst))
-				return (-1);
-		p.i++;
-	}
-	ft_strdel(&conv_det.ori_str);
-	if (p.i != p.start)
-	{
-		conv_det.ori_str = ft_strsub((char *)str, p.start, p.i - p.start);
-		ft_lstappend(&fin_lst,
-							ft_lstnew(conv_det.ori_str, p.i - p.start + 1, 0));
-	}
-	va_end(ap);
-	return (display(fin_lst, 0));
+	init_ft_conv(conversion_tab);
+	all.result = 0;
+	va_start(arg_var, format);
+	aux_printf(&all, &format, &arg_var, conversion_tab);
+	va_end(arg_var);
+	return (all.result);
 }

@@ -1,23 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr.c                                        :+:      :+:    :+:   */
+/*   ft_strnew_ch.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/10 12:33:22 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/01/30 15:07:49 by jgroc-de         ###   ########.fr       */
+/*   Created: 2017/11/10 14:23:51 by jgroc-de          #+#    #+#             */
+/*   Updated: 2017/12/11 17:50:20 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_putstr(const char *s)
+char	*ft_strnew_ch(size_t size, char c)
 {
-	const char *save;
+	char	*str;
+	size_t	i;
 
-	save = s;
-	while (*s)
-		s++;
-	return (write(1, save, s - save));
+	i = 0;
+	str = (char*)malloc(sizeof(*str) * (size + 1));
+	if (str)
+	{
+		while (i <= size)
+			str[i++] = c;
+		str[size] = '\0';
+	}
+	return (str);
 }
