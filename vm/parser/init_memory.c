@@ -25,7 +25,7 @@ inline void		init_memory(t_pvm *vm)
 	while (i < MEM_SIZE)
 		vm->mem_color[i++] = 0;
 	i = vm->nb_champ - 1;
-	ptmp = vm->processes;
+	ptmp = vm->stack[0].next;
 	ctmp = vm->champions;
 	while (ctmp)
 	{

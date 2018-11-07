@@ -16,9 +16,10 @@ inline void	init_process(t_process *process, t_pvm *vm)
 {
 	int		i;
 
+	vm->nb_process++;
 	process->champ_nbr = (get_champion(vm->champions))->nbr;
 	process->champ = vm->champions;
-	process->pid = ft_lstlength(vm->processes);
+	process->pid = vm->pid++;
 	process->r[0] = process->champ_nbr;
 //	process->r[0] = process->champ_nbr * -1;
 	i = 1;

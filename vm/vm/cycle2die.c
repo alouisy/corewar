@@ -34,25 +34,31 @@ static void	check_process(t_pvm *vm)
 {
 	t_list	*node;
 	t_list	*save;
-	
-	node = vm->processes;
-	save = vm->processes;
-	while (node)
+	int i;
+
+	i = 0;
+	while (i < 1001)
 	{
-		if ((PROCESS(node))->cycles_wo_live == 0)
+		node = vm->stack[i].next;;
+		save = &(vm->stack[i]);
+		while (node)
 		{
-			save = node->next;
-			ft_lstpop(node, &(vm->processes));
-			ft_lstdelone(&node, &ft_del);
-			node = save;
-			vm->nc.clear = 1;
-		}
-		else
-		{
-			(PROCESS(node))->cycles_wo_live = 0;
+			if ((PROCESS(node))->cycles_wo_live == 0)
+			{
+				vm->nb_process--;
+				save->next = node->next;
+				free(node->content);
+				free(node);
+				node = save;
+			}
+			else
+			{
+				(PROCESS(node))->cycles_wo_live = 0;
+				save = node;
+			}
 			node = node->next;
 		}
-		save = node;
+		i++;
 	}
 }
 

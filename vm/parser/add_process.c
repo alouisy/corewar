@@ -20,6 +20,7 @@ inline int	add_process(t_pvm *vm)
 	init_process(&process, vm);
 	if (!(node = ft_lstnew2(&process, sizeof(process))))
 		return (ft_strerror("Malloc fail", 0));
-	ft_lstadd(&vm->processes, node);
+	node->next = vm->stack[0].next;
+	vm->stack[0].next = node;
 	return (1);
 }

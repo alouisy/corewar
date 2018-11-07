@@ -23,6 +23,7 @@ void	ft_lfork(t_pvm *pvm, t_process *process)
 	t_list		*node;
 
 	(void)node;
+	pvm->nb_process++;
 	value = (short int)process->param[0];
 	new_pc = (process->pc + value) % MEM_SIZE;
 	if (new_pc < 0)
@@ -30,10 +31,9 @@ void	ft_lfork(t_pvm *pvm, t_process *process)
 //		new_pc = (MEM_SIZE + process->pc - ABS(value)) % MEM_SIZE;
 	node = ft_lstnew2(process, sizeof(t_process));
 	new_process_init(pvm, process, (PROCESS(node)), new_pc);
-	ft_lstadd(&pvm->processes, node);
+	update_stack(pvm, 1, node);
 	if (!(pvm->nc.ncurses) && pvm->verbose)
 	{
 		ft_printf("P% 5d | lfork %d (%d)\n", process->champ_nbr, value, (process->pc + value));
 	}
-	pvm->nc.clear = 1;
 }

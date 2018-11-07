@@ -24,8 +24,7 @@ int		status_vm(t_pvm *vm)
 	mvwprintw(vm->nc.wright, i++, 2, "step:	%d cycles / s", vm->nc.step);
 	i++;
 	mvwprintw(vm->nc.wright, i++, 2, "champions:	%8d", vm->nb_champ);
-	mvwprintw(vm->nc.wright, i++, 2, "processes:	%8d",
-			ft_lstlength(vm->processes));
+	mvwprintw(vm->nc.wright, i++, 2, "processes:	%8d", vm->nb_process);
 	mvwprintw(vm->nc.wright, i++, 2, "cycle to die:	%8d", vm->cycle_to_die);
 	mvwprintw(vm->nc.wright, i++, 2, "cycle delta:	%8d", CYCLE_DELTA);
 	mvwprintw(vm->nc.wright, i++, 2, "current cycle:%8d", vm->cur_cycle);

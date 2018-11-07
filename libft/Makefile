@@ -44,7 +44,7 @@ SRCS_IO = ft_putchar.c ft_putstr.c ft_putendl.c ft_putnbr.c ft_putchar_fd.c \
 SRCS_MISC = ft_isalnum.c ft_isprint.c ft_isalpha.c ft_atoi.c ft_isascii.c \
 			ft_isdigit.c ft_itoa.c ft_pow.c ft_itoa_base.c is_neg.c \
 			ft_iswhitespace.c ft_atoi_harsh.c ft_atoi2.c ft_itoa_base2.c \
-			ft_abs.c
+			ft_abs.c ft_nbrisinteger.c
 
 SRCS = $(SRCS_STR) $(SRCS_LST) $(SRCS_IO) $(SRCS_MEM) $(SRCS_FTPRINTF) $(SRCS_MISC) $(SRCS_TREE)
 SRC = $(wildcard srcs/ft_printf/*.c)

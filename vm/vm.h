@@ -75,7 +75,6 @@ typedef struct			s_buffer
 {
 	int					position;
 	int					color;
-	int 				cycles_bf_end;
 }						t_buffer;
 
 typedef struct			s_ncurses
@@ -83,9 +82,12 @@ typedef struct			s_ncurses
 	int					ncurses;
 	WINDOW				*wleft;
 	WINDOW				*wright;
-	t_list				*buffer;
 	int					step;
-	int					clear;
+	unsigned char		memory[MEM_SIZE];
+/*
+** depend du temps d'execution max des instructions, ici 1000 pour lfork
+*/
+	t_list				stack[1001];
 }						t_ncurses;
 
 /*
@@ -94,6 +96,11 @@ typedef struct			s_ncurses
 typedef struct			s_pvm
 {
 	void				(*f[16])(struct s_pvm *, t_process *);
+/*
+** depend du temps d'execution max des instructions, ici 1000 pour lfork
+*/
+	t_list				stack[1001];
+	int					pid;
 	t_list				*processes;
 	t_list				*champions;
 	unsigned char		memory[MEM_SIZE];
@@ -102,6 +109,7 @@ typedef struct			s_pvm
 	int					verbose;
 	t_ncurses			nc;
 	int					nb_champ;
+	int					nb_process;
 	int					cycle_to_die;
 	int					total_cycles;
 	int					cycles;
@@ -123,6 +131,7 @@ void					init_champion(t_champion *champion,
 void					init_memory(t_pvm *vm);
 void					init_vm(t_pvm *vm);
 void					init_process(t_process *process, t_pvm *vm);
+void					aux_reset_stack(t_list stack[1001]);
 int						parse_arg(t_pvm *vm, int ac, char **av);
 int						parse_champion(char *path, int nb, t_pvm *vm);
 int						parse_champion_header(t_champion *champion,
@@ -138,6 +147,7 @@ void					get_instruction(t_pvm *vm, t_process *process);
 void					print_winner(t_pvm *vm);
 void					process_instruction(t_pvm *vm, t_process *process);
 void					start_vm(t_pvm *vm);
+void					update_stack(t_pvm *vm, int cycles, t_list *tmp);
 
 /*
 ** instructions

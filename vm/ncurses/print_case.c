@@ -19,12 +19,7 @@
 void	print_case(WINDOW *win, int pos, int color, unsigned char c)
 {
 	wattron(win, COLOR_PAIR(color));
-	if (c == 0)
-	{
-		mvwprintw(win, pos / 64 + 1, ((pos) % 64) * 3 + 1, "00");
-	}
-	else
-		mvwprintw(win, pos / 64 + 1, ((pos) % 64) * 3 + 1, "%.2hhx", c);
+	mvwprintw(win, (pos / 64) % 64 + 1, (pos % 64) * 3 + 1, "%.2hhx", c);
 	wattroff(win, COLOR_PAIR(color));
 }
 

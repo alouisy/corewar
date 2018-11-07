@@ -16,23 +16,6 @@
 ** manage right panel during the game
 */
 
-int	update_pc(t_pvm *vm)
-{
-	int			color;
-	t_list 		*node;
-	t_process 	*process;
-
-	node = vm->processes;
-	while (node)
-	{
-		process = PROCESS(node);
-		color = (CHAMPION(process->champ))->color + 4;
-		print_case(vm->nc.wleft, process->pc, color, vm->memory[process->pc]);
-		node = node->next;
-	}
-	return (1);
-}
-
 void		manage_step(t_pvm *vm, char c)
 {
 	if (c == 'w')
@@ -59,18 +42,10 @@ void		status_game(t_pvm *vm)
 	char	c;
 
 	c = 0;
-	if (vm->nc.clear)
-	{
-		wclear(vm->nc.wright);
-		vm->nc.clear = 0;
-		box(vm->nc.wright, ACS_VLINE, ACS_HLINE);
-	}
 	i = status_vm(vm);
 	i = status_champion(vm, i + 1);
-	status_process(vm, i + 2);
-	print_map(vm);
 	update_buffer(vm);
-	update_pc(vm);
+	status_process(vm, i + 2);
 	wrefresh(vm->nc.wleft);
 	wrefresh(vm->nc.wright);
 	if ((c = getch()))

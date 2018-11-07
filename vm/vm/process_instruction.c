@@ -14,12 +14,9 @@
 
 void	process_instruction(t_pvm *vm, t_process *process)
 {
-	if (--process->cycle_bf_exe == 0)
-	{
-		vm->f[process->opcode - 1](vm, process);
-		reset_param(process);
-		process->pc = process->pc2;
-		process->opcode = 0;
-		process->ocp = 0;
-	}
+	vm->f[process->opcode - 1](vm, process);
+	reset_param(process);
+	process->pc = process->pc2;
+	process->opcode = 0;
+	process->ocp = 0;
 }

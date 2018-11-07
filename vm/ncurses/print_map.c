@@ -23,7 +23,11 @@ void	print_map(t_pvm *vm)
 	i = 0;
 	while (i < MEM_SIZE)
 	{
-		print_case(vm->nc.wleft, i, vm->mem_color[i], vm->memory[i]);
+		if (vm->memory[i] != vm->nc.memory[i])
+		{
+			print_case(vm->nc.wleft, i, vm->mem_color[i], vm->memory[i]);
+			vm->nc.memory[i] = vm->memory[i];
+		}
 		i++;
 	}
 }

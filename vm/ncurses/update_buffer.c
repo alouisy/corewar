@@ -16,36 +16,19 @@
 ** update highlight in left panel of ncurses
 */
 
-void	ft_del1(void *content)
-{
-	(void)(content);
-}
-
 void	update_buffer(t_pvm *vm)
 {
 	t_list		*node;
-	t_list		*todel;
 	t_buffer	*buffer;
 
-	node = vm->nc.buffer;
+	node = (vm->nc.stack[vm->cur_cycle % 1001]).next;
 	while (node)
 	{
-		todel = NULL;
 		buffer = get_buffer(node);
-		if (buffer->cycles_bf_end)
-		{
-			buffer->cycles_bf_end--;
-			print_4case(vm, buffer->position, buffer->color);
-		}
-		else if (!(buffer->cycles_bf_end))
-		{
-			todel = ft_lstpop(node, &(vm->nc.buffer));
-		}
+		print_4case(vm, buffer->position, vm->mem_color[buffer->position]);
+		free(node->content);
+		free(node);
 		node = node->next;
-		if (todel)
-		{
-			ft_lstdelone(&todel, &ft_del1);
-			free(todel);
-		}
 	}
+	(vm->nc.stack[vm->cur_cycle % 1001]).next = NULL;
 }

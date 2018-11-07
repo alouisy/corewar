@@ -276,5 +276,6 @@ char						*ft_itoa_base2(uintmax_t n, const char *base);
 long long					ft_pow(int nb, int power);
 int							is_neg(char *str);
 int							ft_is_neg_digit(char *str);
+int							ft_nbrisinteger(char *str);
 
 #endif

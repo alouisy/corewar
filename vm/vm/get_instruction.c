@@ -62,8 +62,9 @@ void		get_instruction(t_pvm *vm, t_process *process)
 	if (process->opcode < 1 || process->opcode > 16)
 	{
 		process->opcode = 0;
-		process->pc += 1;
+		process->pc++;
 		process->pc %= MEM_SIZE;
+		process->cycle_bf_exe = 1;
 	}
 	else
 	{
