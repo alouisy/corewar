@@ -28,7 +28,7 @@ void				write_lbl(t_asm_inf *asm_inf)
 		searched_index.str = tmp_holder->lbl;
 		found_node = find_in_tree(asm_inf->lbl_tree, searched_index);
 		if (!found_node)
-			free_all(asm_inf, "Label reference inexistant\n",
+			free_all(asm_inf, "unknown referenced label\n",
 												LBL_NOT_EXIST_ERR);
 		val = ((t_lbl_def *)found_node->content)->pos -
 													tmp_holder->inst_pos + 1;
@@ -42,20 +42,22 @@ void				write_lbl(t_asm_inf *asm_inf)
 int					add_lbl(char *lbl, t_write_inf *write_inf,
 											t_asm_inf *asm_inf, int return_val)
 {
-	t_holder_def	holder_def;
+	t_holder_def	*holder_def;
 	t_list			*new;
 
-	holder_def.lbl = ft_strdup(&(lbl[1]));
-	if (!holder_def.lbl)
+	holder_def = malloc(sizeof(t_holder_def));
+	if (holder_def)
+		holder_def->lbl = ft_strdup(&(lbl[1]));
+	if (!holder_def || !holder_def->lbl)
 	{
 		write_inf->err = MALLOC_ERR;
 		return (0);
 	}
-	holder_def.inst_pos = write_inf->inst_pos;
-	holder_def.lst_pos = asm_inf->current;
-	holder_def.lbl_bytes = write_inf->nb_bytes;
-	holder_def.has_ocp = write_inf->has_ocp;
-	new = ft_lstnew(&holder_def, sizeof(t_holder_def), 1);
+	holder_def->inst_pos = write_inf->inst_pos;
+	holder_def->lst_pos = asm_inf->current;
+	holder_def->lbl_bytes = write_inf->nb_bytes;
+	holder_def->has_ocp = write_inf->has_ocp;
+	new = ft_lstnew(holder_def, sizeof(holder_def), 0);
 	if (!new)
 	{
 		write_inf->err = MALLOC_ERR;
@@ -78,26 +80,41 @@ static t_lbl_def	*create_lbl_def(char *lbl, t_asm_inf *asm_inf)
 	return (lbl_def);
 }
 
-static void			check_lbl_name(char *lbl, t_asm_inf *asm_inf)
+/*static void			check_lbl_name(char *lbl, t_asm_inf *asm_inf)
 {
 	int i;
 
-	i = 0;
+	i = 1;
 	while (lbl[i])
 	{
 		if (!ft_strchr(LABEL_CHARS, lbl[i]))
 			free_all(asm_inf, "Invalid char in label name\n", LBL_NAME_ERR);
 		i++;
 	}
+}*/
+
+static int			check_lbl_name(char *lbl)
+{
+	int i;
+
+	i = 1;
+	while (lbl[i])
+	{
+		if (!ft_strchr(LABEL_CHARS, lbl[i]))
+			return (0);
+		i++;
+	}
+	return (1);
 }
 
-void				read_label(char *lbl, t_asm_inf *asm_inf)
+/*int				read_label(char *lbl, t_asm_inf *asm_inf)
 {
 	t_tree_index	index;
 	t_rbt_node		*node;
 	t_lbl_def		*lbl_def;
 
-	check_lbl_name(lbl, asm_inf);
+	if (!check_lbl_name(lbl, asm_inf))
+		return (0); //autre ?
 	index.is_nb = 0;
 	index.str = lbl;
 	if (!find_in_tree(asm_inf->lbl_tree, index))
@@ -106,11 +123,37 @@ void				read_label(char *lbl, t_asm_inf *asm_inf)
 		node = new_rbt_node(lbl_def, index);
 		if (!node)
 		{
-			ft_memdel((void **)lbl_def);
+			ft_memdel((void **)&lbl_def);
 			free_all(asm_inf, "Malloc error\n", MALLOC_ERR);
 		}
 		insert_rbt(&(asm_inf->lbl_tree), NULL, node);
 	}
 	else
 		free_all(asm_inf, "Label already exist\n", LBL_EXIST_ERR);
+}*/
+
+int				read_label(char *lbl, t_asm_inf *asm_inf)
+{
+	t_tree_index	index;
+	t_rbt_node		*node;
+	t_lbl_def		*lbl_def;
+
+	if (!check_lbl_name(lbl))
+		return (LBL_NAME_ERR);
+	index.is_nb = 0;
+	index.str = lbl;
+	if (!find_in_tree(asm_inf->lbl_tree, index))
+	{
+		lbl_def = create_lbl_def(lbl, asm_inf);
+		node = new_rbt_node(lbl_def, index);
+		if (!node)
+		{
+			ft_memdel((void **)&lbl_def);
+			return (MALLOC_ERR);
+		}
+		insert_rbt(&(asm_inf->lbl_tree), NULL, node);
+	}
+	else
+		return (LBL_EXIST_ERR);
+	return (0);
 }

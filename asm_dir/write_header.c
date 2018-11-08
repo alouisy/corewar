@@ -32,7 +32,7 @@ static void		write_magic(t_asm_inf *asm_inf)
 		free_all(asm_inf, "Malloc error\n", MALLOC_ERR);
 }
 
-static void		add_str(t_asm_inf *asm_inf, char *str, int len) //je sais pas si je devrias passer str avec 2 **
+static void		add_str(t_asm_inf *asm_inf, char *str, int len)
 {
 	t_list *new;
 

@@ -25,6 +25,7 @@
 # include <stdio.h>
 # include <stdarg.h>
 # include <inttypes.h>
+# include <fcntl.h>
 
 /*
 **struct for libft
@@ -136,6 +137,7 @@ char						*ft_strndup(const char *s1, size_t n);
 int							ft_strnequ(char const *s1, char const *s2,
 	size_t n);
 char						*ft_strnew(size_t size);
+char						*ft_strnew_ch(size_t size, char c);
 char						*ft_strnstr(const char *haystack,
 											const char *needle, size_t len);
 char						*ft_strrchr(const char *s, int c);
@@ -149,6 +151,8 @@ char						*ft_strtrim(char const *s);
 int							ft_toupper(int c);
 int							ft_tolower(int c);
 char						**ft_strsplit_white(char const *s);
+size_t						ft_wcharlen(int chr);
+size_t						ft_wstrlen(wchar_t *str);
 /*
 **Lst
 */
@@ -167,8 +171,10 @@ int							ft_lstlength(t_list *lst);
 t_list						*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 t_list						*ft_lstnew(void *content, size_t content_size,
 															int need_malloc);
+t_list						*ft_lstnew2(void const *content, size_t content_size);
 char						*lst_to_str(t_list *lst);
 t_list						*ft_pop(t_list **lst);
+t_list						*ft_lstpop(t_list *search, t_list **list);
 int							ft_pop_value(t_list **lst);
 t_list						*lst_pop_at(t_list **lst, void *p);
 void						bubble_sort_lst(t_list **lst,
@@ -192,14 +198,17 @@ void						rbt_clear(t_rbt_node **rbt,
 /*
 **IO
 */
-void						ft_putchar(char c);
-void						ft_putchar_fd(char c, int fd);
-void						ft_putendl(char const *s);
-void						ft_putendl_fd(char const *s, int fd);
-void						ft_putnbr(int n);
-void						ft_putnbr_fd(int n, int fd);
-void						ft_putstr(const char *str);
-void						ft_putstr_fd(char const *s, int fd);
+size_t						ft_putchar(char c);
+size_t						ft_putchar_fd(char c, int fd);
+size_t						ft_putendl(char const *s);
+size_t						ft_putendl_fd(char const *s, int fd);
+size_t						ft_putnbr(int n);
+size_t						ft_putnbr_fd(int n, int fd);
+size_t						ft_putstr(const char *str);
+size_t						ft_putstr_fd(char const *s, int fd);
+size_t						ft_putnwchar(wchar_t *str, size_t n);
+size_t						ft_putwchar(size_t chr);
+size_t						ft_putwstr(wchar_t *str);
 int							get_next_line(const int fd, char **line,
 															char separator);
 void						exit_error(char *msg, int code);
@@ -250,7 +259,9 @@ int							display(t_list *final_lst, int error);
 /*
 **Misc
 */
+int							ft_abs(int n);
 long long					ft_atoi(char *str);
+int							ft_atoi2(const char *str);
 long long					ft_atoi_harsh(char *str, int accept_neg,
 												int return_value, int is_int);
 int							ft_isascii(int c);
@@ -259,10 +270,12 @@ int							ft_isalpha(int c);
 int							ft_isdigit(int c);
 int							ft_isprint(int c);
 int							ft_iswhitespace(int c);
-char						*ft_itoa(long long nb);
+char						*ft_itoa(intmax_t n);
 char						*ft_itoa_base(unsigned int nb, int base, int upper);
+char						*ft_itoa_base2(uintmax_t n, const char *base);
 long long					ft_pow(int nb, int power);
 int							is_neg(char *str);
 int							ft_is_neg_digit(char *str);
+int							ft_nbrisinteger(char *str);
 
 #endif

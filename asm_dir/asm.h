@@ -34,7 +34,7 @@ typedef struct	s_op
 	int			param[3];
 	int			op_code;
 	int			ocp;
-	int			two_bytes; //ils l'appelle label?size mais c'est con
+	int			two_bytes;
 }				t_op;
 
 typedef struct	s_lbl_def
@@ -82,15 +82,15 @@ typedef struct	s_write_inf
 extern t_op		g_op_tab[16];
 
 int				init_prog(int argc, char **argv, t_asm_inf *asm_inf);
-char			**init_write(t_write_inf *write_inf, t_asm_inf *asm_inf,
-												int *ocp_val, char *line);
+void			init_write(t_write_inf *write_inf, t_asm_inf *asm_inf,
+												int *ocp_val);
 void			write_header(t_asm_inf *asm_inf);
 int				write_val(char *line, t_write_inf *write_inf,
 							t_asm_inf *asm_inf, int return_val);
 int				write_register(char *line, t_asm_inf *asm_inf,
 													t_write_inf *write_inf);
 void			get_dot_info(int fd, char **line, t_asm_inf *asm_inf);
-void			check_instruct(char *line, t_asm_inf *asm_inf);
+int				check_instruct(char *line, t_asm_inf *asm_inf, char *param);
 char			*fill_binary(int nb_bytes, int val);
 void			write_lbl(t_asm_inf *asm_inf);
 void			write_param(char *line, t_op *op, t_asm_inf *asm_inf,
@@ -104,7 +104,7 @@ char			*trim_comment(char *line, int *err);
 void			free_all(t_asm_inf *asm_inf, char *msg, int err);
 void			free_split(char **split);
 int				free_tmp(char **trimmed, char **binary, t_write_inf *write_inf);
-void			read_label(char *lbl, t_asm_inf *asm_inf);
+int				read_label(char *lbl, t_asm_inf *asm_inf);
 void			add_new(t_holder_def *tmp_holder, int val, t_asm_inf *asm_inf);
 
 #endif

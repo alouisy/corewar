@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zcugni <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/09 18:09:32 by zcugni            #+#    #+#             */
-/*   Updated: 2017/11/09 18:09:34 by zcugni           ###   ########.fr       */
+/*   Created: 2017/11/10 12:33:22 by jgroc-de          #+#    #+#             */
+/*   Updated: 2018/01/30 15:07:49 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putstr(char const *str)
+size_t	ft_putstr(const char *s)
 {
-	if (str)
-		while (*str)
-		{
-			ft_putchar(*str);
-			str++;
-		}
+	const char *save;
+
+	save = s;
+	while (*s)
+		s++;
+	return (write(1, save, s - save));
 }

@@ -12,7 +12,7 @@
 
 #include "asm.h"
 
-char	**init_write(t_write_inf *write_inf, t_asm_inf *asm_inf, int *ocp_val,
+/*char	**init_write(t_write_inf *write_inf, t_asm_inf *asm_inf, int *ocp_val,
 																	char *line)
 {
 	char **split;
@@ -24,16 +24,24 @@ char	**init_write(t_write_inf *write_inf, t_asm_inf *asm_inf, int *ocp_val,
 	write_inf->i = 0;
 	ocp_val = 0;
 	return (split);
+}*/
+
+void	init_write(t_write_inf *write_inf, t_asm_inf *asm_inf, int *ocp_val)
+{
+	write_inf->inst_pos = asm_inf->nb_bytes;
+	write_inf->i = 0;
+	ocp_val = 0;
 }
 
 int		init_prog(int argc, char **argv, t_asm_inf *asm_inf)
 {
 	int fd;
 
-	if (argc > 2)
-		exit_error("too many args\n", MULT_ARGS_ERR);
-	else if (argc <= 1)
-		exit_error(".cor file missing\n", WRONG_FILE_NAME);
+	if (argc != 2)
+	{
+		ft_printf("Usage : %s <sourcefile.s>\n");
+		return (0);
+	}
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
 		exit_error("Ouverture du fichier impossible", OPEN_ERR);

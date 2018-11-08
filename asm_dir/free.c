@@ -15,11 +15,13 @@
 static void	free_list_node(void *content)
 {
 	ft_strdel(&((t_holder_def *)content)->lbl);
+	ft_memdel(&content);
 }
 
 static void	free_rbt_node(void *content)
 {
 	ft_strdel(&((t_lbl_def *)content)->name);
+	ft_memdel(&content);
 }
 
 void		free_all(t_asm_inf *asm_inf, char *msg, int err)
@@ -32,7 +34,8 @@ void		free_all(t_asm_inf *asm_inf, char *msg, int err)
 	ft_lstdel(&asm_inf->binary_list, 1, free);
 	rbt_clear(&asm_inf->lbl_tree, free_rbt_node);
 	ft_lstdel(&asm_inf->holder_lst, 1, free_list_node);
-	exit_error(msg, err);
+	if (msg)
+		exit_error(msg, err);
 }
 
 void		free_split(char **split)
@@ -42,9 +45,10 @@ void		free_split(char **split)
 	i = 0;
 	while (split[i])
 	{
-		ft_memdel((void **)&(split[i]));
+		ft_strdel(&(split[i]));
 		i++;
 	}
+	free(split);
 }
 
 int			free_tmp(char **trimmed, char **binary, t_write_inf *write_inf)
