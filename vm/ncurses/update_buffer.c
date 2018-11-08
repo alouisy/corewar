@@ -19,16 +19,18 @@
 void	update_buffer(t_pvm *vm)
 {
 	t_list		*node;
+	t_list		*save;
 	t_buffer	*buffer;
 
-	node = (vm->nc.stack[vm->cur_cycle % 1001]).next;
+	node = (vm->nc.stack[vm->total_cycles % 1001]).next;
 	while (node)
 	{
 		buffer = get_buffer(node);
+		save = node->next;
 		print_4case(vm, buffer->position, vm->mem_color[buffer->position]);
-		free(node->content);
-		free(node);
-		node = node->next;
+		node->next = vm->nc.trash;
+		vm->nc.trash = node;
+		node = save;
 	}
-	(vm->nc.stack[vm->cur_cycle % 1001]).next = NULL;
+	(vm->nc.stack[vm->total_cycles % 1001]).next = NULL;
 }

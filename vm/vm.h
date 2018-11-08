@@ -42,15 +42,14 @@ typedef struct			s_op
 */
 typedef struct			s_process
 {
-	int					champ_nbr;
 	t_list				*champ;
 	int					pid;
 	int					r[REG_NUMBER];
 	int					pc;
 	int					pc2;
-	int					carry;
-	int					cycles_wo_live;
-	int					cycle_bf_exe;
+	char				carry;
+	char				cycles_wo_live;
+	int					cycle_of_exe;
 	int					param[3];
 	char				param_type[3];
 	int					opcode;
@@ -74,7 +73,7 @@ typedef struct			s_champion
 typedef struct			s_buffer
 {
 	int					position;
-	int					color;
+	unsigned char		color;
 }						t_buffer;
 
 typedef struct			s_ncurses
@@ -84,10 +83,13 @@ typedef struct			s_ncurses
 	WINDOW				*wright;
 	int					step;
 	unsigned char		memory[MEM_SIZE];
+	int					left_width;
+	int					right_width;
 /*
 ** depend du temps d'execution max des instructions, ici 1000 pour lfork
 */
 	t_list				stack[1001];
+	t_list				*trash;
 }						t_ncurses;
 
 /*
@@ -101,7 +103,6 @@ typedef struct			s_pvm
 */
 	t_list				stack[1001];
 	int					pid;
-	t_list				*processes;
 	t_list				*champions;
 	unsigned char		memory[MEM_SIZE];
 	char				mem_color[MEM_SIZE];
@@ -111,12 +112,13 @@ typedef struct			s_pvm
 	int					nb_champ;
 	int					nb_process;
 	int					cycle_to_die;
+	int					c2d;
 	int					total_cycles;
 	int					cycles;
 	int					nb_checks;
 	int					sum_lives;
-	int					cur_cycle;
 	int					last_live;
+	t_list				*trash;
 }						t_pvm;
 
 extern t_op				g_op_tab[17];

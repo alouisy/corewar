@@ -18,13 +18,12 @@
 
 void	new_process_init(t_pvm *pvm, t_process *old, t_process *new, int new_pc)
 {
-	new->champ_nbr = old->champ_nbr; //gg: faut pas toucher sinon segfault
 	new->champ = old->champ; //idem
 	new->pid = pvm->pid++; //idem
 	new->pc = new_pc;
 	new->pc2 = old->pc;
 	new->cycles_wo_live = 0;
-	new->cycle_bf_exe = 0;
+	new->cycle_of_exe = pvm->total_cycles;
 	reset_param(new);
 	new->opcode = 0;
 	new->ocp = 0;

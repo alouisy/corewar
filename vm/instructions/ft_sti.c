@@ -36,7 +36,7 @@ void	ft_sti(t_pvm *pvm, t_process *process)
 		address = process->pc + ((val1 + val2) % IDX_MOD);
 		if (!(pvm->nc.ncurses) && pvm->verbose)
 		{
-			ft_printf("P% 5d | sti r%d %d %d\n", process->champ_nbr, process->param[0], val1, val2);
+			ft_printf("P% 5d | sti r%d %d %d\n", (CHAMPION(process->champ))->nbr, process->param[0], val1, val2);
 			ft_printf("       | -> store to %d + %d = %d (with pc and mod %d)\n", val1, val2, (val1 + val2), address);
 		}
 	//	printf("pc = %d address sti = %d val1 = %d val2 = %d\n", process->pc, address, val1, val2);

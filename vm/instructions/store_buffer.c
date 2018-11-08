@@ -25,10 +25,16 @@ int	store_buffer(t_pvm *vm, int i, int color, int cycles)
 	{
 		mem.position = i;
 		mem.color = color;
-		if (!(node = ft_lstnew2(&mem, sizeof(mem))))
+		if (vm->nc.trash)
+		{
+			node = vm->nc.trash;
+			vm->nc.trash = node->next;
+			*((t_buffer*)(node->content)) = mem;
+		}
+		else if (!(node = ft_lstnew2(&mem, sizeof(mem))))
 			return (0);
-		node->next = (vm->nc.stack[(vm->cur_cycle + cycles) % 1001]).next;
-		(vm->nc.stack[(vm->cur_cycle + cycles) % 1001]).next = node;
+		node->next = (vm->nc.stack[(vm->total_cycles + cycles) % 1001]).next;
+		(vm->nc.stack[(vm->total_cycles + cycles) % 1001]).next = node;
 		if (cycles == 50)
 			print_4case(vm, i, color);
 		else

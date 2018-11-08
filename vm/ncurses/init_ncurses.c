@@ -46,9 +46,12 @@ void	init_ncurses(t_pvm *vm)
 	init_colors();
 	intro_champions(vm);
 	clear();
-	vm->nc.wleft = subwin(stdscr, LINES, 15 * COLS / 20, 0, 0);
-	vm->nc.wright = subwin(stdscr, LINES, 5 * COLS / 20, 0, 15 * COLS / 20);
+	vm->nc.left_width = 15 * COLS / 20;
+	vm->nc.right_width = 5 * COLS / 20;
+	vm->nc.wleft = subwin(stdscr, LINES, vm->nc.left_width, 0, 0);
+	vm->nc.wright = subwin(stdscr, LINES, vm->nc.right_width, 0, vm->nc.left_width);
 	vm->nc.step = 1;
+	vm->nc.trash = NULL;
 	aux_reset_memory(vm);
 	aux_reset_stack(vm->nc.stack);
 	box(vm->nc.wleft, ACS_VLINE, ACS_HLINE);

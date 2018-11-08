@@ -33,7 +33,6 @@ inline void intro_champions(t_pvm *vm)
 		mvprintw(i++, j, "Prog_name: %s", champion->header.prog_name);
 		attroff(COLOR_PAIR(champion->color));
 		mvprintw(i++, j, "Pos: %d", champion->nbr);
-		mvprintw(i++, j, "Magic: %d", champion->header.magic);
 		mvprintw(i++, j, "Prog_size: %d", champion->header.prog_size);
 		mvprintw(i++, j, "Comment: %s", champion->header.comment);
 		node = node->next;

@@ -25,7 +25,7 @@ void	ft_zjmp(UNUSED t_pvm *pvm, t_process *process)
 	{
 		if (!(pvm->nc.ncurses) && pvm->verbose)
 		{
-			ft_printf("P% 5d | zjmp %d OK\n", process->champ_nbr, value);
+			ft_printf("P% 5d | zjmp %d OK\n", (CHAMPION(process->champ))->nbr, value);
 		}
 		process->pc += value % IDX_MOD;
 		process->pc %= MEM_SIZE;
@@ -37,7 +37,7 @@ void	ft_zjmp(UNUSED t_pvm *pvm, t_process *process)
 	{
 		if (!(pvm->nc.ncurses) && pvm->verbose)
 		{
-			ft_printf("P% 5d | zjmp %d FAILED\n", process->champ_nbr, value);
+			ft_printf("P% 5d | zjmp %d FAILED\n", (CHAMPION(process->champ))->nbr, value);
 		}
 	}
 }

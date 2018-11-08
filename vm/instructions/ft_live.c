@@ -25,7 +25,7 @@ void	ft_live(t_pvm *pvm, t_process *process)
 		pvm->last_live = pvm->total_cycles;
 		if (!(pvm->nc.ncurses) && pvm->verbose)
 		{
-			ft_printf("P% 5d | live %d\n", process->champ_nbr, process->param[0]);
+			ft_printf("P% 5d | live %d\n", (CHAMPION(process->champ))->nbr, process->param[0]);
 	//		ft_putstr((char*)((CHAMPION(node))->header.prog_name));
 	//		ft_putendl(" is still not f****** dead. For god sake, kill him!!");
 		}

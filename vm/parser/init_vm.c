@@ -37,7 +37,6 @@ inline void				init_vm(t_pvm *vm)
 	init_f(vm);
 	aux_reset_stack(vm->stack);
 	vm->pid = 0;
-	vm->processes = NULL;
 	vm->champions = NULL;
 	ft_bzero(vm->memory, MEM_SIZE);
 	vm->dump = -1;
@@ -47,11 +46,12 @@ inline void				init_vm(t_pvm *vm)
 	vm->verbose = 0;
 	vm->nb_champ = 0;
 	vm->nb_process = 0;
-	vm->cycle_to_die = CYCLE_TO_DIE;
+	vm->c2d = CYCLE_TO_DIE;
+	vm->cycle_to_die = vm->c2d;
 	vm->total_cycles = 0;
 	vm->cycles = 1;
 	vm->nb_checks = 0;
 	vm->sum_lives = 0;
-	vm->cur_cycle = 0;
 	vm->last_live = 0;
+	vm->trash = NULL;
 }

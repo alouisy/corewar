@@ -34,11 +34,17 @@ int registre_status(t_pvm *vm, int i)
 	{
 		process = PROCESS(node);	
 		j = 0;
+		mvwprintw(vm->nc.wright, i, 1,
+				"__________|_____________________|       ");
+		mvwprintw(vm->nc.wright, i++, vm->nc.right_width / 2,
+				"|___________|____________________");
 		while (j < REG_NUMBER)
 		{
-			mvwprintw(vm->nc.wright, i++, 0,
-					"| reg[%2d] | %12d |", j, process->r[j]);
-			j++;
+			mvwprintw(vm->nc.wright, i, 1,
+					" reg[%2d]  | %18d  |", j, process->r[j]);
+			mvwprintw(vm->nc.wright, i++, vm->nc.right_width / 2,
+					"| reg[%2d]   | %18d ", j + 1, process->r[j +1]);
+			j += 2;
 		}
 	}
 	return (i);
@@ -60,17 +66,25 @@ int	param_status(t_pvm *vm, int i)
 	if (node)
 	{
 		process = PROCESS(node);
-		mvwprintw(vm->nc.wright, i++, 0,
-				"| param 0 | param 1 | param 2 |");
-		mvwprintw(vm->nc.wright, i++, 0,
-				"| %7d | %7d | %7d |",
+		mvwprintw(vm->nc.wright, i, 1,
+				"__________|__________|__________|");
+		mvwprintw(vm->nc.wright, i + 1, 1,
+				"              param             |");
+		mvwprintw(vm->nc.wright, i + 2, 1,
+				"     0    |     1    |     2    |");
+		mvwprintw(vm->nc.wright, i++, vm->nc.right_width / 2,
+				"|___________|                    ");
+		mvwprintw(vm->nc.wright, i++, vm->nc.right_width / 2,
+				"|    type   |                    ");
+		mvwprintw(vm->nc.wright, i++, vm->nc.right_width / 2,
+				"| 0 | 1 | 2 |                    ");
+		mvwprintw(vm->nc.wright, i, 1,
+				" %8d | %8d | %8d |",
 				process->param[0],
 				process->param[1],
 				process->param[2]);
-		mvwprintw(vm->nc.wright, i++, 0,
-				"| type0 | type1 | type2 |");
-		mvwprintw(vm->nc.wright, i++, 0,
-				"| %5d | %5d | %5d |",
+		mvwprintw(vm->nc.wright, i++, vm->nc.right_width / 2,
+				"| %1d | %1d | %1d |                   ",
 				process->param_type[0],
 				process->param_type[1],
 				process->param_type[2]);
@@ -86,22 +100,24 @@ static inline int	current_status_pc(t_pvm *vm, int i)
 	int			j;
 	int			k;
 
-	mvwprintw(vm->nc.wright, i++, 0,
-		"| pid    | owner | pc    | pc2   | opcode | carry | live  |   exe  |");
-	mvwprintw(vm->nc.wright, i++, 0,
-			"._______._______._______._______.________._______._______.______.");
+	mvwprintw(vm->nc.wright, i++, 1,
+			" pid    | owner | pc    | pc2   | opcode | carry | live  |   exe  ");
+	mvwprintw(vm->nc.wright, i++, 1,
+			"________|_______|_______|_______|________|_______|_______|________");
 	k = 0;
 	j = 0;
 	while (k < 1001)
 	{
 		node = vm->stack[(vm->total_cycles + k) % 1001].next;
+		if (k > 1 && j > 40)
+			break;
 		while (node)
 		{
 			process = PROCESS(node);
 			if (j < 40)
 			{
-				mvwprintw(vm->nc.wright, i++, 0,
-						"| %6d | %5d | %5d | %5d | %6d | %5d | %5d | %6d |",
+				mvwprintw(vm->nc.wright, i++, 1,
+						" %6d | %5d | %5d | %5d | %6d | %5d | %5d | %6d ",
 						process->pid,
 						(CHAMPION(process->champ))->nbr,
 						process->pc,
@@ -109,15 +125,21 @@ static inline int	current_status_pc(t_pvm *vm, int i)
 						process->opcode,
 						process->carry,
 						process->cycles_wo_live,
-						process->cycle_bf_exe);
+						process->cycle_of_exe - vm->total_cycles);
 			}
 			color = (CHAMPION(process->champ))->color + 4;
 			if (k == 0)
-				store_buffer(vm, process->pc, color, process->cycle_bf_exe);
+				store_buffer(vm, process->pc, color, process->cycle_of_exe);
 			node = node->next;
 			j++;
 		}
 		k++;
+	}
+	while (j++ < 25)
+	{
+		mvwprintw(vm->nc.wright, i++, 1,
+				" %6s | %5s | %5s | %5s | %6s | %5s | %5s | %6s ",
+				"", "", "", "", "", "", "", ""); 
 	}
 	return (i);
 }
@@ -127,7 +149,8 @@ void		status_process(t_pvm *vm, int i)
 	i = current_status_pc(vm, i);
 	if (i < LINES - 5)
 	{
-		i = param_status(vm, i + 1);
-		registre_status(vm, i + 1);
+		i = LINES - 15;
+		i = param_status(vm, i);
+		registre_status(vm, i);
 	}
 }

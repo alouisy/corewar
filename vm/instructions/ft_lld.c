@@ -34,7 +34,7 @@ void	ft_lld(UNUSED t_pvm *pvm, t_process *process)
 		process->r[process->param[1] - 1] = ft_strhex2dec((pvm->memory + (address % MEM_SIZE)), 4);
 		if (!(pvm->nc.ncurses) && pvm->verbose)
 		{
-			ft_printf("P% 5d | lld %d r%d\n", process->champ_nbr, value, process->param[1]);
+			ft_printf("P% 5d | lld %d r%d\n", (CHAMPION(process->champ))->nbr, value, process->param[1]);
 		}
 		if (process->r[process->param[1] - 1])
 			process->carry = 0;

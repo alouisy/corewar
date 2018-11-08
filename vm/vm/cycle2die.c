@@ -16,13 +16,15 @@ static void	decremente_c2d(t_pvm *vm)
 {
 	if (vm->sum_lives >= NBR_LIVE || vm->nb_checks >= MAX_CHECKS)
 	{
-		vm->cycle_to_die -= CYCLE_DELTA;
+		vm->c2d -= CYCLE_DELTA;
 		vm->nb_checks = 0;
 	}
 	else
+	{
 		vm->nb_checks++;
+	}
+	vm->cycle_to_die += vm->c2d;
 	vm->sum_lives = 0;
-	vm->cur_cycle = 0;
 }
 
 void ft_del(UNUSED void *content)
@@ -30,7 +32,7 @@ void ft_del(UNUSED void *content)
 	free(content);
 }
 
-static void	check_process(t_pvm *vm)
+void	check_process(t_pvm *vm)
 {
 	t_list	*node;
 	t_list	*save;
@@ -47,8 +49,8 @@ static void	check_process(t_pvm *vm)
 			{
 				vm->nb_process--;
 				save->next = node->next;
-				free(node->content);
-				free(node);
+				node->next = vm->trash;
+				vm->trash = node;
 				node = save;
 			}
 			else
@@ -58,6 +60,7 @@ static void	check_process(t_pvm *vm)
 			}
 			node = node->next;
 		}
+		vm->stack[i].content = save;
 		i++;
 	}
 }

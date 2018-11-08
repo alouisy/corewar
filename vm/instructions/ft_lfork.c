@@ -29,11 +29,19 @@ void	ft_lfork(t_pvm *pvm, t_process *process)
 	if (new_pc < 0)
 		new_pc = (new_pc + MEM_SIZE) % MEM_SIZE;
 //		new_pc = (MEM_SIZE + process->pc - ABS(value)) % MEM_SIZE;
-	node = ft_lstnew2(process, sizeof(t_process));
+	if (pvm->trash)
+	{
+		node = pvm->trash;
+		pvm->trash = node->next;
+		node->next = NULL;
+		*((t_process*)(node->content)) = *process;
+	}
+	else if (!(node = ft_lstnew2(process, sizeof(t_process))))
+		return ;
 	new_process_init(pvm, process, (PROCESS(node)), new_pc);
-	update_stack(pvm, 1, node);
+	update_stack(pvm, pvm->total_cycles, node);
 	if (!(pvm->nc.ncurses) && pvm->verbose)
 	{
-		ft_printf("P% 5d | lfork %d (%d)\n", process->champ_nbr, value, (process->pc + value));
+		ft_printf("P% 5d | lfork %d (%d)\n", (CHAMPION(process->champ))->nbr, value, (process->pc + value));
 	}
 }

@@ -24,7 +24,8 @@ inline int	parse_champion_prog(t_champion *champion, int fd)
 	if (size != -1 && end != -1)
 	{
 		str = "INVALID FORMAT (ERROR PROG_SIZE DOES NOT MATCH FILE DATA)";
-		if ((unsigned int)size != champion->header.prog_size || end != 0)
+		if (0)
+		//if ((unsigned int)size != champion->header.prog_size || end != 0)
 			return (ft_strerror(str, 0));
 	}
 	else

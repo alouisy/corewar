@@ -19,4 +19,5 @@ void	process_instruction(t_pvm *vm, t_process *process)
 	process->pc = process->pc2;
 	process->opcode = 0;
 	process->ocp = 0;
+	process->cycle_of_exe = vm->total_cycles;
 }

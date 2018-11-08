@@ -29,7 +29,7 @@ void	ft_xor(__attribute__((unused)) t_pvm *pvm, t_process *process)
 		process->r[process->param[2] - 1] = (val1 ^ val2);
 		if (!(pvm->nc.ncurses) && pvm->verbose)
 		{
-			ft_printf("P% 5d | xor %d %d r%d\n", process->champ_nbr, val1, val2, process->param[2]);
+			ft_printf("P% 5d | xor %d %d r%d\n", (CHAMPION(process->champ))->nbr, val1, val2, process->param[2]);
 		}
 		if (process->r[process->param[2] - 1])
 			process->carry = 0;
