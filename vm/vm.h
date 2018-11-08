@@ -45,14 +45,14 @@ typedef struct			s_process
 	t_list				*champ;
 	int					pid;
 	int					r[REG_NUMBER];
-	int					pc;
-	int					pc2;
+	short int			pc;
+	short int			pc2;
 	char				carry;
 	char				cycles_wo_live;
 	int					cycle_of_exe;
 	int					param[3];
 	char				param_type[3];
-	int					opcode;
+	int					opcode; //a changer en char??
 	char				ocp;
 }						t_process;
 
@@ -72,7 +72,7 @@ typedef struct			s_champion
 */
 typedef struct			s_buffer
 {
-	int					position;
+	short int			position;
 	unsigned char		color;
 }						t_buffer;
 
