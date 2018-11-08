@@ -18,13 +18,12 @@
 
 void	new_process_init(t_pvm *pvm, t_process *old, t_process *new, int new_pc)
 {
-	new->champ = old->champ; //idem
-	new->pid = pvm->pid++; //idem
+	new->champ = old->champ;
 	new->pc = new_pc;
 	new->pc2 = old->pc;
-	new->cycles_wo_live = 0;
-	new->cycle_of_exe = pvm->total_cycles;
+	new->state = (old->state >> 1) << 1;
 	reset_param(new);
 	new->opcode = 0;
 	new->ocp = 0;
+	new->cycle_of_exe = pvm->total_cycles;
 }

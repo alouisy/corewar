@@ -16,28 +16,26 @@
 ** jump if zero
 */
 
-void	ft_zjmp(UNUSED t_pvm *pvm, t_process *process)
+int	ft_zjmp(UNUSED t_pvm *pvm, t_process *process)
 {
 	int		value;
+	char	*str;
 
 	value = (short int)process->param[0];
-	if (process->carry == 1)
+	if (process->state / 2)
 	{
-		if (!(pvm->nc.ncurses) && pvm->verbose)
-		{
-			ft_printf("P% 5d | zjmp %d OK\n", (CHAMPION(process->champ))->nbr, value);
-		}
+		str = "OK";
 		process->pc += value % IDX_MOD;
 		process->pc %= MEM_SIZE;
-		while (process->pc < 0)
+		if (process->pc < 0)
 			process->pc += MEM_SIZE;
 		process->pc2 = process->pc;
 	}
 	else
+		str= "FAILED";
+	if (pvm->verbose == 2)
 	{
-		if (!(pvm->nc.ncurses) && pvm->verbose)
-		{
-			ft_printf("P% 5d | zjmp %d FAILED\n", (CHAMPION(process->champ))->nbr, value);
-		}
+		ft_printf("P% 5d | zjmp %d %s\n", (CHAMPION(process->champ))->nbr, value, str);
 	}
+	return (1);
 }

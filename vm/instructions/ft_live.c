@@ -12,22 +12,22 @@
 
 #include "../vm.h"
 
-void	ft_live(t_pvm *pvm, t_process *process)
+int	ft_live(t_pvm *pvm, t_process *process)
 {
 	t_list	*node;
 
-	process->cycles_wo_live = 1;
+	if (!(process->state % 2))
+		process->state += 1;
 	pvm->sum_lives++;
 	if ((node = ft_lstfindchamp(pvm->champions, process->param[0])))
 	{
 		(CHAMPION(node))->nb_live++;
 		(CHAMPION(node))->l_live = pvm->total_cycles;
 		pvm->last_live = pvm->total_cycles;
-		if (!(pvm->nc.ncurses) && pvm->verbose)
+		if (pvm->verbose == 2)
 		{
 			ft_printf("P% 5d | live %d\n", (CHAMPION(process->champ))->nbr, process->param[0]);
-	//		ft_putstr((char*)((CHAMPION(node))->header.prog_name));
-	//		ft_putendl(" is still not f****** dead. For god sake, kill him!!");
 		}
 	}
+	return (1);
 }

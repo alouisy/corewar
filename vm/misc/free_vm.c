@@ -21,6 +21,12 @@ void		free_vm(t_pvm *vm)
 {
 	if (vm->champions)
 		ft_lstdel(&(vm->champions), 1, &aux_del);
-	if (vm->nc.ncurses)
+	if (vm->trash)
+		ft_lstdel(&(vm->trash), 1, &aux_del);
+	if (vm->verbose == 1)
+	{
+		if (vm->nc.trash)
+			ft_lstdel(&(vm->nc.trash), 1, &aux_del);
 		close_ncurses(vm);
+	}
 }

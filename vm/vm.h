@@ -37,21 +37,31 @@ typedef struct			s_op
 	int					label_size;
 }						t_op;
 
+extern t_op				g_op_tab[17];
+
 /*
 ** structure for process then for champion
 */
 typedef struct			s_process
 {
 	t_list				*champ;
-	int					pid;
+	/*
+	** pid a été mis dans node->content_size du process
+	*/
 	int					r[REG_NUMBER];
 	short int			pc;
 	short int			pc2;
-	char				carry;
-	char				cycles_wo_live;
+	/*
+	** state manage carry and live status in a single variable for memory effeciency.
+	**  0 : none
+	**  1 : alive
+	**	2 : carry = 1
+	**  3 : both
+	*/
+	char				state;
 	int					cycle_of_exe;
 	int					param[3];
-	char				param_type[3];
+	char				param_type[3]; //changer en char[1] et manupulation binaire dessus
 	int					opcode; //a changer en char??
 	char				ocp;
 }						t_process;
@@ -64,30 +74,28 @@ typedef struct			s_champion
 	int					vm_pos;
 	int					l_live;
 	int					nb_live;
-	int					color;
+	char				color;
 }						t_champion;
 
 /*
 ** structure nécessaire au fonctionnement de ncurses
 */
-typedef struct			s_buffer
+typedef struct			s_buffer // a sup
 {
-	short int			position;
-	unsigned char		color;
+	unsigned char		color; // supprimer et utiliser le "size" des nodes
 }						t_buffer;
 
 typedef struct			s_ncurses
 {
-	int					ncurses;
 	WINDOW				*wleft;
 	WINDOW				*wright;
 	int					step;
 	unsigned char		memory[MEM_SIZE];
 	int					left_width;
 	int					right_width;
-/*
-** depend du temps d'execution max des instructions, ici 1000 pour lfork
-*/
+	/*
+	** depend du temps d'execution max des instructions, ici 1000 pour lfork
+	*/
 	t_list				stack[1001];
 	t_list				*trash;
 }						t_ncurses;
@@ -97,17 +105,17 @@ typedef struct			s_ncurses
 */
 typedef struct			s_pvm
 {
-	void				(*f[16])(struct s_pvm *, t_process *);
-/*
-** depend du temps d'execution max des instructions, ici 1000 pour lfork
-*/
+	int					(*f[16])(struct s_pvm *, t_process *);
+	/*
+	** depend du temps d'execution max des instructions, ici 1000 pour lfork
+	*/
 	t_list				stack[1001];
 	int					pid;
 	t_list				*champions;
 	unsigned char		memory[MEM_SIZE];
-	char				mem_color[MEM_SIZE];
+	unsigned char		mem_color[MEM_SIZE];
 	int					dump;
-	int					verbose;
+	char				verbose;
 	t_ncurses			nc;
 	int					nb_champ;
 	int					nb_process;
@@ -118,10 +126,11 @@ typedef struct			s_pvm
 	int					nb_checks;
 	int					sum_lives;
 	int					last_live;
+	/*
+	** poubelle à node
+	*/
 	t_list				*trash;
 }						t_pvm;
-
-extern t_op				g_op_tab[17];
 
 /*
 ** parser
@@ -154,28 +163,30 @@ void					update_stack(t_pvm *vm, int cycles, t_list *tmp);
 /*
 ** instructions
 */
-void					ft_live(t_pvm *pvm, t_process *process);
-void					ft_ld(t_pvm *pvm, t_process *process);
-void					ft_st(t_pvm *pvm, t_process *process);
-void					ft_add(t_pvm *pvm, t_process *process);
-void					ft_sub(t_pvm *pvm, t_process *process);
-void					ft_and(t_pvm *pvm, t_process *process);
-void					ft_or(t_pvm *pvm, t_process *process);
-void					ft_xor(t_pvm *pvm, t_process *process);
-void					ft_zjmp(t_pvm *pvm, t_process *process);
-void					ft_ldi(t_pvm *pvm, t_process *process);
-void					ft_sti(t_pvm *pvm, t_process *process);
-void					ft_fork(t_pvm *pvm, t_process *process);
-void					ft_lld(t_pvm *pvm, t_process *process);
-void					ft_lldi(t_pvm *pvm, t_process *process);
-void					ft_lfork(t_pvm *pvm, t_process *process);
-void					ft_aff(t_pvm *pvm, t_process *process);
+int						ft_live(t_pvm *pvm, t_process *process);
+int						ft_ld(t_pvm *pvm, t_process *process);
+int						ft_st(t_pvm *pvm, t_process *process);
+int						ft_add(t_pvm *pvm, t_process *process);
+int						ft_sub(t_pvm *pvm, t_process *process);
+int						ft_and(t_pvm *pvm, t_process *process);
+int						ft_or(t_pvm *pvm, t_process *process);
+int						ft_xor(t_pvm *pvm, t_process *process);
+int						ft_zjmp(t_pvm *pvm, t_process *process);
+int						ft_ldi(t_pvm *pvm, t_process *process);
+int						ft_sti(t_pvm *pvm, t_process *process);
+int						ft_fork(t_pvm *pvm, t_process *process);
+int						ft_lld(t_pvm *pvm, t_process *process);
+int						ft_lldi(t_pvm *pvm, t_process *process);
+int						ft_lfork(t_pvm *pvm, t_process *process);
+int						ft_aff(t_pvm *pvm, t_process *process);
 int						get_prm_value(t_pvm *pvm,
 							t_process *process, int i, int *value);
 int						lget_prm_value(t_pvm *pvm,
 							t_process *process, int i, int *value);
 void					new_process_init(t_pvm *pvm, t_process *old, t_process *new, int new_pc);
 void					write_in_memory(t_pvm *pvm, t_process *process, int value, short int value2);
+void					ft_carry(t_process *process, char carry_0, char carry_1);
+int 					aux_fork(t_pvm *vm, t_process *process, int value);
 
 /*
 ** misc

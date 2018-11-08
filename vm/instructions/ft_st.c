@@ -16,7 +16,7 @@
 ** direct store
 */
 
-void	ft_st(t_pvm *pvm, t_process *process)
+int	ft_st(t_pvm *pvm, t_process *process)
 {
 	int		value;
 	int		check;
@@ -32,7 +32,7 @@ void	ft_st(t_pvm *pvm, t_process *process)
 				check = 1;
 				process->r[process->param[1] - 1] = value;
 			}
-			if (!(pvm->nc.ncurses) && pvm->verbose)
+			if (pvm->verbose == 2)
 			{
 				ft_printf("P% 5d | st r%d %d\n", (CHAMPION(process->champ))->nbr, process->param[0], process->param[1]);
 			}
@@ -41,14 +41,13 @@ void	ft_st(t_pvm *pvm, t_process *process)
 		{
 			check = 1;
 			write_in_memory(pvm, process, value, (short int)process->param[1]);
-			if (!(pvm->nc.ncurses) && pvm->verbose)
+			if (pvm->verbose == 2)
 			{
 				ft_printf("P% 5d | st r%d %d\n", (CHAMPION(process->champ))->nbr, process->param[0], ((short int)process->param[1]));
 			}
 		}
-		if (check == 1 && value == 0)
-			process->carry = 1;
-		else if (check == 1 && value != 0)
-			process->carry = 0;
+		if (check)
+			ft_carry(process, value, !value);
 	}
+	return (1);
 }

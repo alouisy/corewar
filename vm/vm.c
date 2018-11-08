@@ -49,7 +49,7 @@ int			main(int argc, char **argv)
 		if (parse_arg(&vm, argc, argv))
 		{
 			init_memory(&vm);
-			if (!(vm.nc.ncurses))
+			if (vm.verbose != 1)
 				print_champ(vm.champions);
 				//ft_lstiter(vm.champions, &aux_print_champ);
 			else

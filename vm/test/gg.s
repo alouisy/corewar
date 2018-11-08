@@ -6,6 +6,6 @@ lds: live %1
 	and r1, %0, r1
 	zjmp %:lds
 test: live %1 
-	fork %:test
+	fork %:lds
 	and r1, %0, r1
 	zjmp %:lds

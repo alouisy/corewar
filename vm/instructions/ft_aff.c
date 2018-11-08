@@ -16,7 +16,7 @@
 ** aff comme … comme … affooo… non affaaaa… non affuuuuu? non plus. affouuuuuu?!
 */
 
-void	ft_aff(UNUSED t_pvm *pvm, t_process *process)
+int	ft_aff(UNUSED t_pvm *pvm, t_process *process)
 {
 	char	c;
 
@@ -24,10 +24,9 @@ void	ft_aff(UNUSED t_pvm *pvm, t_process *process)
 	if (process->param[0] >= 1 && process->param[0] <= REG_NUMBER)
 	{
 		c = process->r[process->param[0] - 1] % 256;
-		ft_printf("Aff: %c\n", c);
-		if (c == '\0')
-			process->carry = 1;
-		else
-			process->carry = 0;
+		if (pvm->verbose == 2)
+			ft_printf("Aff: %c\n", c);
+		ft_carry(process, !(c == '\0'), c == '\0');
 	}
+	return (1);
 }

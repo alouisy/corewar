@@ -16,7 +16,7 @@
 ** long direct load
 */
 
-void	ft_lld(UNUSED t_pvm *pvm, t_process *process)
+int	ft_lld(UNUSED t_pvm *pvm, t_process *process)
 {
 	int		value;
 	int		address;
@@ -24,7 +24,7 @@ void	ft_lld(UNUSED t_pvm *pvm, t_process *process)
 	value = 0;
 	address = 0;
 	if (process->param[1] >= 1 && process->param[1] <= REG_NUMBER
-		&& lget_prm_value(pvm, process, 0, &value))
+		&& get_prm_value(pvm, process, 0, &value))
 	{
 		if (process->param_type[0] == IND_CODE)
 			value = (short int)value;
@@ -32,14 +32,12 @@ void	ft_lld(UNUSED t_pvm *pvm, t_process *process)
 		while (address < 0)
 			address += MEM_SIZE;
 		process->r[process->param[1] - 1] = ft_strhex2dec((pvm->memory + (address % MEM_SIZE)), 4);
-		if (!(pvm->nc.ncurses) && pvm->verbose)
+		if (pvm->verbose == 2)
 		{
 			ft_printf("P% 5d | lld %d r%d\n", (CHAMPION(process->champ))->nbr, value, process->param[1]);
 		}
-		if (process->r[process->param[1] - 1])
-			process->carry = 0;
-		else
-			process->carry = 1;
+		ft_carry(process, process->r[process->param[2] - 1], !(process->r[process->param[2] - 1]));
 	}
+	return (1);
 }
 

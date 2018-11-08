@@ -16,7 +16,7 @@
 ** direct load
 */
 
-void	ft_ld(__attribute__((unused)) t_pvm *pvm, t_process *process)
+int	ft_ld(__attribute__((unused)) t_pvm *pvm, t_process *process)
 {
 	int		value;
 
@@ -25,13 +25,11 @@ void	ft_ld(__attribute__((unused)) t_pvm *pvm, t_process *process)
 		&& get_prm_value(pvm, process, 0, &value))
 	{
 		process->r[process->param[1] - 1] = value;
-		if (process->r[process->param[1] - 1])
-			process->carry = 0;
-		else
-			process->carry = 1;
-		if (!(pvm->nc.ncurses) && pvm->verbose)
+		if (pvm->verbose == 2)
 		{
 			ft_printf("P% 5d | ld %d r%d\n", (CHAMPION(process->champ))->nbr, value, process->param[1]);
 		}
+		ft_carry(process, value, !value);
 	}
+	return (1);
 }

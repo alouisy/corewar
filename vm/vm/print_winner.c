@@ -23,7 +23,7 @@ inline void	print_winner(t_pvm *vm)
 			break ;
 		champ = champ->next;
 	}
-	if (vm->nc.ncurses)
+	if (vm->verbose == 1)
 	{
 		clear();
 		timeout(-1);

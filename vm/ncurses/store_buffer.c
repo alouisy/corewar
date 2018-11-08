@@ -21,9 +21,8 @@ int	store_buffer(t_pvm *vm, int i, int color, int cycles)
 	t_list 		*node;
 	t_buffer	mem;
 
-	if (vm->nc.ncurses)
+	if (vm->verbose == 1)
 	{
-		mem.position = i;
 		mem.color = color;
 		if (vm->nc.trash)
 		{
@@ -33,6 +32,7 @@ int	store_buffer(t_pvm *vm, int i, int color, int cycles)
 		}
 		else if (!(node = ft_lstnew2(&mem, sizeof(mem))))
 			return (0);
+		node->content_size = i;
 		node->next = (vm->nc.stack[(vm->total_cycles + cycles) % 1001]).next;
 		(vm->nc.stack[(vm->total_cycles + cycles) % 1001]).next = node;
 		if (cycles == 50)

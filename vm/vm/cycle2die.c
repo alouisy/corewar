@@ -45,7 +45,7 @@ void	check_process(t_pvm *vm)
 		save = &(vm->stack[i]);
 		while (node)
 		{
-			if ((PROCESS(node))->cycles_wo_live == 0)
+			if ((PROCESS(node))->state % 2 != 1)
 			{
 				vm->nb_process--;
 				save->next = node->next;
@@ -55,7 +55,10 @@ void	check_process(t_pvm *vm)
 			}
 			else
 			{
-				(PROCESS(node))->cycles_wo_live = 0;
+				/*
+				** state manages 2 variables, see vm.h
+				*/
+				(PROCESS(node))->state -= 1;
 				save = node;
 			}
 			node = node->next;

@@ -101,9 +101,9 @@ static inline int	current_status_pc(t_pvm *vm, int i)
 	int			k;
 
 	mvwprintw(vm->nc.wright, i++, 1,
-			" pid    | owner | pc    | pc2   | opcode | carry | live  |   exe  ");
+			"   pid      | owner | pc   | pc2  | opcode | carry | live  |  exe ");
 	mvwprintw(vm->nc.wright, i++, 1,
-			"________|_______|_______|_______|________|_______|_______|________");
+			"____________|_______|______|______|________|_______|_______|______");
 	k = 0;
 	j = 0;
 	while (k < 1001)
@@ -117,14 +117,14 @@ static inline int	current_status_pc(t_pvm *vm, int i)
 			if (j < 40)
 			{
 				mvwprintw(vm->nc.wright, i++, 1,
-						" %6d | %5d | %5d | %5d | %6d | %5d | %5d | %6d ",
-						process->pid,
+						" %10d | %5d | %5d | %5d | %6d | %5d | %5d | %4d ",
+						node->content_size,
 						(CHAMPION(process->champ))->nbr,
 						process->pc,
 						process->pc2,
 						process->opcode,
-						process->carry,
-						process->cycles_wo_live,
+						process->state / 2 ? 1 : 0,
+						process->state % 2 ? 1 : 0,
 						process->cycle_of_exe - vm->total_cycles);
 			}
 			color = (CHAMPION(process->champ))->color + 4;

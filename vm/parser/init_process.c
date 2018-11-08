@@ -18,16 +18,13 @@ inline void	init_process(t_process *process, t_pvm *vm)
 
 	vm->nb_process++;
 	process->champ = vm->champions;
-	process->pid = vm->pid++;
-//	process->r[0] = process->champ_nbr;
 	process->r[0] = (CHAMPION(vm->champions))->nbr * -1;
 	i = 1;
 	while (i < REG_NUMBER)
 		process->r[i++] = 0;
 	process->pc = 0;
 	process->pc2 = 0;
-	process->carry = 0;
-	process->cycles_wo_live = 0;
+	process->state = 0;
 	process->cycle_of_exe = 0;
 	reset_param(process);
 	process->opcode = -1;

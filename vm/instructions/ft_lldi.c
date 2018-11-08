@@ -16,7 +16,7 @@
 ** indirect load
 */
 
-void	ft_lldi(t_pvm *pvm, t_process *process)
+int	ft_lldi(t_pvm *pvm, t_process *process)
 {
 	int		val1;
 	int		val2;
@@ -33,7 +33,7 @@ void	ft_lldi(t_pvm *pvm, t_process *process)
 			val1 = (short int)val1;
 		val2 = (short int)process->param[1];
 		address = process->pc + (val1 + val2);
-		if (!(pvm->nc.ncurses) && pvm->verbose)
+		if (pvm->verbose == 2)
 		{
 			ft_printf("P% 5d | lldi %d %d r%d\n", (CHAMPION(process->champ))->nbr, val1, val2, process->param[2]);
 		
@@ -43,9 +43,7 @@ void	ft_lldi(t_pvm *pvm, t_process *process)
 			address += MEM_SIZE;		
 		val1 = ft_strhex2dec((pvm->memory + (address % MEM_SIZE)), 4);
 		process->r[process->param[2] - 1] = val1;
-		if (process->r[process->param[2] - 1])
-			process->carry = 0;
-		else
-			process->carry = 1;
+		ft_carry(process, val1, !val1);
 	}
+	return (1);
 }

@@ -64,13 +64,12 @@ void		get_instruction(t_pvm *vm, t_process *process)
 		process->opcode = 0;
 		process->pc++;
 		process->pc %= MEM_SIZE;
-		process->cycle_of_exe = vm->total_cycles;
 	}
 	else
 	{
 		shift += get_opcode(vm, process);
 		shift = get_param(vm, process, shift);
 		process->pc2 = (process->pc + shift) % MEM_SIZE;
-		process->cycle_of_exe = vm->total_cycles + g_op_tab[process->opcode].nb_cycles - 1;
 	}
+	process->cycle_of_exe = vm->total_cycles + g_op_tab[process->opcode].nb_cycles - 1;
 }

@@ -20,14 +20,12 @@ void	update_buffer(t_pvm *vm)
 {
 	t_list		*node;
 	t_list		*save;
-	t_buffer	*buffer;
 
 	node = (vm->nc.stack[vm->total_cycles % 1001]).next;
 	while (node)
 	{
-		buffer = get_buffer(node);
 		save = node->next;
-		print_4case(vm, buffer->position, vm->mem_color[buffer->position]);
+		print_4case(vm, node->content_size, vm->mem_color[node->content_size]);
 		node->next = vm->nc.trash;
 		vm->nc.trash = node;
 		node = save;

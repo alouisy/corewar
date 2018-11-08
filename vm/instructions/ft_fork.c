@@ -16,32 +16,16 @@
 ** fork
 */
 
-void		ft_fork(t_pvm *pvm, t_process *process)
+int		ft_fork(t_pvm *pvm, t_process *process)
 {
-	int			value;
-	int			new_pc;
-	t_list		*node;
+	int value;
 
-	(void)node;
-	pvm->nb_process++;
 	value = (short int)process->param[0];
-	new_pc = (process->pc + (value % IDX_MOD)) % MEM_SIZE;
-	while (new_pc < 0)
-		new_pc += MEM_SIZE;
-//		new_pc = (MEM_SIZE + process->pc - (ABS(value) % IDX_MOD)) % MEM_SIZE;
-	if (pvm->trash)
-	{
-		node = pvm->trash;
-		pvm->trash = node->next;
-		node->next = NULL;
-		*((t_process*)(node->content)) = *process;
-	}
-	else if (!(node = ft_lstnew2(process, sizeof(t_process))))
-		return ;
-	new_process_init(pvm, process, (PROCESS(node)), new_pc);
-	update_stack(pvm, pvm->total_cycles, node);
-	if (!(pvm->nc.ncurses) && pvm->verbose)
+	if (!aux_fork(pvm, process, value % IDX_MOD))
+		return (0);
+	if (pvm->verbose == 2)
 	{
 		ft_printf("P% 5d | fork %d (%d)\n", (CHAMPION(process->champ))->nbr, value, (process->pc + (value % IDX_MOD)));
 	}
+	return (1);
 }

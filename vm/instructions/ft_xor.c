@@ -16,7 +16,7 @@
 ** logical XOR
 */
 
-void	ft_xor(__attribute__((unused)) t_pvm *pvm, t_process *process)
+int	ft_xor(__attribute__((unused)) t_pvm *pvm, t_process *process)
 {
 	int		val1;
 	int		val2;
@@ -27,13 +27,11 @@ void	ft_xor(__attribute__((unused)) t_pvm *pvm, t_process *process)
 		&& get_prm_value(pvm, process, 0, &val1) && get_prm_value(pvm, process, 1, &val2))
 	{
 		process->r[process->param[2] - 1] = (val1 ^ val2);
-		if (!(pvm->nc.ncurses) && pvm->verbose)
+		if (pvm->verbose == 2)
 		{
 			ft_printf("P% 5d | xor %d %d r%d\n", (CHAMPION(process->champ))->nbr, val1, val2, process->param[2]);
 		}
-		if (process->r[process->param[2] - 1])
-			process->carry = 0;
-		else
-			process->carry = 1;
+		ft_carry(process, process->r[process->param[2] - 1], !(process->r[process->param[2] - 1]));
 	}
+	return (1);
 }

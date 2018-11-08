@@ -16,7 +16,7 @@
 ** indirect store
 */
 
-void	ft_sti(t_pvm *pvm, t_process *process)
+int	ft_sti(t_pvm *pvm, t_process *process)
 {
 	int		val1;
 	int		val2;
@@ -34,7 +34,7 @@ void	ft_sti(t_pvm *pvm, t_process *process)
 			val1 = (short int)val1;
 		val2 = (short int)process->param[2];
 		address = process->pc + ((val1 + val2) % IDX_MOD);
-		if (!(pvm->nc.ncurses) && pvm->verbose)
+		if (pvm->verbose == 2)
 		{
 			ft_printf("P% 5d | sti r%d %d %d\n", (CHAMPION(process->champ))->nbr, process->param[0], val1, val2);
 			ft_printf("       | -> store to %d + %d = %d (with pc and mod %d)\n", val1, val2, (val1 + val2), address);
@@ -42,9 +42,7 @@ void	ft_sti(t_pvm *pvm, t_process *process)
 	//	printf("pc = %d address sti = %d val1 = %d val2 = %d\n", process->pc, address, val1, val2);
 		val3 = process->r[process->param[0] - 1];
 		write_in_memory(pvm, process, val3, val1 + val2);
-		if (process->r[process->param[0] - 1] == 0)
-			process->carry = 1;
-		else
-			process->carry = 0;
+		ft_carry(process, val3, !val3);
 	}
+	return (1);
 }
