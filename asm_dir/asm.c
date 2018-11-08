@@ -118,7 +118,7 @@ static void	parse_line(char *line, t_asm_inf *asm_inf)
 
 	if (split[0][0] && split[0][0] != COMMENT_CHAR)
 	{
-		if (i >= 3 && split[2][0] != COMMENT_CHAR)
+		if ((i >= 4 && split[3][0] != COMMENT_CHAR) && (i >= ))
 		{
 			free_split(split);
 			free_all(asm_inf, "Wrong char in line\n", 2); //changer code
