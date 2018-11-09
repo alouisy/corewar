@@ -12,22 +12,6 @@
 
 #include "../vm.h"
 
-static inline void	print_winner(t_pvm *vm)
-{
-	t_list	*champ;
-
-	champ = vm->champions;
-	while (champ)
-	{
-		if ((CHAMPION(champ))->l_live >= vm->last_live)
-			break ;
-		champ = champ->next;
-	}
-	if (vm->nc.ncurses)
-		clear();
-	ft_printf("le joueur %d(%s) a gagne\n", (CHAMPION(champ))->nbr, (CHAMPION(champ))->header.prog_name);
-}
-
 void				start_vm(t_pvm *vm)
 {
 	t_process	*content;
@@ -42,17 +26,26 @@ void				start_vm(t_pvm *vm)
 		while (tmp)
 		{
 			content = PROCESS(tmp);
-			if (content->opcode == -1)
+			if (content->opcode <= 0)
+			{
 				get_instruction(vm, content);
+			}
 			else
+			{
 				process_instruction(vm, content);
+			}
 			if (vm->nc.ncurses)
+			{
 				update_process(vm, content);
+			}
 			tmp = tmp->next;
 		}
 		vm->total_cycles++;
 		if (vm->nc.ncurses)
-			game_status(vm);
+			status_game(vm);
 	}
+	ft_printf("end\n");
+	if (vm->total_cycles == vm->dump)
+		print_memory(vm);
 	print_winner(vm);
 }

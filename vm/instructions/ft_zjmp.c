@@ -18,10 +18,24 @@
 
 void	ft_zjmp(UNUSED t_pvm *pvm, t_process *process)
 {
+	int		value;
+
+	value = (short int)process->param[0];
 	if (process->carry == 1)
 	{
-		process->pc += process->param[0];
+		if (!(pvm->nc.ncurses) && pvm->verbose)
+		{
+			ft_printf("P% 5d | zjmp %d OK\n", process->champ_nbr, value);
+		}
+		process->pc += value % IDX_MOD;
 		process->pc %= MEM_SIZE;
 		process->pc2 = process->pc;
+	}
+	else
+	{
+		if (!(pvm->nc.ncurses) && pvm->verbose)
+		{
+			ft_printf("P% 5d | zjmp %d FAILED\n", process->champ_nbr, value);
+		}
 	}
 }

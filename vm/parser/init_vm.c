@@ -45,7 +45,7 @@ inline void				init_vm(t_pvm *vm)
 	vm->verbose = 0;
 	vm->nb_champ = 0;
 	vm->cycle_to_die = CYCLE_TO_DIE;
-	vm->total_cycles = 1;
+	vm->total_cycles = 0;
 	vm->cycles = 1;
 	vm->nb_checks = 0;
 	vm->sum_lives = 0;

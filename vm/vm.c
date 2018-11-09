@@ -19,8 +19,10 @@ static void	aux_usage(char *str)
 	ft_printf("	-dump N	: dump memory after N cycles then exit\n", str);
 	ft_printf("	-n N\t: assign number N to champion from the following file\n");
 	ft_printf("	-nc	: ncurses graphical mode\n", str);
+	ft_printf("		command: w/z : +/-1  cycle/s\n", str);
+	ft_printf("		         +/- : +/-10 cycles/s\n", str);
 }
-
+/*
 static void	aux_print_champ(t_list *node)
 {
 	t_champion	*champion;
@@ -34,7 +36,7 @@ static void	aux_print_champ(t_list *node)
 		champion->header.prog_size,
 		champion->header.comment);
 }
-
+*/
 int			main(int argc, char **argv)
 {
 	t_pvm	vm;
@@ -46,13 +48,15 @@ int			main(int argc, char **argv)
 		{
 			init_memory(&vm);
 			if (!(vm.nc.ncurses))
-				ft_lstiter(vm.champions, &aux_print_champ);
-			print_memory(&vm);
+				print_champ(vm.champions);
+				//ft_lstiter(vm.champions, &aux_print_champ);
+			else
+				init_ncurses(&vm);
 			start_vm(&vm);
 		}
 		free_vm(&vm);
 	}
 	else
 		aux_usage(argv[0]);
-	return (0);
+	return (EXIT_SUCCESS);
 }

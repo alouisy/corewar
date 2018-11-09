@@ -1,33 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_aff.c                                           :+:      :+:    :+:   */
+/*   print_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/18 18:20:03 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/10/22 16:01:26 by jgroc-de         ###   ########.fr       */
+/*   Created: 2018/10/27 19:47:47 by jgroc-de          #+#    #+#             */
+/*   Updated: 2018/10/31 16:17:52 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../vm.h"
 
 /*
-** aff comme … comme … affooo… non affaaaa… non affuuuuu? non plus. affouuuuuu?!
+** print one case
 */
 
-void	ft_aff(UNUSED t_pvm *pvm, t_process *process)
+void	print_case(WINDOW *win, int pos, unsigned char c)
 {
-	char	c;
-
-	c = 0;
-	if (process->param[0] >= 1 && process->param[0] <= REG_NUMBER)
+	if (c == 0)
 	{
-		c = process->r[process->param[0] - 1] % 256;
-		ft_printf("Aff: %c\n", c);
-		if (c == '\0')
-			process->carry = 1;
-		else
-			process->carry = 0;
+		mvwprintw(win, (pos) / 64 + 1, ((pos) % 64) * 3 + 1, "00");
 	}
+	else
+		mvwprintw(win, (pos) / 64 + 1, ((pos) % 64) * 3 + 1, "%.2hhx", c);
 }

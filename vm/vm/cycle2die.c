@@ -12,7 +12,7 @@
 
 #include "../vm.h"
 
-static void	dec_c2d(t_pvm *vm)
+static void	decremente_c2d(t_pvm *vm)
 {
 	if (vm->sum_lives >= NBR_LIVE || vm->nb_checks >= MAX_CHECKS)
 	{
@@ -30,27 +30,30 @@ void ft_del(UNUSED void *content, UNUSED size_t t)
 	//free(content);
 }
 
-static void	check_node(t_pvm *vm)
+static void	check_process(t_pvm *vm)
 {
 	t_list	*node;
 	t_list	*save;
 	
 	node = vm->processes;
-	save = node;
+	save = vm->processes;
 	while (node)
 	{
 		if ((PROCESS(node))->cycles_wo_live == 0)
 		{
-			node = ft_lstpop(node, vm->processes);
+			save = node->next;
+			ft_lstpop(node, &(vm->processes));
 			ft_lstdelone(&node, &ft_del);
+			free(node);
 			node = save;
+			vm->nc.clear = 1;
 		}
 		else
 		{
 			(PROCESS(node))->cycles_wo_live = 0;
+			node = node->next;
 		}
 		save = node;
-		node = node->next;
 	}
 }
 
@@ -68,7 +71,7 @@ static void	reset_champion(t_pvm *vm)
 
 void	cycle2die(t_pvm *vm)
 {
-	dec_c2d(vm);
-	check_node(vm);
+	decremente_c2d(vm);
+	check_process(vm);
 	reset_champion(vm);
 }

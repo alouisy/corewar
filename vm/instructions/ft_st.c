@@ -18,7 +18,7 @@
 
 static void	write_in_memory(t_pvm *pvm, int address, int value)
 {
-	if (address < 0)
+	while (address < 0)
 		address += MEM_SIZE;
 	pvm->memory[(address + 3) % MEM_SIZE] = (value >> 0);
 	pvm->memory[(address + 2) % MEM_SIZE] = (value >> 8);
@@ -42,11 +42,19 @@ void	ft_st(t_pvm *pvm, t_process *process)
 				check = 1;
 				process->r[process->param[1] - 1] = value;
 			}
+			if (!(pvm->nc.ncurses) && pvm->verbose)
+			{
+				ft_printf("P% 5d | st r%d %d\n", process->champ_nbr, process->param[0], process->param[1]);
+			}
 		}
 		else
 		{
 			check = 1;
-			write_in_memory(pvm, (process->pc + (process->param[1] % IDX_MOD)), value);
+			write_in_memory(pvm, (process->pc + (((short int)process->param[1]) % IDX_MOD)), value);
+			if (!(pvm->nc.ncurses) && pvm->verbose)
+			{
+				ft_printf("P% 5d | st r%d %d\n", process->champ_nbr, process->param[0], ((short int)process->param[1]));
+			}
 		}
 		if (check == 1 && value == 0)
 			process->carry = 1;

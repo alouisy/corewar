@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "../vm.h"
-
+/*
 static inline void	aux_change_number(int nb, t_list *champions)
 {
 	t_list	*champion;
@@ -46,5 +46,28 @@ inline int			get_champ_nb(int nb, t_list *champions)
 	}
 	else
 		aux_change_number(nb, champions);
+	return (nb);
+}*/
+
+int			get_champ_nb(int nb, t_list *champions)
+{
+	t_list	*champ;
+	int		ok;
+
+	if (nb == -1)
+		while (1)
+		{
+			ok = 1;
+			champ = champions;
+			while (champ)
+			{
+				if ((get_champion(champ))->nbr == nb)
+					ok = 0;
+				champ = champ->next;
+			}
+			if (ok == 1)
+				return (nb);
+			nb--;
+		}
 	return (nb);
 }

@@ -1,39 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_memory.c                                      :+:      :+:    :+:   */
+/*   vm.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 17:41:07 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/10/29 18:52:02 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/10/29 19:01:00 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../vm.h"
 
-inline void		init_memory(t_pvm *vm)
+inline void	print_winner(t_pvm *vm)
 {
-	t_list		*ptmp;
-	t_list		*ctmp;
-	t_process	*process;
-	t_champion	*champ;
-	int			i;
+	t_list	*champ;
 
-	i = vm->nb_champ - 1;
-	ptmp = vm->processes;
-	ctmp = vm->champions;
-	while (ctmp)
+	champ = vm->champions;
+	while (champ)
 	{
-		process = get_process(ptmp);
-		champ = CHAMPION(ctmp);
-		champ->vm_pos = (MEM_SIZE / vm->nb_champ) * i--;
-		process->pc = champ->vm_pos;
-		ft_memcpy(vm->memory + champ->vm_pos, champ->prog,
-			champ->header.prog_size);
-		ft_memcpy(champ->memory + champ->vm_pos, champ->prog,
-			champ->header.prog_size);
-		ptmp = ptmp->next;
-		ctmp = ctmp->next;
+		if ((CHAMPION(champ))->l_live >= vm->last_live)
+			break ;
+		champ = champ->next;
 	}
+	if (vm->nc.ncurses)
+	{
+		clear();
+		timeout(-1);
+		mvprintw(LINES / 2, COLS / 2 - 30, "le joueur %s(%d) a gagne\n", (CHAMPION(champ))->header.prog_name, (CHAMPION(champ))->nbr);
+		getch();
+	}
+	else
+		ft_printf("le joueur %d(%s) a gagne\n", (CHAMPION(champ))->nbr, (CHAMPION(champ))->header.prog_name);
 }

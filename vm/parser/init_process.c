@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/25 18:38:22 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/10/29 18:30:43 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/10/31 17:34:01 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,9 @@ inline void	init_process(t_process *process, t_pvm *vm)
 
 	process->champ_nbr = (get_champion(vm->champions))->nbr;
 	process->champ = vm->champions;
-	process->pid = ft_lstlength(vm->processes);
+	process->pid = ft_lstlength(vm->processes)+1;
 	process->r[0] = process->champ_nbr;
+	process->champ_nbr = ((process->champ_nbr < 0) ? (process->champ_nbr * -1) : (process->champ_nbr));	
 //	process->r[0] = process->champ_nbr * -1;
 	i = 1;
 	while (i < REG_NUMBER)
@@ -29,12 +30,8 @@ inline void	init_process(t_process *process, t_pvm *vm)
 	process->carry = 0;
 	process->cycles_wo_live = 0;
 	process->cycle_bf_exe = 0;
-	i = 0;
-	while (i < 3)
-	{
-		process->param[i] = 0;
-		process->param_type[i++] = 0;
-	}
+	reset_param(process);
 	process->opcode = -1;
 	process->ocp = 0;
+	process->wait = 0;
 }
