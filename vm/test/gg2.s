@@ -6,10 +6,13 @@ lds: live %1
 test2:	ld %2, r1
 	ld %0, r2
 	live %1
+	lfork %5060
 	ld %10, r3
 	live %1
+	lfork %513
 	ld %260, r4
 	live %1
+	lfork %4900
 test1:	ld %499, r5
 	ld %816, r6
 	sti r3, r4, %19
@@ -97,4 +100,7 @@ test5:	sub r14, r15, r16
 	sub r14, r15, r16
 	sub r14, r15, r16
 	sub r14, r15, r16
+	xor %:lds, r4, r1
+	xor %:lds, r6, r2
+	xor %:lds, r5, r5
 test:	sub r14, r15, r16

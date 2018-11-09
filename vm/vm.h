@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 17:41:26 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/11/09 15:09:32 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/09 17:51:31 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ typedef struct			s_process
 typedef struct			s_champion
 {
 	t_header			header;
-	unsigned char		prog[CHAMP_MAX_SIZE + 1];
+	char				prog[CHAMP_MAX_SIZE + 1];
 	int					nbr;
 	int					vm_pos;
 	int					l_live;
@@ -82,7 +82,7 @@ typedef struct			s_ncurses
 	WINDOW				*wleft;
 	WINDOW				*wright;
 	int					step;
-	unsigned char		memory[MEM_SIZE];
+	char				memory[MEM_SIZE];
 	int					left_width;
 	int					right_width;
 	/*

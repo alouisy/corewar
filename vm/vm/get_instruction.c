@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 17:41:07 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/11/09 16:22:46 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/09 17:48:30 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int			get_opcode(t_pvm *vm, t_process *process)
 {
 	int i;
+	int j;
 
 	i = -1;
 	if (g_op_tab[process->opcode].ocp)
@@ -23,6 +24,15 @@ int			get_opcode(t_pvm *vm, t_process *process)
 		while (++i < g_op_tab[process->opcode].nb_param)
 		{
 			process->param_type[i] = (vm->memory[process->pc + 1] & (0b11000000 >> (i * 2))) >> (6 - i * 2);
+			if (process->param_type[i] == 3)
+				process->param_type[i] = 4;
+			j = 1;
+			while ((g_op_tab[process->opcode].param[i] & process->param_type[i]) == 0)
+			{
+				process->param_type[i] = j++;
+			}
+			if (process->param_type[i] == 4)
+				process->param_type[i] = 3;
 		}
 		return (1);
 	}
