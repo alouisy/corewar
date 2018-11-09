@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/27 19:47:47 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/11/09 15:56:56 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/09 16:24:58 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,6 @@ int	param_status(t_pvm *vm, int i)
 static inline int	current_status_pc(t_pvm *vm, int i)
 {
 	t_list		*node;
-	int			color;
 	t_process	*process;
 	int			j;
 	int			k;
@@ -127,9 +126,6 @@ static inline int	current_status_pc(t_pvm *vm, int i)
 						process->state % 2 ? 1 : 0,
 						process->cycle_of_exe - vm->total_cycles);
 			}
-			color = (CHAMPION(process->champ))->color + 4;
-			if (k == 0)
-				store_buffer(vm, process->pc, color, process->cycle_of_exe);
 			node = node->next;
 			j++;
 		}

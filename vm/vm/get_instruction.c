@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 17:41:07 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/10/31 17:32:46 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/09 16:22:46 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ int			get_param(t_pvm *vm, t_process *process, int shift)
 void		get_instruction(t_pvm *vm, t_process *process)
 {
 	int		shift;
+	int		color;
 
 	shift = 1;
  	process->opcode = vm->memory[process->pc % MEM_SIZE];
@@ -71,5 +72,7 @@ void		get_instruction(t_pvm *vm, t_process *process)
 		shift = get_param(vm, process, shift);
 		process->pc2 = (process->pc + shift) % MEM_SIZE;
 	}
-	process->cycle_of_exe = vm->total_cycles + g_op_tab[process->opcode].nb_cycles - 1;
+	process->cycle_of_exe = vm->total_cycles + g_op_tab[process->opcode].nb_cycles - 2;
+	color = (CHAMPION(process->champ))->color + 4;
+	store_buffer(vm, process->pc, color, g_op_tab[process->opcode].nb_cycles - 2);
 }
