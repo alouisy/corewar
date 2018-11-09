@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/18 16:16:15 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/10/18 19:27:33 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/09 15:21:14 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,9 @@ int	ft_live(t_pvm *pvm, t_process *process)
 		pvm->last_live = pvm->total_cycles;
 		if (pvm->verbose == 2)
 		{
-			ft_printf("P% 5d | live %d\n", (CHAMPION(process->champ))->nbr, process->param[0]);
+			ft_printf("P% 5d | live %d\n",
+					(CHAMPION(process->champ))->nbr,
+					process->param[0]);
 		}
 	}
 	return (1);

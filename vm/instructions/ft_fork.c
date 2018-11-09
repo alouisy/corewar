@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/26 15:46:33 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/10/31 17:34:22 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/09 15:18:45 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,9 @@ int		ft_fork(t_pvm *pvm, t_process *process)
 		return (0);
 	if (pvm->verbose == 2)
 	{
-		ft_printf("P% 5d | fork %d (%d)\n", (CHAMPION(process->champ))->nbr, value, (process->pc + (value % IDX_MOD)));
+		ft_printf("P% 5d | fork %d (%d)\n",
+				(CHAMPION(process->champ))->nbr,
+				value, (process->pc + (value % IDX_MOD)));
 	}
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/18 18:47:27 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/10/24 17:34:25 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/09 15:20:49 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,20 @@ int	ft_ldi(t_pvm *pvm, t_process *process)
 		address = process->pc + ((val1 + val2) % IDX_MOD);
 		if (pvm->verbose == 2)
 		{
-			ft_printf("P% 5d | ldi %d %d r%d\n", (CHAMPION(process->champ))->nbr, val1, val2, process->param[2]);
-			ft_printf("       | -> load from %d + %d = %d (with pc and mod %d)\n", val2, (val1 + val2), address);
+			ft_printf("P% 5d | ldi %d %d r%d\n",
+					(CHAMPION(process->champ))->nbr,
+					val1,
+					val2,
+					process->param[2]);
+			ft_printf("       | -> load from %d + %d = %d (with pc and mod %d)\n",
+					val2,
+					(val1 + val2), address);
 		}
 		if (address < 0)
 			address += MEM_SIZE;
 		process->r[process->param[2] - 1] = ft_strhex2dec((pvm->memory + (address % MEM_SIZE)), 4);
-		ft_carry(process, process->r[process->param[2] - 1], !(process->r[process->param[2] - 1]));
+		ft_carry(process, process->r[process->param[2] - 1],
+				!(process->r[process->param[2] - 1]));
 	}
 	return (1);
 }

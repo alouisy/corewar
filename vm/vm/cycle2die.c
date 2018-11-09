@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/25 17:26:50 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/10/26 17:29:50 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/09 15:11:02 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,7 @@ static void	decremente_c2d(t_pvm *vm)
 	vm->sum_lives = 0;
 }
 
-void ft_del(__attribute__((unused)) void *content)
-{
-	free(content);
-}
-
-void	check_process(t_pvm *vm)
+void	check_process(t_pvm *vm, int mode)
 {
 	t_list	*node;
 	t_list	*save;
@@ -45,7 +40,7 @@ void	check_process(t_pvm *vm)
 		save = &(vm->stack[i]);
 		while (node)
 		{
-			if ((PROCESS(node))->state % 2 != 1)
+			if ((PROCESS(node))->state % 2 != 1 || mode)
 			{
 				vm->nb_process--;
 				save->next = node->next;
@@ -80,9 +75,9 @@ static void	reset_champion(t_pvm *vm)
 	}
 }
 
-void	cycle2die(t_pvm *vm)
+void	cycle2die(t_pvm *vm, int mode)
 {
 	decremente_c2d(vm);
-	check_process(vm);
+	check_process(vm, mode);
 	reset_champion(vm);
 }

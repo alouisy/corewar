@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/18 16:27:38 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/10/24 17:37:01 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/09 15:21:27 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,10 @@ int	ft_lld(t_pvm *pvm, t_process *process)
 		process->r[process->param[1] - 1] = ft_strhex2dec((pvm->memory + (address % MEM_SIZE)), 4);
 		if (pvm->verbose == 2)
 		{
-			ft_printf("P% 5d | lld %d r%d\n", (CHAMPION(process->champ))->nbr, value, process->param[1]);
+			ft_printf("P% 5d | lld %d r%d\n",
+					(CHAMPION(process->champ))->nbr,
+					value,
+					process->param[1]);
 		}
 		ft_carry(process, process->r[process->param[2] - 1], !(process->r[process->param[2] - 1]));
 	}

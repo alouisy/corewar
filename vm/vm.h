@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 17:41:26 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/10/31 17:40:09 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/09 15:09:32 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,10 +153,10 @@ unsigned int			parse_magic_size(int fd, char *filename);
 /*
 ** vm
 */
-void					cycle2die(t_pvm *vm);
+void					cycle2die(t_pvm *vm, int mode);
 void					get_instruction(t_pvm *vm, t_process *process);
 void					print_winner(t_pvm *vm);
-void					process_instruction(t_pvm *vm, t_process *process);
+int						process_instruction(t_pvm *vm, t_process *process);
 void					start_vm(t_pvm *vm);
 void					update_stack(t_pvm *vm, int cycles, t_list *tmp);
 

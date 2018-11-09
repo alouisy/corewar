@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/26 15:46:28 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/10/31 17:34:31 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/09 15:18:54 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,6 @@ int aux_fork(t_pvm *pvm, t_process *process, int value)
 	new_pc = (process->pc + value) % MEM_SIZE;
 	if (new_pc < 0)
 		new_pc += MEM_SIZE;
-//		new_pc = (new_pc + MEM_SIZE) % MEM_SIZE;
-//		new_pc = (MEM_SIZE + process->pc - ABS(value)) % MEM_SIZE;
-//		new_pc = (MEM_SIZE + process->pc - (ABS(value) % IDX_MOD)) % MEM_SIZE;
 	if (pvm->trash)
 	{
 		node = pvm->trash;

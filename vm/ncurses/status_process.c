@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/27 19:47:47 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/11/07 20:44:27 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/09 15:56:56 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,13 @@ int registre_status(t_pvm *vm, int i)
 				"________________________________|       ");
 		mvwprintw(vm->nc.wright, i++, vm->nc.right_width / 2,
 				"|________________________________");
-		while (j < REG_NUMBER)
+		while (j < REG_NUMBER / 2)
 		{
 			mvwprintw(vm->nc.wright, i, 1,
 					" reg[%2d]  | %18d  |", j, process->r[j]);
 			mvwprintw(vm->nc.wright, i++, vm->nc.right_width / 2,
-					"| reg[%2d]   | %18d ", j + 1, process->r[j +1]);
-			j += 2;
+					"| reg[%2d]   | %18d ", j + 8, process->r[j + 8]);
+			j += 1;
 		}
 	}
 	return (i);
@@ -149,7 +149,7 @@ void		status_process(t_pvm *vm, int i)
 	i = current_status_pc(vm, i);
 	if (i < LINES - 5)
 	{
-		i = LINES - 15;
+		i = LINES - 50;
 		i = param_status(vm, i);
 		registre_status(vm, i);
 	}

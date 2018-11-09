@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/18 16:27:38 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/10/24 17:27:40 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/09 15:20:11 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,10 @@ int	ft_ld(__attribute__((unused)) t_pvm *pvm, t_process *process)
 		process->r[process->param[1] - 1] = value;
 		if (pvm->verbose == 2)
 		{
-			ft_printf("P% 5d | ld %d r%d\n", (CHAMPION(process->champ))->nbr, value, process->param[1]);
+			ft_printf("P% 5d | ld %d r%d\n",
+					(CHAMPION(process->champ))->nbr,
+					value,
+					process->param[1]);
 		}
 		ft_carry(process, value, !value);
 	}

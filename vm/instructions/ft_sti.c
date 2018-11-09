@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/18 18:54:28 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/10/26 15:45:58 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/09 15:17:39 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ int	ft_sti(t_pvm *pvm, t_process *process)
 			ft_printf("P% 5d | sti r%d %d %d\n", (CHAMPION(process->champ))->nbr, process->param[0], val1, val2);
 			ft_printf("       | -> store to %d + %d = %d (with pc and mod %d)\n", val1, val2, (val1 + val2), address);
 		}
-	//	printf("pc = %d address sti = %d val1 = %d val2 = %d\n", process->pc, address, val1, val2);
 		val3 = process->r[process->param[0] - 1];
 		write_in_memory(pvm, process, val3, val1 + val2);
 		ft_carry(process, val3, !val3);
