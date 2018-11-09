@@ -18,7 +18,6 @@ int		get_prm_value(t_pvm *pvm, t_process *process, int i, int *value)
 	{
 		if (process->opcode != 13)
 		{
-			printf("not lld?\n");
 			address = process->pc + (process->param[i] % IDX_MOD);
 			if (process->param[i] == 0xFFFF)
 				address %= IDX_MOD;

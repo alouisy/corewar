@@ -16,7 +16,7 @@
 ** jump if zero
 */
 
-int	ft_zjmp(UNUSED t_pvm *pvm, t_process *process)
+int	ft_zjmp(t_pvm *pvm, t_process *process)
 {
 	int		value;
 	char	*str;

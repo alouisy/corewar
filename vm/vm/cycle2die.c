@@ -27,7 +27,7 @@ static void	decremente_c2d(t_pvm *vm)
 	vm->sum_lives = 0;
 }
 
-void ft_del(UNUSED void *content)
+void ft_del(__attribute__((unused)) void *content)
 {
 	free(content);
 }

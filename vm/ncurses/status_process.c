@@ -35,9 +35,9 @@ int registre_status(t_pvm *vm, int i)
 		process = PROCESS(node);	
 		j = 0;
 		mvwprintw(vm->nc.wright, i, 1,
-				"__________|_____________________|       ");
+				"________________________________|       ");
 		mvwprintw(vm->nc.wright, i++, vm->nc.right_width / 2,
-				"|___________|____________________");
+				"|________________________________");
 		while (j < REG_NUMBER)
 		{
 			mvwprintw(vm->nc.wright, i, 1,
@@ -67,13 +67,13 @@ int	param_status(t_pvm *vm, int i)
 	{
 		process = PROCESS(node);
 		mvwprintw(vm->nc.wright, i, 1,
-				"__________|__________|__________|");
+				"_________________________________");
 		mvwprintw(vm->nc.wright, i + 1, 1,
 				"              param             |");
 		mvwprintw(vm->nc.wright, i + 2, 1,
 				"     0    |     1    |     2    |");
 		mvwprintw(vm->nc.wright, i++, vm->nc.right_width / 2,
-				"|___________|                    ");
+				"____________                     ");
 		mvwprintw(vm->nc.wright, i++, vm->nc.right_width / 2,
 				"|    type   |                    ");
 		mvwprintw(vm->nc.wright, i++, vm->nc.right_width / 2,
@@ -117,7 +117,7 @@ static inline int	current_status_pc(t_pvm *vm, int i)
 			if (j < 40)
 			{
 				mvwprintw(vm->nc.wright, i++, 1,
-						" %10d | %5d | %5d | %5d | %6d | %5d | %5d | %4d ",
+						" %10d | %5d | %4d | %4d | %6d | %5d | %5d | %4d ",
 						node->content_size,
 						(CHAMPION(process->champ))->nbr,
 						process->pc,
@@ -138,7 +138,7 @@ static inline int	current_status_pc(t_pvm *vm, int i)
 	while (j++ < 25)
 	{
 		mvwprintw(vm->nc.wright, i++, 1,
-				" %6s | %5s | %5s | %5s | %6s | %5s | %5s | %6s ",
+				" %10s | %5s | %4s | %4s | %6s | %5s | %5s | %4s ",
 				"", "", "", "", "", "", "", ""); 
 	}
 	return (i);

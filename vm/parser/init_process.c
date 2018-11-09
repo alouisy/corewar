@@ -27,6 +27,6 @@ inline void	init_process(t_process *process, t_pvm *vm)
 	process->state = 0;
 	process->cycle_of_exe = 0;
 	reset_param(process);
-	process->opcode = -1;
+	process->opcode = 0;
 	process->ocp = 0;
 }

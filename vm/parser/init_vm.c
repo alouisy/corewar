@@ -49,7 +49,6 @@ inline void				init_vm(t_pvm *vm)
 	vm->c2d = CYCLE_TO_DIE;
 	vm->cycle_to_die = vm->c2d;
 	vm->total_cycles = 0;
-	vm->cycles = 1;
 	vm->nb_checks = 0;
 	vm->sum_lives = 0;
 	vm->last_live = 0;

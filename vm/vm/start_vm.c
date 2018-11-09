@@ -31,7 +31,7 @@ void	start_vm(t_pvm *vm)
 		{
 			save = node->next;
 			content = PROCESS(node);
-			if (content->opcode <= 0)
+			if (content->opcode == 0)
 			{
 				get_instruction(vm, content);
 			}
@@ -45,6 +45,7 @@ void	start_vm(t_pvm *vm)
 		if (vm->verbose == 1)
 			status_game(vm);
 	}
+	cycle2die(vm);
 	if (vm->verbose != 1)
 		ft_printf("end\n");
 	if (vm->total_cycles == vm->dump)

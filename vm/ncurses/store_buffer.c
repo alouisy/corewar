@@ -18,17 +18,17 @@
 
 int	store_buffer(t_pvm *vm, int i, int color, int cycles)
 {
-	t_list 		*node;
-	t_buffer	mem;
+	t_list 			*node;
+	unsigned char	mem;
 
 	if (vm->verbose == 1)
 	{
-		mem.color = color;
+		mem = color;
 		if (vm->nc.trash)
 		{
 			node = vm->nc.trash;
 			vm->nc.trash = node->next;
-			*((t_buffer*)(node->content)) = mem;
+			*(unsigned char*)(node->content) = mem;
 		}
 		else if (!(node = ft_lstnew2(&mem, sizeof(mem))))
 			return (0);

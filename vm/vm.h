@@ -18,9 +18,6 @@
 
 # define PROCESS(x) (t_process*)(x->content)
 # define CHAMPION(x) (t_champion*)(x->content)
-# define UNUSED __attribute__((unused))
-# define CHAMP_MAX3		(CHAMP_MAX_SIZE * 3)
-# define ABS(x) ((x) < 0 ? (-(x)) : (x))
 
 /*
 ** structure de descriptions des instructions
@@ -48,9 +45,9 @@ typedef struct			s_process
 	/*
 	** pid a été mis dans node->content_size du process
 	*/
-	int					r[REG_NUMBER];
+	int					r[REG_NUMBER]; // pourrait etre une liste
 	short int			pc;
-	short int			pc2;
+	short int			pc2; // supprimable
 	/*
 	** state manage carry and live status in a single variable for memory effeciency.
 	**  0 : none
@@ -58,12 +55,12 @@ typedef struct			s_process
 	**	2 : carry = 1
 	**  3 : both
 	*/
-	char				state;
-	int					cycle_of_exe;
+	unsigned char		state;
+	int					cycle_of_exe; //suuprimable et inscrire de le premier maillon de stack[1001] le cycle d exec
 	int					param[3];
-	char				param_type[3]; //changer en char[1] et manupulation binaire dessus
-	int					opcode; //a changer en char??
-	char				ocp;
+	unsigned char		param_type[3]; 	//changer en char[1] et manipulation binaire dessus
+	unsigned char		opcode;
+	unsigned char		ocp; // besoin de le retenir? ou sipprimer param_type[3]
 }						t_process;
 
 typedef struct			s_champion
@@ -80,11 +77,6 @@ typedef struct			s_champion
 /*
 ** structure nécessaire au fonctionnement de ncurses
 */
-typedef struct			s_buffer // a sup
-{
-	unsigned char		color; // supprimer et utiliser le "size" des nodes
-}						t_buffer;
-
 typedef struct			s_ncurses
 {
 	WINDOW				*wleft;
@@ -95,8 +87,12 @@ typedef struct			s_ncurses
 	int					right_width;
 	/*
 	** depend du temps d'execution max des instructions, ici 1000 pour lfork
+	** a remplacer par t_buffer buffer[MEM_SIZE] et sup trash
 	*/
 	t_list				stack[1001];
+	/*
+	** poubelle à node
+	*/
 	t_list				*trash;
 }						t_ncurses;
 
@@ -115,6 +111,11 @@ typedef struct			s_pvm
 	unsigned char		memory[MEM_SIZE];
 	unsigned char		mem_color[MEM_SIZE];
 	int					dump;
+	/*
+	** verbose mode:
+	**     1 : ncurses
+	**     2 : verbose printf
+	*/
 	char				verbose;
 	t_ncurses			nc;
 	int					nb_champ;
@@ -122,7 +123,6 @@ typedef struct			s_pvm
 	int					cycle_to_die;
 	int					c2d;
 	int					total_cycles;
-	int					cycles;
 	int					nb_checks;
 	int					sum_lives;
 	int					last_live;
@@ -181,8 +181,6 @@ int						ft_lfork(t_pvm *pvm, t_process *process);
 int						ft_aff(t_pvm *pvm, t_process *process);
 int						get_prm_value(t_pvm *pvm,
 							t_process *process, int i, int *value);
-int						lget_prm_value(t_pvm *pvm,
-							t_process *process, int i, int *value);
 void					new_process_init(t_pvm *pvm, t_process *old, t_process *new, int new_pc);
 void					write_in_memory(t_pvm *pvm, t_process *process, int value, short int value2);
 void					ft_carry(t_process *process, char carry_0, char carry_1);
@@ -197,7 +195,6 @@ int						ft_strhex2dec(unsigned char *str, int len);
 int						ft_strerror(char *str, int f);
 t_champion				*get_champion(t_list *node);
 t_process				*get_process(t_list	*node);
-t_buffer				*get_buffer(t_list *node);
 void					print_memory(t_pvm *vm);
 void					print_champ(t_list *champ);
 void					reset_param(t_process *process);
@@ -205,7 +202,6 @@ void					reset_param(t_process *process);
 /*
 ** ncurses
 */
-void					close_ncurses();
 void					init_colors();
 void					intro_champions(t_pvm *vm);
 void					init_ncurses(t_pvm *vm);

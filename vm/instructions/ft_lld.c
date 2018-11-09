@@ -16,7 +16,7 @@
 ** long direct load
 */
 
-int	ft_lld(UNUSED t_pvm *pvm, t_process *process)
+int	ft_lld(t_pvm *pvm, t_process *process)
 {
 	int		value;
 	int		address;

@@ -27,6 +27,6 @@ void		free_vm(t_pvm *vm)
 	{
 		if (vm->nc.trash)
 			ft_lstdel(&(vm->nc.trash), 1, &aux_del);
-		close_ncurses(vm);
+		endwin();
 	}
 }
