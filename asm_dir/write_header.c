@@ -29,7 +29,7 @@ static void		write_magic(t_asm_inf *asm_inf)
 	asm_inf->binary_list = ft_lstnew(&magic, 4, 1);
 	asm_inf->current = asm_inf->binary_list;
 	if (!asm_inf->binary_list)
-		free_all(asm_inf, "Malloc error\n", MALLOC_ERR);
+		free_all(asm_inf, -1);
 }
 
 static void		add_str(t_asm_inf *asm_inf, char *str, int len)
@@ -40,7 +40,7 @@ static void		add_str(t_asm_inf *asm_inf, char *str, int len)
 	{
 		new = ft_lstnew(str, len, 0);
 		if (!new)
-			free_all(asm_inf, "Malloc error\n", MALLOC_ERR);
+			free_all(asm_inf, -1);
 		asm_inf->current->next = new;
 		asm_inf->current = asm_inf->current->next;
 	}
@@ -58,7 +58,7 @@ void			write_header(t_asm_inf *asm_inf)
 	add_str(asm_inf, asm_inf->prog_name, size);
 	str = ft_strnew(PROG_NAME_LENGTH - size + 4);
 	if (!str)
-		free_all(asm_inf, "Malloc error\n", MALLOC_ERR);
+		free_all(asm_inf, -1);
 	add_str(asm_inf, str, PROG_NAME_LENGTH - size + 4);
 	asm_inf->holder_prog_size = asm_inf->current;
 	size = 0;
@@ -67,6 +67,6 @@ void			write_header(t_asm_inf *asm_inf)
 	add_str(asm_inf, asm_inf->comment, size);
 	str = ft_strnew(COMMENT_LENGTH - size + 4);
 	if (!str)
-		free_all(asm_inf, "Malloc error\n", MALLOC_ERR);
+		free_all(asm_inf, -1);
 	add_str(asm_inf, str, COMMENT_LENGTH - size + 4);
 }

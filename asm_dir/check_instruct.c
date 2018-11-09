@@ -50,6 +50,8 @@ static int	hash_word(char *word)
 	while (!hard_coded && res > 15)
 	{
 		middle = ft_itoa(res);
+		if (!middle)
+			return (-1);
 		i = 0;
 		res = 0;
 		while (middle[i])
@@ -65,16 +67,18 @@ static int	act_on_inst(t_asm_inf *asm_inf, t_op *op, char *param)
 	t_list	*new;
 	char	*binary;
 	int		ocp_val;
+	int		state;
 
 	asm_inf->nb_bytes += 1;
 	if (!(binary = fill_binary(1, op->op_code)))
-		free_all(asm_inf, "Malloc error\n", MALLOC_ERR); //changer
+		return (-1);
 	if (!(asm_inf->current->next = ft_lstnew(binary, 1, 0)))
-		free_all(asm_inf, "Malloc error\n", MALLOC_ERR); //changer
+		return (-1);
 	asm_inf->current = asm_inf->current->next;
 	holder = asm_inf->current;
-	printf("param : %s\n", param);
-	write_param(param, op, asm_inf, &ocp_val); //check erreur
+	state = write_param(param, op, asm_inf, &ocp_val);
+	if (state != 0)
+		return (state);
 	if (op->ocp)
 	{
 		new = ft_lstnew(&ocp_val, 1, 1);
@@ -82,43 +86,13 @@ static int	act_on_inst(t_asm_inf *asm_inf, t_op *op, char *param)
 		holder->next = new;
 		asm_inf->nb_bytes += 1;
 	}
-	return (ocp_val);
+	return (state);
 }
 
-/*void		check_instruct(char *line, t_asm_inf *asm_inf)
-{
-	int			i;
-	char		*inst;
-	int			index;
-	int			ocp_val;
-
-	i = 0;
-	while (line[i] && !ft_iswhitespace(line[i]))
-		i++;
-	if (i > 4 || i <= 1)
-		free_all(asm_inf, "Unknown instruction\n", UNKNOWN_INST_ERR);
-	inst = ft_strndup(line, i);
-	if (!inst)
-		free_all(asm_inf, "Malloc error\n", MALLOC_ERR);
-	index = hash_word(inst);
-	if (index == -1)
-	{
-		ft_strdel(&inst);
-		free_all(asm_inf, "Malloc error\n", MALLOC_ERR);
-	}
-	while (i < 3 && !ft_strcmp(g_op_tab[index].name, inst))
-		i++;
-	ft_strdel(&inst);
-	ocp_val = act_on_inst(asm_inf, &g_op_tab[index], &(line[i]));
-	if (!ocp_val)
-		free_all(asm_inf, "Unknown instruction\n", UNKNOWN_INST_ERR);
-}*/
-
-int		check_instruct(char *line, t_asm_inf *asm_inf, char *param)
+int			check_instruct(char *line, t_asm_inf *asm_inf, char *param)
 {
 	char		*inst;
 	int			index;
-	int			ocp_val;
 	int			i;
 
 	i = 0;
@@ -128,22 +102,18 @@ int		check_instruct(char *line, t_asm_inf *asm_inf, char *param)
 		return (UNKNOWN_INST_ERR);
 	inst = ft_strndup(line, i);
 	if (!inst)
-		return (MALLOC_ERR);
+		return (-1);
 	index = hash_word(inst);
-	printf("inst : .%s.\n", inst);
 	if (index == -1)
 	{
 		ft_strdel(&inst);
-		return (MALLOC_ERR);
+		return (-1);
 	}
 	if (ft_strcmp(g_op_tab[index].name, inst))
 	{
 		ft_strdel(&inst);
-		return(UNKNOWN_INST_ERR);
+		return (UNKNOWN_INST_ERR);
 	}
 	ft_strdel(&inst);
-	ocp_val = act_on_inst(asm_inf, &g_op_tab[index], param);
-	if (!ocp_val) //je pense que je peux enlever
-		return(UNKNOWN_INST_ERR);
-	return (0);
+	return (act_on_inst(asm_inf, &g_op_tab[index], param));
 }

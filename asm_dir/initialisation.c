@@ -12,20 +12,6 @@
 
 #include "asm.h"
 
-/*char	**init_write(t_write_inf *write_inf, t_asm_inf *asm_inf, int *ocp_val,
-																	char *line)
-{
-	char **split;
-
-	write_inf->inst_pos = asm_inf->nb_bytes;
-	split = ft_strsplit(line, SEPARATOR_CHAR);
-	if (!split)
-		free_all(asm_inf, "Malloc error\n", MALLOC_ERR);
-	write_inf->i = 0;
-	ocp_val = 0;
-	return (split);
-}*/
-
 void	init_write(t_write_inf *write_inf, t_asm_inf *asm_inf, int *ocp_val)
 {
 	write_inf->inst_pos = asm_inf->nb_bytes;
@@ -44,7 +30,7 @@ int		init_prog(int argc, char **argv, t_asm_inf *asm_inf)
 	}
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
-		exit_error("Ouverture du fichier impossible", OPEN_ERR);
+		free_all(asm_inf, -1);
 	asm_inf->holder_lst = NULL;
 	asm_inf->prog_name = NULL;
 	asm_inf->comment = NULL;

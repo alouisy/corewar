@@ -12,31 +12,6 @@
 
 #include "asm.h"
 
-char		*trim_comment(char *line, int *err)
-{
-	int		i;
-	int		j;
-	char	*trimmed;
-	int		is_direct;
-
-	i = 0;
-	while (line[i] && !ft_iswhitespace(line[i]))
-		i++;
-	j = i;
-	while (line[j] && ft_iswhitespace(line[j]))
-		j++;
-	if (line[j] && line[j] != COMMENT_CHAR)
-	{
-		*err = WRONG_CHAR_INST_ERR;
-		return (NULL);
-	}
-	is_direct = 0;
-	trimmed = ft_strndup(line, i);
-	if (!trimmed)
-		*err = MALLOC_ERR;
-	return (trimmed);
-}
-
 int			calc_weight(int pow)
 {
 	int weight;
@@ -84,14 +59,14 @@ void		add_new(t_holder_def *tmp_holder, int val, t_asm_inf *asm_inf)
 
 	binary = fill_binary(tmp_holder->lbl_bytes, val);
 	if (!binary)
-		free_all(asm_inf, "Malloc error\n", MALLOC_ERR);
+		free_all(asm_inf, -1);
 	new = ft_lstnew(binary, tmp_holder->lbl_bytes, 0);
 	if (!new)
 	{
 		ft_strdel(&binary);
-		free_all(asm_inf, "Malloc error\n", MALLOC_ERR);
+		free_all(asm_inf, -1);
 	}
-	if (tmp_holder->has_ocp > 0)
+	if (tmp_holder->beside_ocp > 0)
 	{
 		new->next = tmp_holder->lst_pos->next->next;
 		tmp_holder->lst_pos->next->next = new;
