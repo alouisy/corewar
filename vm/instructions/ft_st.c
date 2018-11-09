@@ -31,10 +31,8 @@ int	ft_st(t_pvm *pvm, t_process *process)
 			{
 				check = 1;
 				process->r[process->param[1] - 1] = value;
-			}
-			if (pvm->verbose == 2)
-			{
-				ft_printf("P% 5d | st r%d %d\n", (CHAMPION(process->champ))->nbr, process->param[0], process->param[1]);
+				if (pvm->verbose == 2)
+					ft_printf("P% 5d | st r%d %d\n", (CHAMPION(process->champ))->nbr, process->param[0], process->param[1]);
 			}
 		}
 		else

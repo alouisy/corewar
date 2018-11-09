@@ -30,7 +30,7 @@ void	print_4case(t_pvm *vm, int pos, int color)
 	i = 0;
 	while (i < 4)
 	{
-		print_case(vm->nc.wleft, pos + i, color, vm->memory[pos + i]);
+		print_case(vm->nc.wleft, pos + i, color, vm->memory[(pos + i) % MEM_SIZE]);
 		i++;
 	}
 }

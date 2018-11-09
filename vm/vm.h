@@ -159,6 +159,8 @@ void					print_winner(t_pvm *vm);
 int						process_instruction(t_pvm *vm, t_process *process);
 void					start_vm(t_pvm *vm);
 void					update_stack(t_pvm *vm, int cycles, t_list *tmp);
+int						get_param(t_pvm *vm, t_process *process, int shift);
+int						get_opcode(t_pvm *vm, t_process *process);
 
 /*
 ** instructions

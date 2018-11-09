@@ -29,10 +29,10 @@ int	ft_lldi(t_pvm *pvm, t_process *process)
 		&& get_prm_value(pvm, process, 0, &val1)
 		&& get_prm_value(pvm, process, 1, &val2))
 	{
-		if (process->param_type[0] == DIR_CODE)
+/*		if (process->param_type[0] == DIR_CODE)
 			val1 = (short int)val1;
 		val2 = (short int)process->param[1];
-		address = process->pc + (val1 + val2);
+*/		address = process->pc + (val1 + val2);
 		if (pvm->verbose == 2)
 		{
 			ft_printf("P% 5d | lldi %d %d r%d\n", (CHAMPION(process->champ))->nbr, val1, val2, process->param[2]);

@@ -37,11 +37,21 @@ void	start_vm(t_pvm *vm)
 			}
 			else if (!process_instruction(vm, content))
 				break ;
-			update_stack(vm, content->cycle_of_exe, node);
+			update_stack(vm, vm->total_cycles, node);
+/*			else if (content->opcode != 0)
+			{
+				chck = process_instruction(vm, content);
+				if (!chck)
+					break ;
+			}
+			if (chck != 2)
+				update_stack(vm, vm->total_cycles, node);
+*/			if (vm->verbose == 1)
+				status_game(vm);
 			node = save;
 		}
-		if (vm->verbose == 1)
-			status_game(vm);
+	//	if (vm->verbose == 1)
+	//		status_game(vm);
 		if (vm->c2d < 0)
 			break ;
 	}

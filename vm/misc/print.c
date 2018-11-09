@@ -20,7 +20,7 @@ void	print_memory(t_pvm *prms)
 	ft_printf("0x0000 : ");
 	while (i < MEM_SIZE)
 	{
-		if ((i % 64) == 0)
+		if ((i % 64) == 0 && i != 0)
 		{
 			ft_putchar('\n');
 			ft_printf("%#.4x : ", i);

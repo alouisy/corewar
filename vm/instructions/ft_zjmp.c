@@ -32,7 +32,7 @@ int	ft_zjmp(t_pvm *pvm, t_process *process)
 		process->pc2 = process->pc;
 	}
 	else
-		str= "FAILED";
+		str = "FAILED";
 	if (pvm->verbose == 2)
 	{
 		ft_printf("P% 5d | zjmp %d %s\n", (CHAMPION(process->champ))->nbr, value, str);

@@ -46,8 +46,8 @@ int			get_param(t_pvm *vm, t_process *process, int shift)
 	int		i;
 	int		label_size;
 
-	i = 0;
-	while (i < 3 && process->param_type[i])
+	i = -1;
+	while (++i < g_op_tab[process->opcode].nb_param)
 	{
 		label_size = process->param_type[i];
 		if (label_size == DIR_CODE)
@@ -55,20 +55,17 @@ int			get_param(t_pvm *vm, t_process *process, int shift)
 		else if (label_size == IND_CODE)
 			label_size -= 1;
 		process->param[i] = ft_strhex2dec(vm->memory + ((process->pc + shift) % MEM_SIZE), label_size);
-		if (label_size == 2 && process->param_type[i] == IND_CODE)
+		if (label_size != 1)// && process->param_type[i] == IND_CODE)
 			process->param[i] = (short int)process->param[i];
 		shift += label_size;
-		i++;
 	}
 	return (shift);
 }
 
 void		get_instruction(t_pvm *vm, t_process *process)
 {
-	int		shift;
 	int		color;
 
-	shift = 1;
  	process->opcode = vm->memory[process->pc % MEM_SIZE];
 	if (process->opcode < 1 || process->opcode > 16)
 	{
@@ -78,11 +75,15 @@ void		get_instruction(t_pvm *vm, t_process *process)
 	}
 	else
 	{
-		shift += get_opcode(vm, process);
-		shift = get_param(vm, process, shift);
-		process->pc2 = (process->pc + shift) % MEM_SIZE;
+		color = 1;
+		color += get_opcode(vm, process);
+		color = get_param(vm, process, color);
+		process->pc2 = (process->pc + color) % MEM_SIZE;
 	}
-	process->cycle_of_exe = vm->total_cycles + g_op_tab[process->opcode].nb_cycles - 2;
-	color = (CHAMPION(process->champ))->color + 4;
-	store_buffer(vm, process->pc, color, g_op_tab[process->opcode].nb_cycles - 2);
+	process->cycle_of_exe = vm->total_cycles + g_op_tab[process->opcode].nb_cycles - 1;
+	if (vm->verbose == 1)
+	{
+		color = (CHAMPION(process->champ))->color + 4;
+		store_buffer(vm, process->pc, color, g_op_tab[process->opcode].nb_cycles);
+	}
 }

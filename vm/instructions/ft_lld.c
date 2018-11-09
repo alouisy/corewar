@@ -26,9 +26,9 @@ int	ft_lld(t_pvm *pvm, t_process *process)
 	if (process->param[1] >= 1 && process->param[1] <= REG_NUMBER
 		&& get_prm_value(pvm, process, 0, &value))
 	{
-		if (process->param_type[0] == IND_CODE)
+/*		if (process->param_type[0] == IND_CODE)
 			value = (short int)value;
-		address = (process->pc + value) % MEM_SIZE;
+*/		address = (process->pc + value) % MEM_SIZE;
 		while (address < 0)
 			address += MEM_SIZE;
 		process->r[process->param[1] - 1] = ft_strhex2dec((pvm->memory + (address % MEM_SIZE)), 4);

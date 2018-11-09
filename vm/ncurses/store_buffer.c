@@ -39,7 +39,7 @@ int	store_buffer(t_pvm *vm, int i, int color, int cycles)
 		if (cycles == 50)
 			print_4case(vm, i, color);
 		else
-			print_case(vm->nc.wleft, i, color, vm->memory[i]);
+			print_case(vm->nc.wleft, i, color, vm->memory[i % MEM_SIZE]);
 	}
 	return (1);
 }

@@ -29,10 +29,10 @@ int	ft_ldi(t_pvm *pvm, t_process *process)
 		&& get_prm_value(pvm, process, 0, &val1)
 		&& get_prm_value(pvm, process, 1, &val2))
 	{
-		if (process->param_type[1] == DIR_CODE)
+/*		if (process->param_type[1] == DIR_CODE)
 			val1 = (short int)val1;
 		val2 = (short int)process->param[1];
-		address = process->pc + ((val1 + val2) % IDX_MOD);
+*/		address = process->pc + ((val1 + val2) % IDX_MOD);
 		if (pvm->verbose == 2)
 		{
 			ft_printf("P% 5d | ldi %d %d r%d\n",

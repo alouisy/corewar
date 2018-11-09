@@ -14,15 +14,24 @@
 
 int	process_instruction(t_pvm *vm, t_process *process)
 {
-	if (!(vm->f[process->opcode - 1](vm, process)))
+	int		shift;
+
+	shift = 1;
+	if (process->cycle_of_exe == vm->total_cycles)
 	{
-		vm->c2d = -1;
-		return (0);
+		shift += get_opcode(vm, process);
+		shift = get_param(vm, process, shift);
+		process->pc2 = (process->pc + shift) % MEM_SIZE;
+		if (!(vm->f[process->opcode - 1](vm, process)))
+		{
+			vm->c2d = -1;
+			return (0);
+		}
+		reset_param(process);
+		process->pc = process->pc2;
+		process->opcode = 0;
+		process->ocp = 0;
+		process->cycle_of_exe = vm->total_cycles;
 	}
-	reset_param(process);
-	process->pc = process->pc2;
-	process->opcode = 0;
-	process->ocp = 0;
-	process->cycle_of_exe = vm->total_cycles;
-	return (1);
+	return (shift);
 }
