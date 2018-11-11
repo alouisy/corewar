@@ -39,6 +39,7 @@ inline void				init_vm(t_pvm *vm)
 	vm->pid = 0;
 	vm->champions = NULL;
 	ft_bzero(vm->memory, MEM_SIZE);
+	reset_param(vm);
 	vm->dump = -1;
 	vm->verbose = 0;
 	vm->nc.wleft = NULL;

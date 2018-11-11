@@ -16,25 +16,25 @@
 ** loqical and
 */
 
-int	ft_and(__attribute__((unused)) t_pvm *pvm, t_process *process)
+int	ft_and(__attribute__((unused)) t_pvm *vm, t_process *process)
 {
 	int		val1;
 	int		val2;
 
 	val1 = 0;
 	val2 = 0;
-	if (process->param[2] >= 1 && process->param[2] <= REG_NUMBER
-		&& get_prm_value(pvm, process, 0, &val1)
-		&& get_prm_value(pvm, process, 1, &val2))
+	if (vm->param[2] >= 1 && vm->param[2] <= REG_NUMBER
+		&& get_prm_value(vm, process, 0, &val1)
+		&& get_prm_value(vm, process, 1, &val2))
 	{
-		process->r[process->param[2] - 1] = (val1 & val2);
-		if (pvm->verbose == 2)
+		process->r[vm->param[2] - 1] = (val1 & val2);
+		if (vm->verbose == 2)
 		{
 			ft_printf("P% 5d | and %d %d r%d\n",
 					(CHAMPION(process->champ))->nbr,
 					val1,
 					val2,
-					process->param[2]);
+					vm->param[2]);
 		}
 		ft_carry(process, (val1 & val2), !(val1 & val2));
 	}

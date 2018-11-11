@@ -16,14 +16,13 @@
 ** long fork
 */
 
-void	new_process_init(t_pvm *pvm, t_process *old, t_process *new, int new_pc)
+void	new_process_init(t_process *old, t_process *new, int new_pc)
 {
 	new->champ = old->champ;
 	new->pc = new_pc;
-	new->pc2 = old->pc;
+	/*
+	** reset alive, keep carry
+	*/
 	new->state = (old->state >> 1) << 1;
-	reset_param(new);
 	new->opcode = 0;
-	new->ocp = 0;
-	new->cycle_of_exe = pvm->total_cycles + 1;
 }

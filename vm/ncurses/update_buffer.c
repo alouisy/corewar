@@ -18,17 +18,13 @@
 
 void	update_buffer(t_pvm *vm)
 {
-	t_list		*node;
-	t_list		*save;
+	int	i;
 
-	node = (vm->nc.stack[vm->total_cycles % 1001]).next;
-	while (node)
+	i = 0;
+	while (i < MEM_SIZE)
 	{
-		save = node->next;
-		print_4case(vm, node->content_size, vm->mem_color[node->content_size]);
-		node->next = vm->nc.trash;
-		vm->nc.trash = node;
-		node = save;
+		if (vm->total_cycles == vm->nc.buffer[i])
+			print_case(vm->nc.wleft, i, vm->mem_color[i], vm->memory[i]);
+		i++;
 	}
-	(vm->nc.stack[vm->total_cycles % 1001]).next = NULL;
 }

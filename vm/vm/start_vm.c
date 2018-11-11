@@ -12,11 +12,34 @@
 
 #include "../vm.h"
 
-void	start_vm(t_pvm *vm)
+int do_it(t_pvm *vm, t_list *node)
 {
+	t_list	*save;
 	t_process	*content;
+	int			cycle;
+
+	while (node)
+	{
+		save = node->next;
+		content = PROCESS(node);
+		if (content->opcode == 0)
+		{
+			cycle = get_opcode(vm, content);
+		}
+		else
+		{
+			if (!(cycle = process_instruction(vm, content)))
+				return (0);
+		}
+		update_stack(vm, cycle, node);
+		node = save;
+	}
+	return (1);
+}
+
+int	start_vm(t_pvm *vm)
+{
 	t_list		*node;
-	t_list		*save;
 
 	while (vm->total_cycles != vm->dump)
 	{
@@ -26,34 +49,12 @@ void	start_vm(t_pvm *vm)
 			break ;
 		node = vm->stack[(vm->total_cycles) % 1001].next;
 		vm->stack[(vm->total_cycles) % 1001].next = NULL;
+		vm->stack[(vm->total_cycles) % 1001].content = NULL;
 		vm->total_cycles++;
-		while (node)
-		{
-			save = node->next;
-			content = PROCESS(node);
-			if (content->opcode == 0)
-			{
-				get_instruction(vm, content);
-			}
-			else if (!process_instruction(vm, content))
-				break ;
-			update_stack(vm, vm->total_cycles, node);
-/*			else if (content->opcode != 0)
-			{
-				chck = process_instruction(vm, content);
-				if (!chck)
-					break ;
-			}
-			if (chck != 2)
-				update_stack(vm, vm->total_cycles, node);
-*/			if (vm->verbose == 1)
-				status_game(vm);
-			node = save;
-		}
-	//	if (vm->verbose == 1)
-	//		status_game(vm);
-		if (vm->c2d < 0)
+		if (!do_it(vm, node))
 			break ;
+		if (vm->verbose == 1)
+			status_game(vm);
 	}
 	cycle2die(vm, 1);
 	if (vm->verbose != 1)
@@ -61,4 +62,5 @@ void	start_vm(t_pvm *vm)
 	if (vm->total_cycles == vm->dump)
 		print_memory(vm);
 	print_winner(vm);
+	return (1);
 }

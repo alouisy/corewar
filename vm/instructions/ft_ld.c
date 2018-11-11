@@ -16,21 +16,21 @@
 ** direct load
 */
 
-int	ft_ld(__attribute__((unused)) t_pvm *pvm, t_process *process)
+int	ft_ld(__attribute__((unused)) t_pvm *vm, t_process *process)
 {
 	int		value;
 
 	value = 0;
-	if (process->param[1] >= 1 && process->param[1] <= REG_NUMBER
-		&& get_prm_value(pvm, process, 0, &value))
+	if (vm->param[1] >= 1 && vm->param[1] <= REG_NUMBER
+		&& get_prm_value(vm, process, 0, &value))
 	{
-		process->r[process->param[1] - 1] = value;
-		if (pvm->verbose == 2)
+		process->r[vm->param[1] - 1] = value;
+		if (vm->verbose == 2)
 		{
 			ft_printf("P% 5d | ld %d r%d\n",
 					(CHAMPION(process->champ))->nbr,
 					value,
-					process->param[1]);
+					vm->param[1]);
 		}
 		ft_carry(process, value, !value);
 	}

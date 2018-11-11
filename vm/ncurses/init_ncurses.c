@@ -51,9 +51,7 @@ void	init_ncurses(t_pvm *vm)
 	vm->nc.wleft = subwin(stdscr, LINES, vm->nc.left_width, 0, 0);
 	vm->nc.wright = subwin(stdscr, LINES, vm->nc.right_width, 0, vm->nc.left_width);
 	vm->nc.step = 1;
-	vm->nc.trash = NULL;
 	aux_reset_memory(vm);
-	aux_reset_stack(vm->nc.stack);
 	box(vm->nc.wleft, ACS_VLINE, ACS_HLINE);
 	box(vm->nc.wright, ACS_VLINE, ACS_HLINE);
 	print_map(vm);

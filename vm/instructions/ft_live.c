@@ -12,23 +12,23 @@
 
 #include "../vm.h"
 
-int	ft_live(t_pvm *pvm, t_process *process)
+int	ft_live(t_pvm *vm, t_process *process)
 {
 	t_list	*node;
 
 	if (!(process->state % 2))
 		process->state += 1;
-	pvm->sum_lives++;
-	if ((node = ft_lstfindchamp(pvm->champions, process->param[0])))
+	vm->sum_lives++;
+	if ((node = ft_lstfindchamp(vm->champions, vm->param[0])))
 	{
 		(CHAMPION(node))->nb_live++;
-		(CHAMPION(node))->l_live = pvm->total_cycles;
-		pvm->last_live = pvm->total_cycles;
-		if (pvm->verbose == 2)
+		(CHAMPION(node))->l_live = vm->total_cycles;
+		vm->last_live = vm->total_cycles;
+		if (vm->verbose == 2)
 		{
 			ft_printf("P% 5d | live %d\n",
 					(CHAMPION(process->champ))->nbr,
-					process->param[0]);
+					vm->param[0]);
 		}
 	}
 	return (1);

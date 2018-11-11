@@ -52,7 +52,6 @@ int registre_status(t_pvm *vm, int i)
 
 int	param_status(t_pvm *vm, int i)
 {
-	t_process	*process;
 	t_list		*node;
 	int k;
 	
@@ -65,7 +64,6 @@ int	param_status(t_pvm *vm, int i)
 	}
 	if (node)
 	{
-		process = PROCESS(node);
 		mvwprintw(vm->nc.wright, i, 1,
 				"_________________________________");
 		mvwprintw(vm->nc.wright, i + 1, 1,
@@ -80,14 +78,14 @@ int	param_status(t_pvm *vm, int i)
 				"| 0 | 1 | 2 |                    ");
 		mvwprintw(vm->nc.wright, i, 1,
 				" %8d | %8d | %8d |",
-				process->param[0],
-				process->param[1],
-				process->param[2]);
+				vm->param[0],
+				vm->param[1],
+				vm->param[2]);
 		mvwprintw(vm->nc.wright, i++, vm->nc.right_width / 2,
 				"| %1d | %1d | %1d |                   ",
-				process->param_type[0],
-				process->param_type[1],
-				process->param_type[2]);
+				vm->param_type[0],
+				vm->param_type[1],
+				vm->param_type[2]);
 	}
 	return (i);
 }
@@ -100,9 +98,9 @@ static inline int	current_status_pc(t_pvm *vm, int i)
 	int			k;
 
 	mvwprintw(vm->nc.wright, i++, 1,
-			"   pid      | owner | pc   | pc2  | opcode | carry | live  |  exe ");
+			"   pid      | owner | pc   | opcode | carry | live  |  exe ");
 	mvwprintw(vm->nc.wright, i++, 1,
-			"____________|_______|______|______|________|_______|_______|______");
+			"____________|_______|______|________|_______|_______|______");
 	k = 0;
 	j = 0;
 	while (k < 1001)
@@ -116,15 +114,14 @@ static inline int	current_status_pc(t_pvm *vm, int i)
 			if (j < 40)
 			{
 				mvwprintw(vm->nc.wright, i++, 1,
-						" %10d | %5d | %4d | %4d | %6d | %5d | %5d | %4d ",
+						" %10d | %5d | %4d | %6d | %5d | %5d | %4d ",
 						node->content_size,
 						(CHAMPION(process->champ))->nbr,
 						process->pc,
-						process->pc2,
 						process->opcode,
 						process->state / 2 ? 1 : 0,
 						process->state % 2 ? 1 : 0,
-						process->cycle_of_exe - vm->total_cycles);
+						vm->stack[(vm->total_cycles + k) % 1001].content_size - vm->total_cycles);
 			}
 			node = node->next;
 			j++;
@@ -134,8 +131,8 @@ static inline int	current_status_pc(t_pvm *vm, int i)
 	while (j++ < 25)
 	{
 		mvwprintw(vm->nc.wright, i++, 1,
-				" %10s | %5s | %4s | %4s | %6s | %5s | %5s | %4s ",
-				"", "", "", "", "", "", "", ""); 
+				" %10s | %5s | %4s | %6s | %5s | %5s | %4s ",
+				"", "", "", "", "", "", ""); 
 	}
 	return (i);
 }
@@ -145,7 +142,7 @@ void		status_process(t_pvm *vm, int i)
 	i = current_status_pc(vm, i);
 	if (i < LINES - 5)
 	{
-		i = LINES - 50;
+		i = LINES - 15;
 		i = param_status(vm, i);
 		registre_status(vm, i);
 	}

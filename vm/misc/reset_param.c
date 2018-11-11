@@ -1,14 +1,14 @@
 #include "../vm.h"
 
-void	reset_param(t_process *process)
+void	reset_param(t_pvm *vm)
 {
 	int i;
 
 	i = 0;
 	while (i < 3)
 	{
-		process->param[i] = 0;
-		process->param_type[i] = 0;
+		vm->param[i] = 0;
+		vm->param_type[i] = 0;
 		i++;
 	}
 }

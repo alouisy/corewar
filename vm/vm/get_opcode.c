@@ -6,45 +6,28 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 17:41:07 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/10/27 20:23:42 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/09 17:48:30 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../vm.h"
 
-void	print_memory(t_pvm *prms)
+int		get_opcode(t_pvm *vm, t_process *process)
 {
-	int	i;
-
-	i = 0;
-	ft_printf("0x0000 : ");
-	while (i < MEM_SIZE)
+ 	process->opcode = vm->memory[process->pc % MEM_SIZE];
+	if (process->opcode < 1 || process->opcode > 16)
 	{
-		if ((i % 64) == 0 && i != 0)
-		{
-			ft_putchar('\n');
-			ft_printf("%#.4x : ", i);
-		}
-		if (prms->memory[i] == 0)
-			ft_printf("00 ");
-		else
-			ft_printf("\033[32m%.2hhx \033[0m", prms->memory[i]);
-		i++;
+		process->opcode = 0;
+		process->pc++;
+		process->pc %= MEM_SIZE;
 	}
-	ft_putchar('\n');
-}
-
-void	print_champ(t_list *champ)
-{
-	if (champ == NULL)
+	if (vm->verbose == 1)
 	{
-		ft_printf("Introducing contestants...\n");
-		return ;
+		store_buffer(
+				vm, process->pc,
+				(CHAMPION(process->champ))->color + 4,
+				g_op_tab[process->opcode].nb_cycles + 1
+		);
 	}
-	print_champ(champ->next);
-	ft_printf("* Player %i, weighing %i bytes, \"%s\" (\"%s\") !\n",\
-		(CHAMPION(champ))->nbr,\
-		(CHAMPION(champ))->header.prog_size,\
-		(CHAMPION(champ))->header.prog_name,\
-		(CHAMPION(champ))->header.comment);
+	return (vm->total_cycles + g_op_tab[process->opcode].nb_cycles - 1);
 }

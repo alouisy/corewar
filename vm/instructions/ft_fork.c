@@ -16,14 +16,14 @@
 ** fork
 */
 
-int		ft_fork(t_pvm *pvm, t_process *process)
+int		ft_fork(t_pvm *vm, t_process *process)
 {
 	int value;
 
-	value = (short int)process->param[0];
-	if (!aux_fork(pvm, process, value % IDX_MOD))
+	value = (short int)vm->param[0];
+	if (!aux_fork(vm, process, value % IDX_MOD))
 		return (0);
-	if (pvm->verbose == 2)
+	if (vm->verbose == 2)
 	{
 		ft_printf("P% 5d | fork %d (%d)\n",
 				(CHAMPION(process->champ))->nbr,

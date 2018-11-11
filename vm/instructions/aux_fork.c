@@ -35,7 +35,7 @@ int aux_fork(t_pvm *pvm, t_process *process, int value)
 	else if (!(node = ft_lstnew2(process, sizeof(t_process))))
 		return (0);
 	node->content_size = pvm->pid++;
-	new_process_init(pvm, process, (PROCESS(node)), new_pc);
+	new_process_init(process, (PROCESS(node)), new_pc);
 	update_stack(pvm, pvm->total_cycles, node);
 	return (1);
 }

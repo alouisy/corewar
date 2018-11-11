@@ -16,12 +16,12 @@
 ** jump if zero
 */
 
-int	ft_zjmp(t_pvm *pvm, t_process *process)
+int	ft_zjmp(t_pvm *vm, t_process *process)
 {
 	int		value;
 	char	*str;
 
-	value = (short int)process->param[0];
+	value = (short int)vm->param[0];
 	if (process->state / 2)
 	{
 		str = "OK";
@@ -29,11 +29,12 @@ int	ft_zjmp(t_pvm *pvm, t_process *process)
 		process->pc %= MEM_SIZE;
 		if (process->pc < 0)
 			process->pc += MEM_SIZE;
-		process->pc2 = process->pc;
 	}
 	else
+	{
 		str = "FAILED";
-	if (pvm->verbose == 2)
+	}
+	if (vm->verbose == 2)
 	{
 		ft_printf("P% 5d | zjmp %d %s\n", (CHAMPION(process->champ))->nbr, value, str);
 	}

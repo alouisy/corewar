@@ -15,23 +15,26 @@
 int	process_instruction(t_pvm *vm, t_process *process)
 {
 	int		shift;
+	int		save;
 
+	reset_param(vm);
 	shift = 1;
-	if (process->cycle_of_exe == vm->total_cycles)
+	shift += get_param_type(vm, process);
+	shift = get_param(vm, process, shift);
+	save = process->pc;
+	/*
+	 ** uniquement pour les forks qui generent un malloc
+	 */
+	if (!(vm->f[process->opcode - 1](vm, process)))
 	{
-		shift += get_opcode(vm, process);
-		shift = get_param(vm, process, shift);
-		process->pc2 = (process->pc + shift) % MEM_SIZE;
-		if (!(vm->f[process->opcode - 1](vm, process)))
-		{
-			vm->c2d = -1;
-			return (0);
-		}
-		reset_param(process);
-		process->pc = process->pc2;
-		process->opcode = 0;
-		process->ocp = 0;
-		process->cycle_of_exe = vm->total_cycles;
+		vm->c2d = -1;
+		return (0);
 	}
-	return (shift);
+	/*
+	 ** uniquement pour zjmp
+	 */
+	if (save == process->pc)
+		process->pc = (process->pc + shift) % MEM_SIZE;
+	process->opcode = 0;
+	return (vm->total_cycles);
 }

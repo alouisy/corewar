@@ -16,7 +16,7 @@
 ** aritmetical addition
 */
 
-int	ft_add(__attribute__((unused)) t_pvm *pvm, t_process *process)
+int	ft_add(__attribute__((unused)) t_pvm *vm, t_process *process)
 {
 	int		i;
 	int 	error;
@@ -24,20 +24,20 @@ int	ft_add(__attribute__((unused)) t_pvm *pvm, t_process *process)
 	i = -1;
 	error = 0;
 	while (++i < 3)
-		if (process->param[i] < 1 || process->param[i] > REG_NUMBER)
+		if (vm->param[i] < 1 || vm->param[i] > REG_NUMBER)
 			error = 1;
 	if (!error)
 	{
-		process->r[process->param[2] - 1] = process->r[process->param[0] - 1] +
-			process->r[process->param[1] - 1];
-		if (pvm->verbose == 2)
+		process->r[vm->param[2] - 1] = process->r[vm->param[0] - 1] +
+			process->r[vm->param[1] - 1];
+		if (vm->verbose == 2)
 		{
 			ft_printf("P% 5d | add r%d r%d r%d\n",
-					(CHAMPION(process->champ))->nbr, process->param[0],
-					process->param[1], process->param[2]);
+					(CHAMPION(process->champ))->nbr, vm->param[0],
+					vm->param[1], vm->param[2]);
 		}
-		ft_carry(process, process->r[process->param[2] - 1],
-				!(process->r[process->param[2] - 1]));
+		ft_carry(process, process->r[vm->param[2] - 1],
+				!(process->r[vm->param[2] - 1]));
 	}
 	return (1);
 }

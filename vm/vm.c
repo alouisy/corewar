@@ -24,21 +24,7 @@ static void	aux_usage(char *str)
 	ft_printf("		         space : pause\n");
 	ft_printf("		         any key : continue\n");
 }
-/*
-static void	aux_print_champ(t_list *node)
-{
-	t_champion	*champion;
 
-	champion = CHAMPION(node);
-	ft_printf(
-		"Pos: %d\nMagic: %d\nProg_name: %s\nProg_size: %d\nComment: %s\n\n",
-		champion->nbr,
-		champion->header.magic,
-		champion->header.prog_name,
-		champion->header.prog_size,
-		champion->header.comment);
-}
-*/
 int			main(int argc, char **argv)
 {
 	t_pvm	vm;
@@ -50,11 +36,14 @@ int			main(int argc, char **argv)
 		{
 			init_memory(&vm);
 			if (vm.verbose != 1)
-				print_champ(vm.champions);
-				//ft_lstiter(vm.champions, &aux_print_champ);
+				ft_lstiter(vm.champions, &print_champ);
 			else
 				init_ncurses(&vm);
-			start_vm(&vm);
+			if (!start_vm(&vm))
+			{
+				free_vm(&vm);
+				return (EXIT_FAILURE);
+			}
 		}
 		free_vm(&vm);
 	}

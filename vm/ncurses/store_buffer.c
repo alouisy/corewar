@@ -17,29 +17,22 @@
 ** i = tase
 */
 
-int	store_buffer(t_pvm *vm, int i, int color, int cycles)
+void	store_buffer(t_pvm *vm, int i, int color, int cycles)
 {
-	t_list 			*node;
-	unsigned char	mem;
+	int				position;
 
 	if (vm->verbose == 1)
 	{
-		mem = color;
-		if (vm->nc.trash)
-		{
-			node = vm->nc.trash;
-			vm->nc.trash = node->next;
-			*(unsigned char*)(node->content) = mem;
-		}
-		else if (!(node = ft_lstnew2(&mem, sizeof(mem))))
-			return (0);
-		node->content_size = i;
-		node->next = (vm->nc.stack[(vm->total_cycles + cycles) % 1001]).next;
-		(vm->nc.stack[(vm->total_cycles + cycles) % 1001]).next = node;
+		position = i % MEM_SIZE;
+		vm->nc.buffer[position] = vm->total_cycles + cycles;
 		if (cycles == 50)
+		{
+			vm->nc.buffer[++position] = vm->total_cycles + cycles;
+			vm->nc.buffer[++position] = vm->total_cycles + cycles;
+			vm->nc.buffer[++position] = vm->total_cycles + cycles;
 			print_4case(vm, i, color);
+		}
 		else
-			print_case(vm->nc.wleft, i, color, vm->memory[i % MEM_SIZE]);
+			print_case(vm->nc.wleft, i, color, vm->memory[position]);
 	}
-	return (1);
 }

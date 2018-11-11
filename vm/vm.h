@@ -39,28 +39,28 @@ extern t_op				g_op_tab[17];
 /*
 ** structure for process then for champion
 */
+
+/*
+ ** cycle_of_exec est dans node->content_size de stack[1001]
+ ** pid a été mis dans node->content_size du process
+ */
 typedef struct			s_process
 {
-	t_list				*champ;
-	/*
-	** pid a été mis dans node->content_size du process
-	*/
-	int					r[REG_NUMBER]; // pourrait etre une liste
+	unsigned char		opcode;
 	short int			pc;
-	short int			pc2; // supprimable
+	/*
+	** pourrait être un char[1]
+	*/
+	int					r[REG_NUMBER];
 	/*
 	** state manage carry and live status in a single variable for memory effeciency.
-	**  0 : none
-	**  1 : alive
-	**	2 : carry = 1
-	**  3 : both
+	**  00 : carry = 0 && alive = 0
+	**  01 : alive = 1
+	**	10 : carry = 1
+	**  11 : carry = 1 && alive = 1
 	*/
-	unsigned char		state;
-	int					cycle_of_exe; //suuprimable et inscrire de le premier maillon de stack[1001] le cycle d exec
-	int					param[3];
-	unsigned char		param_type[3]; 	//changer en char[1] et manipulation binaire dessus
-	unsigned char		opcode;
-	unsigned char		ocp; // besoin de le retenir? ou sipprimer param_type[3]
+	char				state;
+	t_list				*champ;
 }						t_process;
 
 typedef struct			s_champion
@@ -85,15 +85,7 @@ typedef struct			s_ncurses
 	char				memory[MEM_SIZE];
 	int					left_width;
 	int					right_width;
-	/*
-	** depend du temps d'execution max des instructions, ici 1000 pour lfork
-	** a remplacer par t_buffer buffer[MEM_SIZE] et sup trash
-	*/
-	t_list				stack[1001];
-	/*
-	** poubelle à node
-	*/
-	t_list				*trash;
+	int					buffer[MEM_SIZE];
 }						t_ncurses;
 
 /*
@@ -103,7 +95,7 @@ typedef struct			s_pvm
 {
 	int					(*f[16])(struct s_pvm *, t_process *);
 	/*
-	** depend du temps d'execution max des instructions, ici 1000 pour lfork
+	** depend du temps d'execution max + 1 des instructions, ici 1000 pour lfork
 	*/
 	t_list				stack[1001];
 	int					pid;
@@ -130,11 +122,14 @@ typedef struct			s_pvm
 	** poubelle à node
 	*/
 	t_list				*trash;
+	unsigned char		param_type[3];
+	int					param[3];
 }						t_pvm;
 
 /*
 ** parser
 */
+void					aux_reset_stack(t_list stack[1001]);
 int						add_process(t_pvm *vm);
 int						get_champ_nb(int nb, t_list *champions);
 void					init_champion(t_champion *champion,
@@ -142,7 +137,6 @@ void					init_champion(t_champion *champion,
 void					init_memory(t_pvm *vm);
 void					init_vm(t_pvm *vm);
 void					init_process(t_process *process, t_pvm *vm);
-void					aux_reset_stack(t_list stack[1001]);
 int						parse_arg(t_pvm *vm, int ac, char **av);
 int						parse_champion(char *path, int nb, t_pvm *vm);
 int						parse_champion_header(t_champion *champion,
@@ -154,13 +148,13 @@ unsigned int			parse_magic_size(int fd, char *filename);
 ** vm
 */
 void					cycle2die(t_pvm *vm, int mode);
-void					get_instruction(t_pvm *vm, t_process *process);
+int						get_opcode(t_pvm *vm, t_process *process);
+int						get_param(t_pvm *vm, t_process *process, int shift);
+int						get_param_type(t_pvm *vm, t_process *process);
 void					print_winner(t_pvm *vm);
 int						process_instruction(t_pvm *vm, t_process *process);
-void					start_vm(t_pvm *vm);
+int						start_vm(t_pvm *vm);
 void					update_stack(t_pvm *vm, int cycles, t_list *tmp);
-int						get_param(t_pvm *vm, t_process *process, int shift);
-int						get_opcode(t_pvm *vm, t_process *process);
 
 /*
 ** instructions
@@ -183,7 +177,7 @@ int						ft_lfork(t_pvm *pvm, t_process *process);
 int						ft_aff(t_pvm *pvm, t_process *process);
 int						get_prm_value(t_pvm *pvm,
 							t_process *process, int i, int *value);
-void					new_process_init(t_pvm *pvm, t_process *old, t_process *new, int new_pc);
+void					new_process_init(t_process *old, t_process *new, int new_pc);
 void					write_in_memory(t_pvm *pvm, t_process *process, int value, short int value2);
 void					ft_carry(t_process *process, char carry_0, char carry_1);
 int 					aux_fork(t_pvm *vm, t_process *process, int value);
@@ -199,7 +193,7 @@ t_champion				*get_champion(t_list *node);
 t_process				*get_process(t_list	*node);
 void					print_memory(t_pvm *vm);
 void					print_champ(t_list *champ);
-void					reset_param(t_process *process);
+void					reset_param(t_pvm *vm);
 
 /*
 ** ncurses
@@ -214,7 +208,7 @@ void					status_game(t_pvm *vm);
 int						status_vm(t_pvm *vm);
 int						status_champion(t_pvm *vm, int i);
 void					status_process(t_pvm *vm, int i);
-int						store_buffer(t_pvm *vm, int i, int color, int cycles);
+void					store_buffer(t_pvm *vm, int i, int color, int cycles);
 void					update_buffer(t_pvm *vm);
 
 #endif
