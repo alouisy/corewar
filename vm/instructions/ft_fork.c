@@ -20,14 +20,18 @@ int		ft_fork(t_pvm *vm, t_process *process)
 {
 	int value;
 
-	value = (short int)vm->param[0];
+	value = vm->param[0];
 	if (!aux_fork(vm, process, value % IDX_MOD))
 		return (0);
 	if (vm->verbose == 2)
 	{
 		ft_printf("P% 5d | fork %d (%d)\n",
 				(CHAMPION(process->champ))->nbr,
-				value, (process->pc + (value % IDX_MOD)));
+				value,
+				(process->pc + (value % IDX_MOD)));
 	}
+	if (vm->verb == 3)
+		print_adv(vm, process->pc, 3);
+	process->pc = (process->pc + 3) % MEM_SIZE;
 	return (1);
 }

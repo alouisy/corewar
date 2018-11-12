@@ -16,22 +16,22 @@
 ** direct store
 */
 
-void	write_in_memory(t_pvm *pvm, t_process *process, int value, short int value2)
+void	write_in_memory(t_pvm *pvm, t_process *process, int value, int value2)
 {
-	int address;
+//	int address;
 	int	color;
 	int i;
 
-	address = process->pc + value2 % IDX_MOD;
-	while (address < 0)
-		address += MEM_SIZE;
+//	address = process->pc + value2 % IDX_MOD;
+//	while (address < 0)
+//		address += MEM_SIZE;
 	color = (CHAMPION(process->champ))->color;
 	i = 0;
 	while (i < 4)
 	{
-		pvm->memory[(address + 3 - i) % MEM_SIZE] = (value >> i * 8);
-		pvm->mem_color[(address + 3 - i) % MEM_SIZE] = color;
+		pvm->memory[(unsigned int)((process->pc + value2 % IDX_MOD) + 3 - i) % MEM_SIZE] = (value >> i * 8);
+		pvm->mem_color[(unsigned int)((process->pc + value2 % IDX_MOD) + 3 - i) % MEM_SIZE] = color;
 		i++;
 	}
-	store_buffer(pvm, address, color + 8, 50);
+	store_buffer(pvm, (process->pc + value2 % IDX_MOD), color + 8, 50);
 }

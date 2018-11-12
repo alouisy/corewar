@@ -16,12 +16,12 @@
 ** long fork
 */
 
-int	ft_lfork(t_pvm *vm, t_process *process)
+int		ft_lfork(t_pvm *vm, t_process *process)
 {
 	int value;
 
-	value = (short int)vm->param[0];
-	if (!aux_fork(vm, process, (short int)vm->param[0]))
+	value = vm->param[0];
+	if (!aux_fork(vm, process, value))
 		return (0);
 	if (vm->verbose == 2)
 	{
@@ -30,5 +30,8 @@ int	ft_lfork(t_pvm *vm, t_process *process)
 				value,
 				(process->pc + value));
 	}
+	if (vm->verb == 3)
+		print_adv(vm, process->pc, 3);
+	process->pc = (process->pc + 3) % MEM_SIZE;
 	return (1);
 }

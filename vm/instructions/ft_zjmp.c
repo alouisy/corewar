@@ -21,22 +21,25 @@ int	ft_zjmp(t_pvm *vm, t_process *process)
 	int		value;
 	char	*str;
 
-	value = (short int)vm->param[0];
+	value = reverse_bytes(vm, process->pc + 1, 2);
+	if (vm->verb == 3)
+		print_adv(vm, process->pc, 3);
 	if (process->state / 2)
 	{
 		str = "OK";
-		process->pc += value % IDX_MOD;
-		process->pc %= MEM_SIZE;
-		if (process->pc < 0)
-			process->pc += MEM_SIZE;
+		process->pc = (unsigned int)(process->pc + (value % IDX_MOD)) % MEM_SIZE;
+//		if (process->pc < 0)
+//			process->pc += MEM_SIZE;
 	}
 	else
 	{
 		str = "FAILED";
+		process->pc = (process->pc + 3) % MEM_SIZE;
 	}
 	if (vm->verbose == 2)
 	{
 		ft_printf("P% 5d | zjmp %d %s\n", (CHAMPION(process->champ))->nbr, value, str);
 	}
+
 	return (1);
 }

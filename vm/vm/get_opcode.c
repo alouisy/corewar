@@ -29,5 +29,5 @@ int		get_opcode(t_pvm *vm, t_process *process)
 				g_op_tab[process->opcode].nb_cycles + 1
 		);
 	}
-	return (vm->total_cycles + g_op_tab[process->opcode].nb_cycles - 2);
+	return (vm->total_cycles + g_op_tab[process->opcode].nb_cycles - 1);
 }

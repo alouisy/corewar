@@ -47,6 +47,7 @@ extern t_op				g_op_tab[17];
 typedef struct			s_process
 {
 	unsigned char		opcode;
+	unsigned char		ocp;
 	short int			pc;
 	/*
 	** pourrait être un char[1]
@@ -109,6 +110,7 @@ typedef struct			s_pvm
 	**     2 : verbose printf
 	*/
 	char				verbose;
+	char				verb;
 	t_ncurses			nc;
 	int					nb_champ;
 	int					nb_process;
@@ -151,6 +153,8 @@ void					cycle2die(t_pvm *vm, int mode);
 int						get_opcode(t_pvm *vm, t_process *process);
 int						get_param(t_pvm *vm, t_process *process, int shift);
 int						get_param_type(t_pvm *vm, t_process *process);
+int						check_param(unsigned char op, unsigned char ocp, unsigned char nb_param);
+int						octal_shift(unsigned char n, unsigned char label_size, unsigned char arg_nb);
 void					print_winner(t_pvm *vm);
 int						process_instruction(t_pvm *vm, t_process *process);
 int						start_vm(t_pvm *vm);
@@ -175,10 +179,11 @@ int						ft_lld(t_pvm *pvm, t_process *process);
 int						ft_lldi(t_pvm *pvm, t_process *process);
 int						ft_lfork(t_pvm *pvm, t_process *process);
 int						ft_aff(t_pvm *pvm, t_process *process);
+int						reverse_bytes(t_pvm *vm, unsigned int pc, int nbytes);
 int						get_prm_value(t_pvm *pvm,
 							t_process *process, int i, int *value);
 void					new_process_init(t_process *old, t_process *new, int new_pc);
-void					write_in_memory(t_pvm *pvm, t_process *process, int value, short int value2);
+void					write_in_memory(t_pvm *pvm, t_process *process, int value, int value2);
 void					ft_carry(t_process *process, char carry_0, char carry_1);
 int 					aux_fork(t_pvm *vm, t_process *process, int value);
 
@@ -187,13 +192,14 @@ int 					aux_fork(t_pvm *vm, t_process *process, int value);
 */
 void					free_vm(t_pvm *vm);
 t_list					*ft_lstfindchamp(t_list *champ, int nbr);
-int						ft_strhex2dec(unsigned char *str, int position, int len);
+int						ft_strhex2dec(unsigned char *str, int len);
 int						ft_strerror(char *str, int f);
 t_champion				*get_champion(t_list *node);
 t_process				*get_process(t_list	*node);
 void					print_memory(t_pvm *vm);
 void					print_champ(t_list *champ);
 void					reset_param(t_pvm *vm);
+void					print_adv(t_pvm *vm, int	pc, int shift);
 
 /*
 ** ncurses

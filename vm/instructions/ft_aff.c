@@ -18,6 +18,24 @@
 
 int	ft_aff(t_pvm *vm, t_process *process)
 {
+	unsigned char	c;
+
+	c = 0;
+	if (vm->param_type[0] == REG_CODE && vm->param[0] >= 1 && vm->param[0] <= REG_NUMBER)
+	{
+		c = process->r[vm->param[0] - 1];
+		if (vm->verbose == 2)
+			ft_printf("Aff: %c\n", c);
+		ft_carry(process, !(c == '\0'), c == '\0');
+	}
+	if (vm->verb == 3)
+		print_adv(vm, process->pc, octal_shift(process->ocp, 4, 1));
+	process->pc = (process->pc + octal_shift(process->ocp, 4, 1)) % MEM_SIZE;
+	return (1);
+}
+/*
+int	ft_aff(t_pvm *vm, t_process *process)
+{
 	char	c;
 
 	c = 0;
@@ -30,3 +48,4 @@ int	ft_aff(t_pvm *vm, t_process *process)
 	}
 	return (1);
 }
+*/

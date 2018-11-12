@@ -19,6 +19,7 @@ int	ft_live(t_pvm *vm, t_process *process)
 	if (!(process->state % 2))
 		process->state += 1;
 	vm->sum_lives++;
+	vm->param[0] = reverse_bytes(vm, process->pc + 1, 4);
 	if ((node = ft_lstfindchamp(vm->champions, vm->param[0])))
 	{
 		(CHAMPION(node))->nb_live++;
@@ -31,5 +32,9 @@ int	ft_live(t_pvm *vm, t_process *process)
 					vm->param[0]);
 		}
 	}
+	if (vm->verb == 3)
+		print_adv(vm, process->pc, 5);
+	process->pc += 5;
+	process->pc %= MEM_SIZE;
 	return (1);
 }
