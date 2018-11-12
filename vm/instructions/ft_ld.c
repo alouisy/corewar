@@ -21,9 +21,9 @@ int	ft_ld(__attribute__((unused)) t_pvm *vm, t_process *process)
 	int		value;
 
 	value = 0;
-	if (vm->param[1] >= 1 && vm->param[1] <= REG_NUMBER
-		&& get_prm_value(vm, process, 0, &value))
+	if (vm->param[1] >= 1 && vm->param[1] <= REG_NUMBER)
 	{
+		get_prm_value(vm, process, 0, &value);
 		process->r[vm->param[1] - 1] = value;
 		if (vm->verbose == 2)
 		{

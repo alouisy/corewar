@@ -187,7 +187,7 @@ int 					aux_fork(t_pvm *vm, t_process *process, int value);
 */
 void					free_vm(t_pvm *vm);
 t_list					*ft_lstfindchamp(t_list *champ, int nbr);
-int						ft_strhex2dec(unsigned char *str, int len);
+int						ft_strhex2dec(unsigned char *str, int position, int len);
 int						ft_strerror(char *str, int f);
 t_champion				*get_champion(t_list *node);
 t_process				*get_process(t_list	*node);

@@ -24,8 +24,10 @@ int	ft_add(__attribute__((unused)) t_pvm *vm, t_process *process)
 	i = -1;
 	error = 0;
 	while (++i < 3)
+	{
 		if (vm->param[i] < 1 || vm->param[i] > REG_NUMBER)
 			error = 1;
+	}
 	if (!error)
 	{
 		process->r[vm->param[2] - 1] = process->r[vm->param[0] - 1] +

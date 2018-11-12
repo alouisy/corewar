@@ -44,9 +44,10 @@ int	ft_ldi(t_pvm *vm, t_process *process)
 					val2,
 					(val1 + val2), address);
 		}
+		address %= MEM_SIZE;
 		if (address < 0)
 			address += MEM_SIZE;
-		process->r[vm->param[2] - 1] = ft_strhex2dec((vm->memory + (address % MEM_SIZE)), 4);
+		process->r[vm->param[2] - 1] = ft_strhex2dec(vm->memory, address, 4);
 		ft_carry(process, process->r[vm->param[2] - 1],
 				!(process->r[vm->param[2] - 1]));
 	}

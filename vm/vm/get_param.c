@@ -25,9 +25,7 @@ int	get_param(t_pvm *vm, t_process *process, int shift)
 			label_size += (g_op_tab[process->opcode].label_size == 1 ? 0 : 2);
 		else if (label_size == IND_CODE)
 			label_size -= 1;
-		vm->param[i] = ft_strhex2dec(vm->memory + ((process->pc + shift) % MEM_SIZE), label_size);
-		if (label_size != 1)// && vm->param_type[i] == IND_CODE)
-			vm->param[i] = (short int)vm->param[i];
+		vm->param[i] = ft_strhex2dec(vm->memory, (process->pc + shift) % MEM_SIZE, label_size);
 		shift += label_size;
 	}
 	return (shift);

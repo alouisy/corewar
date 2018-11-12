@@ -33,15 +33,16 @@ int	ft_lldi(t_pvm *vm, t_process *process)
 			val1 = (short int)val1;
 		val2 = (short int)vm->param[1];
 */		address = process->pc + (val1 + val2);
+		address %= MEM_SIZE;
+		if (address < 0)
+			address += MEM_SIZE;		
 		if (vm->verbose == 2)
 		{
 			ft_printf("P% 5d | lldi %d %d r%d\n", (CHAMPION(process->champ))->nbr, val1, val2, vm->param[2]);
 		
 			ft_printf("       | -> load from %d + %d = %d (with pc and mod %d)\n", val1, val2, (val1 + val2), address);
 		}
-		while (address < 0)
-			address += MEM_SIZE;		
-		val1 = ft_strhex2dec((vm->memory + (address % MEM_SIZE)), 4);
+		val1 = ft_strhex2dec(vm->memory, address, 4);
 		process->r[vm->param[2] - 1] = val1;
 		ft_carry(process, val1, !val1);
 	}
