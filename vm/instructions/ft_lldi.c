@@ -29,10 +29,8 @@ int	ft_lldi(t_pvm *vm, t_process *process)
 		&& get_prm_value(vm, process, 0, &val1)
 		&& get_prm_value(vm, process, 1, &val2))
 	{
-/*		if (vm->param_type[0] == DIR_CODE)
-			val1 = (short int)val1;
-		val2 = (short int)vm->param[1];
-*/		address = process->pc + (val1 + val2);
+		address = (short int)(val1 + val2);
+		address = process->pc + address;
 		address %= MEM_SIZE;
 		if (address < 0)
 			address += MEM_SIZE;		

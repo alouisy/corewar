@@ -32,15 +32,20 @@ int		get_prm_value(t_pvm *vm, t_process *process, int i, int *value)
 		if (vm->param[i] > MEM_SIZE / 2)
 			vm->param[i] -= MEM_SIZE;
 		if (process->opcode != 13)
-		{
 			address = process->pc + (vm->param[i] % IDX_MOD);
-		}
 		else
 			address = process->pc + vm->param[i];
 		address %= MEM_SIZE;
 		if (address < 0)
 			address += MEM_SIZE;
-		*value = ft_strhex2dec(vm->memory, address, 4);
+		if (process->opcode != 13)
+			*value = ft_strhex2dec(vm->memory, address, 4);
+		else
+		{
+			*value = ft_strhex2dec(vm->memory, address, 2);
+			if (*value > 32768)
+				*value -= 65536;
+		}
 	}
 	return (1);
 }

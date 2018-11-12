@@ -30,7 +30,12 @@ int	ft_sti(t_pvm *vm, t_process *process)
 	if (vm->param[0] >= 1 && vm->param[0] <= REG_NUMBER
 		&& get_prm_value(vm, process, 1, &val1) && get_prm_value(vm, process, 2, &val2))
 	{
-		address = process->pc + ((val1 + val2) % IDX_MOD);
+		address = ((short int)(val1 + val2)) % MEM_SIZE;
+		if (address > (MEM_SIZE / 2))
+			address -= MEM_SIZE;
+		else if (address < -(MEM_SIZE / 2))
+			address += MEM_SIZE;
+		address = process->pc + (address % IDX_MOD);
 		if (vm->verbose == 2)
 		{
 			ft_printf("P% 5d | sti r%d %d %d\n", (CHAMPION(process->champ))->nbr, vm->param[0], val1, val2);
