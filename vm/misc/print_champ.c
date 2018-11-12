@@ -19,6 +19,7 @@ void	print_champ(t_list *champ)
 		ft_printf("Introducing contestants...\n");
 		return ;
 	}
+	print_champ(champ->next);
 	ft_printf("* Player %i, weighing %i bytes, \"%s\" (\"%s\") !\n",\
 		(CHAMPION(champ))->nbr,\
 		(CHAMPION(champ))->header.prog_size,\

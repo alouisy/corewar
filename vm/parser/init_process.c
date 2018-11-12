@@ -18,7 +18,7 @@ inline void	init_process(t_process *process, t_pvm *vm)
 
 	vm->nb_process++;
 	process->champ = vm->champions;
-	process->r[0] = (CHAMPION(vm->champions))->nbr * -1;
+	process->r[0] = (CHAMPION(vm->champions))->nbr;
 	i = 1;
 	while (i < REG_NUMBER)
 		process->r[i++] = 0;

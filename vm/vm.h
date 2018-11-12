@@ -133,7 +133,8 @@ typedef struct			s_pvm
 */
 void					aux_reset_stack(t_list stack[1001]);
 int						add_process(t_pvm *vm);
-int						get_champ_nb(int nb, t_list *champions);
+int						get_champ_nb(int automatic, int nb, t_list *champions);
+//int						get_champ_nb(int nb, t_list *champions);
 void					init_champion(t_champion *champion,
 							int nb_prog, int color);
 void					init_memory(t_pvm *vm);

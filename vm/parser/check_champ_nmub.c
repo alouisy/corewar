@@ -12,6 +12,36 @@
 
 #include "../vm.h"
 
+inline int			get_champ_nb(int automatic, int nb, t_list *champions)
+{
+	t_list	*champion;
+
+	champion = champions;
+	if (champions == NULL)
+		return (((automatic) ? -1 : nb));
+	else if (!automatic)
+	{
+		while (champion)
+		{
+			if ((get_champion(champion))->nbr == nb)
+				return (get_champ_nb(1, -1, champions));
+			champion = champion->next;
+		}
+	}
+	else
+	{
+		while (champion)
+		{
+			if ((get_champion(champion))->nbr == nb--)
+				champion = champions;
+			else
+				champion = champion->next;
+		}
+	}
+	return (nb);
+}
+
+/*
 static inline void	aux_change_number(int nb, t_list *champions)
 {
 	t_list	*champion;
@@ -48,3 +78,4 @@ inline int			get_champ_nb(int nb, t_list *champions)
 		aux_change_number(nb, champions);
 	return (nb);
 }
+*/

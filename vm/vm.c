@@ -36,7 +36,7 @@ int			main(int argc, char **argv)
 		{
 			init_memory(&vm);
 			if (vm.verbose != 1)
-				ft_lstiter(vm.champions, &print_champ);
+				print_champ(vm.champions);
 			else
 				init_ncurses(&vm);
 			if (!start_vm(&vm))
