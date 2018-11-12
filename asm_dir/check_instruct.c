@@ -61,59 +61,58 @@ static int	hash_word(char *word)
 	return (res);
 }
 
-static int	act_on_inst(t_asm_inf *asm_inf, t_op *op, char *param)
+static void	act_on_inst(t_op *op, char *params)
 {
 	t_list	*holder;
 	t_list	*new;
 	char	*binary;
 	int		ocp_val;
-	int		state;
 
-	asm_inf->nb_bytes += 1;
+	g_asm_inf->nb_bytes += 1;
 	if (!(binary = fill_binary(1, op->op_code)))
-		return (-1);
-	if (!(asm_inf->current->next = ft_lstnew(binary, 1, 0)))
-		return (-1);
-	asm_inf->current = asm_inf->current->next;
-	holder = asm_inf->current;
-	state = write_param(param, op, asm_inf, &ocp_val);
-	if (state != 0)
-		return (state);
+		free_all(-1);
+	if (!(g_asm_inf->current->next = ft_lstnew(binary, 1, 0)))
+	{
+		ft_strdel(&binary);
+		free_all(-1);
+	}
+	g_asm_inf->current = g_asm_inf->current->next;
+	holder = g_asm_inf->current;
+	write_param(params, op, &ocp_val);
 	if (op->ocp)
 	{
 		new = ft_lstnew(&ocp_val, 1, 1);
 		new->next = holder->next;
 		holder->next = new;
-		asm_inf->nb_bytes += 1;
+		g_asm_inf->nb_bytes += 1;
 	}
-	return (state);
 }
 
-int			check_instruct(char *line, t_asm_inf *asm_inf, char *param)
+void			check_instruct(char *inst, char *params)
 {
-	char		*inst;
-	int			index;
-	int			i;
+	int	index;
+	int	len;
 
-	i = 0;
-	while (line[i])
-		i++;
-	if (i > 4 || i <= 1)
-		return (UNKNOWN_INST_ERR);
-	inst = ft_strndup(line, i);
-	if (!inst)
-		return (-1);
+	len = ft_strlen(inst);
+	if (len > 5 || len <= 1)
+	{
+		ft_strdel(&inst);
+		ft_strdel(&params);
+		free_all(UNKNOWN_INST_ERR);
+	}
 	index = hash_word(inst);
 	if (index == -1)
 	{
 		ft_strdel(&inst);
-		return (-1);
+		ft_strdel(&params);
+		free_all(-1);
 	}
 	if (ft_strcmp(g_op_tab[index].name, inst))
 	{
 		ft_strdel(&inst);
-		return (UNKNOWN_INST_ERR);
+		ft_strdel(&params);
+		free_all(UNKNOWN_INST_ERR);
 	}
 	ft_strdel(&inst);
-	return (act_on_inst(asm_inf, &g_op_tab[index], param));
+	act_on_inst(&g_op_tab[index], params);
 }

@@ -15,13 +15,14 @@
 # define WRONG_FORMAT_ERR 4
 # define UNKNOWN_INST_ERR 5
 # define WRONG_DOT_CMD_ERR 6
-# define WRONG_DOT_STR_ERR 7
+# define INCOMPLETE_FILE 7
 # define LBL_FORMAT_ERR 8
 # define LBL_EXIST_ERR 9
 # define LBL_NOT_EXIST_ERR 10
 # define LARGE_REG_ERR 11
 # define NEG_REG_ERR 12
 # define WRONG_PARAM_TYPE_ERR 13
+# define WRONG_PARAM_NUM_ERR 14
 # include "../libft/libft.h"
 # include "op.h"
 # include "errno.h"
@@ -64,6 +65,19 @@ typedef struct	s_asm_inf
 	t_list		*holder_prog_size;
 }				t_asm_inf;
 
+typedef struct	s_parse_inf
+{
+	int		beg;
+	int		mid;
+	int		param_start;
+	int		param_end;
+	int		inst_start;
+	int		inst_end;
+	char	*lbl;
+	char	*inst;
+	char	*params;
+}				t_parse_inf;
+
 typedef struct	s_write_inf
 {
 	int		inst_pos;
@@ -73,29 +87,30 @@ typedef struct	s_write_inf
 	int		ocp_part;
 }				t_write_inf;
 
-extern t_op		g_op_tab[16];
+extern t_op			g_op_tab[16]; //je sias pas si je peux justifier de l'avoir en globale en vrai
+extern t_asm_inf	*g_asm_inf;
 
-int				init_prog(int argc, char **argv, t_asm_inf *asm_inf);
-void			init_write(t_write_inf *write_inf, t_asm_inf *asm_inf,
-												int *ocp_val);
-void			write_header(t_asm_inf *asm_inf);
-void			get_dot_info(int fd, char **line, t_asm_inf *asm_inf);
-int				check_instruct(char *line, t_asm_inf *asm_inf, char *param);
+int				init_prog(int argc, char **argv);
+char			**init_write(t_write_inf *write_inf, int *ocp_val,
+											char *param, int *i);
+void			write_header(void);
+void			get_dot_info(int fd, char **line);
+void			check_instruct(char *line, char *param);
 char			*fill_binary(int nb_bytes, int val);
-void			write_lbl(t_asm_inf *asm_inf);
-int				write_param(char *line, t_op *op, t_asm_inf *asm_inf,
-																int *ocp_val);
+void			write_lbl(void);
+void			write_param(char *line, t_op *op, int *ocp_val);
 int				calc_weight(int pow);
-int				add_lbl(char *lbl, t_write_inf *write_inf, t_asm_inf *asm_inf);
+int				add_lbl(char *lbl, t_write_inf *write_inf);
 char			*fill_binary(int nb_bytes, int val);
 int				calc_neg_val(int val, int lbl_bytes);
-void			free_all(t_asm_inf *asm_inf, int err);
+void			free_all(int err);
 void			free_split(char **split);
+void			free_split_all(char **split, int err);
 int				free_tmp(char **trimmed, char **binary, t_write_inf *write_inf);
-int				free_read_ut(t_tree_index *index, int has_str,
-															t_lbl_def *lbl_def);
-int				read_label(char *lbl, t_asm_inf *asm_inf);
-void			add_new(t_holder_def *tmp_holder, int val, t_asm_inf *asm_inf);
-void			parse_line(char *line, t_asm_inf *asm_inf);
+void			free_read_utility(char *lbl, t_tree_index *index,
+												t_lbl_def *lbl_def, int err);
+void			read_label(char *lbl);
+void			add_new(t_holder_def *tmp_holder, int val);
+void			parse_line(char *line);
 
 #endif

@@ -12,61 +12,71 @@
 
 #include "asm.h"
 
-static void	test_line(int i, int len, char **split, t_asm_inf *asm_inf)
+static void	parse_lbl(t_parse_inf *parse, char *line)
 {
-	if ((i >= 4 &&
-		split[0][len - 1] == LABEL_CHAR && split[3][0] != COMMENT_CHAR) ||
-		(i >= 3 &&
-		split[0][len - 1] != LABEL_CHAR && split[2][0] != COMMENT_CHAR) ||
-		(i >= 3 &&
-		split[0][len - 1] != LABEL_CHAR && split[2][0] != COMMENT_CHAR))
+	parse->lbl = ft_strndup(&line[parse->beg], parse->mid- parse->beg);
+	if (!parse->lbl)
+		free_all(-1);
+	read_label(parse->lbl);
+	ft_strdel(&parse->lbl);
+	parse->inst_start = parse->mid;
+	while (line[parse->inst_start] && ft_iswhitespace(line[parse->inst_start]))
+		parse->inst_start++;
+	parse->inst_end = parse->inst_start;
+	while (line[parse->inst_end] && !ft_iswhitespace(line[parse->inst_end]))
+		parse->inst_end++;
+	if (parse->inst_start != parse->inst_end && line[parse->inst_start]
+														!= COMMENT_CHAR)
 	{
-		free_split(split);
-		free_all(asm_inf, WRONG_FORMAT_ERR);
-	}
-}
-
-static int	chose_action(char **split, int len, t_asm_inf *asm_inf)
-{
-	int state;
-
-	state = 0;
-	if (split[0][len - 1] == LABEL_CHAR)
-	{
-		state = read_label(split[0], asm_inf); 
-		if (state != 0)
-			free_all(asm_inf, state);
-		if (split[1] && split[1][0] != COMMENT_CHAR)
-			state = check_instruct(split[1], asm_inf, split[2]);
+		parse->inst = ft_strndup(&line[parse->inst_start],
+										parse->inst_end - parse->inst_start);
+		if (!parse->inst)
+			free_all(-1);
 	}
 	else
-		state = check_instruct(split[0], asm_inf, split[1]);
-	return (state);
+		parse->inst = NULL;
+	parse->param_start = parse->inst_end;
 }
 
-void	parse_line(char *line, t_asm_inf *asm_inf)
+static void	get_param(t_parse_inf *parse, char *line)
 {
-	char	**split;
-	int		i;
-	int		len;
-	int		state;
-
-	split = ft_strsplit_white(line);
-	if (!split)
-		free_all(asm_inf, -1);
-	i = 0;
-	while (split[i])
-		i++;
-	len = ft_strlen(split[0]);
-	if (split[0][0] && split[0][0] != COMMENT_CHAR)
+	parse->param_end = parse->param_start;
+	while (line[parse->param_end] && line[parse->param_end] != COMMENT_CHAR)
+		parse->param_end++;
+	parse->params = ft_strndup(&line[parse->param_start],
+									parse->param_end - parse->param_start);
+	if (!parse->params)
 	{
-		test_line(i, len, split, asm_inf);
-		state = chose_action(split, len, asm_inf);
-		if (state != 0)
+		ft_strdel(&parse->inst);
+		free_all(-1);
+	}
+}
+
+void		parse_line(char *line)
+{
+	t_parse_inf parse;
+
+	parse.beg = 0;
+	while (line[parse.beg] && ft_iswhitespace(line[parse.beg]))
+		parse.beg++;
+	if (line[parse.beg] && line[parse.beg] != COMMENT_CHAR)
+	{
+		parse.mid = parse.beg;
+		while (line[parse.mid] && !ft_iswhitespace(line[parse.mid]))
+			parse.mid++;
+		if (line[parse.mid - 1] == LABEL_CHAR)
+			parse_lbl(&parse, line);
+		else
 		{
-			free_split(split);
-			free_all(asm_inf, state);
+			parse.param_start = parse.mid;
+			parse.inst = ft_strndup(&line[parse.beg], parse.mid - parse.beg);
+			if (!parse.inst)
+				free_all(-1);
+		}
+		if (parse.inst)
+		{
+			get_param(&parse, line);
+			check_instruct(parse.inst, parse.params);
 		}
 	}
-	free_split(split);
 }

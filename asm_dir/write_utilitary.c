@@ -52,19 +52,19 @@ int			calc_neg_val(int val, int lbl_bytes)
 	return (val);
 }
 
-void		add_new(t_holder_def *tmp_holder, int val, t_asm_inf *asm_inf)
+void		add_new(t_holder_def *tmp_holder, int val)
 {
 	t_list	*new;
 	char	*binary;
 
 	binary = fill_binary(tmp_holder->lbl_bytes, val);
 	if (!binary)
-		free_all(asm_inf, -1);
+		free_all(-1);
 	new = ft_lstnew(binary, tmp_holder->lbl_bytes, 0);
 	if (!new)
 	{
 		ft_strdel(&binary);
-		free_all(asm_inf, -1);
+		free_all(-1);
 	}
 	if (tmp_holder->beside_ocp > 0)
 	{

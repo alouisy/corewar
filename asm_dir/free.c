@@ -18,14 +18,17 @@ static void	free_list_node(void *content)
 	ft_memdel(&content);
 }
 
-int			free_read_ut(t_tree_index *index, int has_str, t_lbl_def *lbl_def)
+void		free_read_utility(char *lbl, t_tree_index *index,
+											t_lbl_def *lbl_def, int error)
 {
-	if (has_str)
+	ft_strdel(&lbl);
+	if (index && index->str)
 		ft_strdel(&index->str);
-	ft_memdel((void **)&index);
+	if (index)
+		ft_memdel((void **)&index);
 	if (lbl_def)
 		ft_memdel((void **)&lbl_def);
-	return (-1);
+	free_all(error);
 }
 
 static void	display_custom_err(int err)
@@ -37,9 +40,6 @@ static void	display_custom_err(int err)
 	else if (err == WRONG_DOT_CMD_ERR)
 		exit_error("Error : Name/comment command badly written\n",
 														WRONG_DOT_CMD_ERR);
-	else if (err == WRONG_DOT_STR_ERR)
-		exit_error("Error : Name/comment string badly written\n",
-														WRONG_DOT_STR_ERR);
 	else if (err == LBL_FORMAT_ERR)
 		exit_error("Error : Unexpected char in label\n", LBL_FORMAT_ERR);
 	else if (err == LBL_EXIST_ERR)
@@ -57,19 +57,19 @@ static void	display_custom_err(int err)
 		exit_error("Error\n", -1);
 }
 
-void		free_all(t_asm_inf *asm_inf, int err)
+void		free_all(int err)
 {
-	if (!asm_inf->binary_list)
+	if (!g_asm_inf->binary_list)
 	{
-		ft_strdel(&asm_inf->prog_name);
-		ft_strdel(&asm_inf->comment);
+		ft_strdel(&g_asm_inf->prog_name);
+		ft_strdel(&g_asm_inf->comment);
 	}
-	ft_lstdel(&asm_inf->binary_list, 1, free);
-	rbt_clear(&asm_inf->lbl_tree, free, 1);
-	ft_lstdel(&asm_inf->holder_lst, 1, free_list_node);
+	ft_lstdel(&g_asm_inf->binary_list, 1, free);
+	rbt_clear(&g_asm_inf->lbl_tree, free, 1);
+	ft_lstdel(&g_asm_inf->holder_lst, 1, free_list_node);
 	if (err == -1)
 		exit_error(strerror(errno), errno);
-	else
+	else if (err != 0)
 		display_custom_err(err);
 }
 
@@ -84,4 +84,10 @@ void		free_split(char **split)
 		i++;
 	}
 	free(split);
+}
+
+void		free_split_all(char **split, int err)
+{
+	free_split(split);
+	free_all(err);
 }

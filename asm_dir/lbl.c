@@ -12,7 +12,7 @@
 
 #include "asm.h"
 
-void				write_lbl(t_asm_inf *asm_inf)
+void				write_lbl(void)
 {
 	t_holder_def	*tmp_holder;
 	t_list			*tmp_lst;
@@ -20,26 +20,25 @@ void				write_lbl(t_asm_inf *asm_inf)
 	t_tree_index	searched_index;
 	t_rbt_node		*found_node;
 
-	tmp_lst = asm_inf->holder_lst;
+	tmp_lst = g_asm_inf->holder_lst;
 	while (tmp_lst)
 	{
 		tmp_holder = tmp_lst->content;
 		searched_index.is_nb = 0;
 		searched_index.str = tmp_holder->lbl;
-		found_node = find_in_tree(asm_inf->lbl_tree, &searched_index);
+		found_node = find_in_tree(g_asm_inf->lbl_tree, &searched_index);
 		if (!found_node)
-			free_all(asm_inf, LBL_NOT_EXIST_ERR);
+			free_all(LBL_NOT_EXIST_ERR);
 		val = ((t_lbl_def *)found_node->content)->pos -
 													tmp_holder->inst_pos + 1;
 		if (val < 0)
 			val = calc_neg_val(val, tmp_holder->lbl_bytes);
-		add_new(tmp_holder, val, asm_inf);
+		add_new(tmp_holder, val);
 		tmp_lst = tmp_lst->next;
 	}
 }
 
-int					add_lbl(char *lbl, t_write_inf *write_inf,
-											t_asm_inf *asm_inf)
+int					add_lbl(char *lbl, t_write_inf *write_inf)
 {
 	t_holder_def	*holder_def;
 	t_list			*new;
@@ -51,18 +50,18 @@ int					add_lbl(char *lbl, t_write_inf *write_inf,
 	if (!holder_def || !holder_def->lbl)
 		return (-1);
 	holder_def->inst_pos = write_inf->inst_pos;
-	holder_def->lst_pos = asm_inf->current;
+	holder_def->lst_pos = g_asm_inf->current;
 	holder_def->lbl_bytes = write_inf->nb_bytes;
 	holder_def->beside_ocp = write_inf->beside_ocp;
 	new = ft_lstnew(holder_def, sizeof(holder_def), 0);
 	if (!new)
 		return (-1);
-	ft_lstadd(&(asm_inf->holder_lst), new);
-	asm_inf->nb_bytes += write_inf->nb_bytes;
+	ft_lstadd(&(g_asm_inf->holder_lst), new);
+	g_asm_inf->nb_bytes += write_inf->nb_bytes;
 	return (0);
 }
 
-static t_lbl_def	*create_lbl_def(char *lbl, t_asm_inf *asm_inf)
+static t_lbl_def	*create_lbl_def(char *lbl)
 {
 	t_lbl_def *lbl_def;
 
@@ -70,7 +69,7 @@ static t_lbl_def	*create_lbl_def(char *lbl, t_asm_inf *asm_inf)
 	if (!lbl_def)
 		return (NULL);
 	lbl_def->name = lbl;
-	lbl_def->pos = asm_inf->nb_bytes;
+	lbl_def->pos = g_asm_inf->nb_bytes;
 	return (lbl_def);
 }
 
@@ -88,31 +87,30 @@ static int			check_lbl_name(char *lbl)
 	return (1);
 }
 
-int					read_label(char *lbl, t_asm_inf *asm_inf)
+void				read_label(char *lbl)
 {
 	t_tree_index	*index;
 	t_rbt_node		*node;
 	t_lbl_def		*lbl_def;
 
 	if (!check_lbl_name(lbl))
-		return (LBL_FORMAT_ERR);
+		free_read_utility(lbl, NULL, NULL, LBL_FORMAT_ERR);
 	if (!(index = malloc(sizeof(t_tree_index))))
-		return (-1);
+		free_read_utility(lbl, NULL, NULL, -1);
 	index->is_nb = 0;
 	index->str = strndup(lbl, ft_strlen(lbl) - 1);
 	if (!index->str)
-		return (free_read_ut(index, 0, NULL));
-	if (!find_in_tree(asm_inf->lbl_tree, index))
+		free_read_utility(lbl, index, NULL, -1);
+	if (!find_in_tree(g_asm_inf->lbl_tree, index))
 	{
-		lbl_def = create_lbl_def(lbl, asm_inf);
+		lbl_def = create_lbl_def(lbl);
 		if (!lbl_def)
-			return (free_read_ut(index, 1, NULL));
+			free_read_utility(lbl, index, NULL, -1);
 		node = new_rbt_node(lbl_def, index);
 		if (!node)
-			return (free_read_ut(index, 0, lbl_def));
-		insert_rbt(&(asm_inf->lbl_tree), NULL, node);
+			free_read_utility(lbl, index, lbl_def, -1);
+		insert_rbt(&(g_asm_inf->lbl_tree), NULL, node);
 	}
 	else
-		return (LBL_EXIST_ERR);
-	return (0);
+		free_read_utility(lbl, index, NULL, LBL_EXIST_ERR);
 }

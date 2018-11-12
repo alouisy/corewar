@@ -12,7 +12,7 @@
 
 #include "asm.h"
 
-static void		write_magic(t_asm_inf *asm_inf)
+static void		write_magic(void)
 {
 	char	magic[4];
 	int		i;
@@ -26,13 +26,13 @@ static void		write_magic(t_asm_inf *asm_inf)
 		nb_bytes--;
 		i++;
 	}
-	asm_inf->binary_list = ft_lstnew(&magic, 4, 1);
-	asm_inf->current = asm_inf->binary_list;
-	if (!asm_inf->binary_list)
-		free_all(asm_inf, -1);
+	g_asm_inf->binary_list = ft_lstnew(&magic, 4, 1);
+	g_asm_inf->current = g_asm_inf->binary_list;
+	if (!g_asm_inf->binary_list)
+		free_all(-1);
 }
 
-static void		add_str(t_asm_inf *asm_inf, char *str, int len)
+static void		add_str(char *str, int len)
 {
 	t_list *new;
 
@@ -40,33 +40,33 @@ static void		add_str(t_asm_inf *asm_inf, char *str, int len)
 	{
 		new = ft_lstnew(str, len, 0);
 		if (!new)
-			free_all(asm_inf, -1);
-		asm_inf->current->next = new;
-		asm_inf->current = asm_inf->current->next;
+			free_all(-1);
+		g_asm_inf->current->next = new;
+		g_asm_inf->current = g_asm_inf->current->next;
 	}
 }
 
-void			write_header(t_asm_inf *asm_inf)
+void			write_header(void)
 {
 	char	*str;
 	int		size;
 
-	write_magic(asm_inf);
+	write_magic();
 	size = 0;
-	if (asm_inf->prog_name)
-		size = ft_strlen(asm_inf->prog_name);
-	add_str(asm_inf, asm_inf->prog_name, size);
+	if (g_asm_inf->prog_name)
+		size = ft_strlen(g_asm_inf->prog_name);
+	add_str(g_asm_inf->prog_name, size);
 	str = ft_strnew(PROG_NAME_LENGTH - size + 4);
 	if (!str)
-		free_all(asm_inf, -1);
-	add_str(asm_inf, str, PROG_NAME_LENGTH - size + 4);
-	asm_inf->holder_prog_size = asm_inf->current;
+		free_all(-1);
+	add_str(str, PROG_NAME_LENGTH - size + 4);
+	g_asm_inf->holder_prog_size = g_asm_inf->current;
 	size = 0;
-	if (asm_inf->comment)
-		size = ft_strlen(asm_inf->comment);
-	add_str(asm_inf, asm_inf->comment, size);
+	if (g_asm_inf->comment)
+		size = ft_strlen(g_asm_inf->comment);
+	add_str(g_asm_inf->comment, size);
 	str = ft_strnew(COMMENT_LENGTH - size + 4);
 	if (!str)
-		free_all(asm_inf, -1);
-	add_str(asm_inf, str, COMMENT_LENGTH - size + 4);
+		free_all(-1);
+	add_str(str, COMMENT_LENGTH - size + 4);
 }

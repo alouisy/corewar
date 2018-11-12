@@ -12,51 +12,7 @@
 
 #include "asm.h"
 
-static int	check_command(char *trimmed, int *i, char *cmd_string, char **str)
-{
-	while (!ft_iswhitespace(trimmed[*i]))
-		(*i)++;
-	if (!(*str = ft_strndup(trimmed, (*i)++)))
-		return (-1);
-	if (ft_strcmp(*str, cmd_string))
-	{
-		ft_strdel(&trimmed);
-		ft_strdel(str);
-		return (WRONG_DOT_CMD_ERR);
-	}
-	ft_strdel(str);
-	return (0);
-}
-
-static int	get_inf(char *line, char *cmd_string, char **str)
-{
-	int		i;
-	int 	len;
-	char	*trimmed;
-
-	i = 0;
-	trimmed = ft_strtrim(line);
-	if (!trimmed)
-		return (-1);
-	if (check_command(trimmed, &i, cmd_string, str) != 0)
-		return (WRONG_DOT_CMD_ERR);
-	while (ft_iswhitespace(trimmed[i]))
-		i++;
-	len = ft_strlen(trimmed);
-	if (trimmed[i] == '"' && trimmed[len - 1] == '"')
-	{
-		*str = ft_strndup(&(trimmed[i + 1]), len - i - 2);
-		if (!*str)
-		{
-			ft_strdel(&trimmed);
-			return (-1);
-		}
-		return (0);
-	}
-	return (WRONG_DOT_STR_ERR);
-}
-
-static int	skip_comment(int fd, char **line)
+static void	skip_comment(int fd, char **line)
 {
 	int read;
 
@@ -67,54 +23,88 @@ static int	skip_comment(int fd, char **line)
 		read = get_next_line(fd, line, '\n');
 	}
 	if (read < 0)
-		return (-1);
-	return (1);
+		free_all(-1);
+	else if (read == 0)
+		free_all(INCOMPLETE_FILE);
 }
 
-static void	display_err(int err, int is_name, char **line, t_asm_inf *asm_inf)
+static int	check_cmd(char **line, char *cmd_str)
 {
-	ft_strdel(line);
-	if (err != 0)
+	int		i;
+	int		j;
+	char	*cmd;
+
+	i = 0;
+	while ((*line)[i] && ft_iswhitespace((*line)[i]))
+		i++;
+	j = i;
+	while ((*line)[j] && !ft_iswhitespace((*line)[j]))
+		j++;
+	cmd = ft_strndup(&(*line)[i], j - i);
+	if (!cmd)
+		free_all(-1);
+	if (!ft_strequ(cmd, cmd_str))
+		free_all(WRONG_DOT_CMD_ERR);
+	ft_strdel(&cmd);
+	return (j);
+}
+
+static int	join_all(char **tmp, int fd, char **line)
+{
+	int read;
+	int pos;
+
+	while ((pos = ft_strchri(*tmp, '"')) == -1)
 	{
-		if (err == 1)  ///remplacer par le bon code
-			exit_error("Malloc error\n", -1);
-		else if (err == 2) ///remplacer par le bon code
+		read = get_next_line(fd, line, '\n');
+		if (read < 0)
+			free_all(-1);
+		else if (read == 0)
+			free_all(INCOMPLETE_FILE);
+		*tmp = ft_strjoin_free(*tmp, *line, 0);
+		if (!*tmp)
+			free_all(-1);
+	}
+	return (pos);
+}
+
+static void	get_inf(char **str, int fd, char **line, int *i)
+{
+	int		pos;
+	char	*tmp;
+
+	while (ft_iswhitespace((*line)[*i]))
+		(*i)++;
+	if ((*line)[*i] != '"')
+		free_all(WRONG_DOT_CMD_ERR);
+	if ((*line)[*i + 1] != '"')
+	{
+		tmp = ft_strdup(&((*line)[*i + 1]));
+		if (!tmp)
+			free_all(-1);
+		pos = join_all(&tmp, fd, line);
+		if (pos != 0 && (size_t)pos != ft_strlen(tmp) - 1)
 		{
-			if (is_name)
-				exit_error("Wrong program name command string ('.name')\n",
-															-1);
-			ft_strdel(&asm_inf->prog_name);
-			exit_error("Wrong program comment command string ('.comment')\n",
-																-1);
+			ft_strdel(&tmp);
+			free_all(WRONG_DOT_CMD_ERR);
 		}
-		else if (err == 3)  ///remplacer par le bon code
+		*str = ft_strndup(tmp, ft_strlen(tmp) - 1);
+		if (!*str)
 		{
-			if (is_name)
-				exit_error("Wrong char in program name string\n",
-																-1);
-			ft_strdel(&asm_inf->prog_name);
-			exit_error("Wrong char in program comment string\n",
-																-1);
+			ft_strdel(&tmp);
+			free_all(-1);
 		}
 	}
 }
 
-void		get_dot_info(int fd, char **line, t_asm_inf *asm_inf)
+void		get_dot_info(int fd, char **line)
 {
 	int i;
-	int err;
 
-	if (!skip_comment(fd, line))
-		free_all(asm_inf, -1);
-	i = 0;
-	while (ft_iswhitespace((*line)[i]))
-		i++;
-	err = get_inf(&((*line)[i]), NAME_CMD_STRING, &asm_inf->prog_name); //je pourrais gerer ca differement mais ca va aussi ainsi
-	display_err(err, 1, line, asm_inf);
-	if (!skip_comment(fd, line))
-		free_all(asm_inf, -1);
-	while (ft_iswhitespace((*line)[i]))
-		i++;
-	err = get_inf(&((*line)[i]), COMMENT_CMD_STRING, &asm_inf->comment);
-	display_err(err, 0, line, asm_inf);
+	skip_comment(fd, line);
+	i = check_cmd(line, NAME_CMD_STRING);
+	get_inf(&g_asm_inf->prog_name, fd, line, &i);
+	skip_comment(fd, line);
+	i = check_cmd(line, COMMENT_CMD_STRING);
+	get_inf(&g_asm_inf->comment, fd, line, &i);
 }
