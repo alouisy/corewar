@@ -12,6 +12,18 @@
 
 #include "../vm.h"
 
+static void	aux_verbose(t_pvm *vm, t_process *process)
+{
+	if (vm->verbose == 2)
+	{
+		ft_printf("P% 5d | live %d\n",
+				(CHAMPION(process->champ))->nbr,
+				vm->param[0]);
+	}
+	else if (vm->verbose == 3)
+		print_adv(vm, process->pc, 5);
+}
+
 int	ft_live(t_pvm *vm, t_process *process)
 {
 	t_list	*node;
@@ -25,15 +37,8 @@ int	ft_live(t_pvm *vm, t_process *process)
 		(CHAMPION(node))->nb_live++;
 		(CHAMPION(node))->l_live = vm->total_cycles;
 		vm->last_live = vm->total_cycles;
-		if (vm->verbose == 2)
-		{
-			ft_printf("P% 5d | live %d\n",
-					(CHAMPION(process->champ))->nbr,
-					vm->param[0]);
-		}
 	}
-	if (vm->verb == 3)
-		print_adv(vm, process->pc, 5);
+	aux_verbose(vm, process);
 	process->pc += 5;
 	process->pc %= MEM_SIZE;
 	return (1);

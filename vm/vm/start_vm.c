@@ -28,10 +28,11 @@ int do_it(t_pvm *vm, t_list *node)
 		}
 		else
 		{
-			if (!(cycle = process_instruction(vm, content)))
-				return (0);
+			cycle = process_instruction(vm, content);
 		}
 		update_stack(vm, cycle, node);
+		if (!cycle)
+			return (0);
 		node = save;
 	}
 	return (1);
@@ -41,7 +42,7 @@ int	start_vm(t_pvm *vm)
 {
 	t_list		*node;
 
-	while (vm->total_cycles != vm->dump)
+	while (vm->total_cycles != vm->dump && vm->nb_process)
 	{
 		if (vm->total_cycles >= vm->cycle_to_die)
 			cycle2die(vm, 0);
@@ -52,11 +53,10 @@ int	start_vm(t_pvm *vm)
 		vm->stack[(vm->total_cycles) % 1001].content = NULL;
 		vm->total_cycles++;
 		if (!do_it(vm, node))
-			break ;
+			return (0);
 		if (vm->verbose == 1)
 			status_game(vm);
 	}
-	cycle2die(vm, 1);
 	if (vm->verbose != 1)
 		ft_printf("end\n");
 	if (vm->total_cycles == vm->dump)

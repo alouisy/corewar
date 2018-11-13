@@ -30,7 +30,7 @@ int		ft_lfork(t_pvm *vm, t_process *process)
 				value,
 				(process->pc + value));
 	}
-	if (vm->verb == 3)
+	if (vm->verbose == 3)
 		print_adv(vm, process->pc, 3);
 	process->pc = (process->pc + 3) % MEM_SIZE;
 	return (1);

@@ -18,17 +18,19 @@
 
 void	write_in_memory(t_pvm *pvm, t_process *process, int value, int value2)
 {
-	int address;
-	int	color;
-	int i;
+	int 			address;
+	unsigned int	tmp;
+	int				color;
+	int 			i;
 
 	color = (CHAMPION(process->champ))->color;
 	i = 0;
 	address = process->pc + 3 + value2 % IDX_MOD;
 	while (i < 4)
 	{
-		pvm->memory[(unsigned int)(address - i) % MEM_SIZE] = (value >> i * 8);
-		pvm->mem_color[(unsigned int)(address - i) % MEM_SIZE] = color;
+		tmp = ((unsigned int)(address - i)) % MEM_SIZE;
+		pvm->memory[tmp] = (value >> i * 8);
+		pvm->mem_color[tmp] = color;
 		i++;
 	}
 	store_buffer(pvm, address - 3, color + 8, 50);

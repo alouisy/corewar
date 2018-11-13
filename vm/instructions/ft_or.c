@@ -16,55 +16,21 @@
 ** logical or
 */
 
-int	ft_or(__attribute__((unused)) t_pvm *vm, t_process *process)
+static void	aux_verbose(t_pvm *vm, t_process *process,  int val1, int val2)
 {
-	int		val1;
-	int		val2;
-
-	val1 = 0;
-	val2 = 0;
-	if (check_param(process->opcode, process->ocp, g_op_tab[process->opcode].nb_param))
+	if (vm->verbose == 2)
 	{
-		if (vm->param[2] >= 1 && vm->param[2] <= REG_NUMBER
-			&& get_prm_value(vm, process, 0, &val1)
-			&& get_prm_value(vm, process, 1, &val2))
-		{
-			process->r[vm->param[2] - 1] = (val1 | val2);
-			if (vm->verbose == 2)
-			{
-				ft_printf("P% 5d | or %d %d r%d\n",
-						(CHAMPION(process->champ))->nbr,
-						val1,
-						val2,
-						vm->param[2]);
-			}
-			ft_carry(process, process->r[vm->param[2] - 1], !(process->r[vm->param[2] - 1]));
-		}
+		ft_printf("P% 5d | or %d %d r%d\n",
+				(CHAMPION(process->champ))->nbr,
+				val1,
+				val2,
+				vm->param[2]);
 	}
-	if (vm->verb == 3)
+	else if (vm->verb == 3)
 		print_adv(vm, process->pc, octal_shift(process->ocp, 4, 3));
-	process->pc = (process->pc + octal_shift(process->ocp, 4, 3)) % MEM_SIZE;
-	return (1);
 }
-/*
-int	ft_or(__attribute__((unused)) t_pvm *vm, t_process *process)
+
+int	ft_or(t_pvm *vm, t_process *process)
 {
-
-	int		val1;
-	int		val2;
-
-	val1 = 0;
-	val2 = 0;
-	if (vm->param[2] >= 1 && vm->param[2] <= REG_NUMBER
-		&& get_prm_value(vm, process, 0, &val1) && get_prm_value(vm, process, 1, &val2))
-	{
-		process->r[vm->param[2] - 1] = (val1 | val2);
-		if (vm->verbose == 2)
-		{
-			ft_printf("P% 5d | or %d %d r%d\n", (CHAMPION(process->champ))->nbr, val1, val2, vm->param[2]);
-		}
-		ft_carry(process, process->r[vm->param[2] - 1], !(process->r[vm->param[2] - 1]));
-	}
-	return (1);
+	return (aux_andorxor(vm, process, 2, &aux_verbose));
 }
-*/

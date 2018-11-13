@@ -21,16 +21,26 @@ inline int			parse_arg(t_pvm *vm, int ac, char **av)
 	champ_nb = -1;
 	while (++i < ac)
 	{
-		if (ft_strequ("-dump", av[i]) && ft_nbrisinteger(av[++i]))
-			vm->dump = ft_atoi(av[i]);
+		if (ft_strequ("-dump", av[i]))
+		{
+			if (ft_nbrisinteger(av[++i]))
+				vm->dump = ft_atoi(av[i]);
+			else
+				return (ft_strerror("ERROR (not integer)", 0));
+		}
 		else if (ft_strequ("-nc", av[i]))
 			vm->verbose = 1;
 		else if (ft_strequ("-v", av[i]))
 			vm->verbose = 2;
 		else if (ft_strequ("-vp", av[i]))
 			vm->verb = 3;
-		else if (ft_strequ("-n", av[i]) && ft_nbrisinteger(av[++i]))
-			champ_nb = ft_atoi(av[i]);
+		else if (ft_strequ("-n", av[i]))
+		{
+			if (ft_nbrisinteger(av[++i]))
+				champ_nb = ft_atoi(av[i]) * (-1);
+			else
+				return (ft_strerror("ERROR (not integer)", 0));
+		}
 		else
 		{
 			if (!parse_champion(av[i], champ_nb, vm) || !add_process(vm))

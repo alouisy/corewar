@@ -1,7 +1,7 @@
 .name "zxork"
 .comment "I'M ALIIIIVE"
 
-lds: live %1 
+lds:
 test2:	ld %0, r1
 	ld %193, r2
 test1:	ld %666, r3
@@ -87,4 +87,5 @@ test3:	ld 193, r1
 test5:	ld :lds, r8
 	ld :test1, r9
 	ld :lds2, r10
+	fork %512
 lds2: live %1 

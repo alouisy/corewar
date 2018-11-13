@@ -53,7 +53,7 @@ void	check_process(t_pvm *vm, int mode)
 				/*
 				** state manages 2 variables, see vm.h
 				*/
-				(PROCESS(node))->state -= 1;
+				(PROCESS(node))->state = ((PROCESS(node))->state >> 1) << 1;
 				save = node;
 			}
 			node = node->next;
@@ -63,21 +63,14 @@ void	check_process(t_pvm *vm, int mode)
 	}
 }
 
-static void	reset_champion(t_pvm *vm)
+static void	reset_champion(t_list *node)
 {
-	t_list	*node;
-	
-	node = vm->champions;
-	while (node)
-	{
-		(CHAMPION(node))->nb_live = 0;
-		node = node->next;
-	}
+	(CHAMPION(node))->nb_live = 0;
 }
 
 void	cycle2die(t_pvm *vm, int mode)
 {
 	decremente_c2d(vm);
 	check_process(vm, mode);
-	reset_champion(vm);
+	ft_lstiter(vm->champions, &reset_champion);
 }

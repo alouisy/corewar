@@ -187,6 +187,7 @@ void					new_process_init(t_process *old, t_process *new, int new_pc);
 void					write_in_memory(t_pvm *pvm, t_process *process, int value, int value2);
 void					ft_carry(t_process *process, char carry_0, char carry_1);
 int 					aux_fork(t_pvm *vm, t_process *process, int value);
+int						aux_andorxor(t_pvm *vm, t_process *process, int mode, void (*f)(t_pvm *, t_process *, int, int));
 
 /*
 ** misc

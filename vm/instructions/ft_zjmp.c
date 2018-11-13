@@ -22,7 +22,7 @@ int	ft_zjmp(t_pvm *vm, t_process *process)
 	char	*str;
 
 	value = reverse_bytes(vm, process->pc + 1, 2);
-	if (vm->verb == 3)
+	if (vm->verbose == 3)
 		print_adv(vm, process->pc, 3);
 	if (process->state / 2)
 	{
@@ -38,6 +38,5 @@ int	ft_zjmp(t_pvm *vm, t_process *process)
 	{
 		ft_printf("P% 5d | zjmp %d %s\n", (CHAMPION(process->champ))->nbr, value, str);
 	}
-
 	return (1);
 }

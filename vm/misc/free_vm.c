@@ -19,6 +19,7 @@ static void	aux_del(void *content)
 
 void		free_vm(t_pvm *vm)
 {
+	cycle2die(vm, 1);
 	if (vm->champions)
 		ft_lstdel(&(vm->champions), 1, &aux_del);
 	if (vm->trash)

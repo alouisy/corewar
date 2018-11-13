@@ -31,4 +31,12 @@ test4: add r1, r2, r15
 	add r8, r4, r6
 	add r9, r4, r7
 	add r9, r1, r8
+	add r2, r3, r9
+	add r2, r3, r17
+	add r0, r3, r10
+	add r1, r3, r11
+	add r2, r0, r12
+	add r2, r1, r13
+	add r2, r17, r14
+	add r2, r16, r15
 lds2: live %1 
