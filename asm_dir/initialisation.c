@@ -30,7 +30,7 @@ char	**init_write(t_write_inf *write_inf, int *ocp_val, char *params, int *i)
 	return (params_split);
 }
 
-void		init_prog(int argc, char **argv)
+void	init_prog(int argc, char **argv)
 {
 	if (argc != 2)
 	{

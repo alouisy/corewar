@@ -12,33 +12,13 @@
 
 #include "asm.h"
 
-static void	free_list_node(void *content)
-{
-	ft_strdel(&((t_holder_def *)content)->lbl);
-	ft_memdel(&content);
-}
-
-void		free_read_utility(char *lbl, t_tree_index *index,
-											t_lbl_def *lbl_def, int error)
-{
-	ft_strdel(&lbl);
-	if (index && index->str)
-		ft_strdel(&index->str);
-	if (index)
-		ft_memdel((void **)&index);
-	if (lbl_def)
-		ft_memdel((void **)&lbl_def);
-	free_all(error);
-}
-
 static void	display_custom_err(int err)
 {
 	char *msg;
 
+	msg = "";
 	if (g_err->str)
 		msg = g_err->str;
-	else
-		msg = "";
 	if (err == WRONG_FORMAT_ERR)
 		ft_printf("Error : Unexpected char in line (\"%s\")\n", msg);
 	else if (err == UNKNOWN_INST_ERR)
@@ -61,11 +41,42 @@ static void	display_custom_err(int err)
 		ft_printf("Error\n", -1);
 }
 
+static void	free_g_err(void)
+{
+	if (g_err->str)
+		ft_strdel(&str);
+	if (g_err)
+		ft_memdel((void **)&g_err);
+}
+
+static void	display_errno(void)
+{
+	char *str;
+
+	free_g_err();
+	str = strerror(errno);
+	ft_printf("%s\n", str);
+	ft_strdel(&str);
+	exit(errno);
+}
+
+static void	finish_gnl(void)
+{
+	int read;
+
+	if (g_err->line)
+		ft_strdel(&g_err->line);
+	read = get_next_line(g_err->fd, &g_err->line, '\n');
+	while (read > 0)
+	{
+		ft_strdel(&g_err->line);
+		read = get_next_line(g_err->fd, &g_err->line, '\n');
+	}
+	ft_strdel(&g_err->line);
+}
+
 void		free_all(int err)
 {
-	char	*str;
-	int		read;
-
 	if (g_asm_inf)
 	{
 		if (!g_asm_inf->binary_list || !g_asm_inf->binary_list->next)
@@ -77,53 +88,14 @@ void		free_all(int err)
 		rbt_clear(&g_asm_inf->lbl_tree, free, 1);
 		ft_lstdel(&g_asm_inf->holder_lst, 1, free_list_node);
 		ft_memdel((void **)&g_asm_inf);
-		if (g_err->line)
-			ft_strdel(&g_err->line);
-		read = get_next_line(g_err->fd, &g_err->line, '\n');
-		while (read > 0)
-		{
-			ft_strdel(&g_err->line);
-			read = get_next_line(g_err->fd, &g_err->line, '\n');
-		}
-		ft_strdel(&g_err->line);
+		finish_gnl();
 	}
 	if (err == -1)
-	{
-		if (g_err->str)
-			ft_strdel(&str);
-		if (g_err)
-			ft_memdel((void **)&g_err);
-		str = strerror(errno);
-		ft_printf("%s\n", str);
-		ft_strdel(&str);
-		exit(errno);
-	}
+		display_errno();
 	else if (err != 0)
 	{
 		display_custom_err(err);
-		if (g_err->str)
-			ft_strdel(&g_err->str);
-		if (g_err)
-			ft_memdel((void **)&g_err);
+		free_g_err();
 		exit(err);
 	}
-}
-
-void		free_split(char **split)
-{
-	int i;
-
-	i = 0;
-	while (split[i])
-	{
-		ft_strdel(&(split[i]));
-		i++;
-	}
-	free(split);
-}
-
-void		free_split_all(char **split, int err)
-{
-	free_split(split);
-	free_all(err);
 }

@@ -14,16 +14,18 @@
 
 static void	parse_lbl(t_parse_inf *parse)
 {
-	parse->lbl = ft_strndup(&g_err->line[parse->beg], parse->mid- parse->beg);
+	parse->lbl = ft_strndup(&g_err->line[parse->beg], parse->mid - parse->beg);
 	if (!parse->lbl)
 		free_all(-1);
 	read_label(parse->lbl);
 	ft_strdel(&parse->lbl);
 	parse->inst_start = parse->mid;
-	while (g_err->line[parse->inst_start] && ft_iswhitespace(g_err->line[parse->inst_start]))
+	while (g_err->line[parse->inst_start] &&
+							ft_iswhitespace(g_err->line[parse->inst_start]))
 		parse->inst_start++;
 	parse->inst_end = parse->inst_start;
-	while (g_err->line[parse->inst_end] && !ft_iswhitespace(g_err->line[parse->inst_end]))
+	while (g_err->line[parse->inst_end] &&
+								!ft_iswhitespace(g_err->line[parse->inst_end]))
 		parse->inst_end++;
 	if (parse->inst_start != parse->inst_end && g_err->line[parse->inst_start]
 														!= COMMENT_CHAR)
@@ -42,7 +44,8 @@ static void	get_param(t_parse_inf *parse)
 {
 	parse->params = NULL;
 	parse->param_end = parse->param_start;
-	while (g_err->line[parse->param_end] && g_err->line[parse->param_end] != COMMENT_CHAR)
+	while (g_err->line[parse->param_end] &&
+								g_err->line[parse->param_end] != COMMENT_CHAR)
 		parse->param_end++;
 	if (parse->param_end != parse->param_start)
 	{
@@ -66,14 +69,16 @@ void		parse_line()
 	if (g_err->line[parse.beg] && g_err->line[parse.beg] != COMMENT_CHAR)
 	{
 		parse.mid = parse.beg;
-		while (g_err->line[parse.mid] && !ft_iswhitespace(g_err->line[parse.mid]))
+		while (g_err->line[parse.mid] && 
+									!ft_iswhitespace(g_err->line[parse.mid]))
 			parse.mid++;
 		if (g_err->line[parse.mid - 1] == LABEL_CHAR)
 			parse_lbl(&parse);
 		else
 		{
 			parse.param_start = parse.mid;
-			parse.inst = ft_strndup(&g_err->line[parse.beg], parse.mid - parse.beg);
+			parse.inst = ft_strndup(&g_err->line[parse.beg],
+													parse.mid - parse.beg);
 			if (!parse.inst)
 				free_all(-1);
 		}

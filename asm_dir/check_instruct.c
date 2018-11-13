@@ -88,34 +88,19 @@ static void	act_on_inst(t_op *op, char *params)
 	}
 }
 
-void			check_instruct(char *inst, char *params)
+void		check_instruct(char *inst, char *params)
 {
 	int	index;
 	int	len;
 
 	len = ft_strlen(inst);
 	if (len > 5 || len <= 1)
-	{
-		ft_strdel(&inst);
-		ft_strdel(&params);
-		g_err->str = ft_strtrim(g_err->line);
-		free_all(UNKNOWN_INST_ERR);
-	}
+		free_inst_utilitary(params, inst, UNKNOWN_INST_ERR);
 	index = hash_word(inst);
 	if (index == -1)
-	{
-		ft_strdel(&inst);
-		ft_strdel(&params);
-		g_err->str = ft_strtrim(g_err->line);
-		free_all(-1);
-	}
+		free_inst_utilitary(params, inst, -1);
 	if (ft_strcmp(g_op_tab[index].name, inst))
-	{
-		ft_strdel(&inst);
-		ft_strdel(&params);
-		g_err->str = ft_strtrim(g_err->line);
-		free_all(UNKNOWN_INST_ERR);
-	}
+		free_inst_utilitary(params, inst, UNKNOWN_INST_ERR);
 	ft_strdel(&inst);
 	act_on_inst(&g_op_tab[index], params);
 }

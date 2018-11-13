@@ -119,6 +119,8 @@ void			free_split_all(char **split, int err);
 int				free_tmp(char **trimmed, char **binary, t_write_inf *write_inf);
 void			free_read_utility(char *lbl, t_tree_index *index,
 												t_lbl_def *lbl_def, int err);
+void			free_inst_utilitary(char *params, char *inst, int err);
+void			free_list_node(void *content);
 void			read_label(char *lbl);
 void			add_new(t_holder_def *tmp_holder, int val);
 void			parse_line(void);

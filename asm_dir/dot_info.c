@@ -12,7 +12,7 @@
 
 #include "asm.h"
 
-static void	skip_comment()
+static void	skip_comment(void)
 {
 	int read;
 
@@ -46,7 +46,7 @@ static int	check_cmd(char *cmd_str)
 	if (!ft_strequ(cmd, cmd_str))
 	{
 		ft_strdel(&cmd);
-		g_err->str = ft_strtrim(g_err->line);		
+		g_err->str = ft_strtrim(g_err->line);
 		free_all(WRONG_DOT_CMD_ERR);
 	}
 	ft_strdel(&cmd);
@@ -119,7 +119,7 @@ void		get_dot_info(void)
 	if (g_asm_inf->prog_name && ft_strlen(g_asm_inf->prog_name) > PROG_NAME_LENGTH)
 	{
 		g_err->str = ft_strtrim(g_err->line);
-		free_all(NAME_TOO_BIG_ERR);	
+		free_all(NAME_TOO_BIG_ERR);
 	}
 	skip_comment();
 	i = check_cmd(COMMENT_CMD_STRING);

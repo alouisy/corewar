@@ -12,14 +12,15 @@
 
 #include "asm.h"
 
-int		is_zero(char *str)
+static int		is_zero(char *str)
 {
 	int i;
 
 	i = 0;
 	while (str[i])
 	{
-		if (!ft_iswhitespace(str[i]) && str[i] != 48 && !(i == 0 && str[i] == '-'))
+		if (!ft_iswhitespace(str[i]) && str[i] != 48 &&
+												!(i == 0 && str[i] == '-'))
 			return (0);
 		i++;
 	}
