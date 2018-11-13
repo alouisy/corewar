@@ -52,7 +52,7 @@ typedef struct			s_process
 	/*
 	** pourrait être un char[1]
 	*/
-	int					r[REG_NUMBER];
+	int					r[REG_NUMBER + 1];
 	/*
 	** state manage carry and live status in a single variable for memory effeciency.
 	**  00 : carry = 0 && alive = 0

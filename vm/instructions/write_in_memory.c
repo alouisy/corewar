@@ -18,7 +18,7 @@
 
 void	write_in_memory(t_pvm *pvm, t_process *process, int value, int value2)
 {
-	int 			address;
+	unsigned int 	address;
 	unsigned int	tmp;
 	int				color;
 	int 			i;
@@ -28,8 +28,8 @@ void	write_in_memory(t_pvm *pvm, t_process *process, int value, int value2)
 	address = process->pc + 3 + value2 % IDX_MOD;
 	while (i < 4)
 	{
-		tmp = ((unsigned int)(address - i)) % MEM_SIZE;
-		pvm->memory[tmp] = (value >> i * 8);
+		tmp = (address - i) % MEM_SIZE;
+		pvm->memory[tmp] = value >> (i * 8);
 		pvm->mem_color[tmp] = color;
 		i++;
 	}

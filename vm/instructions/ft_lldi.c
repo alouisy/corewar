@@ -48,7 +48,7 @@ int	ft_lldi(t_pvm *vm, t_process *process)
 			&& get_prm_value(vm, process, 0, &val1)
 			&& get_prm_value(vm, process, 1, &val2))
 		{
-			process->r[vm->param[2] - 1] = reverse_bytes(vm, process->pc + val1 + val2, 4);
+			process->r[vm->param[2]] = reverse_bytes(vm, process->pc + val1 + val2, 4);
 			ft_carry(process, val1, !val1);
 		}
 	}

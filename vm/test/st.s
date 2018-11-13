@@ -23,13 +23,13 @@ test3:	ld 193, r0
 	ld -213, r3
 	ld -666, r4
 	ld -66666, r5
-test4: st r3, r15 
-	st r3, -35
-	st r3, -666
-	st r3, -66666
-	st r3, 280
-	st r3, 666
-	st r3, 66666
+test4: st r1, r15 
+	st r1, -35
+	st r1, -666
+	st r1, -66666
+	st r1, 280
+	st r1, 666
+	st r1, 66666
 	st r3, :lds2
 	st r3, :lds
 lds2: live %1 

@@ -41,9 +41,9 @@ int registre_status(t_pvm *vm, int i)
 		while (j < REG_NUMBER / 2)
 		{
 			mvwprintw(vm->nc.wright, i, 1,
-					" reg[%2d]  | %18d  |", j + 1, process->r[j]);
+					" reg[%2d]  | %18d  |", j + 1, process->r[j + 1]);
 			mvwprintw(vm->nc.wright, i++, vm->nc.right_width / 2,
-					"| reg[%2d]   | %18d ", j + 9, process->r[j + 8]);
+					"| reg[%2d]   | %18d ", j + 9, process->r[j + 9]);
 			j += 1;
 		}
 	}

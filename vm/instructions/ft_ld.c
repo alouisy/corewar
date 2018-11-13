@@ -46,7 +46,7 @@ int	ft_ld(__attribute__((unused)) t_pvm *vm, t_process *process)
 				value %= IDX_MOD;
 				value = reverse_bytes(vm, process->pc + value, 4);
 			}
-			process->r[vm->param[1] - 1] = value;
+			process->r[vm->param[1]] = value;
 			ft_carry(process, value, !value);
 		}
 	}

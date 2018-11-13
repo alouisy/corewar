@@ -20,7 +20,7 @@ inline void	init_process(t_process *process, t_pvm *vm)
 	process->champ = vm->champions;
 	process->r[0] = (CHAMPION(vm->champions))->nbr;
 	i = 1;
-	while (i < REG_NUMBER)
+	while (i < REG_NUMBER + 1)
 		process->r[i++] = 0;
 	process->state = 0;
 	process->opcode = 0;

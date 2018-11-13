@@ -73,16 +73,7 @@ int			get_param_type(t_pvm *vm, t_process *process)
 		while (++i < g_op_tab[process->opcode].nb_param)
 		{
 			vm->param_type[i] = (process->ocp & (0b11000000 >> (i * 2))) >> (6 - i * 2);
-/*			if (vm->param_type[i] == 3)
-				vm->param_type[i] = 4;
-			j = 1;
-			while ((g_op_tab[process->opcode].param[i] & vm->param_type[i]) == 0)
-			{
-				vm->param_type[i] = j++;
-			}
-			if (vm->param_type[i] == 4)
-				vm->param_type[i] = 3;
-*/		}
+		}
 		return (1);
 	}
 	else

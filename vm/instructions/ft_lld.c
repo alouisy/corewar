@@ -42,8 +42,8 @@ int	ft_lld(t_pvm *vm, t_process *process)
 				value = reverse_bytes(vm, (process->pc + vm->param[0]), 2);
 			else if (vm->param_type[0] == DIR_CODE)
 				value = reverse_bytes(vm, (process->pc + 2), 4);
-			process->r[vm->param[1] - 1] = value;
-			ft_carry(process, process->r[vm->param[2] - 1], !(process->r[vm->param[2] - 1]));
+			process->r[vm->param[1]] = value;
+			ft_carry(process, process->r[vm->param[2]], !(process->r[vm->param[2]]));
 		}
 	}
 	aux_verbose(vm, process, value);

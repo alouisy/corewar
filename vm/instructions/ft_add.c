@@ -44,10 +44,10 @@ int	ft_add(t_pvm *vm, t_process *process)
 				error = 1;
 		if (!error)
 		{
-			process->r[vm->param[2] - 1] = process->r[vm->param[0] - 1] +
-				process->r[vm->param[1] - 1];
-			ft_carry(process, process->r[vm->param[2] - 1],
-					!(process->r[vm->param[2] - 1]));
+			process->r[vm->param[2]] = process->r[vm->param[0]] +
+				process->r[vm->param[1]];
+			ft_carry(process, process->r[vm->param[2]],
+					!(process->r[vm->param[2]]));
 		}
 	}
 	aux_verbose(vm, process);

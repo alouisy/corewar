@@ -54,8 +54,6 @@ int	get_param(t_pvm *vm, t_process *process, int shift)
 		else if (label_size == IND_CODE)
 			label_size -= 1;
 		vm->param[i] = reverse_bytes(vm, (process->pc + shift), label_size);
-//		if (label_size != 1)// && vm->param_type[i] == IND_CODE)
-//			vm->param[i] = (short int)vm->param[i];
 		shift += label_size;
 	}
 	return (shift);

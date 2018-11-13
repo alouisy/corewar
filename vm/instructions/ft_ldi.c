@@ -50,9 +50,9 @@ int	ft_ldi(t_pvm *vm, t_process *process)
 			&& get_prm_value(vm, process, 1, &val2))
 		{
 			address = process->pc + ((val1 + val2) % IDX_MOD);
-			process->r[vm->param[2] - 1] = reverse_bytes(vm, address, 4);
-			ft_carry(process, process->r[vm->param[2] - 1],
-					!(process->r[vm->param[2] - 1]));
+			process->r[vm->param[2]] = reverse_bytes(vm, address, 4);
+			ft_carry(process, process->r[vm->param[2]],
+					!(process->r[vm->param[2]]));
 		}
 	}
 	aux_verbose(vm, process, val1, val2, address);

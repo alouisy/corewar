@@ -48,8 +48,8 @@ int	ft_sti(t_pvm *vm, t_process *process)
 			&& get_prm_value(vm, process, 1, &val1)
 			&& get_prm_value(vm, process, 2, &val2))
 		{
-			write_in_memory(vm, process, process->r[vm->param[0] - 1], val1 + val2);
-			ft_carry(process, process->r[vm->param[0] - 1], !(process->r[vm->param[0] - 1]));
+			write_in_memory(vm, process, process->r[vm->param[0]], val1 + val2);
+			ft_carry(process, process->r[vm->param[0]], !(process->r[vm->param[0]]));
 		}
 	}
 	aux_verbose(vm, process, val1, val2);
