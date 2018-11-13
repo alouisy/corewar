@@ -98,6 +98,7 @@ void			check_instruct(char *inst, char *params)
 	{
 		ft_strdel(&inst);
 		ft_strdel(&params);
+		g_err->str = ft_strtrim(g_err->line);
 		free_all(UNKNOWN_INST_ERR);
 	}
 	index = hash_word(inst);
@@ -105,12 +106,14 @@ void			check_instruct(char *inst, char *params)
 	{
 		ft_strdel(&inst);
 		ft_strdel(&params);
+		g_err->str = ft_strtrim(g_err->line);
 		free_all(-1);
 	}
 	if (ft_strcmp(g_op_tab[index].name, inst))
 	{
 		ft_strdel(&inst);
 		ft_strdel(&params);
+		g_err->str = ft_strtrim(g_err->line);
 		free_all(UNKNOWN_INST_ERR);
 	}
 	ft_strdel(&inst);

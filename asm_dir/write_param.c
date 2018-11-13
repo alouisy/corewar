@@ -117,13 +117,19 @@ void			write_param(char *params, t_op *op, int *ocp_val)
 	while (params_split[i])
 		i++;
 	if (i != op->nb_param)
+	{
+		g_err->str = ft_strtrim(g_err->line);
 		free_split_all(params_split, WRONG_PARAM_NUM_ERR);
+	}
 	while (write_inf.i < op->nb_param)
 	{
 		write_inf.beside_ocp = op->ocp - write_inf.i;
 		state = choose_write(params_split[write_inf.i], op, &write_inf);
 		if (state != 0)
+		{
+			g_err->str = ft_strtrim(g_err->line);
 			free_split_all(params_split, state);
+		}
 		weight = calc_weight(write_inf.i);
 		*ocp_val += write_inf.ocp_part * weight;
 		write_inf.i++;

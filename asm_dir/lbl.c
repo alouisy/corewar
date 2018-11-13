@@ -28,7 +28,10 @@ void				write_lbl(void)
 		searched_index.str = tmp_holder->lbl;
 		found_node = find_in_tree(g_asm_inf->lbl_tree, &searched_index);
 		if (!found_node)
+		{
+			g_err->str = ft_strtrim(g_err->line);
 			free_all(LBL_NOT_EXIST_ERR);
+		}
 		val = ((t_lbl_def *)found_node->content)->pos -
 													tmp_holder->inst_pos + 1;
 		if (val < 0)

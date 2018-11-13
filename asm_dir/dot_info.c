@@ -12,15 +12,15 @@
 
 #include "asm.h"
 
-static void	skip_comment(int fd, char **line)
+static void	skip_comment()
 {
 	int read;
 
-	read = get_next_line(fd, line, '\n');
-	while (read > 0 && (!*line || (*line && (*line)[0] == '#')))
+	read = get_next_line(g_err->fd, &g_err->line, '\n');
+	while ((read > 0 && !g_err->line) || (g_err->line && g_err->line[0] == '#'))
 	{
-		ft_strdel(line);
-		read = get_next_line(fd, line, '\n');
+		ft_strdel(&g_err->line);
+		read = get_next_line(g_err->fd, &g_err->line, '\n');
 	}
 	if (read < 0)
 		free_all(-1);
@@ -28,41 +28,39 @@ static void	skip_comment(int fd, char **line)
 		free_all(INCOMPLETE_FILE);
 }
 
-static int	check_cmd(char **line, char *cmd_str)
+static int	check_cmd(char *cmd_str)
 {
 	int		i;
 	int		j;
 	char	*cmd;
 
 	i = 0;
-	while ((*line)[i] && ft_iswhitespace((*line)[i]))
+	while (g_err->line[i] && ft_iswhitespace(g_err->line[i]))
 		i++;
 	j = i;
-	while ((*line)[j] && !ft_iswhitespace((*line)[j]))
+	while (g_err->line[j] && !ft_iswhitespace(g_err->line[j]))
 		j++;
-	cmd = ft_strndup(&(*line)[i], j - i);
+	cmd = ft_strndup(&g_err->line[i], j - i);
 	if (!cmd)
-	{
-		ft_strdel(line);
 		free_all(-1);
-	}
 	if (!ft_strequ(cmd, cmd_str))
 	{
-		ft_strdel(line);
+		ft_strdel(&cmd);
+		g_err->str = ft_strtrim(g_err->line);		
 		free_all(WRONG_DOT_CMD_ERR);
 	}
 	ft_strdel(&cmd);
 	return (j);
 }
 
-static int	join_all(char **tmp, int fd, char **line)
+static int	join_all(char **tmp)
 {
 	int read;
 	int pos;
 
 	while ((pos = ft_strchri(*tmp, '"')) == -1)
 	{
-		read = get_next_line(fd, line, '\n');
+		read = get_next_line(g_err->fd, &g_err->line, '\n');
 		if (read < 0)
 			free_all(-1);
 		else if (read == 0)
@@ -70,36 +68,36 @@ static int	join_all(char **tmp, int fd, char **line)
 		*tmp = ft_strjoin_free(*tmp, "\n", 0);
 		if (!*tmp)
 			free_all(-1);
-		*tmp = ft_strjoin_free(*tmp, *line, 0);
+		*tmp = ft_strjoin_free(*tmp, g_err->line, 0);
 		if (!*tmp)
 			free_all(-1);
 	}
 	return (pos);
 }
 
-static void	get_inf(char **str, int fd, char **line, int *i)
+static void	get_inf(char **str, int *i)
 {
 	int		pos;
 	char	*tmp;
 
-	while (ft_iswhitespace((*line)[*i]))
+	while (ft_iswhitespace(g_err->line[*i]))
 		(*i)++;
-	free_all(-1);
-	if ((*line)[*i] != '"')
-		free_all(WRONG_DOT_CMD_ERR);
-	if ((*line)[*i + 1] != '"')
+	if (g_err->line[*i] != '"')
 	{
-		tmp = ft_strdup(&((*line)[*i + 1]));
+		g_err->str = ft_strtrim(g_err->line);
+		free_all(WRONG_DOT_CMD_ERR);
+	}
+	if (g_err->line[*i + 1] != '"')
+	{
+		tmp = ft_strdup(&(g_err->line[*i + 1]));
 		if (!tmp)
-		{
-			ft_strdel(line);
 			free_all(-1);
-		}
-		ft_strdel(line);
-		pos = join_all(&tmp, fd, line);
+		ft_strdel(&g_err->line);
+		pos = join_all(&tmp);
 		if (pos != 0 && (size_t)pos != ft_strlen(tmp) - 1)
 		{
 			ft_strdel(&tmp);
+			g_err->str = ft_strtrim(g_err->line);
 			free_all(WRONG_DOT_CMD_ERR);
 		}
 		*str = ft_strndup(tmp, ft_strlen(tmp) - 1);
@@ -108,21 +106,27 @@ static void	get_inf(char **str, int fd, char **line, int *i)
 			free_all(-1);
 	}
 	else
-		ft_strdel(line);
+		ft_strdel(&g_err->line);
 }
 
-void		get_dot_info(int fd, char **line)
+void		get_dot_info(void)
 {
 	int i;
 
-	skip_comment(fd, line);
-	i = check_cmd(line, NAME_CMD_STRING);
-	get_inf(&g_asm_inf->prog_name, fd, line, &i);
-	if (ft_strlen(g_asm_inf->prog_name) > PROG_NAME_LENGTH)
-		free_all(NAME_TOO_BIG_ERR);
-	skip_comment(fd, line);
-	i = check_cmd(line, COMMENT_CMD_STRING);
-	get_inf(&g_asm_inf->comment, fd, line, &i);
-	if (ft_strlen(g_asm_inf->comment) > COMMENT_LENGTH)
+	skip_comment();
+	i = check_cmd(NAME_CMD_STRING);
+	get_inf(&g_asm_inf->prog_name, &i);
+	if (g_asm_inf->prog_name && ft_strlen(g_asm_inf->prog_name) > PROG_NAME_LENGTH)
+	{
+		g_err->str = ft_strtrim(g_err->line);
+		free_all(NAME_TOO_BIG_ERR);	
+	}
+	skip_comment();
+	i = check_cmd(COMMENT_CMD_STRING);
+	get_inf(&g_asm_inf->comment, &i);
+	if (g_asm_inf->comment && ft_strlen(g_asm_inf->comment) > COMMENT_LENGTH)
+	{
+		g_err->str = ft_strtrim(g_err->line);
 		free_all(COMMENT_TOO_BIG_ERR);
+	}
 }

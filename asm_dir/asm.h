@@ -91,24 +91,24 @@ typedef struct	s_write_inf
 
 typedef struct	s_err
 {
-	char	*msg;
+	char	*str;
 	int		fd;
-	char	**line;
+	char	*line;
 }				t_err;
 
 extern t_op			g_op_tab[16]; //je sias pas si je peux justifier de l'avoir en globale en vrai
 extern t_asm_inf	*g_asm_inf;
 extern t_err		*g_err;
 
-int				init_prog(int argc, char **argv);
+void			init_prog(int argc, char **argv);
 char			**init_write(t_write_inf *write_inf, int *ocp_val,
 											char *param, int *i);
 void			write_header(void);
-void			get_dot_info(int fd, char **line);
-void			check_instruct(char *line, char *param);
+void			get_dot_info(void);
+void			check_instruct(char *inst, char *param);
 char			*fill_binary(int nb_bytes, int val);
 void			write_lbl(void);
-void			write_param(char *line, t_op *op, int *ocp_val);
+void			write_param(char *params, t_op *op, int *ocp_val);
 int				calc_weight(int pow);
 int				add_lbl(char *lbl, t_write_inf *write_inf);
 char			*fill_binary(int nb_bytes, int val);
@@ -121,6 +121,6 @@ void			free_read_utility(char *lbl, t_tree_index *index,
 												t_lbl_def *lbl_def, int err);
 void			read_label(char *lbl);
 void			add_new(t_holder_def *tmp_holder, int val);
-void			parse_line(char *line);
+void			parse_line(void);
 
 #endif

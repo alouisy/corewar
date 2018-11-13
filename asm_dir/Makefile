@@ -13,7 +13,7 @@ FLAGS = -Wall -Werror -Wextra
 objs/%.o : %.c
 	@mkdir -p objs
 	@echo "compilation : " $*
-	@gcc $(FLAGS) -c $^ -o $@ -I.
+	@gcc $(FLAGS) -g -c $^ -o $@ -I. # enlever le -g
 
 all: $(NAME)
 

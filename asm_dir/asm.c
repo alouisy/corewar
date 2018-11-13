@@ -12,7 +12,8 @@
 
 #include "asm.h"
 
-t_asm_inf *g_asm_inf = NULL;
+t_asm_inf	*g_asm_inf = NULL;
+t_err		*g_err = NULL;
 
 static char	*create_name(char *source_file)
 {
@@ -95,21 +96,16 @@ void		add_prog_size(void)
 
 int			main(int argc, char **argv)
 {
-	int			fd;
-	char		*line;
 	int			state;
 
-	line = NULL;
-	fd = init_prog(argc, argv);
-	if (!fd)
-		return (0);
-	get_dot_info(fd, &line);
+	init_prog(argc, argv);
+	get_dot_info();
 	write_header();
-	while ((state = get_next_line(fd, &line, '\n')) > 0)
-		if (line)
+	while ((state = get_next_line(g_err->fd, &g_err->line, '\n')) > 0)
+		if (g_err->line)
 		{
-			parse_line(line);
-			ft_memdel((void **)&line);
+			parse_line();
+			ft_strdel(&g_err->line);
 		}
 	if (state < 0)
 		free_all(-1);
