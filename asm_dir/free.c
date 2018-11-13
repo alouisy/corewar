@@ -59,16 +59,34 @@ static void	display_custom_err(int err)
 
 void		free_all(int err)
 {
-	if (!g_asm_inf->binary_list)
+	char	*str;
+	int		read;
+
+	if (g_asm_inf)
 	{
-		ft_strdel(&g_asm_inf->prog_name);
-		ft_strdel(&g_asm_inf->comment);
+		if (!g_asm_inf->binary_list)
+		{
+			ft_strdel(&g_asm_inf->prog_name);
+			ft_strdel(&g_asm_inf->comment);
+		}
+		ft_lstdel(&g_asm_inf->binary_list, 1, free);
+		rbt_clear(&g_asm_inf->lbl_tree, free, 1);
+		ft_lstdel(&g_asm_inf->holder_lst, 1, free_list_node);
+		ft_memdel((void **)&g_asm_inf);
+		read = get_next_line(fd, line, '\n');
+		while (read)
+		{
+			ft_strdel(fd, line, &line);
+			get_next_line(fd, line, '\n');
+		}
 	}
-	ft_lstdel(&g_asm_inf->binary_list, 1, free);
-	rbt_clear(&g_asm_inf->lbl_tree, free, 1);
-	ft_lstdel(&g_asm_inf->holder_lst, 1, free_list_node);
 	if (err == -1)
-		exit_error(strerror(errno), errno);
+	{
+		str = strerror(errno);
+		ft_printf("%s\n", str);
+		ft_strdel(&str);
+		exit(errno);
+	}
 	else if (err != 0)
 		display_custom_err(err);
 }

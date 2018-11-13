@@ -40,15 +40,19 @@ static void	parse_lbl(t_parse_inf *parse, char *line)
 
 static void	get_param(t_parse_inf *parse, char *line)
 {
+	parse->params = NULL;
 	parse->param_end = parse->param_start;
 	while (line[parse->param_end] && line[parse->param_end] != COMMENT_CHAR)
 		parse->param_end++;
-	parse->params = ft_strndup(&line[parse->param_start],
-									parse->param_end - parse->param_start);
-	if (!parse->params)
+	if (parse->param_end != parse->param_start)
 	{
-		ft_strdel(&parse->inst);
-		free_all(-1);
+		parse->params = ft_strndup(&line[parse->param_start],
+								parse->param_end - parse->param_start);
+		if (!parse->params)
+		{
+			ft_strdel(&parse->inst);
+			free_all(-1);
+		}
 	}
 }
 
@@ -76,6 +80,7 @@ void		parse_line(char *line)
 		if (parse.inst)
 		{
 			get_param(&parse, line);
+			//printf("inst : %s\n", parse.inst);
 			check_instruct(parse.inst, parse.params);
 		}
 	}

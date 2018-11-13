@@ -31,9 +31,11 @@ static char	*create_name(char *source_file)
 	{
 		tmp_name = ft_strndup(split[i - 1], len - 2);
 		if (!tmp_name)
+		{
+			free_split(split);
 			free_all(-1);
-		name = ft_strjoin(tmp_name, ".cor");
-		ft_strdel(&tmp_name);
+		}
+		name = ft_strjoin_free(tmp_name, ".cor", 0);
 	}
 	else
 		name = ft_strjoin(source_file, ".cor");
@@ -54,7 +56,10 @@ void		write_binary(char *src_name)
 	name = create_name(src_name);
 	fd = open(name, O_CREAT | O_TRUNC | O_RDWR, 07777);
 	if (fd == -1)
+	{
+		ft_strdel(&name);
 		free_all(-1);
+	}
 	while (current)
 	{
 		i = 0;
@@ -67,6 +72,7 @@ void		write_binary(char *src_name)
 	}
 	close(fd);
 	ft_printf("writting output to %s\n", name);
+	ft_strdel(&name);
 }
 
 void		add_prog_size(void)

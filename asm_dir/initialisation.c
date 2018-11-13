@@ -34,14 +34,14 @@ int		init_prog(int argc, char **argv)
 {
 	int fd;
 
-	g_asm_inf = malloc(sizeof(t_asm_inf));
-	if (!g_asm_inf)
-		free_all(-1);
 	if (argc != 2)
 	{
 		ft_printf("Usage : %s <sourcefile.s>\n");
 		return (0);
 	}
+	g_asm_inf = malloc(sizeof(t_asm_inf));
+	if (!g_asm_inf)
+		free_all(-1);
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
 		free_all(-1);

@@ -23,6 +23,8 @@
 # define NEG_REG_ERR 12
 # define WRONG_PARAM_TYPE_ERR 13
 # define WRONG_PARAM_NUM_ERR 14
+# define NAME_TOO_BIG_ERR 15
+# define COMMENT_TOO_BIG_ERR 16
 # include "../libft/libft.h"
 # include "op.h"
 # include "errno.h"
@@ -87,8 +89,16 @@ typedef struct	s_write_inf
 	int		ocp_part;
 }				t_write_inf;
 
+typedef struct	s_err
+{
+	char	*msg;
+	int		fd;
+	char	**line;
+}				t_err;
+
 extern t_op			g_op_tab[16]; //je sias pas si je peux justifier de l'avoir en globale en vrai
 extern t_asm_inf	*g_asm_inf;
+extern t_err		*g_err;
 
 int				init_prog(int argc, char **argv);
 char			**init_write(t_write_inf *write_inf, int *ocp_val,

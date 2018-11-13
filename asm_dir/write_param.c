@@ -12,6 +12,20 @@
 
 #include "asm.h"
 
+int		is_zero(char *str)
+{
+	int i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (!ft_iswhitespace(str[i]) && str[i] != 48 && !(i == 0 && str[i] == '-'))
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 static int		write_val(char *param, t_write_inf *write_inf)
 {
 	long long	val;
@@ -24,6 +38,8 @@ static int		write_val(char *param, t_write_inf *write_inf)
 	else
 	{
 		val = ft_atoi_harsh(param, 1, 0, 0);
+		if (val == 0 && !is_zero(param))
+			return (WRONG_FORMAT_ERR);
 		if (val < 0)
 			val = calc_neg_val(val, write_inf->nb_bytes);
 		g_asm_inf->nb_bytes += write_inf->nb_bytes;
@@ -46,6 +62,8 @@ static int		write_register(char *param)
 	long long	nb_register;
 
 	nb_register = ft_atoi_harsh(param, 0, -1, 0);
+	if (nb_register == 0 && !is_zero(param))
+			return (WRONG_FORMAT_ERR);
 	if (nb_register > REG_NUMBER)
 		return (LARGE_REG_ERR);
 	else if (nb_register < 0)
