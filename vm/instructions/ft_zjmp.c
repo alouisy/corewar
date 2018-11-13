@@ -28,8 +28,6 @@ int	ft_zjmp(t_pvm *vm, t_process *process)
 	{
 		str = "OK";
 		process->pc = (unsigned int)(process->pc + (value % IDX_MOD)) % MEM_SIZE;
-//		if (process->pc < 0)
-//			process->pc += MEM_SIZE;
 	}
 	else
 	{

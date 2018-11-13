@@ -31,10 +31,7 @@ int	ft_ldi(t_pvm *vm, t_process *process)
 			&& get_prm_value(vm, process, 0, &val1)
 			&& get_prm_value(vm, process, 1, &val2))
 		{
-	/*		if (vm->param_type[1] == DIR_CODE)
-				val1 = (short int)val1;
-			val2 = (short int)vm->param[1];
-	*/		address = process->pc + ((val1 + val2) % IDX_MOD);
+			address = process->pc + ((val1 + val2) % IDX_MOD);
 			if (vm->verbose == 2)
 			{
 				ft_printf("P% 5d | ldi %d %d r%d\n",
@@ -46,8 +43,6 @@ int	ft_ldi(t_pvm *vm, t_process *process)
 						val2,
 						(val1 + val2), address);
 			}
-	//		if (address < 0)
-	//			address += MEM_SIZE;
 			process->r[vm->param[2] - 1] = reverse_bytes(vm, address, 4);
 			ft_carry(process, process->r[vm->param[2] - 1],
 					!(process->r[vm->param[2] - 1]));

@@ -19,10 +19,8 @@
 int	ft_lld(t_pvm *vm, t_process *process)
 {
 	int		value;
-//	int		address;
 
 	value = 0;
-//	address = 0;
 	if (check_param(process->opcode, process->ocp, g_op_tab[process->opcode].nb_param))
 	{	
 		if (vm->param[1] >= 1 && vm->param[1] <= REG_NUMBER)
@@ -31,9 +29,6 @@ int	ft_lld(t_pvm *vm, t_process *process)
 				value = reverse_bytes(vm, (process->pc + vm->param[0]), 2);
 			else if (vm->param_type[0] == DIR_CODE)
 				value = reverse_bytes(vm, (process->pc + 2), 4);
-	//		address = process->pc + value;
-	//		while (address < 0)
-	//			address += MEM_SIZE;
 			process->r[vm->param[1] - 1] = value;
 			if (vm->verbose == 2)
 			{

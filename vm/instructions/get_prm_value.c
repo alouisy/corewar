@@ -31,15 +31,10 @@ int		get_prm_value(t_pvm *vm, t_process *process, int i, int *value)
 		if (process->opcode != 13)
 		{
 			address = process->pc + (vm->param[i] % IDX_MOD);
-	//		if (vm->param[i] == 0xFFFF)
-	//			address %= IDX_MOD;
 		}
 		else
 			address = process->pc + vm->param[i];
-/*		address %= MEM_SIZE;
-		if (address < 0)
-			address += MEM_SIZE;
-*/		*value = reverse_bytes(vm, address, 4);
+		*value = reverse_bytes(vm, address, 4);
 	}
 	return (1);
 }
