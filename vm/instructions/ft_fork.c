@@ -26,11 +26,11 @@ int		ft_fork(t_pvm *vm, t_process *process)
 	if (vm->verbose == 2)
 	{
 		ft_printf("P% 5d | fork %d (%d)\n",
-				(CHAMPION(process->champ))->nbr,
+				vm->champions[(int)process->champ_nbr].nbr,
 				value,
 				(process->pc + (value % IDX_MOD)));
 	}
-	if (vm->verbose == 3)
+	else if (vm->verbose == 3)
 		print_adv(vm, process->pc, 3);
 	process->pc = (process->pc + 3) % MEM_SIZE;
 	return (1);

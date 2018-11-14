@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_champion.c                                    :+:      :+:    :+:   */
+/*   ft_find_champ.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/09 14:54:40 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/10/27 19:36:47 by jgroc-de         ###   ########.fr       */
+/*   Created: 2018/10/26 15:34:01 by jgroc-de          #+#    #+#             */
+/*   Updated: 2018/10/26 15:34:03 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../vm.h"
 
-inline void		init_champion(t_pvm *vm, int nb_prog)
+int ft_find_champ(t_pvm *vm, int nbr)
 {
 	int i;
 
-	i = vm->nb_champ;
-	vm->champions[i].nbr = nb_prog;
-	vm->champions[i].l_live = 0;
-	vm->champions[i].nb_live = 0;
-	ft_bzero(vm->champions[i].prog, CHAMP_MAX_SIZE);
-	vm->champions[i].color = i + 1;
+	i = 0;
+	while (i < vm->nb_champ)
+	{
+		if (vm->champions[i].nbr == nbr)
+			return (i);
+		i++;
+	}
+	return (-1);
 }

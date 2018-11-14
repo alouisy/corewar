@@ -18,8 +18,8 @@ inline int			parse_arg(t_pvm *vm, int ac, char **av)
 	int	champ_nb;
 
 	i = 0;
-	champ_nb = -1;
-	while (++i < ac)
+	champ_nb = 0;
+	while (++i < ac && vm->nb_champ < MAX_PLAYERS)
 	{
 		if (ft_strequ("-dump", av[i]))
 		{
@@ -33,7 +33,7 @@ inline int			parse_arg(t_pvm *vm, int ac, char **av)
 		else if (ft_strequ("-v", av[i]))
 			vm->verbose = 2;
 		else if (ft_strequ("-vp", av[i]))
-			vm->verb = 3;
+			vm->verbose = 3;
 		else if (ft_strequ("-n", av[i]))
 		{
 			if (ft_nbrisinteger(av[++i]))
@@ -45,11 +45,12 @@ inline int			parse_arg(t_pvm *vm, int ac, char **av)
 		{
 			if (!parse_champion(av[i], champ_nb, vm) || !add_process(vm))
 				return (0);
-			champ_nb = -1;
+			champ_nb = 0;
 			vm->nb_champ++;
+			vm->nb_process++;
 		}
 	}
-	if (vm->nb_champ > 4 || vm->nb_champ == 0)
-		return (ft_strerror("ERROR (MORE THAN 4 OR NO CHAMPIONS)", 0));
+	if (vm->nb_champ == 0)
+		return (ft_strerror("ERROR (NO CHAMPIONS)", 0));
 	return (1);
 }

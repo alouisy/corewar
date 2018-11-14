@@ -17,7 +17,6 @@
 # include <ncurses.h>
 
 # define PROCESS(x) (t_process*)(x->content)
-# define CHAMPION(x) (t_champion*)(x->content)
 
 /*
 ** structure de descriptions des instructions
@@ -43,14 +42,15 @@ extern t_op				g_op_tab[17];
 /*
  ** cycle_of_exec est dans node->content_size de stack[1001]
  ** pid a été mis dans node->content_size du process
+ ** param, param_type et ocp sont dans vm
  */
 typedef struct			s_process
 {
 	unsigned char		opcode;
-	unsigned char		ocp;
 	short int			pc;
 	/*
-	** pourrait être un char[1]
+	** pourrait être une liste, actuellement taille 17 * int = gachis
+	** t_list *reg;
 	*/
 	int					r[REG_NUMBER + 1];
 	/*
@@ -61,7 +61,11 @@ typedef struct			s_process
 	**  11 : carry = 1 && alive = 1
 	*/
 	char				state;
-	t_list				*champ;
+	/*
+	** sizeof(t_list *) == 2 * sizeof(int)
+	** pourrais etre char
+	*/
+	char				champ_nbr;
 }						t_process;
 
 typedef struct			s_champion
@@ -100,17 +104,17 @@ typedef struct			s_pvm
 	*/
 	t_list				stack[1001];
 	int					pid;
-	t_list				*champions;
+	t_champion			champions[MAX_PLAYERS];
 	unsigned char		memory[MEM_SIZE];
 	unsigned char		mem_color[MEM_SIZE];
 	int					dump;
 	/*
 	** verbose mode:
-	**     1 : ncurses
-	**     2 : verbose printf
+	**     	1 : ncurses
+	**     	2 : verbose printf
+	**		3 : 
 	*/
 	char				verbose;
-	char				verb;
 	t_ncurses			nc;
 	int					nb_champ;
 	int					nb_process;
@@ -124,8 +128,12 @@ typedef struct			s_pvm
 	** poubelle à node
 	*/
 	t_list				*trash;
+	/*
+	** parametre tmp pour les processus
+	*/
 	unsigned char		param_type[3];
 	int					param[3];
+	unsigned char		ocp;
 }						t_pvm;
 
 /*
@@ -133,10 +141,8 @@ typedef struct			s_pvm
 */
 void					aux_reset_stack(t_list stack[1001]);
 int						add_process(t_pvm *vm);
-int						get_champ_nb(int automatic, int nb, t_list *champions);
-//int						get_champ_nb(int nb, t_list *champions);
-void					init_champion(t_champion *champion,
-							int nb_prog, int color);
+int						get_champ_nb(int nb, t_champion champions[MAX_PLAYERS]);
+void					init_champion(t_pvm *vm, int nb_prog);
 void					init_memory(t_pvm *vm);
 void					init_vm(t_pvm *vm);
 void					init_process(t_process *process, t_pvm *vm);
@@ -193,13 +199,13 @@ int						aux_andorxor(t_pvm *vm, t_process *process, int mode, void (*f)(t_pvm *
 ** misc
 */
 void					free_vm(t_pvm *vm);
-t_list					*ft_lstfindchamp(t_list *champ, int nbr);
+int						ft_find_champ(t_pvm *vm, int nbr);
 int						ft_strhex2dec(unsigned char *str, int len);
 int						ft_strerror(char *str, int f);
 t_champion				*get_champion(t_list *node);
 t_process				*get_process(t_list	*node);
 void					print_memory(t_pvm *vm);
-void					print_champ(t_list *champ);
+void					print_champ(t_champion champ[MAX_PLAYERS]);
 void					reset_param(t_pvm *vm);
 void					print_adv(t_pvm *vm, int	pc, int shift);
 

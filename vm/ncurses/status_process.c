@@ -116,13 +116,15 @@ static inline int	current_status_pc(t_pvm *vm, int i)
 				mvwprintw(vm->nc.wright, i++, 1,
 						" %10d | %5d | %4d | %6d | %5d | %5d | %4d ",
 						node->content_size,
-						(CHAMPION(process->champ))->nbr,
+						vm->champions[(int)process->champ_nbr].nbr,
 						process->pc,
 						process->opcode,
 						process->state / 2 ? 1 : 0,
 						process->state % 2 ? 1 : 0,
 						vm->stack[(vm->total_cycles + k) % 1001].content_size - vm->total_cycles);
 			}
+			else
+				break ;
 			node = node->next;
 			j++;
 		}

@@ -14,22 +14,28 @@
 
 inline void	print_winner(t_pvm *vm)
 {
-	t_list	*champ;
+	int i;
 
-	champ = vm->champions;
-	while (champ)
+	i = 0;
+	while (i < vm->nb_champ)
 	{
-		if ((CHAMPION(champ))->l_live >= vm->last_live)
+		if (vm->champions[i].l_live >= vm->last_live)
 			break ;
-		champ = champ->next;
+		i++;
 	}
 	if (vm->verbose == 1)
 	{
 		clear();
 		timeout(-1);
-		mvprintw(LINES / 2, COLS / 2 - 30, "le joueur %s(%d) a gagne\n", (CHAMPION(champ))->header.prog_name, (CHAMPION(champ))->nbr);
+		mvprintw(LINES / 2, COLS / 2 - 30, "le joueur %d(%s) a gagne\n",
+				-vm->champions[i].nbr,
+				vm->champions[i].header.prog_name);
 		getch();
 	}
 	else
-		ft_printf("le joueur %d(%s) a gagne\n", (CHAMPION(champ))->nbr, (CHAMPION(champ))->header.prog_name);
+	{
+		ft_printf("le joueur %d(%s) a gagne\n",
+				-vm->champions[i].nbr,
+				vm->champions[i].header.prog_name);
+	}
 }

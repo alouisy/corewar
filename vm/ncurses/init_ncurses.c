@@ -20,6 +20,7 @@ void	aux_reset_memory(t_pvm *vm)
 	while (i < MEM_SIZE)
 	{
 		vm->nc.memory[i] = vm->memory[i];
+		vm->nc.buffer[i] = 0;
 		print_case(vm->nc.wleft, i, vm->mem_color[i], vm->memory[i]);
 		i++;
 	}
@@ -57,5 +58,4 @@ void	init_ncurses(t_pvm *vm)
 	print_map(vm);
 	status_game(vm);
 	timeout(1000 / vm->nc.step);
-	wrefresh(vm->nc.wleft);
 }

@@ -14,8 +14,9 @@
 
 /*
 ** rste a tester:
-** 	zjmp
-**  les cas ou l'opc est bancal
+**	ordre d'exec des process
+** 	carry : à faire avec vm de zaz, probablement pleins de modifs à faire
+**  opc : les cas ou l'opc est bancal
 */
 
 t_op	g_op_tab[17] =
@@ -32,7 +33,7 @@ t_op	g_op_tab[17] =
 		"ou  (or   r1, r2, r3   r1 | r2 -> r3", 1, 0},
 	{"xor", 3, {T_REG | T_IND | T_DIR, T_REG | T_IND | T_DIR, T_REG}, 8, 6,//devrait etre aussi ok
 		"ou (xor  r1, r2, r3   r1^r2 -> r3", 1, 0},
-	{"zjmp", 1, {T_DIR}, 9, 20, "jump if zero", 0, 1}, //a tester!!!!
+	{"zjmp", 1, {T_DIR}, 9, 20, "jump if zero", 0, 1}, //ok
 	{"ldi", 3, {T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG}, 10, 25, //ok
 		"load index", 1, 1},
 	{"sti", 3, {T_REG, T_REG | T_DIR | T_IND, T_DIR | T_REG}, 11, 25, //semble ok, test pas terrible

@@ -34,10 +34,14 @@ static inline void		init_f(t_pvm *vm)
 
 inline void				init_vm(t_pvm *vm)
 {
+	int i;
+
 	init_f(vm);
 	aux_reset_stack(vm->stack);
 	vm->pid = 0;
-	vm->champions = NULL;
+	i = 0;
+	while (i < MAX_PLAYERS)
+		vm->champions[i++].color = -1;
 	ft_bzero(vm->memory, MEM_SIZE);
 	reset_param(vm);
 	vm->dump = -1;

@@ -21,12 +21,12 @@ static void	aux_verbose(t_pvm *vm, t_process *process, int value)
 	if (vm->verbose == 2)
 	{
 		ft_printf("P% 5d | lld %d r%d\n",
-				(CHAMPION(process->champ))->nbr,
+				vm->champions[(int)process->champ_nbr].nbr,
 				value,
 				vm->param[1]);
 	}
-	if (vm->verb == 3)
-		print_adv(vm, process->pc, octal_shift(process->ocp, 4, 2));
+	else if (vm->verbose == 3)
+		print_adv(vm, process->pc, octal_shift(vm->ocp, 4, 2));
 }
 
 int	ft_lld(t_pvm *vm, t_process *process)
@@ -34,7 +34,7 @@ int	ft_lld(t_pvm *vm, t_process *process)
 	int		value;
 
 	value = 0;
-	if (check_param(process->opcode, process->ocp, g_op_tab[process->opcode].nb_param))
+	if (check_param(process->opcode, vm->ocp, g_op_tab[process->opcode].nb_param))
 	{	
 		if (vm->param[1] >= 1 && vm->param[1] <= REG_NUMBER)
 		{
@@ -47,6 +47,6 @@ int	ft_lld(t_pvm *vm, t_process *process)
 		}
 	}
 	aux_verbose(vm, process, value);
-	process->pc = (process->pc + octal_shift(process->ocp, 4, 2)) % MEM_SIZE;
+	process->pc = (process->pc + octal_shift(vm->ocp, 4, 2)) % MEM_SIZE;
 	return (1);
 }

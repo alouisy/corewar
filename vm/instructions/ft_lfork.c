@@ -26,7 +26,7 @@ int		ft_lfork(t_pvm *vm, t_process *process)
 	if (vm->verbose == 2)
 	{
 		ft_printf("P% 5d | lfork %d (%d)\n",
-				(CHAMPION(process->champ))->nbr,
+				vm->champions[(int)process->champ_nbr].nbr,
 				value,
 				(process->pc + value));
 	}

@@ -16,12 +16,11 @@ inline void	init_process(t_process *process, t_pvm *vm)
 {
 	int		i;
 
-	vm->nb_process++;
-	process->champ = vm->champions;
-	process->r[0] = (CHAMPION(vm->champions))->nbr;
 	i = 1;
 	while (i < REG_NUMBER + 1)
-		process->r[i++] = 0;
+		process->r[++i] = 0;
+	process->r[1] = vm->champions[vm->nb_process].nbr;
+	process->champ_nbr = vm->nb_process;
 	process->state = 0;
 	process->opcode = 0;
 }

@@ -12,33 +12,45 @@
 
 #include "../vm.h"
 
-inline void		init_memory(t_pvm *vm)
+void			reset_mem_color(t_pvm *vm)
 {
-	t_list			*ptmp;
-	t_list			*ctmp;
-	t_process		*process;
-	t_champion		*champ;
-	int				i;
-	unsigned int	j;
+	int	i;
 
 	i = 0;
 	while (i < MEM_SIZE)
 		vm->mem_color[i++] = 0;
-	i = vm->nb_champ - 1;
+}
+
+void			set_mem_color(t_pvm *vm, int k)
+{
+	unsigned int i;
+
+	i = 0;
+	while (i < vm->champions[k].header.prog_size)
+	{
+		vm->mem_color[vm->champions[k].vm_pos + i] = vm->champions[k].color;
+		i++;
+	}
+}
+
+inline void		init_memory(t_pvm *vm)
+{
+	t_list			*ptmp;
+	t_process		*process;
+	int				k;
+
+	reset_mem_color(vm);
 	ptmp = vm->stack[0].next;
-	ctmp = vm->champions;
-	while (ctmp)
+	k = vm->nb_champ - 1;
+	while (k >= 0)
 	{
 		process = get_process(ptmp);
-		champ = CHAMPION(ctmp);
-		champ->vm_pos = (MEM_SIZE / vm->nb_champ) * i--;
-		process->pc = champ->vm_pos;
-		ft_memcpy(vm->memory + champ->vm_pos, champ->prog,
-			champ->header.prog_size);
-		j = 0;
-		while (j < champ->header.prog_size)
-			vm->mem_color[champ->vm_pos + j++] = champ->color;
+		vm->champions[k].vm_pos = (MEM_SIZE / vm->nb_champ) * (k);
+		process->pc = vm->champions[k].vm_pos;
+		ft_memcpy(vm->memory + process->pc, vm->champions[k].prog,
+			vm->champions[k].header.prog_size);
+		set_mem_color(vm, k);
 		ptmp = ptmp->next;
-		ctmp = ctmp->next;
+		k--;
 	}
 }

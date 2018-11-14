@@ -28,8 +28,8 @@ int	ft_aff(t_pvm *vm, t_process *process)
 			ft_printf("Aff: %c\n", c);
 		ft_carry(process, !(c == '\0'), c == '\0');
 	}
-	if (vm->verbose == 3)
-		print_adv(vm, process->pc, octal_shift(process->ocp, 4, 1));
-	process->pc = (process->pc + octal_shift(process->ocp, 4, 1)) % MEM_SIZE;
+	else if (vm->verbose == 3)
+		print_adv(vm, process->pc, octal_shift(vm->ocp, 4, 1));
+	process->pc = (process->pc + octal_shift(vm->ocp, 4, 1)) % MEM_SIZE;
 	return (1);
 }

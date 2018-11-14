@@ -18,7 +18,7 @@
 
 void	new_process_init(t_process *old, t_process *new, int new_pc)
 {
-	new->champ = old->champ;
+	new->champ_nbr = old->champ_nbr;
 	new->pc = new_pc;
 	/*
 	** reset alive, keep carry

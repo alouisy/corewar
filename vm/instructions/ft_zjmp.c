@@ -36,7 +36,9 @@ int	ft_zjmp(t_pvm *vm, t_process *process)
 	}
 	if (vm->verbose == 2)
 	{
-		ft_printf("P% 5d | zjmp %d %s\n", (CHAMPION(process->champ))->nbr, value, str);
+		ft_printf("P% 5d | zjmp %d %s\n",
+				vm->champions[(int)process->champ_nbr].nbr,
+				value, str);
 	}
 	return (1);
 }

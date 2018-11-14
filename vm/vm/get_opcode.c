@@ -25,7 +25,7 @@ int		get_opcode(t_pvm *vm, t_process *process)
 	{
 		store_buffer(
 				vm, process->pc,
-				(CHAMPION(process->champ))->color + 4,
+				vm->champions[(int)process->champ_nbr].color + 4,
 				g_op_tab[process->opcode].nb_cycles + 1
 		);
 	}

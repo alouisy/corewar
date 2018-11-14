@@ -44,6 +44,7 @@ void		status_game(t_pvm *vm)
 	c = 0;
 	i = status_vm(vm);
 	i = status_champion(vm, i + 1);
+	(void)i;
 	update_buffer(vm);
 	status_process(vm, i + 2);
 	wrefresh(vm->nc.wleft);

@@ -1,4 +1,4 @@
-.name "zxork"
+.name "ldi"
 .comment "I'M ALIIIIVE"
 
 ldis: live %1 

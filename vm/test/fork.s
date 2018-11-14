@@ -1,4 +1,4 @@
-.name "zxork"
+.name "fork"
 .comment "I'M ALIIIIVE"
 
 lds: live %1 

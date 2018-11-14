@@ -23,7 +23,7 @@ void	write_in_memory(t_pvm *pvm, t_process *process, int value, int value2)
 	int				color;
 	int 			i;
 
-	color = (CHAMPION(process->champ))->color;
+	color = pvm->champions[(int)process->champ_nbr].color;
 	i = 0;
 	address = process->pc + 3 + value2 % IDX_MOD;
 	while (i < 4)
