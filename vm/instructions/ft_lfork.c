@@ -38,11 +38,10 @@ void	ft_lfork(t_pvm *pvm, t_process *process)
 	t_list		*node;
 
 	(void)node;
-	value = (short int)process->param[0];
-	new_pc = (process->pc + value) % MEM_SIZE;
-	if (new_pc < 0)
+	value = process->param[0];
+	new_pc = process->pc + value;
+	while (new_pc < 0)
 		new_pc = (new_pc + MEM_SIZE) % MEM_SIZE;
-//		new_pc = (MEM_SIZE + process->pc - ABS(value)) % MEM_SIZE;
 	node = ft_lstnew(process, sizeof(t_process));
 	new_process_init(pvm, process, (PROCESS(node)), new_pc);
 	ft_lstadd(&pvm->processes, node);

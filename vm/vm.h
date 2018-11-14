@@ -21,6 +21,12 @@
 # define UNUSED __attribute__((unused))
 # define CHAMP_MAX3		(CHAMP_MAX_SIZE * 3)
 # define ABS(x) ((x) < 0 ? (-(x)) : (x))
+# define REG(x) process->r[x - 1]
+# define PC process->pc
+# define OPCODE process->opcode
+# define OCP vm->ocp
+# define MEM(x) vm->memory[(unsigned int)(x) % MEM_SIZE]
+# define OP_TAB g_op_tab[process->opcode]
 
 /*
 ** structure de descriptions des instructions
@@ -141,6 +147,8 @@ int						get_param(t_pvm *vm, t_process *process, int shift);
 void					get_instruction(t_pvm *vm, t_process *process);
 void					process_instruction(t_pvm *vm, t_process *process);
 void					print_winner(t_pvm *vm);
+int						check_param(unsigned char op, unsigned char ocp, unsigned char nb_param);
+int						octal_shift(unsigned char ocp, unsigned char label_size, unsigned char nb_param);
 
 /*
 ** instructions
