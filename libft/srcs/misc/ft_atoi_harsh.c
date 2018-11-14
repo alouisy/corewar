@@ -24,9 +24,12 @@ long long	ft_atoi_harsh(char *str, int accept_neg, int return_value,
 	i = 0;
 	while (ft_iswhitespace(str[i]))
 		i++;
-	if (str[i++] == '-' && accept_neg)
+	if (str[i] == '-' && accept_neg)
+	{
 		is_neg = 1;
-	else if (str[i++] == '-' && !accept_neg)
+		i++;
+	}
+	else if (str[i] == '-' && !accept_neg)
 		return (return_value);
 	while (ft_isdigit(str[i]))
 		fin_nb = fin_nb * 10 + (str[i++] - '0');
