@@ -63,14 +63,15 @@ void	check_process(t_pvm *vm, int mode)
 	}
 }
 
-static void	reset_champion(t_list *node)
-{
-	(CHAMPION(node))->nb_live = 0;
-}
-
 void	cycle2die(t_pvm *vm, int mode)
 {
+	int i;
+
 	decremente_c2d(vm);
 	check_process(vm, mode);
-	ft_lstiter(vm->champions, &reset_champion);
+	i = 0;
+	while (i < vm->nb_champ)
+	{
+		vm->champions[i++].nb_live = 0;
+	}
 }

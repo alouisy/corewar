@@ -14,23 +14,20 @@
 
 inline int	parse_champion(char *path, int nb, t_pvm *vm)
 {
-	t_champion	champion;
-	t_list		*node;
-	int			fd;
+	int	fd;
+	int	i;
 
-	nb = ((nb != -1) ? get_champ_nb(0, nb, vm->champions) : get_champ_nb(1, -1, vm->champions));
-	init_champion(&champion, nb, vm->nb_champ + 1);
+	i = vm->nb_champ;
+	nb = get_champ_nb(nb, vm->champions);
+	init_champion(vm, nb);
 	if ((fd = open(path, O_RDONLY)) == -1)
 		return (ft_strerror(ft_strjoin("Can't read source file ", path), 1));
-	if (!parse_champion_header(&champion, fd, path))
+	if (!parse_champion_header(&(vm->champions[i]), fd, path))
 		return (0);
-	if (!parse_champion_prog(&champion, fd))
+	if (!parse_champion_prog(&(vm->champions[i]), fd))
 		return (0);
 	close(fd);
-	if (champion.prog[0] == 0)
+	if (vm->champions[i].prog[0] == 0)
 		return (0);
-	if (!(node = ft_lstnew2((&champion), sizeof(t_champion))))
-		return (ft_strerror("ERROR while trying to malloc", 0));
-	ft_lstadd(&vm->champions, node);
 	return (1);
 }

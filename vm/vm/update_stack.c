@@ -25,7 +25,6 @@ void	update_stack(t_pvm *vm, int cycles, t_list *process)
 
 	modulo = cycles % 1001;
 	vm->stack[modulo].content_size = cycles;
-	//printf(" %4d : %4d\n", cycles, modulo);
 	node = (t_list*)(vm->stack[modulo].content);
 	if (node)
 	{

@@ -21,7 +21,7 @@ static void	aux_verbose(t_pvm *vm, t_process *process,  int val1, int val2)
 	if ((vm->verbose - 1))
 	{
 		ft_printf("P% 5d | or %d %d r%d\n",
-				(CHAMPION(process->champ))->nbr,
+				vm->champions[(int)process->champ_nbr].nbr,
 				val1,
 				val2,
 				vm->param[2]);

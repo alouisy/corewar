@@ -1,4 +1,4 @@
-.name "zxork"
+.name "lldi"
 .comment "I'M ALIIIIVE"
 
 lldis: live %1 

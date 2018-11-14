@@ -1,4 +1,4 @@
-.name "zxork"
+.name "ld"
 .comment "I'M ALIIIIVE"
 
 lds:

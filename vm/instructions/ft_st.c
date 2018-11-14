@@ -43,6 +43,6 @@ int	ft_st(t_pvm *vm, t_process *process)
 		}
 	}
 	aux_verbose(vm, process);
-	process->pc = (process->pc + octal_shift(process->ocp, 4, 2)) % MEM_SIZE;
+	process->pc = (process->pc + octal_shift(vm->ocp, 4, 2)) % MEM_SIZE;
 	return (1);
 }

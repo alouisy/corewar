@@ -1,4 +1,4 @@
-.name "zxork"
+.name "or"
 .comment "I'M ALIIIIVE"
 
 ors: live %1 

@@ -26,7 +26,7 @@ int		ft_fork(t_pvm *vm, t_process *process)
 	if ((vm->verbose - 1))
 	{
 		ft_printf("P% 5d | fork %d (%d)\n",
-				(CHAMPION(process->champ))->nbr,
+				vm->champions[(int)process->champ_nbr].nbr,
 				value,
 				(process->pc + (value % IDX_MOD)));
 		if (vm->verbose == 3)

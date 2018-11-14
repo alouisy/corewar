@@ -18,24 +18,23 @@
 
 inline void intro_champions(t_pvm *vm)
 {
-	t_list		*node;
-	t_champion	*champion;
-	int			i;
-	int			j;
+	int	i;
+	int	j;
+	int	k;
 
-	node = vm->champions;
-	while (node)
+	k = 0;
+	printf("k = %d\n", vm->nb_champ);
+	while (k < vm->nb_champ)
 	{
 		i = 2;
-		champion = CHAMPION(node);
-		j = ((((champion->color - 1) * COLS) + 1) / vm->nb_champ);
-		attron(COLOR_PAIR(champion->color));
-		mvprintw(i++, j, "Prog_name: %s", champion->header.prog_name);
-		attroff(COLOR_PAIR(champion->color));
-		mvprintw(i++, j, "Pos: %d", champion->nbr);
-		mvprintw(i++, j, "Prog_size: %d", champion->header.prog_size);
-		mvprintw(i++, j, "Comment: %s", champion->header.comment);
-		node = node->next;
+		j = (((vm->champions[k].color - 1) * COLS) + 1) / vm->nb_champ;
+		attron(COLOR_PAIR(vm->champions[k].color));
+		mvprintw(i++, j, "Prog_name: %s", vm->champions[k].header.prog_name);
+		attroff(COLOR_PAIR(vm->champions[k].color));
+		mvprintw(i++, j, "Pos: %d", vm->champions[k].nbr);
+		mvprintw(i++, j, "Prog_size: %d", vm->champions[k].header.prog_size);
+		mvprintw(i++, j, "Comment: %s", vm->champions[k].header.comment);
+		k++;
 	}
 	refresh();
 	getch();

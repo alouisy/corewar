@@ -21,7 +21,7 @@ static void	aux_verbose(t_pvm *vm, t_process *process)
 	if ((vm->verbose - 1))
 	{
 		ft_printf("P% 5d | sub r%d r%d r%d\n",
-				(CHAMPION(process->champ))->nbr,
+				vm->champions[(int)process->champ_nbr].nbr,
 				vm->param[0],
 				vm->param[1],
 				vm->param[2]);
@@ -37,7 +37,7 @@ int	ft_sub(t_pvm *vm, t_process *process)
 
 	i = -1;
 	error = 0;
-	if (check_param(process->opcode, process->ocp, g_op_tab[process->opcode].nb_param))
+	if (check_param(process->opcode, vm->ocp, g_op_tab[process->opcode].nb_param))
 	{
 		while (++i < 3)
 		{
@@ -52,6 +52,6 @@ int	ft_sub(t_pvm *vm, t_process *process)
 		}
 	}
 	aux_verbose(vm, process);
-	process->pc = (process->pc + octal_shift(process->ocp, 4, 3)) % MEM_SIZE;
+	process->pc = (process->pc + octal_shift(vm->ocp, 4, 3)) % MEM_SIZE;
 	return (1);
 }

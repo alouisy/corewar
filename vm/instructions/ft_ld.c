@@ -21,7 +21,7 @@ static void	aux_verbose(t_pvm *vm, t_process *process, int value)
 	if ((vm->verbose - 1))
 	{
 		ft_printf("P% 5d | ld %d r%d\n",
-				(CHAMPION(process->champ))->nbr,
+				vm->champions[(int)process->champ_nbr].nbr,
 				value,
 				vm->param[1]);
 		if (vm->verbose == 3)
@@ -51,6 +51,6 @@ int	ft_ld(__attribute__((unused)) t_pvm *vm, t_process *process)
 		}
 	}
 	aux_verbose(vm, process, value);
-	process->pc = (process->pc + octal_shift(process->ocp, 4, 2)) % MEM_SIZE;
+	process->pc = (process->pc + octal_shift(vm->ocp, 4, 2)) % MEM_SIZE;
 	return (1);
 }

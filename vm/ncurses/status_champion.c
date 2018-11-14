@@ -18,24 +18,22 @@
 
 int	status_champion(t_pvm *vm, int i)
 {
-	t_list		*node;
-	t_champion	*champion;
+	int			j;
 
-	node = vm->champions;
-	while (node)
+	j = 0;
+	while (j < vm->nb_champ)
 	{
-		champion = CHAMPION(node);
-		wattron(vm->nc.wright, COLOR_PAIR(champion->color));
+		wattron(vm->nc.wright, COLOR_PAIR(vm->champions[j].color));
 		mvwprintw(vm->nc.wright, i++, 2, "name:	%s",
-				champion->header.prog_name);
-		wattroff(vm->nc.wright, COLOR_PAIR(champion->color));
-		mvwprintw(vm->nc.wright, i++, 2, "	number: %d", champion->nbr);
+				vm->champions[j].header.prog_name);
+		wattroff(vm->nc.wright, COLOR_PAIR(vm->champions[j].color));
+		mvwprintw(vm->nc.wright, i++, 2, "	number: %d", vm->champions[j].nbr);
 		mvwprintw(vm->nc.wright, i++, 2,
-				"	last live: %d", champion->l_live);
+				"	last live: %d", vm->champions[j].l_live);
 		mvwprintw(vm->nc.wright, i++, 2,
-				"	nb of live: %-10d", champion->nb_live);
+				"	nb of live: %-10d", vm->champions[j].nb_live);
 		i++;
-		node = node->next;
+		j++;
 	}
 	return (i);
 }

@@ -12,16 +12,16 @@
 
 #include "../vm.h"
 
-t_list	*ft_lstfindchamp(t_list *champ, int nbr)
+int ft_findchamp(t_pvm *vm, int nbr)
 {
-	t_list	*node;
+	int i;
 
-	node = champ;
-	while (node)
+	i = 0;
+	while (i < vm->nb_champ)
 	{
-		if ((CHAMPION(node))->nbr == nbr)
-			return (node);
-		node = node->next;
+		if (vm->champions[i].nbr == nbr)
+			return (i);
+		i++;
 	}
-	return (NULL);
+	return (-1);
 }
