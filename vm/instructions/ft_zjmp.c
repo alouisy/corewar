@@ -23,7 +23,7 @@ void	ft_zjmp(UNUSED t_pvm *pvm, t_process *process)
 	value = (short int)process->param[0];
 	if (process->carry == 1)
 	{
-		if (!(pvm->nc.ncurses) && pvm->verbose)
+		if (!(pvm->nc.ncurses) && pvm->verbose == 2)
 		{
 			ft_printf("P% 5d | zjmp %d OK\n", process->champ_nbr, value);
 		}
@@ -33,7 +33,7 @@ void	ft_zjmp(UNUSED t_pvm *pvm, t_process *process)
 	}
 	else
 	{
-		if (!(pvm->nc.ncurses) && pvm->verbose)
+		if (!(pvm->nc.ncurses) && pvm->verbose == 2)
 		{
 			ft_printf("P% 5d | zjmp %d FAILED\n", process->champ_nbr, value);
 		}

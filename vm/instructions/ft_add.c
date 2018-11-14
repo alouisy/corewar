@@ -29,7 +29,7 @@ void	ft_add(__attribute__((unused)) t_pvm *pvm, t_process *process)
 	if (!error)
 	{
 		process->r[process->param[2] - 1] = process->r[process->param[0] - 1] + process->r[process->param[1] - 1];
-		if (!(pvm->nc.ncurses) && pvm->verbose)
+		if (!(pvm->nc.ncurses) && pvm->verbose == 2)
 		{
 			ft_printf("P% 5d | add r%d r%d r%d\n", process->champ_nbr, process->param[0], process->param[1], process->param[2]);
 		}

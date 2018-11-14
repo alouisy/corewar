@@ -11,12 +11,16 @@
 /* ************************************************************************** */
 
 #include "../vm.h"
+#include <time.h>
 
 void				start_vm(t_pvm *vm)
 {
 	t_process	*content;
 	t_list		*tmp;
+	struct timespec tim, tim2;
 
+	tim.tv_sec  = 0;
+	tim.tv_nsec = 30000000L;
 	while (vm->total_cycles != vm->dump && vm->processes)
 	{
 		vm->cur_cycle++;
@@ -33,6 +37,12 @@ void				start_vm(t_pvm *vm)
 			else
 			{
 				process_instruction(vm, content);
+			}
+			if (vm->verbose == 3 && (vm->total_cycles % 10) == 0)
+			{
+				system("clear");
+				print_memory_2(vm, content->pc);
+				nanosleep(&tim , &tim2);
 			}
 			if (vm->nc.ncurses)
 			{

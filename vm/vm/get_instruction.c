@@ -12,7 +12,7 @@
 
 #include "../vm.h"
 
-int			get_opcode(t_pvm *vm, t_process *process)
+int			get_octet_de_codage(t_pvm *vm, t_process *process)
 {
 	int i;
 
@@ -36,8 +36,8 @@ int			get_param(t_pvm *vm, t_process *process, int shift)
 	int		i;
 	int		label_size;
 
-	i = 0;
-	while (i < 3 && process->param_type[i])
+	i = -1;
+	while (++i < g_op_tab[process->opcode].nb_param)
 	{
 		label_size = process->param_type[i];
 		if (label_size == DIR_CODE)
@@ -45,10 +45,12 @@ int			get_param(t_pvm *vm, t_process *process, int shift)
 		else if (label_size == IND_CODE)
 			label_size -= 1;
 		process->param[i] = ft_strhex2dec(vm->memory + ((process->pc + shift) % MEM_SIZE), label_size);
-		if (label_size == 2 && process->param_type[i] == IND_CODE)
-			process->param[i] = (short int)process->param[i];
+		if (label_size == 2)// && process->param_type[i] == IND_CODE)
+		{
+		//	printf("%s => label_size : %d => param : %d => short : %d\n", g_op_tab[process->opcode].name, label_size, process->param[i], (short int)process->param[i]);
+			process->param[i] = (short)process->param[i];
+		}
 		shift += label_size;
-		i++;
 	}
 	return (shift);
 }
@@ -67,7 +69,7 @@ void		get_instruction(t_pvm *vm, t_process *process)
 	}
 	else
 	{
-		shift += get_opcode(vm, process);
+		shift += get_octet_de_codage(vm, process);
 		shift = get_param(vm, process, shift);
 		process->pc2 = (process->pc + shift) % MEM_SIZE;
 		process->cycle_bf_exe = g_op_tab[process->opcode].nb_cycles - 1;

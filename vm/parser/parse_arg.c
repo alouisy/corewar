@@ -26,7 +26,9 @@ inline int			parse_arg(t_pvm *vm, int ac, char **av)
 		else if (ft_strequ("-nc", av[i]))
 			vm->nc.ncurses = 1;
 		else if (ft_strequ("-v", av[i]))
-			vm->verbose = 1;
+			vm->verbose = 2;
+		else if (ft_strequ("-g", av[i]))
+			vm->verbose = 3;
 		else if (ft_strequ("-n", av[i]) && ft_nbrisinteger(av[++i]))
 			champ_nb = ft_atoi(av[i]);
 		else

@@ -45,7 +45,7 @@ void	update_buffer(t_pvm *vm)
 				print_case(vm->nc.wleft, i, vm->memory[i]);
 				wattroff(vm->nc.wleft, COLOR_PAIR((get_buffer(node))->color));
 			}
-			todel = ft_lstpop(node, &(vm->nc.buffer));
+			todel = ft_lstpop(node, vm->nc.buffer);
 		}
 		node = node->next;
 		if (todel)

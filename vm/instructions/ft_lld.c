@@ -32,7 +32,7 @@ void	ft_lld(UNUSED t_pvm *pvm, t_process *process)
 		while (address < 0)
 			address += MEM_SIZE;
 		process->r[process->param[1] - 1] = ft_strhex2dec((pvm->memory + (address % MEM_SIZE)), 4);
-		if (!(pvm->nc.ncurses) && pvm->verbose)
+		if (!(pvm->nc.ncurses) && pvm->verbose == 2)
 		{
 			ft_printf("P% 5d | lld %d r%d\n", process->champ_nbr, value, process->param[1]);
 		}

@@ -42,7 +42,7 @@ void	ft_st(t_pvm *pvm, t_process *process)
 				check = 1;
 				process->r[process->param[1] - 1] = value;
 			}
-			if (!(pvm->nc.ncurses) && pvm->verbose)
+			if (!(pvm->nc.ncurses) && pvm->verbose == 2)
 			{
 				ft_printf("P% 5d | st r%d %d\n", process->champ_nbr, process->param[0], process->param[1]);
 			}
@@ -50,8 +50,8 @@ void	ft_st(t_pvm *pvm, t_process *process)
 		else
 		{
 			check = 1;
-			write_in_memory(pvm, (process->pc + (((short int)process->param[1]) % IDX_MOD)), value);
-			if (!(pvm->nc.ncurses) && pvm->verbose)
+			write_in_memory(pvm, (process->pc + (((short)process->param[1]) % IDX_MOD)), value);
+			if (!(pvm->nc.ncurses) && pvm->verbose == 2)
 			{
 				ft_printf("P% 5d | st r%d %d\n", process->champ_nbr, process->param[0], ((short int)process->param[1]));
 			}

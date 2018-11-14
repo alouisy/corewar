@@ -136,6 +136,8 @@ int						get_champ_nb(int nb, t_list *champions);
 */
 void					start_vm(t_pvm *vm);
 void					cycle2die(t_pvm *vm);
+int						get_octet_de_codage(t_pvm *vm, t_process *process);
+int						get_param(t_pvm *vm, t_process *process, int shift);
 void					get_instruction(t_pvm *vm, t_process *process);
 void					process_instruction(t_pvm *vm, t_process *process);
 void					print_winner(t_pvm *vm);
@@ -177,6 +179,7 @@ t_champion				*get_champion(t_list *node);
 t_process				*get_process(t_list	*node);
 t_buffer				*get_buffer(t_list *node);
 void					reset_param(t_process *process);
+void					print_memory_2(t_pvm *prms, int pc);
 
 /*
 ** ncurses

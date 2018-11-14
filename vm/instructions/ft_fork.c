@@ -46,7 +46,7 @@ void		ft_fork(t_pvm *pvm, t_process *process)
 	node = ft_lstnew(process, sizeof(t_process));
 	new_process_init(pvm, process, (PROCESS(node)), new_pc);
 	ft_lstadd(&pvm->processes, node);
-	if (!(pvm->nc.ncurses) && pvm->verbose)
+	if (!(pvm->nc.ncurses) && pvm->verbose == 2)
 	{
 		ft_printf("P% 5d | fork %d (%d)\n", process->champ_nbr, value, (process->pc + (value % IDX_MOD)));
 	}

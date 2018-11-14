@@ -27,7 +27,7 @@ void	ft_xor(__attribute__((unused)) t_pvm *pvm, t_process *process)
 		&& get_prm_value(pvm, process, 0, &val1) && get_prm_value(pvm, process, 1, &val2))
 	{
 		process->r[process->param[2] - 1] = (val1 ^ val2);
-		if (!(pvm->nc.ncurses) && pvm->verbose)
+		if (!(pvm->nc.ncurses) && pvm->verbose == 2)
 		{
 			ft_printf("P% 5d | xor %d %d r%d\n", process->champ_nbr, val1, val2, process->param[2]);
 		}
