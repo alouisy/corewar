@@ -52,6 +52,8 @@ int	start_vm(t_pvm *vm)
 		vm->stack[(vm->total_cycles) % 1001].next = NULL;
 		vm->stack[(vm->total_cycles) % 1001].content = NULL;
 		vm->total_cycles++;
+		if (vm->verbose == 3)
+			printf("It is now cycle %d\n", vm->total_cycles);
 		if (!do_it(vm, node))
 			return (0);
 		if (vm->verbose == 1)

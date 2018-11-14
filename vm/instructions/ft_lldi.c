@@ -18,7 +18,7 @@
 
 static void	aux_verbose(t_pvm *vm, t_process *process, int val1, int val2)
 {
-	if (vm->verbose == 2)
+	if ((vm->verbose - 1))
 	{
 		ft_printf("P% 5d | lldi %d %d r%d\n",
 				(CHAMPION(process->champ))->nbr,
@@ -30,9 +30,9 @@ static void	aux_verbose(t_pvm *vm, t_process *process, int val1, int val2)
 				val2,
 				(val1 + val2),
 				process->pc + val1 + val2);
+		if (vm->verbose == 3)
+			print_adv(vm, process->pc, octal_shift(process->ocp, 2, 3));
 	}
-	if (vm->verb == 3)
-		print_adv(vm, process->pc, octal_shift(process->ocp, 2, 3));
 }
 
 int	ft_lldi(t_pvm *vm, t_process *process)

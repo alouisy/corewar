@@ -23,15 +23,15 @@ int		ft_lfork(t_pvm *vm, t_process *process)
 	value = vm->param[0];
 	if (!aux_fork(vm, process, value))
 		return (0);
-	if (vm->verbose == 2)
+	if ((vm->verbose - 1))
 	{
 		ft_printf("P% 5d | lfork %d (%d)\n",
 				(CHAMPION(process->champ))->nbr,
 				value,
 				(process->pc + value));
+		if (vm->verbose == 3)
+			print_adv(vm, process->pc, 3);
 	}
-	if (vm->verbose == 3)
-		print_adv(vm, process->pc, 3);
 	process->pc = (process->pc + 3) % MEM_SIZE;
 	return (1);
 }

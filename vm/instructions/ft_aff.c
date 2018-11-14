@@ -24,7 +24,7 @@ int	ft_aff(t_pvm *vm, t_process *process)
 	if (vm->param_type[0] == REG_CODE && vm->param[0] >= 1 && vm->param[0] <= REG_NUMBER)
 	{
 		c = process->r[vm->param[0]];
-		if (vm->verbose == 2)
+		if ((vm->verbose - 1))
 			ft_printf("Aff: %c\n", c);
 		ft_carry(process, !(c == '\0'), c == '\0');
 	}

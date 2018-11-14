@@ -19,24 +19,23 @@
 int	ft_zjmp(t_pvm *vm, t_process *process)
 {
 	int		value;
-	char	*str;
 
 	value = reverse_bytes(vm, process->pc + 1, 2);
-	if (vm->verbose == 3)
-		print_adv(vm, process->pc, 3);
 	if (process->state / 2)
 	{
-		str = "OK";
 		process->pc = (unsigned int)(process->pc + (value % IDX_MOD)) % MEM_SIZE;
+		if ((vm->verbose - 1))
+			ft_printf("P% 5d | zjmp %d OK\n", (CHAMPION(process->champ))->nbr, value);
 	}
 	else
 	{
-		str = "FAILED";
+		if ((vm->verbose - 1))
+		{
+			ft_printf("P% 5d | zjmp %d FAILED\n", (CHAMPION(process->champ))->nbr, value);
+			if (vm->verbose == 3)
+				print_adv(vm, process->pc, 3);
+		}
 		process->pc = (process->pc + 3) % MEM_SIZE;
-	}
-	if (vm->verbose == 2)
-	{
-		ft_printf("P% 5d | zjmp %d %s\n", (CHAMPION(process->champ))->nbr, value, str);
 	}
 	return (1);
 }

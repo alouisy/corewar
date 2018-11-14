@@ -18,16 +18,16 @@
 
 static void	aux_verbose(t_pvm *vm, t_process *process,  int val1, int val2)
 {
-	if (vm->verbose == 2)
+	if ((vm->verbose - 1))
 	{
 		ft_printf("P% 5d | or %d %d r%d\n",
 				(CHAMPION(process->champ))->nbr,
 				val1,
 				val2,
 				vm->param[2]);
+		if (vm->verbose == 3)
+			print_adv(vm, process->pc, octal_shift(process->ocp, 4, 3));
 	}
-	else if (vm->verb == 3)
-		print_adv(vm, process->pc, octal_shift(process->ocp, 4, 3));
 }
 
 int	ft_or(t_pvm *vm, t_process *process)

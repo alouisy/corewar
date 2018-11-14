@@ -18,7 +18,11 @@
 
 # define PROCESS(x) (t_process*)(x->content)
 # define CHAMPION(x) (t_champion*)(x->content)
-
+# define REG(x) process->r[x - 1]
+# define PC process->pc
+# define OP process->opcode
+# define OCP process->ocp
+# define MEM(x) vm->memory[(unsigned int)(x) % MEM_SIZE]
 /*
 ** structure de descriptions des instructions
 */
@@ -110,7 +114,6 @@ typedef struct			s_pvm
 	**     2 : verbose printf
 	*/
 	char				verbose;
-	char				verb;
 	t_ncurses			nc;
 	int					nb_champ;
 	int					nb_process;

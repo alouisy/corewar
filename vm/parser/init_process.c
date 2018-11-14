@@ -18,10 +18,10 @@ inline void	init_process(t_process *process, t_pvm *vm)
 
 	vm->nb_process++;
 	process->champ = vm->champions;
-	process->r[0] = (CHAMPION(vm->champions))->nbr;
+	REG(1) = (CHAMPION(vm->champions))->nbr;
 	i = 1;
-	while (i < REG_NUMBER + 1)
-		process->r[i++] = 0;
+	while (++i <= REG_NUMBER)
+		REG(i) = 0;
 	process->state = 0;
 	process->opcode = 0;
 }
