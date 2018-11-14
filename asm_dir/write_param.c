@@ -19,8 +19,8 @@ static int		is_zero(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (!ft_iswhitespace(str[i]) && str[i] != 48 &&
-												!(i == 0 && str[i] == '-'))
+		if (!ft_iswhitespace(str[i]) && str[i] != 48
+											&& !(i == 0 && str[i] == '-'))
 			return (0);
 		i++;
 	}
@@ -31,21 +31,18 @@ static int		write_val(char *param, t_write_inf *write_inf)
 {
 	long long	val;
 	char		*binary;
-	int			state;
 
-	state = 0;
 	if (param[0] == LABEL_CHAR)
-		state = add_lbl(param, write_inf);
+		return (add_lbl(param, write_inf));
 	else
 	{
 		val = ft_atoi_harsh(param, 1, 0, 0);
 		if (val == 0 && !is_zero(param))
 			return (WRONG_FORMAT_ERR);
-		if (val < 0)
+		else if (val < 0)
 			val = calc_neg_val(val, write_inf->nb_bytes);
 		g_asm_inf->nb_bytes += write_inf->nb_bytes;
-		binary = fill_binary(write_inf->nb_bytes, val);
-		if (!binary)
+		if (!(binary = fill_binary(write_inf->nb_bytes, val)))
 			return (-1);
 		g_asm_inf->current->next = ft_lstnew(binary, write_inf->nb_bytes, 0);
 		if (!g_asm_inf->current->next)
@@ -55,7 +52,7 @@ static int		write_val(char *param, t_write_inf *write_inf)
 		}
 		g_asm_inf->current = g_asm_inf->current->next;
 	}
-	return (state);
+	return (0);
 }
 
 static int		write_register(char *param)
@@ -64,7 +61,7 @@ static int		write_register(char *param)
 
 	nb_register = ft_atoi_harsh(param, 0, -1, 0);
 	if (nb_register == 0 && !is_zero(param))
-			return (WRONG_FORMAT_ERR);
+		return (WRONG_FORMAT_ERR);
 	if (nb_register > REG_NUMBER)
 		return (LARGE_REG_ERR);
 	else if (nb_register < 0)
@@ -118,19 +115,13 @@ void			write_param(char *params, t_op *op, int *ocp_val)
 	while (params_split[i])
 		i++;
 	if (i != op->nb_param)
-	{
-		g_err->str = ft_strtrim(g_err->line);
-		free_split_all(params_split, WRONG_PARAM_NUM_ERR);
-	}
+		free_add_err(WRONG_PARAM_NUM_ERR, params_split);
 	while (write_inf.i < op->nb_param)
 	{
 		write_inf.beside_ocp = op->ocp - write_inf.i;
 		state = choose_write(params_split[write_inf.i], op, &write_inf);
 		if (state != 0)
-		{
-			g_err->str = ft_strtrim(g_err->line);
-			free_split_all(params_split, state);
-		}
+			free_add_err(state, params_split);
 		weight = calc_weight(write_inf.i);
 		*ocp_val += write_inf.ocp_part * weight;
 		write_inf.i++;

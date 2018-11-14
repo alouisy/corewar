@@ -44,7 +44,7 @@ static void	display_custom_err(int err)
 static void	free_g_err(void)
 {
 	if (g_err->str)
-		ft_strdel(&str);
+		ft_strdel(&g_err->str);
 	if (g_err)
 		ft_memdel((void **)&g_err);
 }

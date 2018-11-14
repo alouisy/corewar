@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-static void *free_ret(t_list **new)
+static void	*free_ret(t_list **new)
 {
 	ft_memdel((void **)new);
 	return (NULL);

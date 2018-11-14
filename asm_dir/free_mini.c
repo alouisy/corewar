@@ -34,12 +34,6 @@ void	free_inst_utilitary(char *params, char *inst, int err)
 	free_all(err);
 }
 
-void	free_split_all(char **split, int err)
-{
-	free_split(split);
-	free_all(err);
-}
-
 void	free_read_utility(char *lbl, t_tree_index *index,
 											t_lbl_def *lbl_def, int error)
 {
@@ -57,4 +51,12 @@ void	free_list_node(void *content)
 {
 	ft_strdel(&((t_holder_def *)content)->lbl);
 	ft_memdel(&content);
+}
+
+void	free_add_err(int err, char **split)
+{
+	g_err->str = ft_strtrim(g_err->line);
+	if (split)
+		free_split(split);
+	free_all(err);
 }

@@ -83,30 +83,24 @@ static void	get_inf(char **str, int *i)
 	while (ft_iswhitespace(g_err->line[*i]))
 		(*i)++;
 	if (g_err->line[*i] != '"')
-	{
-		g_err->str = ft_strtrim(g_err->line);
-		free_all(WRONG_DOT_CMD_ERR);
-	}
+		free_add_err(WRONG_DOT_CMD_ERR, NULL);
 	if (g_err->line[*i + 1] != '"')
 	{
 		tmp = ft_strdup(&(g_err->line[*i + 1]));
 		if (!tmp)
 			free_all(-1);
-		ft_strdel(&g_err->line);
 		pos = join_all(&tmp);
 		if (pos != 0 && (size_t)pos != ft_strlen(tmp) - 1)
 		{
 			ft_strdel(&tmp);
-			g_err->str = ft_strtrim(g_err->line);
-			free_all(WRONG_DOT_CMD_ERR);
+			free_add_err(WRONG_DOT_CMD_ERR, NULL);
 		}
 		*str = ft_strndup(tmp, ft_strlen(tmp) - 1);
 		ft_strdel(&tmp);
 		if (!*str)
 			free_all(-1);
 	}
-	else
-		ft_strdel(&g_err->line);
+	ft_strdel(&g_err->line);
 }
 
 void		get_dot_info(void)
@@ -116,7 +110,8 @@ void		get_dot_info(void)
 	skip_comment();
 	i = check_cmd(NAME_CMD_STRING);
 	get_inf(&g_asm_inf->prog_name, &i);
-	if (g_asm_inf->prog_name && ft_strlen(g_asm_inf->prog_name) > PROG_NAME_LENGTH)
+	if (g_asm_inf->prog_name && ft_strlen(g_asm_inf->prog_name)
+														> PROG_NAME_LENGTH)
 	{
 		g_err->str = ft_strtrim(g_err->line);
 		free_all(NAME_TOO_BIG_ERR);

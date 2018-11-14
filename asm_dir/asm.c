@@ -19,7 +19,6 @@ static char	*create_name(char *source_file)
 {
 	int		len;
 	int		i;
-	char	*tmp_name;
 	char	*name;
 	char	**split;
 
@@ -30,10 +29,12 @@ static char	*create_name(char *source_file)
 	len = ft_strlen(split[i - 1]);
 	if (split[i - 1][len - 1] == 's' && split[i - 1][len - 2] == '.')
 	{
-		tmp_name = ft_strndup(split[i - 1], len - 2);
-		if (!tmp_name)
-			free_split_all(split, -1);
-		name = ft_strjoin_free(tmp_name, ".cor", 0);
+		if (!(name = ft_strndup(split[i - 1], len - 2)))
+		{
+			free_split(split);
+			free_all(-1);
+		}
+		name = ft_strjoin_free(name, ".cor", 0);
 	}
 	else
 		name = ft_strjoin(source_file, ".cor");

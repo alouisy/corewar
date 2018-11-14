@@ -96,7 +96,7 @@ typedef struct	s_err
 	char	*line;
 }				t_err;
 
-extern t_op			g_op_tab[16]; //je sias pas si je peux justifier de l'avoir en globale en vrai
+extern t_op			g_op_tab[16];
 extern t_asm_inf	*g_asm_inf;
 extern t_err		*g_err;
 
@@ -115,7 +115,7 @@ char			*fill_binary(int nb_bytes, int val);
 int				calc_neg_val(int val, int lbl_bytes);
 void			free_all(int err);
 void			free_split(char **split);
-void			free_split_all(char **split, int err);
+void			free_add_err(int err, char **split);
 int				free_tmp(char **trimmed, char **binary, t_write_inf *write_inf);
 void			free_read_utility(char *lbl, t_tree_index *index,
 												t_lbl_def *lbl_def, int err);

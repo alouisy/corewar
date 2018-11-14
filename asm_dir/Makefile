@@ -27,6 +27,7 @@ clean:
 
 fclean: clean
 	@rm -f $(NAME)
+	@rm -rf objs/
 
 re : fclean all
 
