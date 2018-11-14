@@ -28,6 +28,6 @@ int	process_instruction(t_pvm *vm, t_process *process)
 		return (0);
 	}
 	process->opcode = 0;
-	vm->ocp = 0;
+	OCP = 0;
 	return (vm->total_cycles);
 }

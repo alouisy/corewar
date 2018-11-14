@@ -21,7 +21,7 @@ static void	aux_verbose(t_pvm *vm, t_process *process)
 				vm->param[0]);
 	}
 	else if (vm->verbose == 3)
-		print_adv(vm, process->pc, 5);
+		print_adv(vm, PC, 5);
 }
 
 int	ft_live(t_pvm *vm, t_process *process)
@@ -31,7 +31,7 @@ int	ft_live(t_pvm *vm, t_process *process)
 	if (!(process->state % 2))
 		process->state += 1;
 	vm->sum_lives++;
-	vm->param[0] = reverse_bytes(vm, process->pc + 1, 4);
+	vm->param[0] = reverse_bytes(vm, PC + 1, 4);
 	if ((nbr = ft_find_champ(vm, vm->param[0])) != -1)
 	{
 		vm->champions[nbr].nb_live++;
@@ -39,7 +39,7 @@ int	ft_live(t_pvm *vm, t_process *process)
 		vm->last_live = vm->total_cycles;
 	}
 	aux_verbose(vm, process);
-	process->pc += 5;
-	process->pc %= MEM_SIZE;
+	PC += 5;
+	PC %= MEM_SIZE;
 	return (1);
 }

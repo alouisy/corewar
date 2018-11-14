@@ -20,9 +20,10 @@
 # define CHAMPION(x) (t_champion*)(x->content)
 # define REG(x) process->r[x - 1]
 # define PC process->pc
-# define OP process->opcode
-# define OCP process->ocp
+# define OPCODE process->opcode
+# define OCP vm->ocp
 # define MEM(x) vm->memory[(unsigned int)(x) % MEM_SIZE]
+# define OP_TAB g_op_tab[process->opcode]
 
 /*
 ** structure de descriptions des instructions
@@ -54,11 +55,12 @@ typedef struct			s_process
 {
 	unsigned char		opcode;
 	short int			pc;
+//	unsigned char		ocp;					
 	/*
 	** pourrait être une liste, actuellement taille 17 * int = gachis
 	** t_list *reg;
 	*/
-	int					r[REG_NUMBER + 1];
+	int					r[REG_NUMBER];
 	/*
 	** state manage carry and live status in a single variable for memory effeciency.
 	**  00 : carry = 0 && alive = 0
@@ -192,7 +194,7 @@ int						ft_lld(t_pvm *pvm, t_process *process);
 int						ft_lldi(t_pvm *pvm, t_process *process);
 int						ft_lfork(t_pvm *pvm, t_process *process);
 int						ft_aff(t_pvm *pvm, t_process *process);
-int						reverse_bytes(t_pvm *vm, unsigned int pc, int nbytes);
+int						reverse_bytes(t_pvm *vm, int pc, int nbytes);
 int						get_prm_value(t_pvm *pvm,
 							t_process *process, int i, int *value);
 void					new_process_init(t_process *old, t_process *new, int new_pc);
