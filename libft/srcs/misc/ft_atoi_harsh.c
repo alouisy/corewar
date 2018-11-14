@@ -17,25 +17,25 @@ long long	ft_atoi_harsh(char *str, int accept_neg, int return_value,
 {
 	long long	fin_nb;
 	int			is_neg;
+	int			i;
 
 	is_neg = 0;
 	fin_nb = 0;
-	while (ft_iswhitespace(*str))
-		str++;
-	if (*str == '-' && accept_neg)
+	i = 0;
+	while (ft_iswhitespace(str[i]))
+		i++;
+	if (str[i] == '-' && accept_neg)
 	{
 		is_neg = 1;
-		str++;
+		i++;
 	}
-	else if (*str == '-' && !accept_neg)
+	else if (str[i] == '-' && !accept_neg)
 		return (return_value);
-	while (ft_isdigit(*str))
-	{
-		fin_nb = fin_nb * 10 + (*str - '0');
-		str++;
-	}
-	if ((*str && !ft_isdigit(*str) && !ft_iswhitespace(*str))
-								|| (fin_nb > 2147483647 && is_int))
+	while (ft_isdigit(str[i]))
+		fin_nb = fin_nb * 10 + (str[i++] - '0');
+	while (ft_iswhitespace(str[i]))
+		i++;
+	if ((str[i] && !ft_isdigit(str[i])) || (fin_nb > 2147483647 && is_int))
 		return (return_value);
 	if (is_neg == 0)
 		return (fin_nb);

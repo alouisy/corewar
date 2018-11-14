@@ -23,13 +23,13 @@ int	ft_aff(t_pvm *vm, t_process *process)
 	c = 0;
 	if (vm->param_type[0] == REG_CODE && vm->param[0] >= 1 && vm->param[0] <= REG_NUMBER)
 	{
-		c = process->r[vm->param[0]];
+		c = REG(vm->param[0]);
 		if ((vm->verbose - 1))
 			ft_printf("Aff: %c\n", c);
 		ft_carry(process, !(c == '\0'), c == '\0');
 	}
-	else if (vm->verbose == 3)
-		print_adv(vm, process->pc, octal_shift(vm->ocp, 4, 1));
-	process->pc = (process->pc + octal_shift(vm->ocp, 4, 1)) % MEM_SIZE;
+	if (vm->verbose == 3)
+		print_adv(vm, PC, octal_shift(OCP, 4, 1));
+	PC = (PC + octal_shift(OCP, 4, 1)) % MEM_SIZE;
 	return (1);
 }

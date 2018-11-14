@@ -21,10 +21,10 @@ void	display_tree_id(t_rbt_node *rbt)
 			ft_printf("l-");
 			display_tree_id(rbt->left_child);
 		}
-		if (rbt->index.is_nb)
-			ft_printf("%i ", rbt->index.nb);
+		if (rbt->index->is_nb)
+			ft_printf("%i ", rbt->index->nb);
 		else
-			ft_printf("%s ", rbt->index.str);
+			ft_printf("%s ", rbt->index->str);
 		if (rbt->right_child)
 		{
 			ft_printf("r-");

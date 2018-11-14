@@ -12,12 +12,14 @@
 
 #include "../vm.h"
 
-int		reverse_bytes(t_pvm *vm, unsigned int pc, int nbytes)
+int		reverse_bytes(t_pvm *vm, int pc, int nbytes)
 {
 	char			one_byte;
 	unsigned char	two_bytes[2];
 	unsigned char	four_bytes[4];
 
+	while (pc < 0)
+		pc += MEM_SIZE;
 	if (nbytes == 1)
 	{
 		one_byte = vm->memory[(unsigned int)(pc) % MEM_SIZE];
@@ -46,14 +48,14 @@ int	get_param(t_pvm *vm, t_process *process, int shift)
 	int		label_size;
 
 	i = -1;
-	while (++i < g_op_tab[process->opcode].nb_param)
+	while (++i < OP_TAB.nb_param)
 	{
 		label_size = vm->param_type[i];
 		if (label_size == DIR_CODE)
-			label_size += (g_op_tab[process->opcode].label_size == 1 ? 0 : 2);
+			label_size += (OP_TAB.label_size == 1 ? 0 : 2);
 		else if (label_size == IND_CODE)
 			label_size -= 1;
-		vm->param[i] = reverse_bytes(vm, (process->pc + shift), label_size);
+		vm->param[i] = reverse_bytes(vm, (PC + shift), label_size);
 		shift += label_size;
 	}
 	return (shift);

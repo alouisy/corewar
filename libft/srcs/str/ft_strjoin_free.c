@@ -29,8 +29,8 @@ char	*ft_strjoin_free(char *s1, char *s2, int side_to_free)
 	ft_strcat(str, s1);
 	ft_strcat(str, s2);
 	if (side_to_free == 0 || side_to_free == 2)
-		ft_memdel((void **)s1);
+		ft_strdel(&s1);
 	if (side_to_free == 1 || side_to_free == 2)
-		ft_memdel((void **)s2);
+		ft_strdel(&s2);
 	return (str);
 }

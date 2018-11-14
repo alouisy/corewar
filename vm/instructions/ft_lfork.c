@@ -20,7 +20,7 @@ int		ft_lfork(t_pvm *vm, t_process *process)
 {
 	int value;
 
-	value = vm->param[0];
+	value = reverse_bytes(vm, PC + 1, 2);
 	if (!aux_fork(vm, process, value))
 		return (0);
 	if ((vm->verbose - 1))
@@ -28,10 +28,10 @@ int		ft_lfork(t_pvm *vm, t_process *process)
 		ft_printf("P% 5d | lfork %d (%d)\n",
 				vm->champions[(int)process->champ_nbr].nbr,
 				value,
-				(process->pc + value));
+				(PC + value));
 		if (vm->verbose == 3)
-			print_adv(vm, process->pc, 3);
+			print_adv(vm, PC, 3);
 	}
-	process->pc = (process->pc + 3) % MEM_SIZE;
+	PC = (PC + 3) % MEM_SIZE;
 	return (1);
 }

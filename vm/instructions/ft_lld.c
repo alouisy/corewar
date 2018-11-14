@@ -25,7 +25,7 @@ static void	aux_verbose(t_pvm *vm, t_process *process, int value)
 				value,
 				vm->param[1]);
 		if (vm->verbose == 3)
-			print_adv(vm, process->pc, octal_shift(vm->ocp, 4, 2));
+			print_adv(vm, PC, octal_shift(OCP, 4, 2));
 	}
 }
 
@@ -34,19 +34,19 @@ int	ft_lld(t_pvm *vm, t_process *process)
 	int		value;
 
 	value = 0;
-	if (check_param(process->opcode, vm->ocp, g_op_tab[process->opcode].nb_param))
+	if (check_param(process->opcode, OCP, OP_TAB.nb_param))
 	{	
-		if (vm->param[1] >= 1 && vm->param[1] <= REG_NUMBER)
+		if (vm->param_type[1] == 1 && vm->param[1] >= 1 && vm->param[1] <= REG_NUMBER)
 		{
 			if (vm->param_type[0] == IND_CODE)
-				value = reverse_bytes(vm, (process->pc + vm->param[0]), 2);
+				value = reverse_bytes(vm, (PC + vm->param[0]), 2);
 			else if (vm->param_type[0] == DIR_CODE)
-				value = reverse_bytes(vm, (process->pc + 2), 4);
-			process->r[vm->param[1]] = value;
-			ft_carry(process, process->r[vm->param[2]], !(process->r[vm->param[2]]));
+				value = reverse_bytes(vm, (PC + 2), 4);
+			REG(vm->param[1]) = value;
+			ft_carry(process, REG(vm->param[1]), !(REG(vm->param[1])));
 		}
 	}
 	aux_verbose(vm, process, value);
-	process->pc = (process->pc + octal_shift(vm->ocp, 4, 2)) % MEM_SIZE;
+	PC = (PC + octal_shift(OCP, 4, 2)) % MEM_SIZE;
 	return (1);
 }

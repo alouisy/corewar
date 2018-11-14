@@ -48,7 +48,7 @@ static char	*ft_strjoin_overlap(char **s1, char *s2)
 	int		len_1;
 	int		len_2;
 
-	if (!*s2)
+	if (!s2)
 		return (NULL);
 	if (!*s1)
 		str = ft_strdup(s2);
@@ -98,9 +98,9 @@ int			get_next_line(const int fd, char **line, char separator)
 		if ((index = ft_strchri(rest, separator)) == -1)
 		{
 			state = read(fd, buff, BUFF_SIZE);
-			buff[BUFF_SIZE] = '\0';
 			if (state <= 0)
 				return (stopped_reading(state, line, &rest));
+			buff[state] = '\0';
 			rest = ft_strjoin_overlap(&rest, &buff[0]);
 			if (!rest)
 				return (-1);

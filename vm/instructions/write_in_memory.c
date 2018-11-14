@@ -18,14 +18,16 @@
 
 void	write_in_memory(t_pvm *pvm, t_process *process, int value, int value2)
 {
-	unsigned int 	address;
-	unsigned int	tmp;
+	int 	address;
+	int		tmp;
 	int				color;
 	int 			i;
 
 	color = pvm->champions[(int)process->champ_nbr].color;
 	i = 0;
-	address = process->pc + 3 + value2 % IDX_MOD;
+	address = PC + (value2 % IDX_MOD) + 3;
+	while (address < 0)
+		address += MEM_SIZE;
 	while (i < 4)
 	{
 		tmp = (address - i) % MEM_SIZE;

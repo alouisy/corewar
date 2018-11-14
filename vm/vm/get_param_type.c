@@ -66,12 +66,12 @@ int			get_param_type(t_pvm *vm, t_process *process)
 	int i;
 
 	i = -1;
-	if (g_op_tab[process->opcode].ocp)
+	if (OP_TAB.ocp)
 	{
-		vm->ocp = vm->memory[process->pc + 1];
-		while (++i < g_op_tab[process->opcode].nb_param)
+		OCP = vm->memory[PC + 1];
+		while (++i < OP_TAB.nb_param)
 		{
-			vm->param_type[i] = (vm->ocp & (0b11000000 >> (i * 2))) >> (6 - i * 2);
+			vm->param_type[i] = (OCP & (0b11000000 >> (i * 2))) >> (6 - i * 2);
 		}
 		return (1);
 	}

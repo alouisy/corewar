@@ -27,22 +27,22 @@ int	aux_andorxor(t_pvm *vm, t_process *process, int mode, void (*f)(t_pvm *, t_p
 
 	val1 = 0;
 	val2 = 0;
-	if (check_param(process->opcode, vm->ocp, g_op_tab[process->opcode].nb_param))
+	if (check_param(process->opcode, OCP, OP_TAB.nb_param))
 	{
-		if (vm->param[2] >= 1 && vm->param[2] <= REG_NUMBER)
+		if (vm->param[2] >= 1 && vm->param[2] <= REG_NUMBER
+			&& get_prm_value(vm, process, 0, &val1)
+			&& get_prm_value(vm, process, 1, &val2))
 		{
-			get_prm_value(vm, process, 0, &val1);
-			get_prm_value(vm, process, 1, &val2);
 			if (mode == 1)
-				process->r[vm->param[2]] = (val1 & val2);
+				REG(vm->param[2]) = (val1 & val2);
 			else if (mode == 2)
-				process->r[vm->param[2]] = (val1 | val2);
+				REG(vm->param[2]) = (val1 | val2);
 			else if (mode == 3)
-				process->r[vm->param[2]] = (val1 ^ val2);
-			ft_carry(process, process->r[vm->param[2]], !(process->r[vm->param[2]]));
+				REG(vm->param[2]) = (val1 ^ val2);
+			ft_carry(process, REG(vm->param[2]), !(REG(vm->param[2])));
 		}
 	}
 	f(vm, process, val1, val2);
-	process->pc = (process->pc + octal_shift(vm->ocp, 4, 3)) % MEM_SIZE;
+	PC = (PC + octal_shift(OCP, 4, 3)) % MEM_SIZE;
 	return (1);
 }
