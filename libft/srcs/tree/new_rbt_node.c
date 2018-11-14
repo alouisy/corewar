@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-t_rbt_node	*new_rbt_node(void *content, t_tree_index index)
+t_rbt_node	*new_rbt_node(void *content, t_tree_index *index)
 {
 	t_rbt_node *node;
 

@@ -13,12 +13,9 @@
 #ifndef LIBFT_H
 # define LIBFT_H
 # define BUFF_SIZE 20
-# define MALLOC_ERR 1
-# define READ_ERR 2
-# define OPEN_ERR 3
-# define MULT_ARGS_ERR 4
-# define MISSING_ARGS_ERR 5
-# define WRONG_FILE_NAME 6
+# define MULT_ARGS_ERR 1
+# define MISSING_ARGS_ERR 2
+# define WRONG_FILE_NAME 3
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
@@ -97,7 +94,7 @@ typedef struct				s_rbt_node
 {
 	void				*content;
 	int					red;
-	t_tree_index		index;
+	t_tree_index		*index;
 	struct s_rbt_node	*parent;
 	struct s_rbt_node	*left_child;
 	struct s_rbt_node	*right_child;
@@ -184,17 +181,17 @@ void						remove_first_elem(t_list **lst);
 **Tree
 */
 t_rbt_node					*find_in_tree(t_rbt_node *rbt,
-												t_tree_index searched_index);
+												t_tree_index *searched_index);
 void						rotate(t_rbt_node *node, int rotate_right);
-t_rbt_node					*new_rbt_node(void *content, t_tree_index index);
+t_rbt_node					*new_rbt_node(void *content, t_tree_index *index);
 void						insert_rbt(t_rbt_node **rbt, t_rbt_node *current,
 															t_rbt_node *new);
-int							is_inf(t_tree_index rbt_index_1,
-													t_tree_index rbt_index_2);
+int							is_inf(t_tree_index *rbt_index_1,
+													t_tree_index *rbt_index_2);
 t_rbt_node					*rearrange(t_rbt_node *node);
 void						display_tree_id(t_rbt_node *rbt);
 void						rbt_clear(t_rbt_node **rbt,
-									void (*free_content)(void *content));
+								void (*free_content)(void *content), int free_str);
 /*
 **IO
 */
