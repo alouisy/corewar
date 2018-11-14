@@ -69,8 +69,7 @@ typedef struct			s_process
 	*/
 	char				state;
 	/*
-	** sizeof(t_list *) == 2 * sizeof(int)
-	** pourrais etre char
+	** pourrais etre fusionné à state, fusionnable avec opcode
 	*/
 	char				champ_nbr;
 }						t_process;
