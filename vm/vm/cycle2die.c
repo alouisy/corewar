@@ -40,7 +40,7 @@ void	check_process(t_pvm *vm, int mode)
 		save = &(vm->stack[i]);
 		while (node)
 		{
-			if ((PROCESS(node))->state % 2 != 1 || mode)
+			if ((get_process(node))->state % 2 != 1 || mode)
 			{
 				vm->nb_process--;
 				save->next = node->next;
@@ -53,7 +53,7 @@ void	check_process(t_pvm *vm, int mode)
 				/*
 				** state manages 2 variables, see vm.h
 				*/
-				(PROCESS(node))->state = ((PROCESS(node))->state >> 1) << 1;
+				(get_process(node))->state = ((get_process(node))->state >> 1) << 1;
 				save = node;
 			}
 			node = node->next;

@@ -25,13 +25,13 @@ int	ft_zjmp(t_pvm *vm, t_process *process)
 	{
 		process->pc = (unsigned int)(process->pc + (value % IDX_MOD)) % MEM_SIZE;
 		if ((vm->verbose - 1))
-			ft_printf("P% 5d | zjmp %d OK\n", (CHAMPION(process->champ))->nbr, value);
+			ft_printf("P% 5d | zjmp %d OK\n", vm->champions[(int)process->champ_nbr].nbr, value);
 	}
 	else
 	{
 		if ((vm->verbose - 1))
 		{
-			ft_printf("P% 5d | zjmp %d FAILED\n", (CHAMPION(process->champ))->nbr, value);
+			ft_printf("P% 5d | zjmp %d FAILED\n", vm->champions[(int)process->champ_nbr].nbr, value);
 			if (vm->verbose == 3)
 				print_adv(vm, process->pc, 3);
 		}

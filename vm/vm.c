@@ -17,7 +17,7 @@ static void	aux_usage(char *str)
 	ft_printf("Usage: %s [-nc] [-dump N] ", str);
 	ft_printf("[-n N] <champion1.cor> [-n N] <...>\n");
 	ft_printf("	-dump N	: dump memory after N cycles then exit\n");
-	ft_printf("	-n N\t: assign number N to champion from the following file\n");
+	ft_printf("	-n N\t: assign number N (integer != 0) to champion from the following file\n");
 	ft_printf("	-nc	: ncurses graphical mode\n");
 	ft_printf("		command: w/z : +/-1  cycle/s\n");
 	ft_printf("		         +/- : +/-10 cycles/s\n");

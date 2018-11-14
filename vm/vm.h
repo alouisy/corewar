@@ -17,7 +17,6 @@
 # include <ncurses.h>
 
 # define PROCESS(x) (t_process*)(x->content)
-# define CHAMPION(x) (t_champion*)(x->content)
 # define REG(x) process->r[x - 1]
 # define PC process->pc
 # define OP process->opcode

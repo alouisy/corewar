@@ -26,7 +26,7 @@ static void	aux_verbose(t_pvm *vm, t_process *process)
 				vm->param[1],
 				vm->param[2]);
 		if (vm->verbose == 3)
-			print_adv(vm, process->pc, octal_shift(process->ocp, 4, 3));
+			print_adv(vm, process->pc, octal_shift(vm->ocp, 4, 3));
 	}
 }
 
