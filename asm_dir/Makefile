@@ -8,18 +8,18 @@ L_PATH = ../libft/
 
 LIB = ft
 
-FLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra
 
 objs/%.o : %.c
 	@mkdir -p objs
 	@echo "compilation : " $*
-	@gcc $(FLAGS) -c $^ -o $@ -I.
+	@gcc $(CFLAGS) -c $^ -o $@ -I.
 
 all: $(NAME)
 
 $(NAME): $(OBJS) asm.h
 	@echo "compilation : " $(NAME)
-	@gcc $(FLAGS) $(OBJS) -L$(L_PATH) -l$(LIB) -o $(NAME)
+	@gcc $(CFLAGS) $(OBJS) -L$(L_PATH) -l$(LIB) -o $(NAME)
 
 clean:
 	@echo "suppression..."
