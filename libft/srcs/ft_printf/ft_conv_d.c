@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/01 14:10:53 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/02/15 13:38:25 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/15 12:04:33 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,12 @@ char			*ft_conv_d(va_list *ap, t_printf *all)
 	char	*tmp;
 
 	size_str = SIZE;
-	if (!(size_str = ft_strchr(tmp = size_str, all->size)))
+	tmp = size_str;
+	if (!(size_str = ft_strchr(tmp, all->size)))
 		size_str = tmp + 6;
 	init_ft_d_size(size_fct);
 	if (!(size_fct[size_str - tmp].fct(ap, all)))
 		return (NULL);
-	//is neg était la!
 	if (!(ft_precision_digit(all)))
 		return (NULL);
 	if (!(is_neg = ft_strchr(all->str, '-')))

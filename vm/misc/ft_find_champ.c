@@ -6,13 +6,13 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/26 15:34:01 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/10/26 15:34:03 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/15 12:14:52 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../vm.h"
 
-int ft_find_champ(t_pvm *vm, int nbr)
+int	ft_find_champ(t_pvm *vm, int nbr)
 {
 	int i;
 

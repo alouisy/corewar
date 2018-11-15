@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/18 17:11:05 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/11/09 15:19:53 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/15 13:21:10 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** logical and
 */
 
-static void	aux_verbose(t_pvm *vm, t_process *process,  int val1, int val2)
+static void	aux_verbose(t_pvm *vm, t_process *process, int val1, int val2)
 {
 	if ((vm->verbose - 1))
 	{
@@ -30,7 +30,7 @@ static void	aux_verbose(t_pvm *vm, t_process *process,  int val1, int val2)
 	}
 }
 
-int	ft_and(t_pvm *vm, t_process *process)
+int			ft_and(t_pvm *vm, t_process *process)
 {
 	return (aux_andorxor(vm, process, 1, &aux_verbose));
 }

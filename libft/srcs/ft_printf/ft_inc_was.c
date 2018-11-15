@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 11:36:42 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/02/15 15:39:32 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/15 12:08:22 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ void	ft_inc_width(const char **format, t_printf *all)
 }
 
 /*
-** cf man 3 printf to understand why 'zero' option is ignored if conversion is digit
+** cf man 3 printf to understand why 'zero' option is ignored
+** if conversion is digit
 */
 
 void	ft_inc_acc(const char **format, t_printf *all)

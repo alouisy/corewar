@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/25 17:26:50 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/11/09 15:11:02 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/15 12:29:21 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,21 @@ static void	decremente_c2d(t_pvm *vm)
 	vm->sum_lives = 0;
 }
 
-void	check_process(t_pvm *vm, int mode)
+static void	update_state(t_list *node)
+{
+	(get_process(node))->state = ((get_process(node))->state >> 1) << 1;
+}
+
+static void	check_process(t_pvm *vm, int mode)
 {
 	t_list	*node;
 	t_list	*save;
-	int i;
+	int		i;
 
 	i = 0;
 	while (i < 1001)
 	{
-		node = vm->stack[i].next;;
+		node = vm->stack[i].next;
 		save = &(vm->stack[i]);
 		while (node)
 		{
@@ -49,21 +54,14 @@ void	check_process(t_pvm *vm, int mode)
 				node = save;
 			}
 			else
-			{
-				/*
-				** state manages 2 variables, see vm.h
-				*/
-				(get_process(node))->state = ((get_process(node))->state >> 1) << 1;
-				save = node;
-			}
+				update_state((save = node));
 			node = node->next;
 		}
-		vm->stack[i].content = save;
-		i++;
+		vm->stack[i++].content = save;
 	}
 }
 
-void	cycle2die(t_pvm *vm, int mode)
+void		cycle2die(t_pvm *vm, int mode)
 {
 	int i;
 

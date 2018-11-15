@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 17:41:26 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/11/09 17:51:31 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/15 13:40:47 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,31 +46,25 @@ extern t_op				g_op_tab[17];
 */
 
 /*
- ** cycle_of_exec est dans node->content_size de stack[1001]
- ** pid a été mis dans node->content_size du process
- ** param, param_type et ocp sont dans vm
- */
+** cycle_of_exec est dans node->content_size de stack[1001]
+** pid a été mis dans node->content_size du process
+** param, param_type et ocp sont dans vm
+**
+** state manage carry and live status
+** in a single variable for memory effeciency
+**  00 : carry = 0 && alive = 0
+**  01 : alive = 1
+**	10 : carry = 1
+**  11 : carry = 1 && alive = 1
+**
+** champ_nbr pourrais etre fusionné à state, fusionnable avec opcode
+*/
 typedef struct			s_process
 {
 	unsigned char		opcode;
 	short int			pc;
-//	unsigned char		ocp;					
-	/*
-	** pourrait être une liste, actuellement taille 17 * int = gachis
-	** t_list *reg;
-	*/
 	int					r[REG_NUMBER];
-	/*
-	** state manage carry and live status in a single variable for memory effeciency.
-	**  00 : carry = 0 && alive = 0
-	**  01 : alive = 1
-	**	10 : carry = 1
-	**  11 : carry = 1 && alive = 1
-	*/
 	char				state;
-	/*
-	** pourrais etre fusionné à state, fusionnable avec opcode
-	*/
 	char				champ_nbr;
 }						t_process;
 
@@ -101,25 +95,27 @@ typedef struct			s_ncurses
 
 /*
 ** main structure
+**
+** N de stack[N]depend du temps d'execution max + 1 des instructions,
+**	ici 1000 pour lfork
+**
+** verbose mode: (pas a jour)
+**     	1 : ncurses
+**     	2 : verbose printf
+**		3 :
+**
+** trash est une reserve de node deja malloc mais plus utilisée
+** suite au deces d'un processus
 */
 typedef struct			s_pvm
 {
 	int					(*f[16])(struct s_pvm *, t_process *);
-	/*
-	** depend du temps d'execution max + 1 des instructions, ici 1000 pour lfork
-	*/
 	t_list				stack[1001];
 	int					pid;
 	t_champion			champions[MAX_PLAYERS];
 	unsigned char		memory[MEM_SIZE];
 	unsigned char		mem_color[MEM_SIZE];
 	int					dump;
-	/*
-	** verbose mode:
-	**     	1 : ncurses
-	**     	2 : verbose printf
-	**		3 : 
-	*/
 	char				verbose;
 	t_ncurses			nc;
 	int					nb_champ;
@@ -130,13 +126,7 @@ typedef struct			s_pvm
 	int					nb_checks;
 	int					sum_lives;
 	int					last_live;
-	/*
-	** poubelle à node
-	*/
 	t_list				*trash;
-	/*
-	** parametre tmp pour les processus
-	*/
 	unsigned char		param_type[3];
 	int					param[3];
 	unsigned char		ocp;
@@ -166,8 +156,10 @@ void					cycle2die(t_pvm *vm, int mode);
 int						get_opcode(t_pvm *vm, t_process *process);
 int						get_param(t_pvm *vm, t_process *process, int shift);
 int						get_param_type(t_pvm *vm, t_process *process);
-int						check_param(unsigned char op, unsigned char ocp, unsigned char nb_param);
-int						octal_shift(unsigned char n, unsigned char label_size, unsigned char arg_nb);
+int						check_param(unsigned char op, unsigned char ocp,
+							unsigned char nb_param);
+int						octal_shift(unsigned char n, unsigned char label_size,
+							unsigned char arg_nb);
 void					print_winner(t_pvm *vm);
 int						process_instruction(t_pvm *vm, t_process *process);
 int						start_vm(t_pvm *vm);
@@ -195,11 +187,15 @@ int						ft_aff(t_pvm *pvm, t_process *process);
 int						reverse_bytes(t_pvm *vm, int pc, int nbytes);
 int						get_prm_value(t_pvm *pvm,
 							t_process *process, int i, int *value);
-void					new_process_init(t_process *old, t_process *new, int new_pc);
-void					write_in_memory(t_pvm *pvm, t_process *process, int value, int value2);
-void					ft_carry(t_process *process, char carry_0, char carry_1);
-int 					aux_fork(t_pvm *vm, t_process *process, int value);
-int						aux_andorxor(t_pvm *vm, t_process *process, int mode, void (*f)(t_pvm *, t_process *, int, int));
+void					new_process_init(t_process *old, t_process *new,
+							int new_pc);
+void					write_in_memory(t_pvm *pvm, t_process *process,
+							int value, int value2);
+void					ft_carry(t_process *process, char carry_0,
+							char carry_1);
+int						aux_fork(t_pvm *vm, t_process *process, int value);
+int						aux_andorxor(t_pvm *vm, t_process *process, int mode,
+							void (*f)(t_pvm *, t_process *, int, int));
 
 /*
 ** misc
@@ -218,10 +214,12 @@ void					print_adv(t_pvm *vm, int	pc, int shift);
 /*
 ** ncurses
 */
+int						current_status_pc(t_pvm *vm, int i);
 void					init_colors();
 void					intro_champions(t_pvm *vm);
 void					init_ncurses(t_pvm *vm);
-void					print_case(WINDOW *win, int pos, int color, unsigned char c);
+void					print_case(WINDOW *win, int pos, int color,
+							unsigned char c);
 void					print_4case(t_pvm *vm, int pos, int color);
 void					print_map(t_pvm *vm);
 void					status_game(t_pvm *vm);

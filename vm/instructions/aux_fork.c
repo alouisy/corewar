@@ -6,17 +6,13 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/26 15:46:28 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/11/09 15:18:54 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/15 13:21:28 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../vm.h"
 
-/*
-** long fork
-*/
-
-int aux_fork(t_pvm *pvm, t_process *process, int value)
+int	aux_fork(t_pvm *pvm, t_process *process, int value)
 {
 	int			new_pc;
 	t_list		*node;

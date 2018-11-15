@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/28 15:01:40 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/02/20 20:08:51 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/15 12:08:46 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,7 @@ static void	aux_printf(t_printf *all, const char *restrict *format,
 			}
 		}
 		if (**format)
-		{
 			++(*format);
-		}
 	}
 	if (tmp && *tmp)
 		all->result += ft_putstr(tmp);

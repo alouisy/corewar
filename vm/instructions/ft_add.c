@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/18 17:03:28 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/11/09 15:19:26 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/15 13:21:50 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ static void	aux_verbose(t_pvm *vm, t_process *process)
 	}
 }
 
-int	ft_add(t_pvm *vm, t_process *process)
+int			ft_add(t_pvm *vm, t_process *process)
 {
 	int		i;
-	int 	error;
+	int		error;
 
 	i = -1;
 	error = 0;

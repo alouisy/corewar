@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/18 16:16:15 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/11/09 15:21:14 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/15 13:22:22 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	aux_verbose(t_pvm *vm, t_process *process)
 		print_adv(vm, PC, 5);
 }
 
-int	ft_live(t_pvm *vm, t_process *process)
+int			ft_live(t_pvm *vm, t_process *process)
 {
 	int nbr;
 

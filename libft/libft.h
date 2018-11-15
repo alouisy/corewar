@@ -6,7 +6,7 @@
 /*   By: zcugni <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 09:52:18 by zcugni            #+#    #+#             */
-/*   Updated: 2017/11/20 09:42:28 by zcugni           ###   ########.fr       */
+/*   Updated: 2018/11/15 12:07:48 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,14 +161,15 @@ void						ft_lstdel(t_list **alst, int need_free,
 void						ft_lstdelone(t_list **alst,
 												void (*del)(void *));
 t_list						*ft_lstfind(t_list *list, void *content,
-															size_t size);
+												size_t size);
 int							lst_findi(t_list *list, void *content, size_t size);
 void						ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 int							ft_lstlength(t_list *lst);
 t_list						*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 t_list						*ft_lstnew(void *content, size_t content_size,
-															int need_malloc);
-t_list						*ft_lstnew2(void const *content, size_t content_size);
+												int need_malloc);
+t_list						*ft_lstnew2(void const *content,
+												size_t content_size);
 char						*lst_to_str(t_list *lst);
 t_list						*ft_pop(t_list **lst);
 t_list						*ft_lstpop(t_list *search, t_list **list);
@@ -191,7 +192,8 @@ int							is_inf(t_tree_index *rbt_index_1,
 t_rbt_node					*rearrange(t_rbt_node *node);
 void						display_tree_id(t_rbt_node *rbt);
 void						rbt_clear(t_rbt_node **rbt,
-								void (*free_content)(void *content), int free_str);
+								void (*free_content)(void *content),
+								int free_str);
 /*
 **IO
 */

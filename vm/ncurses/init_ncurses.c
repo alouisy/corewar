@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/27 19:47:47 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/10/31 15:30:35 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/15 12:38:13 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ void	init_ncurses(t_pvm *vm)
 	vm->nc.left_width = 15 * COLS / 20;
 	vm->nc.right_width = 5 * COLS / 20;
 	vm->nc.wleft = subwin(stdscr, LINES, vm->nc.left_width, 0, 0);
-	vm->nc.wright = subwin(stdscr, LINES, vm->nc.right_width, 0, vm->nc.left_width);
+	vm->nc.wright = subwin(stdscr, LINES,
+			vm->nc.right_width, 0, vm->nc.left_width);
 	vm->nc.step = 1;
 	aux_reset_memory(vm);
 	box(vm->nc.wleft, ACS_VLINE, ACS_HLINE);

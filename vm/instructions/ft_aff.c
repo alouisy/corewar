@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/18 18:20:03 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/10/22 16:01:26 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/15 13:20:11 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ int	ft_aff(t_pvm *vm, t_process *process)
 	unsigned char	c;
 
 	c = 0;
-	if (vm->param_type[0] == REG_CODE && vm->param[0] >= 1 && vm->param[0] <= REG_NUMBER)
+	if (vm->param_type[0] == REG_CODE &&
+			vm->param[0] >= 1 && vm->param[0] <= REG_NUMBER)
 	{
 		c = REG(vm->param[0]);
 		if ((vm->verbose - 1))

@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/10 16:37:58 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/02/15 14:10:32 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/15 12:05:35 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ char	*ft_conv_p(va_list *ap, t_printf *all)
 		all->width = 0;
 	if (all->str && !(ft_strstr(all->str, "0x")))
 	{
-		all->str = ft_strjoin("0x", tmp = all->str);
+		tmp = all->str;
+		all->str = ft_strjoin("0x", tmp);
 		free(tmp);
 	}
 	if (ft_width(all))

@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/27 19:47:47 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/10/29 19:28:10 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/15 12:37:54 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** present each champions in first screen
 */
 
-inline void intro_champions(t_pvm *vm)
+inline void	intro_champions(t_pvm *vm)
 {
 	int	i;
 	int	j;

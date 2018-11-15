@@ -6,13 +6,14 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/09 14:51:21 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/10/29 19:24:34 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/15 12:18:45 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../vm.h"
 
-inline int			parse_arg(t_pvm *vm, int ac, char **av)
+
+inline int	parse_arg(t_pvm *vm, int ac, char **av)
 {
 	int	i;
 	int	champ_nb;
@@ -30,7 +31,8 @@ inline int			parse_arg(t_pvm *vm, int ac, char **av)
 		}
 		else if (ft_strequ("-nc", av[i]) && vm->verbose == 0)
 			vm->verbose = 1;
-		else if (ft_strequ("-v", av[i]) && ft_nbrisinteger(av[++i]) && vm->verbose == 0)
+		else if (ft_strequ("-v", av[i]) &&
+				ft_nbrisinteger(av[++i]) && vm->verbose == 0)
 			vm->verbose = 3;
 		else if (ft_strequ("-n", av[i]))
 		{
@@ -48,7 +50,5 @@ inline int			parse_arg(t_pvm *vm, int ac, char **av)
 			vm->nb_process++;
 		}
 	}
-	if (vm->nb_champ == 0)
-		return (ft_strerror("ERROR (NO CHAMPIONS)", 0));
-	return (1);
+	return (vm->nb_champ ? 1 : (ft_strerror("ERROR (NO CHAMPIONS)", 0)));
 }

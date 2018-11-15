@@ -6,15 +6,15 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 17:41:07 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/11/09 15:09:18 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/15 12:35:21 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../vm.h"
 
-int do_it(t_pvm *vm, t_list *node)
+int	do_it(t_pvm *vm, t_list *node)
 {
-	t_list	*save;
+	t_list		*save;
 	t_process	*content;
 	int			cycle;
 

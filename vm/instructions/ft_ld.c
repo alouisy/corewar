@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/18 16:27:38 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/11/09 15:20:11 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/15 13:22:07 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,15 @@ static void	aux_verbose(t_pvm *vm, t_process *process, int value)
 	}
 }
 
-int	ft_ld(__attribute__((unused)) t_pvm *vm, t_process *process)
+int			ft_ld(t_pvm *vm, t_process *process)
 {
 	int		value;
 
 	value = 0;
-
 	if (check_param(process->opcode, OCP, OP_TAB.nb_param))
 	{
-		if (vm->param_type[1] == REG_CODE && vm->param[1] >= 1 && vm->param[1] <= REG_NUMBER)
+		if (vm->param_type[1] == REG_CODE
+				&& vm->param[1] >= 1 && vm->param[1] <= REG_NUMBER)
 		{
 			if (vm->param_type[0] == DIR_CODE)
 				value = reverse_bytes(vm, PC + 2, 4);

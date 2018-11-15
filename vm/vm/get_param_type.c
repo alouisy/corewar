@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 17:41:07 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/11/09 15:08:45 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/15 12:36:33 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ void	print_adv(t_pvm *vm, int pc, int shift)
 	ft_printf("\n");
 }
 
-int		octal_shift(unsigned char ocp, unsigned char label_size, unsigned char nb_param)
+int		octal_shift(unsigned char ocp, unsigned char label_size,
+			unsigned char nb_param)
 {
 	int shift;
 
@@ -44,8 +45,8 @@ int		check_param(unsigned char op, unsigned char ocp, unsigned char nb_param)
 {
 	unsigned char	val;
 	unsigned char	code;
-	int		shift;
-	int		i;
+	int				shift;
+	int				i;
 
 	i = 0;
 	shift = 6;
@@ -61,7 +62,7 @@ int		check_param(unsigned char op, unsigned char ocp, unsigned char nb_param)
 	return (1);
 }
 
-int			get_param_type(t_pvm *vm, t_process *process)
+int		get_param_type(t_pvm *vm, t_process *process)
 {
 	int i;
 

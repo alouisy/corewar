@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/08 17:02:42 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/02/13 17:47:16 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/15 12:09:01 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "../../libft.h"
 # include <stdio.h>
 
-# define SIZE "hHlLjz" 
+# define SIZE "hHlLjz"
 
 /*
 **	stuct used to store options

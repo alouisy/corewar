@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/26 15:46:23 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/10/26 15:47:12 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/15 13:24:55 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void	aux_verbose(t_pvm *vm, t_process *process, int val1, int val2)
 	}
 }
 
-int	ft_lldi(t_pvm *vm, t_process *process)
+int			ft_lldi(t_pvm *vm, t_process *process)
 {
 	int		val1;
 	int		val2;
@@ -44,7 +44,8 @@ int	ft_lldi(t_pvm *vm, t_process *process)
 	val2 = 0;
 	if (check_param(process->opcode, OCP, OP_TAB.nb_param))
 	{
-		if (vm->param_type[2] == 1 && vm->param[2] >= 1 && vm->param[2] <= REG_NUMBER
+		if (vm->param_type[2] == 1
+			&& vm->param[2] >= 1 && vm->param[2] <= REG_NUMBER
 			&& get_prm_value(vm, process, 0, &val1)
 			&& get_prm_value(vm, process, 1, &val2))
 		{

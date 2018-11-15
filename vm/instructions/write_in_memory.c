@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/18 17:01:23 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/11/09 16:04:05 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/15 13:30:28 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@
 
 void	write_in_memory(t_pvm *pvm, t_process *process, int value, int value2)
 {
-	int 	address;
+	int		address;
 	int		tmp;
-	int				color;
-	int 			i;
+	int		color;
+	int		i;
 
 	color = pvm->champions[(int)process->champ_nbr].color;
 	i = 0;

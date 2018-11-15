@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/18 17:11:05 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/11/09 15:19:53 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/15 13:19:27 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@
 ** f : verbose function
 */
 
-int	aux_andorxor(t_pvm *vm, t_process *process, int mode, void (*f)(t_pvm *, t_process *, int ,int))
+int	aux_andorxor(t_pvm *vm, t_process *process, int mode,
+		void (*f)(t_pvm *, t_process *, int, int))
 {
 	int		val1;
 	int		val2;

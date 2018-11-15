@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/06 11:36:15 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/02/14 17:59:55 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/15 12:11:38 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,14 @@ char		*ft_precision_digit(t_printf *all)
 	int		len;
 
 	len = ft_strlen(all->str);
-	if (ft_strchr(all->str, '-'))
+	if (ft_strchr((tmp = all->str), '-'))
 		len--;
 	if (len < all->precision)
 	{
-		if (!(tmp2 = ft_strnew_ch(len = all->precision - len, '0')))
+		len = all->precision - len;
+		if (!(tmp2 = ft_strnew_ch(len, '0')))
 			return (NULL);
-		all->str = ft_strjoin(tmp2, tmp = all->str);
+		all->str = ft_strjoin(tmp2, tmp);
 		ft_memdel((void*)&tmp);
 		ft_memdel((void*)&tmp2);
 		if (all->str)

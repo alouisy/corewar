@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/09 15:17:17 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/11/09 15:17:18 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/15 13:30:01 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int		get_prm_value(t_pvm *vm, t_process *process, int i, int *value)
 	}
 	else if (vm->param_type[i] == DIR_CODE)
 		*value = vm->param[i];
-	else 
+	else
 	{
 		if (process->opcode != 13)
 		{

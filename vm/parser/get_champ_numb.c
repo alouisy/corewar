@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/09 14:51:21 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/10/26 17:14:01 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/15 12:16:45 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static int	aux_auto(t_champion champions[MAX_PLAYERS])
 	return (nb);
 }
 
-inline int			get_champ_nb(int nb, t_champion champions[MAX_PLAYERS])
+inline int	get_champ_nb(int nb, t_champion champions[MAX_PLAYERS])
 {
 	if (nb != 0)
 	{
