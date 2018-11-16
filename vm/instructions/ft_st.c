@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/18 17:01:23 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/11/15 13:27:38 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/16 15:15:21 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	aux_verbose(t_pvm *vm, t_process *process)
 	if ((vm->verbose - 1))
 	{
 		ft_printf("P% 5d | st r%d %d\n",
-				vm->champions[(int)process->champ_nbr].nbr,
+				-vm->champions[(int)process->champ_nbr].nbr,
 				vm->param[0],
 				vm->param[1]);
 		if (vm->verbose == 3)

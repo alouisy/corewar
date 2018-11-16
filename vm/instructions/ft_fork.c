@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/26 15:46:33 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/11/09 15:18:45 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/16 15:14:32 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int		ft_fork(t_pvm *vm, t_process *process)
 	if ((vm->verbose - 1))
 	{
 		ft_printf("P% 5d | fork %d (%d)\n",
-				vm->champions[(int)process->champ_nbr].nbr,
+				-vm->champions[(int)process->champ_nbr].nbr,
 				value,
 				(PC + (value % IDX_MOD)));
 		if (vm->verbose == 3)

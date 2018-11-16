@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/09 14:51:21 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/11/15 12:18:45 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/16 14:50:29 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,9 @@ inline int	parse_arg(t_pvm *vm, int ac, char **av)
 			else
 				return (ft_strerror("ERROR (not integer)", 0));
 		}
-		else if (ft_strequ("-nc", av[i]) && vm->verbose == 0)
+		else if (ft_strequ("-nc", av[i]))
 			vm->verbose = 1;
-		else if (ft_strequ("-v", av[i]) &&
-				ft_nbrisinteger(av[++i]) && vm->verbose == 0)
+		else if (ft_strequ("-v", av[i]) && ft_nbrisinteger(av[++i]))
 			vm->verbose = 3;
 		else if (ft_strequ("-n", av[i]))
 		{

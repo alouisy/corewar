@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 17:41:07 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/11/15 12:35:21 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/16 15:11:10 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,12 @@ int	start_vm(t_pvm *vm)
 		vm->stack[(vm->total_cycles) % 1001].content = NULL;
 		vm->total_cycles++;
 		if (vm->verbose == 3)
-			printf("It is now cycle %d\n", vm->total_cycles);
+			ft_printf("It is now cycle %d\n", vm->total_cycles);
 		if (!do_it(vm, node))
 			return (0);
 		if (vm->verbose == 1)
 			status_game(vm);
 	}
-	if (vm->verbose != 1)
-		ft_printf("end\n");
 	if (vm->total_cycles == vm->dump)
 		print_memory(vm);
 	print_winner(vm);

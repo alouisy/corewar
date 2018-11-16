@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/18 16:16:15 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/11/15 13:22:22 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/16 15:07:36 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,13 @@
 
 static void	aux_verbose(t_pvm *vm, t_process *process)
 {
-	if (vm->verbose == 2)
+	if (vm->verbose == 3)
 	{
 		ft_printf("P% 5d | live %d\n",
-				vm->champions[(int)process->champ_nbr].nbr,
+				-vm->champions[(int)process->champ_nbr].nbr,
 				vm->param[0]);
-	}
-	else if (vm->verbose == 3)
 		print_adv(vm, PC, 5);
+	}
 }
 
 int			ft_live(t_pvm *vm, t_process *process)

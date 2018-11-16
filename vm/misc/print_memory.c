@@ -6,13 +6,13 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 17:41:07 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/10/27 20:23:42 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/16 15:12:48 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../vm.h"
 
-void	print_memory(t_pvm *prms)
+void	print_memory(t_pvm *vm)
 {
 	int	i;
 
@@ -25,10 +25,12 @@ void	print_memory(t_pvm *prms)
 			ft_putchar('\n');
 			ft_printf("%#.4x : ", i);
 		}
-		if (prms->memory[i] == 0)
+		if (vm->memory[i] == 0)
 			ft_printf("00 ");
+		else if (vm->verbose == 3)
+			ft_printf("%.2hhx ", vm->memory[i]);
 		else
-			ft_printf("\033[32m%.2hhx \033[0m", prms->memory[i]);
+			ft_printf("\033[32m%.2hhx \033[0m", vm->memory[i]);
 		i++;
 	}
 	ft_putchar('\n');

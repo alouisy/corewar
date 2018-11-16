@@ -3,7 +3,7 @@
 
 lds: live %1 
 test2:	ld %2, r1
-	ld %0, r2
+	ld %0, r1
 	ld %10, r3
 	ld %260, r4
 test1:	ld %499, r5
@@ -17,7 +17,7 @@ test1:	ld %499, r5
 	ld %:test1, r13
 	ld %:lds, r11
 	ld %65400, r14
-test3:	ld 193, r0
+test3:	ld 193, r6
 	ld 514, r1
 	ld 66666, r2
 	ld -213, r3
@@ -32,11 +32,10 @@ test4: add r1, r2, r15
 	add r9, r4, r7
 	add r9, r1, r8
 	add r2, r3, r9
-	add r2, r3, r17
-	add r0, r3, r10
+	add r2, r3, r16
+	add r1, r3, r10
 	add r1, r3, r11
-	add r2, r0, r12
+	add r2, r1, r12
 	add r2, r1, r13
-	add r2, r17, r14
 	add r2, r16, r15
 lds2: live %1 

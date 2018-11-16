@@ -1,3 +1,3 @@
 #!/bin/bash
 
-./corewar -dump 3000 -v 30 $@ > us.txt && ./../subject/corewar -d 3000 -v 30 $@ > zaz.txt && diff us.txt zaz.txt
+./corewar -dump 1500 -v 3 $@ > us.txt && ./../subject/corewar -d 1500 -v 30 $@ > zaz.txt && diff us.txt zaz.txt

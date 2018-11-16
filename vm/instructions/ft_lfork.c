@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/26 15:46:28 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/11/09 15:21:04 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/16 15:15:00 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int		ft_lfork(t_pvm *vm, t_process *process)
 	if ((vm->verbose - 1))
 	{
 		ft_printf("P% 5d | lfork %d (%d)\n",
-				vm->champions[(int)process->champ_nbr].nbr,
+				-vm->champions[(int)process->champ_nbr].nbr,
 				value,
 				(PC + value));
 		if (vm->verbose == 3)
