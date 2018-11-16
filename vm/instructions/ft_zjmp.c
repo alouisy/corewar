@@ -23,7 +23,7 @@ int	ft_zjmp(t_pvm *vm, t_list *node)
 
 	process = get_process(node);
 	value = reverse_bytes(vm, PC + 1, 2);
-	if (process->state / 2)
+	if ((process->state / 2))
 	{
 		PC = PC + (value % IDX_MOD);
 		while (PC < 0)
