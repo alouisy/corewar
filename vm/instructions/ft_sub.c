@@ -28,8 +28,6 @@ static void	aux_verbose(t_pvm *vm, t_list *node)
 				vm->param[0],
 				vm->param[1],
 				vm->param[2]);
-		if (vm->verbose == 3)
-			print_adv(vm, PC, octal_shift(OCP, 4, 3));
 	}
 }
 
@@ -51,9 +49,11 @@ int			ft_sub(t_pvm *vm, t_list *node)
 		{
 			REG(vm->param[2]) = REG(vm->param[0]) - REG(vm->param[1]);
 			ft_carry(process, REG(vm->param[2]), !(REG(vm->param[2])));
+			aux_verbose(vm, node);
 		}
 	}
-	aux_verbose(vm, node);
+	if (vm->verbose == 3)
+		print_adv(vm, PC, octal_shift(OCP, 4, 3));
 	PC = (PC + octal_shift(OCP, 4, 3)) % MEM_SIZE;
 	return (1);
 }

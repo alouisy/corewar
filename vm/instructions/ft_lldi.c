@@ -33,8 +33,6 @@ static void	aux_verbose(t_pvm *vm, t_list *node, int val1, int val2)
 				val2,
 				(val1 + val2),
 				PC + val1 + val2);
-		if (vm->verbose == 3)
-			print_adv(vm, PC, octal_shift(OCP, 2, 3));
 	}
 }
 
@@ -56,9 +54,11 @@ int			ft_lldi(t_pvm *vm, t_list *node)
 		{
 			REG(vm->param[2]) = reverse_bytes(vm, PC + val1 + val2, 4);
 			ft_carry(process, REG(vm->param[2]), !(REG(vm->param[2])));
+			aux_verbose(vm, node, val1, val2);
 		}
 	}
-	aux_verbose(vm, node, val1, val2);
+	if (vm->verbose == 3)
+		print_adv(vm, PC, octal_shift(OCP, 2, 3));
 	PC = (PC + octal_shift(OCP, 2, 3)) % MEM_SIZE;
 	return (1);
 }

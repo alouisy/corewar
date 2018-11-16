@@ -39,11 +39,11 @@ static void	update_state(t_list *node)
 
 static void aux_verbose(t_pvm *vm, t_list *node)
 {
-	if (vm->c2d > 0)
+	if (vm->c2d > 0 && vm->verbose > 1)
 	{
 		ft_printf("Process %ld hasn't lived for %d cycles (CTD %d)\n",
 				node->content_size,
-				vm->c2d,
+				vm->total_cycles - ((vm->last_live) ? vm->last_live : vm->last_live2),
 				vm->c2d);
 	}
 }

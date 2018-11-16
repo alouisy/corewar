@@ -33,8 +33,6 @@ static void	aux_verbose(t_pvm *vm, t_list *node, int val1, int val2)
 				val2,
 				(val1 + val2),
 				PC + ((val1 + val2) % IDX_MOD));
-		if (vm->verbose == 3)
-			print_adv(vm, PC, octal_shift(OCP, 2, 3));
 	}
 }
 
@@ -55,10 +53,11 @@ int			ft_sti(t_pvm *vm, t_list *node)
 			&& get_prm_value(vm, process, 2, &val2))
 		{
 			write_in_memory(vm, process, REG(vm->param[0]), val1 + val2);
-			ft_carry(process, REG(vm->param[0]), !(REG(vm->param[0])));
+			aux_verbose(vm, node, val1, val2);
 		}
 	}
-	aux_verbose(vm, node, val1, val2);
+	if (vm->verbose == 3)
+		print_adv(vm, PC, octal_shift(OCP, 2, 3));
 	PC = (PC + octal_shift(OCP, 2, 3)) % MEM_SIZE;
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 17:41:26 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/11/16 18:24:54 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/15 13:40:47 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,7 @@ typedef struct			s_pvm
 	int					nb_checks;
 	int					sum_lives;
 	int					last_live;
+	int					last_live2;
 	t_list				*trash;
 	unsigned char		param_type[3];
 	int					param[3];
@@ -193,7 +194,7 @@ void					write_in_memory(t_pvm *pvm, t_process *process,
 							int value, int value2);
 void					ft_carry(t_process *process, char carry_0,
 							char carry_1);
-int						aux_fork(t_pvm *vm, t_list *node, int value);
+int						aux_fork(t_pvm *vm, t_list *proc, int value);
 int						aux_andorxor(t_pvm *vm, t_list *node, int mode,
 							void (*f)(t_pvm *, t_list *, int, int));
 

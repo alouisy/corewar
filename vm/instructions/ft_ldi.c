@@ -33,8 +33,6 @@ static void	aux_verbose(t_pvm *vm, t_list *node, int val[2], __attribute__((unus
 				val[1],
 				val[0] + val[1],
 				address);
-		if (vm->verbose == 3)
-			print_adv(vm, PC, octal_shift(OCP, 2, 3));
 	}
 }
 
@@ -57,9 +55,11 @@ int			ft_ldi(t_pvm *vm, t_list *node)
 		{
 			address = PC + ((val[0] + val[1]) % IDX_MOD);
 			REG(vm->param[2]) = reverse_bytes(vm, address, 4);
+			aux_verbose(vm, node, val, address);
 		}
 	}
-	aux_verbose(vm, node, val, address);
+	if (vm->verbose == 3)
+		print_adv(vm, PC, octal_shift(OCP, 2, 3));
 	PC = (PC + octal_shift(OCP, 2, 3)) % MEM_SIZE;
 	return (1);
 }

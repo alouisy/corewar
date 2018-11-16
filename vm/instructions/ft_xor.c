@@ -18,9 +18,6 @@
 
 static void	aux_verbose(t_pvm *vm, t_list *node, int val1, int val2)
 {
-	t_process	*process;
-
-	process = get_process(node);
 	if ((vm->verbose - 1))
 	{
 		ft_printf("P% 5d | xor %d %d r%d\n",
@@ -28,8 +25,6 @@ static void	aux_verbose(t_pvm *vm, t_list *node, int val1, int val2)
 				val1,
 				val2,
 				vm->param[2]);
-		if (vm->verbose == 3)
-			print_adv(vm, PC, octal_shift(OCP, 4, 3));
 	}
 }
 

@@ -43,9 +43,11 @@ int	aux_andorxor(t_pvm *vm, t_list *node, int mode,
 			else if (mode == 3)
 				REG(vm->param[2]) = (val1 ^ val2);
 			ft_carry(process, REG(vm->param[2]), !(REG(vm->param[2])));
+			f(vm, node, val1, val2);
 		}
 	}
-	f(vm, node, val1, val2);
+	if (vm->verbose == 3)
+		print_adv(vm, PC, octal_shift(OCP, 4, 3));
 	PC = (PC + octal_shift(OCP, 4, 3)) % MEM_SIZE;
 	return (1);
 }
