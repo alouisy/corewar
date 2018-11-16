@@ -6,30 +6,46 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/25 17:26:50 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/11/15 12:29:21 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/16 18:55:27 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../vm.h"
 
-static void	decremente_c2d(t_pvm *vm)
+static int	decremente_c2d(t_pvm *vm)
 {
+	int out;
+
 	if (vm->sum_lives >= NBR_LIVE || vm->nb_checks >= MAX_CHECKS)
 	{
 		vm->c2d -= CYCLE_DELTA;
 		vm->nb_checks = 0;
+		out = 1;
 	}
 	else
 	{
 		vm->nb_checks++;
+		out = 0;
 	}
 	vm->cycle_to_die += vm->c2d;
 	vm->sum_lives = 0;
+	return (out);
 }
 
 static void	update_state(t_list *node)
 {
 	(get_process(node))->state = ((get_process(node))->state >> 1) << 1;
+}
+
+static void aux_verbose(t_pvm *vm, t_list *node)
+{
+	if (vm->c2d > 0)
+	{
+		ft_printf("Process %ld hasn't lived for %d cycles (CTD %d)\n",
+				node->content_size,
+				vm->c2d,
+				vm->c2d);
+	}
 }
 
 static void	check_process(t_pvm *vm, int mode)
@@ -51,10 +67,7 @@ static void	check_process(t_pvm *vm, int mode)
 				save->next = node->next;
 				node->next = vm->trash;
 				vm->trash = node;
-				printf("Process %ld hasn't lived for %d cycles (CTD %d)\n",
-					node->content_size,
-					(vm->cycle_to_die - vm->c2d),
-					(vm->cycle_to_die - vm->c2d));
+				aux_verbose(vm, node);
 				node = save;
 			}
 			else
@@ -68,12 +81,15 @@ static void	check_process(t_pvm *vm, int mode)
 void		cycle2die(t_pvm *vm, int mode)
 {
 	int i;
+	int out;
 
 	check_process(vm, mode);
-	decremente_c2d(vm);
+	out = decremente_c2d(vm);
 	i = 0;
 	while (i < vm->nb_champ)
 	{
 		vm->champions[i++].nb_live = 0;
 	}
+	if (out && vm->c2d > 0)
+		ft_printf("Cycle to die is now %d\n", vm->c2d);
 }

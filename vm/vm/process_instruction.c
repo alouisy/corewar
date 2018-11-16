@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 17:41:07 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/11/15 12:34:44 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/16 18:23:35 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,16 @@
 ** elle vaut toujours 1 sinon
 */
 
-int	process_instruction(t_pvm *vm, t_process *process)
+int	process_instruction(t_pvm *vm, t_list *node)
 {
-	int		shift;
+	int			shift;
+	t_process	*process;
 
+	process = get_process(node);
 	reset_param(vm);
 	shift = get_param_type(vm, process);
 	shift = get_param(vm, process, shift + 1);
-	if (!(vm->f[process->opcode - 1](vm, process)))
+	if (!(vm->f[process->opcode - 1](vm, node)))
 	{
 		vm->c2d = -1;
 		return (0);

@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/18 16:27:38 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/11/16 15:14:49 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/16 18:27:11 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,15 @@
 ** direct load
 */
 
-static void	aux_verbose(t_pvm *vm, t_process *process, int value)
+static void	aux_verbose(t_pvm *vm, t_list *node, int value)
 {
+	t_process	*process;
+
+	process = get_process(node);
 	if ((vm->verbose - 1))
 	{
 		ft_printf("P% 5d | ld %d r%d\n",
-				-vm->champions[(int)process->champ_nbr].nbr,
+				node->content_size,
 				value,
 				vm->param[1]);
 		if (vm->verbose == 3)
@@ -29,10 +32,12 @@ static void	aux_verbose(t_pvm *vm, t_process *process, int value)
 	}
 }
 
-int			ft_ld(t_pvm *vm, t_process *process)
+int			ft_ld(t_pvm *vm, t_list *node)
 {
 	int		value;
+	t_process	*process;
 
+	process = get_process(node);
 	value = 0;
 	if (check_param(process->opcode, OCP, OP_TAB.nb_param))
 	{
@@ -51,7 +56,7 @@ int			ft_ld(t_pvm *vm, t_process *process)
 			ft_carry(process, value, !value);
 		}
 	}
-	aux_verbose(vm, process, value);
+	aux_verbose(vm, node, value);
 	PC = (PC + octal_shift(OCP, 4, 2)) % MEM_SIZE;
 	return (1);
 }

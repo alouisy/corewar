@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/18 17:11:05 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/11/15 13:19:27 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/16 18:13:51 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,14 @@
 ** f : verbose function
 */
 
-int	aux_andorxor(t_pvm *vm, t_process *process, int mode,
-		void (*f)(t_pvm *, t_process *, int, int))
+int	aux_andorxor(t_pvm *vm, t_list *node, int mode,
+		void (*f)(t_pvm *, t_list *, int, int))
 {
-	int		val1;
-	int		val2;
+	int			val1;
+	int			val2;
+	t_process	*process;
 
+	process = get_process(node);
 	val1 = 0;
 	val2 = 0;
 	if (check_param(process->opcode, OCP, OP_TAB.nb_param))
@@ -43,7 +45,7 @@ int	aux_andorxor(t_pvm *vm, t_process *process, int mode,
 			ft_carry(process, REG(vm->param[2]), !(REG(vm->param[2])));
 		}
 	}
-	f(vm, process, val1, val2);
+	f(vm, node, val1, val2);
 	PC = (PC + octal_shift(OCP, 4, 3)) % MEM_SIZE;
 	return (1);
 }

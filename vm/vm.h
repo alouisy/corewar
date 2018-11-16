@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 17:41:26 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/11/15 13:40:47 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/16 18:24:54 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ typedef struct			s_ncurses
 */
 typedef struct			s_pvm
 {
-	int					(*f[16])(struct s_pvm *, t_process *);
+	int					(*f[16])(struct s_pvm *, t_list *);
 	t_list				stack[1001];
 	int					pid;
 	t_champion			champions[MAX_PLAYERS];
@@ -161,29 +161,29 @@ int						check_param(unsigned char op, unsigned char ocp,
 int						octal_shift(unsigned char n, unsigned char label_size,
 							unsigned char arg_nb);
 void					print_winner(t_pvm *vm);
-int						process_instruction(t_pvm *vm, t_process *process);
+int						process_instruction(t_pvm *vm, t_list *node);
 int						start_vm(t_pvm *vm);
 void					update_stack(t_pvm *vm, int cycles, t_list *tmp);
 
 /*
 ** instructions
 */
-int						ft_live(t_pvm *pvm, t_process *process);
-int						ft_ld(t_pvm *pvm, t_process *process);
-int						ft_st(t_pvm *pvm, t_process *process);
-int						ft_add(t_pvm *pvm, t_process *process);
-int						ft_sub(t_pvm *pvm, t_process *process);
-int						ft_and(t_pvm *pvm, t_process *process);
-int						ft_or(t_pvm *pvm, t_process *process);
-int						ft_xor(t_pvm *pvm, t_process *process);
-int						ft_zjmp(t_pvm *pvm, t_process *process);
-int						ft_ldi(t_pvm *pvm, t_process *process);
-int						ft_sti(t_pvm *pvm, t_process *process);
-int						ft_fork(t_pvm *pvm, t_process *process);
-int						ft_lld(t_pvm *pvm, t_process *process);
-int						ft_lldi(t_pvm *pvm, t_process *process);
-int						ft_lfork(t_pvm *pvm, t_process *process);
-int						ft_aff(t_pvm *pvm, t_process *process);
+int						ft_live(t_pvm *pvm, t_list *node);
+int						ft_ld(t_pvm *pvm, t_list *node);
+int						ft_st(t_pvm *pvm, t_list *node);
+int						ft_add(t_pvm *pvm, t_list *node);
+int						ft_sub(t_pvm *pvm, t_list *node);
+int						ft_and(t_pvm *pvm, t_list *node);
+int						ft_or(t_pvm *pvm, t_list *node);
+int						ft_xor(t_pvm *pvm, t_list *node);
+int						ft_zjmp(t_pvm *pvm, t_list *node);
+int						ft_ldi(t_pvm *pvm, t_list *node);
+int						ft_sti(t_pvm *pvm, t_list *node);
+int						ft_fork(t_pvm *pvm, t_list *node);
+int						ft_lld(t_pvm *pvm, t_list *node);
+int						ft_lldi(t_pvm *pvm, t_list *node);
+int						ft_lfork(t_pvm *pvm, t_list *node);
+int						ft_aff(t_pvm *pvm, t_list *node);
 int						reverse_bytes(t_pvm *vm, int pc, int nbytes);
 int						get_prm_value(t_pvm *pvm,
 							t_process *process, int i, int *value);
@@ -193,9 +193,9 @@ void					write_in_memory(t_pvm *pvm, t_process *process,
 							int value, int value2);
 void					ft_carry(t_process *process, char carry_0,
 							char carry_1);
-int						aux_fork(t_pvm *vm, t_process *process, int value);
-int						aux_andorxor(t_pvm *vm, t_process *process, int mode,
-							void (*f)(t_pvm *, t_process *, int, int));
+int						aux_fork(t_pvm *vm, t_list *node, int value);
+int						aux_andorxor(t_pvm *vm, t_list *node, int mode,
+							void (*f)(t_pvm *, t_list *, int, int));
 
 /*
 ** misc

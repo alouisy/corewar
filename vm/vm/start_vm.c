@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 17:41:07 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/11/16 15:11:10 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/16 18:10:14 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	do_it(t_pvm *vm, t_list *node)
 		}
 		else
 		{
-			cycle = process_instruction(vm, content);
+			cycle = process_instruction(vm, node);
 		}
 		update_stack(vm, cycle, node);
 		if (!cycle)

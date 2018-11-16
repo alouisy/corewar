@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/26 15:34:58 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/10/26 15:35:00 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/16 18:02:43 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static void	aux_del(void *content)
 
 void		free_vm(t_pvm *vm)
 {
+	vm->c2d = -1;
 	cycle2die(vm, 1);
 	if (vm->trash)
 		ft_lstdel(&(vm->trash), 1, &aux_del);

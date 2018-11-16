@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/18 17:09:45 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/11/16 15:15:31 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/16 18:33:25 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,15 @@
 ** aritmetical substraction
 */
 
-static void	aux_verbose(t_pvm *vm, t_process *process)
+static void	aux_verbose(t_pvm *vm, t_list *node)
 {
+	t_process	*process;
+
+	process = get_process(node);
 	if ((vm->verbose - 1))
 	{
 		ft_printf("P% 5d | sub r%d r%d r%d\n",
-				-vm->champions[(int)process->champ_nbr].nbr,
+				node->content_size,
 				vm->param[0],
 				vm->param[1],
 				vm->param[2]);
@@ -30,11 +33,13 @@ static void	aux_verbose(t_pvm *vm, t_process *process)
 	}
 }
 
-int			ft_sub(t_pvm *vm, t_process *process)
+int			ft_sub(t_pvm *vm, t_list *node)
 {
 	int		i;
 	int		error;
+	t_process	*process;
 
+	process = get_process(node);
 	i = -1;
 	error = 0;
 	if (check_param(process->opcode, OCP, OP_TAB.nb_param))
@@ -48,7 +53,7 @@ int			ft_sub(t_pvm *vm, t_process *process)
 			ft_carry(process, REG(vm->param[2]), !(REG(vm->param[2])));
 		}
 	}
-	aux_verbose(vm, process);
+	aux_verbose(vm, node);
 	PC = (PC + octal_shift(OCP, 4, 3)) % MEM_SIZE;
 	return (1);
 }
