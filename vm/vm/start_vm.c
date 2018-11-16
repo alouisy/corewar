@@ -46,7 +46,7 @@ int	start_vm(t_pvm *vm)
 	{
 		if (vm->total_cycles >= vm->cycle_to_die)
 			cycle2die(vm, 0);
-		if (vm->c2d < 0)
+		if (vm->c2d < 0 || !vm->nb_process)
 			break ;
 		node = vm->stack[(vm->total_cycles) % 1001].next;
 		vm->stack[(vm->total_cycles) % 1001].next = NULL;

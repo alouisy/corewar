@@ -51,10 +51,10 @@ static void	check_process(t_pvm *vm, int mode)
 				save->next = node->next;
 				node->next = vm->trash;
 				vm->trash = node;
-				printf("Process %ld hasn't lived for %d cycles (CTD %d)\n",
+				ft_printf("Process %ld hasn't lived for %d cycles (CTD %d)\n",
 					node->content_size,
-					(vm->cycle_to_die - vm->c2d),
-					(vm->cycle_to_die - vm->c2d));
+					vm->cycle_to_die,
+					vm->cycle_to_die);
 				node = save;
 			}
 			else
