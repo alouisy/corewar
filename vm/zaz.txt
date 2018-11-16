@@ -1,5 +1,5 @@
 Introducing contestants...
-* Player 1, weighing 556 bytes, "and" ("I'M ALIIIIVE") !
+* Player 1, weighing 44 bytes, "zjmp" ("I'M ALIIIIVE") !
 It is now cycle 1
 It is now cycle 2
 It is now cycle 3
@@ -10,472 +10,378 @@ It is now cycle 7
 It is now cycle 8
 It is now cycle 9
 It is now cycle 10
-P    1 | live 1
-ADV 5 (0x0000 -> 0x0005) 01 00 00 00 01 
 It is now cycle 11
 It is now cycle 12
 It is now cycle 13
 It is now cycle 14
 It is now cycle 15
 It is now cycle 16
-P    1 | and -66666 178520066 r9
-ADV 11 (0x0005 -> 0x0010) 06 a4 ff fe fb 96 0a a4 00 02 09 
 It is now cycle 17
 It is now cycle 18
 It is now cycle 19
 It is now cycle 20
 It is now cycle 21
 It is now cycle 22
-P    1 | and -66666 43648261 r10
-ADV 11 (0x0010 -> 0x001b) 06 a4 ff fe fb 96 02 9a 05 05 0a 
 It is now cycle 23
 It is now cycle 24
 It is now cycle 25
+P    1 | sti r1 30 1
+       | -> store to 30 + 1 = 31 (with pc and mod 31)
+ADV 7 (0x0000 -> 0x0007) 0b 68 01 00 1e 00 01 
 It is now cycle 26
 It is now cycle 27
 It is now cycle 28
-P    1 | and -66666 178520066 r11
-ADV 8 (0x001b -> 0x0023) 06 94 ff fe fb 96 09 0b 
 It is now cycle 29
 It is now cycle 30
 It is now cycle 31
 It is now cycle 32
 It is now cycle 33
 It is now cycle 34
-P    1 | and -666666666 43647236 r12
-ADV 8 (0x0023 -> 0x002b) 06 94 d8 43 79 56 0a 0c 
 It is now cycle 35
+P    1 | live 1
+ADV 5 (0x0007 -> 0x000c) 01 00 00 00 01 
 It is now cycle 36
 It is now cycle 37
 It is now cycle 38
 It is now cycle 39
 It is now cycle 40
-P    1 | and 0 0 r1
-ADV 11 (0x002b -> 0x0036) 06 a4 00 00 00 00 00 00 00 00 01 
 It is now cycle 41
 It is now cycle 42
 It is now cycle 43
 It is now cycle 44
 It is now cycle 45
 It is now cycle 46
-P    1 | and 2 0 r2
-ADV 11 (0x0036 -> 0x0041) 06 a4 00 00 00 02 00 00 00 00 02 
 It is now cycle 47
 It is now cycle 48
 It is now cycle 49
 It is now cycle 50
 It is now cycle 51
 It is now cycle 52
-P    1 | and 4 3 r3
-ADV 11 (0x0041 -> 0x004c) 06 a4 00 00 00 04 00 00 00 03 03 
 It is now cycle 53
 It is now cycle 54
 It is now cycle 55
+P    1 | zjmp 26 FAILED
+ADV 3 (0x000c -> 0x000f) 09 00 1a 
 It is now cycle 56
 It is now cycle 57
 It is now cycle 58
-P    1 | and 3 -4 r4
-ADV 11 (0x004c -> 0x0057) 06 a4 00 00 00 03 ff ff ff fc 04 
 It is now cycle 59
 It is now cycle 60
 It is now cycle 61
 It is now cycle 62
 It is now cycle 63
 It is now cycle 64
-P    1 | and -4 3 r5
-ADV 11 (0x0057 -> 0x0062) 06 a4 ff ff ff fc 00 00 00 03 05 
 It is now cycle 65
 It is now cycle 66
 It is now cycle 67
 It is now cycle 68
 It is now cycle 69
 It is now cycle 70
-P    1 | and -5 -5 r6
-ADV 11 (0x0062 -> 0x006d) 06 a4 ff ff ff fb ff ff ff fb 06 
 It is now cycle 71
 It is now cycle 72
 It is now cycle 73
 It is now cycle 74
 It is now cycle 75
 It is now cycle 76
-P    1 | and 666 -666 r7
-ADV 11 (0x006d -> 0x0078) 06 a4 00 00 02 9a ff ff fd 66 07 
 It is now cycle 77
 It is now cycle 78
 It is now cycle 79
 It is now cycle 80
+P    1 | sti r1 15 1
+       | -> store to 15 + 1 = 16 (with pc and mod 31)
+ADV 7 (0x000f -> 0x0016) 0b 68 01 00 0f 00 01 
 It is now cycle 81
 It is now cycle 82
-P    1 | and 66666 10 r8
-ADV 11 (0x0078 -> 0x0083) 06 a4 00 01 04 6a 00 00 00 0a 08 
 It is now cycle 83
 It is now cycle 84
 It is now cycle 85
 It is now cycle 86
+P    1 | and -1 0 r1
+ADV 8 (0x0016 -> 0x001e) 06 64 01 00 00 00 00 01 
 It is now cycle 87
 It is now cycle 88
-P    1 | and 66666 666 r9
-ADV 11 (0x0083 -> 0x008e) 06 a4 00 01 04 6a 00 00 02 9a 09 
 It is now cycle 89
 It is now cycle 90
 It is now cycle 91
 It is now cycle 92
 It is now cycle 93
 It is now cycle 94
-P    1 | and 66666 -10 r10
-ADV 11 (0x008e -> 0x0099) 06 a4 00 01 04 6a ff ff ff f6 0a 
 It is now cycle 95
 It is now cycle 96
+P    1 | live -1
+ADV 5 (0x001e -> 0x0023) 01 ff ff ff ff 
 It is now cycle 97
 It is now cycle 98
 It is now cycle 99
 It is now cycle 100
-P    1 | and 66666 -666 r11
-ADV 11 (0x0099 -> 0x00a4) 06 a4 00 01 04 6a ff ff fd 66 0b 
 It is now cycle 101
 It is now cycle 102
 It is now cycle 103
 It is now cycle 104
 It is now cycle 105
 It is now cycle 106
-P    1 | and 666666666 10 r12
-ADV 11 (0x00a4 -> 0x00af) 06 a4 27 bc 86 aa 00 00 00 0a 0c 
 It is now cycle 107
 It is now cycle 108
 It is now cycle 109
 It is now cycle 110
 It is now cycle 111
 It is now cycle 112
-P    1 | and 666666666 666 r13
-ADV 11 (0x00af -> 0x00ba) 06 a4 27 bc 86 aa 00 00 02 9a 0d 
 It is now cycle 113
 It is now cycle 114
 It is now cycle 115
 It is now cycle 116
+P    1 | zjmp -600 OK
 It is now cycle 117
 It is now cycle 118
-P    1 | and 666666666 -10 r14
-ADV 11 (0x00ba -> 0x00c5) 06 a4 27 bc 86 aa ff ff ff f6 0e 
 It is now cycle 119
 It is now cycle 120
 It is now cycle 121
 It is now cycle 122
 It is now cycle 123
 It is now cycle 124
-P    1 | and 666666666 -666 r15
-ADV 11 (0x00c5 -> 0x00d0) 06 a4 27 bc 86 aa ff ff fd 66 0f 
 It is now cycle 125
 It is now cycle 126
 It is now cycle 127
 It is now cycle 128
 It is now cycle 129
 It is now cycle 130
-P    1 | and -208 -666 r1
-ADV 11 (0x00d0 -> 0x00db) 06 a4 ff ff ff 30 ff ff fd 66 01 
 It is now cycle 131
 It is now cycle 132
 It is now cycle 133
 It is now cycle 134
 It is now cycle 135
 It is now cycle 136
-P    1 | and 121 -666 r2
-ADV 11 (0x00db -> 0x00e6) 06 a4 00 00 00 79 ff ff fd 66 02 
 It is now cycle 137
 It is now cycle 138
 It is now cycle 139
 It is now cycle 140
 It is now cycle 141
 It is now cycle 142
-P    1 | and 193 -20 r3
-ADV 11 (0x00e6 -> 0x00f1) 06 a4 00 00 00 c1 ff ff ff ec 03 
 It is now cycle 143
 It is now cycle 144
 It is now cycle 145
 It is now cycle 146
 It is now cycle 147
 It is now cycle 148
-P    1 | and 193 -900 r4
-ADV 11 (0x00f1 -> 0x00fc) 06 a4 00 00 00 c1 ff ff fc 7c 04 
 It is now cycle 149
 It is now cycle 150
 It is now cycle 151
 It is now cycle 152
 It is now cycle 153
 It is now cycle 154
-P    1 | and -666 193 r5
-ADV 11 (0x00fc -> 0x0107) 06 a4 ff ff fd 66 00 00 00 c1 05 
 It is now cycle 155
 It is now cycle 156
 It is now cycle 157
 It is now cycle 158
 It is now cycle 159
 It is now cycle 160
-P    1 | and -666 -193 r6
-ADV 11 (0x0107 -> 0x0112) 06 a4 ff ff fd 66 ff ff ff 3f 06 
 It is now cycle 161
 It is now cycle 162
 It is now cycle 163
 It is now cycle 164
 It is now cycle 165
 It is now cycle 166
-P    1 | and -666 -666 r7
-ADV 11 (0x0112 -> 0x011d) 06 a4 ff ff fd 66 ff ff fd 66 07 
 It is now cycle 167
 It is now cycle 168
 It is now cycle 169
 It is now cycle 170
 It is now cycle 171
 It is now cycle 172
-P    1 | and -66666 10 r8
-ADV 11 (0x011d -> 0x0128) 06 a4 ff fe fb 96 00 00 00 0a 08 
 It is now cycle 173
 It is now cycle 174
 It is now cycle 175
 It is now cycle 176
 It is now cycle 177
 It is now cycle 178
-P    1 | and -66666 666 r9
-ADV 11 (0x0128 -> 0x0133) 06 a4 ff fe fb 96 00 00 02 9a 09 
 It is now cycle 179
 It is now cycle 180
 It is now cycle 181
 It is now cycle 182
 It is now cycle 183
 It is now cycle 184
-P    1 | and -66666 -10 r10
-ADV 11 (0x0133 -> 0x013e) 06 a4 ff fe fb 96 ff ff ff f6 0a 
 It is now cycle 185
 It is now cycle 186
 It is now cycle 187
 It is now cycle 188
 It is now cycle 189
 It is now cycle 190
-P    1 | and -66666 -666 r11
-ADV 11 (0x013e -> 0x0149) 06 a4 ff fe fb 96 ff ff fd 66 0b 
 It is now cycle 191
 It is now cycle 192
 It is now cycle 193
 It is now cycle 194
+P    1 | sti r1 30 1
+       | -> store to 30 + 1 = 31 (with pc and mod 31)
+ADV 7 (0x0000 -> 0x0007) 0b 68 01 00 1e 00 01 
 It is now cycle 195
 It is now cycle 196
-P    1 | and -666666666 10 r12
-ADV 11 (0x0149 -> 0x0154) 06 a4 d8 43 79 56 00 00 00 0a 0c 
 It is now cycle 197
 It is now cycle 198
 It is now cycle 199
 It is now cycle 200
 It is now cycle 201
 It is now cycle 202
-P    1 | and 0 -736 r1
-ADV 8 (0x0154 -> 0x015c) 06 94 00 00 00 00 01 01 
 It is now cycle 203
 It is now cycle 204
+P    1 | live 1
+ADV 5 (0x0007 -> 0x000c) 01 00 00 00 01 
 It is now cycle 205
 It is now cycle 206
 It is now cycle 207
 It is now cycle 208
-P    1 | and 193 96 r2
-ADV 8 (0x015c -> 0x0164) 06 94 00 00 00 c1 02 02 
 It is now cycle 209
 It is now cycle 210
 It is now cycle 211
 It is now cycle 212
 It is now cycle 213
 It is now cycle 214
-P    1 | and 193 192 r3
-ADV 8 (0x0164 -> 0x016c) 06 94 00 00 00 c1 03 03 
 It is now cycle 215
 It is now cycle 216
 It is now cycle 217
 It is now cycle 218
 It is now cycle 219
 It is now cycle 220
-P    1 | and 193 64 r4
-ADV 8 (0x016c -> 0x0174) 06 94 00 00 00 c1 04 04 
 It is now cycle 221
 It is now cycle 222
 It is now cycle 223
 It is now cycle 224
+P    1 | zjmp 26 OK
 It is now cycle 225
 It is now cycle 226
-P    1 | and 666 64 r5
-ADV 8 (0x0174 -> 0x017c) 06 94 00 00 02 9a 05 05 
 It is now cycle 227
 It is now cycle 228
 It is now cycle 229
 It is now cycle 230
 It is now cycle 231
 It is now cycle 232
-P    1 | and 666 -730 r6
-ADV 8 (0x017c -> 0x0184) 06 94 00 00 02 9a 06 06 
 It is now cycle 233
 It is now cycle 234
 It is now cycle 235
 It is now cycle 236
 It is now cycle 237
 It is now cycle 238
-P    1 | and 666 -666 r7
-ADV 8 (0x0184 -> 0x018c) 06 94 00 00 02 9a 07 07 
 It is now cycle 239
 It is now cycle 240
 It is now cycle 241
 It is now cycle 242
 It is now cycle 243
 It is now cycle 244
-P    1 | and 66666 2 r8
-ADV 8 (0x018c -> 0x0194) 06 94 00 01 04 6a 08 08 
+P    1 | zjmp 513 OK
 It is now cycle 245
 It is now cycle 246
 It is now cycle 247
 It is now cycle 248
 It is now cycle 249
+ADV 2 (0x0027 -> 0x0029) 02 01 
 It is now cycle 250
-P    1 | and 66666 658 r9
-ADV 8 (0x0194 -> 0x019c) 06 94 00 01 04 6a 09 09 
 It is now cycle 251
 It is now cycle 252
 It is now cycle 253
 It is now cycle 254
 It is now cycle 255
 It is now cycle 256
-P    1 | and 66666 -66666 r10
-ADV 8 (0x019c -> 0x01a4) 06 94 00 01 04 6a 0a 0a 
 It is now cycle 257
 It is now cycle 258
 It is now cycle 259
 It is now cycle 260
 It is now cycle 261
 It is now cycle 262
-P    1 | and 66666 -67322 r11
-ADV 8 (0x01a4 -> 0x01ac) 06 94 00 01 04 6a 0b 0b 
 It is now cycle 263
 It is now cycle 264
 It is now cycle 265
 It is now cycle 266
 It is now cycle 267
 It is now cycle 268
-P    1 | and 666666666 2 r12
-ADV 8 (0x01ac -> 0x01b4) 06 94 27 bc 86 aa 0c 0c 
 It is now cycle 269
+P    1 | zjmp 800 OK
 It is now cycle 270
 It is now cycle 271
 It is now cycle 272
 It is now cycle 273
 It is now cycle 274
-P    1 | and 666666666 650 r13
-ADV 8 (0x01b4 -> 0x01bc) 06 94 27 bc 86 aa 0d 0d 
 It is now cycle 275
 It is now cycle 276
 It is now cycle 277
 It is now cycle 278
 It is now cycle 279
 It is now cycle 280
-P    1 | and 666666666 666666658 r14
-ADV 8 (0x01bc -> 0x01c4) 06 94 27 bc 86 aa 0e 0e 
 It is now cycle 281
 It is now cycle 282
 It is now cycle 283
 It is now cycle 284
 It is now cycle 285
 It is now cycle 286
-P    1 | and 666666666 666666018 r15
-ADV 8 (0x01c4 -> 0x01cc) 06 94 27 bc 86 aa 0f 0f 
 It is now cycle 287
 It is now cycle 288
 It is now cycle 289
 It is now cycle 290
 It is now cycle 291
 It is now cycle 292
-P    1 | and -460 64 r1
-ADV 8 (0x01cc -> 0x01d4) 06 94 ff ff fe 34 02 01 
 It is now cycle 293
 It is now cycle 294
 It is now cycle 295
 It is now cycle 296
 It is now cycle 297
 It is now cycle 298
-P    1 | and -128 192 r2
-ADV 8 (0x01d4 -> 0x01dc) 06 94 ff ff ff 80 03 02 
 It is now cycle 299
 It is now cycle 300
 It is now cycle 301
 It is now cycle 302
 It is now cycle 303
 It is now cycle 304
-P    1 | and 193 0 r3
-ADV 8 (0x01dc -> 0x01e4) 06 94 00 00 00 c1 01 03 
 It is now cycle 305
 It is now cycle 306
 It is now cycle 307
 It is now cycle 308
 It is now cycle 309
 It is now cycle 310
-P    1 | and 193 128 r4
-ADV 8 (0x01e4 -> 0x01ec) 06 94 00 00 00 c1 02 04 
 It is now cycle 311
 It is now cycle 312
 It is now cycle 313
 It is now cycle 314
 It is now cycle 315
 It is now cycle 316
-P    1 | and -666 0 r5
-ADV 8 (0x01ec -> 0x01f4) 06 94 ff ff fd 66 03 05 
 It is now cycle 317
 It is now cycle 318
 It is now cycle 319
 It is now cycle 320
 It is now cycle 321
 It is now cycle 322
-P    1 | and -666 128 r6
-ADV 8 (0x01f4 -> 0x01fc) 06 94 ff ff fd 66 04 06 
 It is now cycle 323
 It is now cycle 324
 It is now cycle 325
 It is now cycle 326
 It is now cycle 327
 It is now cycle 328
-P    1 | and -666 0 r7
-ADV 8 (0x01fc -> 0x0204) 06 94 ff ff fd 66 05 07 
 It is now cycle 329
 It is now cycle 330
 It is now cycle 331
 It is now cycle 332
 It is now cycle 333
 It is now cycle 334
-P    1 | and -66666 0 r8
-ADV 8 (0x0204 -> 0x020c) 06 94 ff fe fb 96 06 08 
 It is now cycle 335
 It is now cycle 336
 It is now cycle 337
 It is now cycle 338
 It is now cycle 339
 It is now cycle 340
-P    1 | and -65538 0 r9
-ADV 8 (0x020c -> 0x0214) 06 94 ff fe ff fe 07 09 
 It is now cycle 341
 It is now cycle 342
 It is now cycle 343
 It is now cycle 344
 It is now cycle 345
 It is now cycle 346
-P    1 | and -66666 0 r10
-ADV 8 (0x0214 -> 0x021c) 06 94 ff fe fb 96 08 0a 
 It is now cycle 347
 It is now cycle 348
 It is now cycle 349
 It is now cycle 350
 It is now cycle 351
 It is now cycle 352
-P    1 | and -66666 0 r11
-ADV 8 (0x021c -> 0x0224) 06 94 ff fe fb 96 09 0b 
 It is now cycle 353
 It is now cycle 354
 It is now cycle 355
 It is now cycle 356
 It is now cycle 357
 It is now cycle 358
-P    1 | and -666666666 0 r12
-ADV 8 (0x0224 -> 0x022c) 06 94 d8 43 79 56 0a 0c 
 It is now cycle 359
 It is now cycle 360
 It is now cycle 361
@@ -1618,15 +1524,15 @@ It is now cycle 1497
 It is now cycle 1498
 It is now cycle 1499
 It is now cycle 1500
-0x0000 : 01 00 00 00 01 06 a4 ff fe fb 96 0a a4 00 02 09 06 a4 ff fe fb 96 02 9a 05 05 0a 06 94 ff fe fb 96 09 0b 06 94 d8 43 79 56 0a 0c 06 a4 00 00 00 00 00 00 00 00 01 06 a4 00 00 00 02 00 00 00 00 
-0x0040 : 02 06 a4 00 00 00 04 00 00 00 03 03 06 a4 00 00 00 03 ff ff ff fc 04 06 a4 ff ff ff fc 00 00 00 03 05 06 a4 ff ff ff fb ff ff ff fb 06 06 a4 00 00 02 9a ff ff fd 66 07 06 a4 00 01 04 6a 00 00 
-0x0080 : 00 0a 08 06 a4 00 01 04 6a 00 00 02 9a 09 06 a4 00 01 04 6a ff ff ff f6 0a 06 a4 00 01 04 6a ff ff fd 66 0b 06 a4 27 bc 86 aa 00 00 00 0a 0c 06 a4 27 bc 86 aa 00 00 02 9a 0d 06 a4 27 bc 86 aa 
-0x00c0 : ff ff ff f6 0e 06 a4 27 bc 86 aa ff ff fd 66 0f 06 a4 ff ff ff 30 ff ff fd 66 01 06 a4 00 00 00 79 ff ff fd 66 02 06 a4 00 00 00 c1 ff ff ff ec 03 06 a4 00 00 00 c1 ff ff fc 7c 04 06 a4 ff ff 
-0x0100 : fd 66 00 00 00 c1 05 06 a4 ff ff fd 66 ff ff ff 3f 06 06 a4 ff ff fd 66 ff ff fd 66 07 06 a4 ff fe fb 96 00 00 00 0a 08 06 a4 ff fe fb 96 00 00 02 9a 09 06 a4 ff fe fb 96 ff ff ff f6 0a 06 a4 
-0x0140 : ff fe fb 96 ff ff fd 66 0b 06 a4 d8 43 79 56 00 00 00 0a 0c 06 94 00 00 00 00 01 01 06 94 00 00 00 c1 02 02 06 94 00 00 00 c1 03 03 06 94 00 00 00 c1 04 04 06 94 00 00 02 9a 05 05 06 94 00 00 
-0x0180 : 02 9a 06 06 06 94 00 00 02 9a 07 07 06 94 00 01 04 6a 08 08 06 94 00 01 04 6a 09 09 06 94 00 01 04 6a 0a 0a 06 94 00 01 04 6a 0b 0b 06 94 27 bc 86 aa 0c 0c 06 94 27 bc 86 aa 0d 0d 06 94 27 bc 
-0x01c0 : 86 aa 0e 0e 06 94 27 bc 86 aa 0f 0f 06 94 ff ff fe 34 02 01 06 94 ff ff ff 80 03 02 06 94 00 00 00 c1 01 03 06 94 00 00 00 c1 02 04 06 94 ff ff fd 66 03 05 06 94 ff ff fd 66 04 06 06 94 ff ff 
-0x0200 : fd 66 05 07 06 94 ff fe fb 96 06 08 06 94 ff fe ff fe 07 09 06 94 ff fe fb 96 08 0a 06 94 ff fe fb 96 09 0b 06 94 d8 43 79 56 0a 0c 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+0x0000 : 0b 68 01 00 1e 00 01 01 00 00 00 01 09 00 1a 0b 68 01 00 0f 00 01 06 64 01 00 00 00 00 01 01 00 00 00 00 09 fd a8 09 02 01 09 03 20 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+0x0040 : 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+0x0080 : 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+0x00c0 : 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+0x0100 : 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+0x0140 : 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+0x0180 : 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+0x01c0 : 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+0x0200 : 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
 0x0240 : 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
 0x0280 : 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
 0x02c0 : 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
