@@ -51,6 +51,10 @@ static void	check_process(t_pvm *vm, int mode)
 				save->next = node->next;
 				node->next = vm->trash;
 				vm->trash = node;
+				printf("Process %ld hasn't lived for %d cycles (CTD %d)\n",
+					node->content_size,
+					(vm->cycle_to_die - vm->c2d),
+					(vm->cycle_to_die - vm->c2d));
 				node = save;
 			}
 			else
@@ -65,8 +69,8 @@ void		cycle2die(t_pvm *vm, int mode)
 {
 	int i;
 
-	decremente_c2d(vm);
 	check_process(vm, mode);
+	decremente_c2d(vm);
 	i = 0;
 	while (i < vm->nb_champ)
 	{

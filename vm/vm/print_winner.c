@@ -34,7 +34,7 @@ inline void	print_winner(t_pvm *vm)
 	}
 	else
 	{
-		ft_printf("le joueur %d(%s) a gagne\n",
+		ft_printf("Contestant %d, \"%s\", has won !\n",
 				-vm->champions[i].nbr,
 				vm->champions[i].header.prog_name);
 	}

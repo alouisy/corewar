@@ -20,7 +20,7 @@ int		get_prm_value(t_pvm *vm, t_process *process, int i, int *value)
 	if (vm->param_type[i] == REG_CODE)
 	{
 		if (vm->param[i] >= 1 && vm->param[i] <= REG_NUMBER)
-			*value = process->r[vm->param[i]];
+			*value = REG(vm->param[i]);
 		else
 			return (0);
 	}
