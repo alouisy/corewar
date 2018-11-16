@@ -29,13 +29,13 @@ int	ft_zjmp(t_pvm *vm, t_list *node)
 		while (PC < 0)
 			PC += MEM_SIZE;
 		PC %= MEM_SIZE;
-		if ((vm->verbose - 1))
+		if ((vm->verbose == 3))
 			ft_printf("P% 5d | zjmp %d OK\n",
 					node->content_size, value);
 	}
 	else
 	{
-		if ((vm->verbose - 1))
+		if ((vm->verbose == 3))
 		{
 			ft_printf("P% 5d | zjmp %d FAILED\n",
 					node->content_size, value);

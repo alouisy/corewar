@@ -34,7 +34,7 @@ static int	decremente_c2d(t_pvm *vm)
 
 static void	update_state(t_list *node)
 {
-	(get_process(node))->state = ((get_process(node))->state >> 1) << 1;
+	(get_process(node))->state = (get_process(node))->state & 2;
 }
 
 static void aux_verbose(t_pvm *vm, t_list *node)
@@ -43,7 +43,7 @@ static void aux_verbose(t_pvm *vm, t_list *node)
 	{
 		ft_printf("Process %ld hasn't lived for %d cycles (CTD %d)\n",
 				node->content_size,
-				vm->total_cycles - ((vm->last_live) ? vm->last_live : vm->last_live2),
+				vm->total_cycles - (get_process(node))->last_live,
 				vm->c2d);
 	}
 }
@@ -90,6 +90,6 @@ void		cycle2die(t_pvm *vm, int mode)
 	{
 		vm->champions[i++].nb_live = 0;
 	}
-	if (out && vm->c2d > 0)
+	if (vm->verbose == 3 && out && vm->c2d > 0)
 		ft_printf("Cycle to die is now %d\n", vm->c2d);
 }

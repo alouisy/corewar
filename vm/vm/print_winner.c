@@ -23,22 +23,19 @@ inline void	print_winner(t_pvm *vm)
 			break ;
 		i++;
 	}
-	if (vm->nb_process == 0)
+	if (vm->verbose == 1)
 	{
-		if (vm->verbose == 1)
-		{
-			clear();
-			timeout(-1);
-			mvprintw(LINES / 2, COLS / 2 - 30, "le joueur %d(%s) a gagne\n",
-					-vm->champions[i].nbr,
-					vm->champions[i].header.prog_name);
-			getch();
-		}
-		else
-		{
-			ft_printf("Contestant %d, \"%s\", has won !\n",
-					-vm->champions[i].nbr,
-					vm->champions[i].header.prog_name);
-		}
+		clear();
+		timeout(-1);
+		mvprintw(LINES / 2, COLS / 2 - 30, "le joueur %d(%s) a gagne\n",
+				-vm->champions[i].nbr,
+				vm->champions[i].header.prog_name);
+		getch();
+	}
+	else
+	{
+		ft_printf("Contestant %d, \"%s\", has won !\n",
+				-vm->champions[i].nbr,
+				vm->champions[i].header.prog_name);
 	}
 }

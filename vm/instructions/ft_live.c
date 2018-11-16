@@ -17,13 +17,12 @@ static void	aux_verbose(t_pvm *vm, t_list *node)
 	t_process	*process;
 
 	process = get_process(node);
-	if ((vm->verbose - 1))
+	if ((vm->verbose == 3))
 	{
 		ft_printf("P% 5d | live %d\n",
 				node->content_size,
 				vm->param[0]);
-		if (vm->verbose == 3)
-			print_adv(vm, PC, 5);
+		print_adv(vm, PC, 5);
 	}
 }
 
@@ -39,10 +38,10 @@ int			ft_live(t_pvm *vm, t_list *node)
 	vm->param[0] = reverse_bytes(vm, PC + 1, 4);
 	if ((nbr = ft_find_champ(vm, vm->param[0])) != -1)
 	{
-		ft_printf("check live\n");
 		vm->champions[nbr].nb_live++;
 		vm->champions[nbr].l_live = vm->total_cycles;
 		vm->last_live = vm->total_cycles;
+		process->last_live = vm->total_cycles;
 	}
 	else
 		vm->last_live2 = vm->total_cycles;

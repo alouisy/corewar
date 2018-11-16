@@ -66,6 +66,7 @@ typedef struct			s_process
 	int					r[REG_NUMBER];
 	char				state;
 	char				champ_nbr;
+	unsigned short int	last_live;
 }						t_process;
 
 typedef struct			s_champion

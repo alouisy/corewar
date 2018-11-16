@@ -16,12 +16,9 @@
 ** indirect load
 */
 
-static void	aux_verbose(t_pvm *vm, t_list *node, int val[2], __attribute__((unused)) int address)
+static void	aux_verbose(t_pvm *vm, t_list *node, int val[2], int address)
 {
-	t_process	*process;
-
-	process = get_process(node);
-	if ((vm->verbose - 1))
+	if ((vm->verbose == 3))
 	{
 		ft_printf("P% 5d | ldi %d %d r%d\n",
 				node->content_size,

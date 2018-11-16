@@ -27,7 +27,7 @@ int	ft_aff(t_pvm *vm, t_list *node)
 			vm->param[0] >= 1 && vm->param[0] <= REG_NUMBER)
 	{
 		c = REG(vm->param[0]);
-		if ((vm->verbose - 1))
+		if ((vm->verbose == 3))
 			ft_printf("Aff: %c\n", c);
 		ft_carry(process, !(c == '\0'), c == '\0');
 	}

@@ -25,7 +25,7 @@ int		ft_lfork(t_pvm *vm, t_list *node)
 	value = reverse_bytes(vm, PC + 1, 2);
 	if (!aux_fork(vm, node, value))
 		return (0);
-	if ((vm->verbose - 1))
+	if ((vm->verbose == 3))
 	{
 		ft_printf("P% 5d | lfork %d (%d)\n",
 				node->content_size,

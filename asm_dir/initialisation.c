@@ -12,7 +12,8 @@
 
 #include "asm.h"
 
-char	**init_write(t_write_inf *write_inf, int *ocp_val, char *params, int *i)
+char	**init_write(t_write_inf *write_inf,
+		__attribute__((unused)) int *ocp_val, char *params, int *i)
 {
 	char **params_split;
 
