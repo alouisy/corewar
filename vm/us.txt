@@ -1,5 +1,5 @@
 Introducing contestants...
-* Player 1, weighing 20 bytes, "live" ("I'M ALIIIIVE") !
+* Player 1, weighing 44 bytes, "zjmp" ("I'M ALIIIIVE") !
 It is now cycle 1
 It is now cycle 2
 It is now cycle 3
@@ -10,8 +10,6 @@ It is now cycle 7
 It is now cycle 8
 It is now cycle 9
 It is now cycle 10
-P    1 | live -1
-ADV 5 (0x0000 -> 0x0005) 01 ff ff ff ff 
 It is now cycle 11
 It is now cycle 12
 It is now cycle 13
@@ -22,32 +20,31 @@ It is now cycle 17
 It is now cycle 18
 It is now cycle 19
 It is now cycle 20
-P    1 | live -513
-ADV 5 (0x0005 -> 0x000a) 01 ff ff fd ff 
 It is now cycle 21
 It is now cycle 22
 It is now cycle 23
 It is now cycle 24
 It is now cycle 25
+P    1 | sti r1 30 1
+       | -> store to 30 + 1 = 31 (with pc and mod 31)
+ADV 7 (0x0000 -> 0x0007) 0b 68 01 00 1e 00 01 
 It is now cycle 26
 It is now cycle 27
 It is now cycle 28
 It is now cycle 29
 It is now cycle 30
-P    1 | live -946735786
-ADV 5 (0x000a -> 0x000f) 01 c7 91 f5 56 
 It is now cycle 31
 It is now cycle 32
 It is now cycle 33
 It is now cycle 34
 It is now cycle 35
+P    1 | live 1
+ADV 5 (0x0007 -> 0x000c) 01 00 00 00 01 
 It is now cycle 36
 It is now cycle 37
 It is now cycle 38
 It is now cycle 39
 It is now cycle 40
-P    1 | live -66666
-ADV 5 (0x000f -> 0x0014) 01 ff fe fb 96 
 It is now cycle 41
 It is now cycle 42
 It is now cycle 43
@@ -63,6 +60,8 @@ It is now cycle 52
 It is now cycle 53
 It is now cycle 54
 It is now cycle 55
+P    1 | zjmp 26 FAILED
+ADV 3 (0x000c -> 0x000f) 09 00 1a 
 It is now cycle 56
 It is now cycle 57
 It is now cycle 58
@@ -88,12 +87,17 @@ It is now cycle 77
 It is now cycle 78
 It is now cycle 79
 It is now cycle 80
+P    1 | sti r1 15 1
+       | -> store to 15 + 1 = 16 (with pc and mod 31)
+ADV 7 (0x000f -> 0x0016) 0b 68 01 00 0f 00 01 
 It is now cycle 81
 It is now cycle 82
 It is now cycle 83
 It is now cycle 84
 It is now cycle 85
 It is now cycle 86
+P    1 | and 0 0 r1
+ADV 8 (0x0016 -> 0x001e) 06 64 01 00 00 00 00 01 
 It is now cycle 87
 It is now cycle 88
 It is now cycle 89
@@ -104,6 +108,8 @@ It is now cycle 93
 It is now cycle 94
 It is now cycle 95
 It is now cycle 96
+P    1 | live -1
+ADV 5 (0x001e -> 0x0023) 01 ff ff ff ff 
 It is now cycle 97
 It is now cycle 98
 It is now cycle 99
@@ -124,6 +130,7 @@ It is now cycle 113
 It is now cycle 114
 It is now cycle 115
 It is now cycle 116
+P    1 | zjmp -600 OK
 It is now cycle 117
 It is now cycle 118
 It is now cycle 119
@@ -202,6 +209,9 @@ It is now cycle 191
 It is now cycle 192
 It is now cycle 193
 It is now cycle 194
+P    1 | sti r1 30 1
+       | -> store to 30 + 1 = 31 (with pc and mod 31)
+ADV 7 (0x0000 -> 0x0007) 0b 68 01 00 1e 00 01 
 It is now cycle 195
 It is now cycle 196
 It is now cycle 197
@@ -212,6 +222,8 @@ It is now cycle 201
 It is now cycle 202
 It is now cycle 203
 It is now cycle 204
+P    1 | live 1
+ADV 5 (0x0007 -> 0x000c) 01 00 00 00 01 
 It is now cycle 205
 It is now cycle 206
 It is now cycle 207
@@ -232,6 +244,7 @@ It is now cycle 221
 It is now cycle 222
 It is now cycle 223
 It is now cycle 224
+P    1 | zjmp 26 OK
 It is now cycle 225
 It is now cycle 226
 It is now cycle 227
@@ -252,11 +265,14 @@ It is now cycle 241
 It is now cycle 242
 It is now cycle 243
 It is now cycle 244
+P    1 | zjmp 513 OK
 It is now cycle 245
 It is now cycle 246
 It is now cycle 247
 It is now cycle 248
 It is now cycle 249
+P    1 | ld 0 r-1
+ADV 2 (0x0027 -> 0x0029) 02 01 
 It is now cycle 250
 It is now cycle 251
 It is now cycle 252
@@ -277,6 +293,7 @@ It is now cycle 266
 It is now cycle 267
 It is now cycle 268
 It is now cycle 269
+P    1 | zjmp 800 OK
 It is now cycle 270
 It is now cycle 271
 It is now cycle 272
@@ -1508,7 +1525,7 @@ It is now cycle 1497
 It is now cycle 1498
 It is now cycle 1499
 It is now cycle 1500
-0x0000 : 01 ff ff ff ff 01 ff ff fd ff 01 c7 91 f5 56 01 ff fe fb 96 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+0x0000 : 0b 68 01 00 1e 00 01 01 00 00 00 01 09 00 1a 0b 68 01 00 0f 00 01 06 64 01 00 00 00 00 01 01 00 00 00 00 09 fd a8 09 02 01 09 03 20 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
 0x0040 : 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
 0x0080 : 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
 0x00c0 : 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
@@ -1572,4 +1589,4 @@ It is now cycle 1500
 0x0f40 : 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
 0x0f80 : 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
 0x0fc0 : 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
-le joueur 1(live) a gagne
+le joueur 1(zjmp) a gagne
