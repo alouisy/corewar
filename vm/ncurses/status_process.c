@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/27 19:47:47 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/11/15 13:15:13 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/16 17:24:31 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ static inline int	registre_status(t_pvm *vm, int i, t_list *node)
 	while (j < REG_NUMBER / 2)
 	{
 		mvwprintw(vm->nc.wright, i, 1,
-				" reg[%2d]  | %18d  |", j + 1, process->r[j + 1]);
+				" reg[%2d]  | %18d  |", j + 1, process->r[j]);
 		mvwprintw(vm->nc.wright, i++, vm->nc.right_width / 2,
-				"| reg[%2d]   | %18d ", j + 9, process->r[j + 9]);
+				"| reg[%2d]   | %18d ", j + 9, process->r[j + 8]);
 		j += 1;
 	}
 	return (i);

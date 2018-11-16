@@ -5,6 +5,7 @@ ldis: live %1
 #test dir dir
 test2:
 	ldi %-66666, %178520066, r9
+	st r9, 0
 	ldi %-66666, %43648261, r10
 	ldi %-66666, r9, r11
 	ldi %-666666666, r10, r12

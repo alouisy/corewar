@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/18 18:47:27 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/11/16 15:14:54 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/16 16:25:45 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** indirect load
 */
 
-static void	aux_verbose(t_pvm *vm, t_process *process, int val[2], int address)
+static void	aux_verbose(t_pvm *vm, t_process *process, int val[2], __attribute__((unused)) int address)
 {
 	if ((vm->verbose - 1))
 	{
@@ -26,8 +26,9 @@ static void	aux_verbose(t_pvm *vm, t_process *process, int val[2], int address)
 				val[1],
 				vm->param[2]);
 		ft_printf("       | -> load from %d + %d = %d (with pc and mod %d)\n",
+				val[0],
 				val[1],
-				(val[0] + val[1]),
+				val[0] + val[1],
 				address);
 		if (vm->verbose == 3)
 			print_adv(vm, PC, octal_shift(OCP, 2, 3));
