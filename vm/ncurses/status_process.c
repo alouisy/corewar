@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/27 19:47:47 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/11/16 17:24:31 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/17 22:43:39 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,19 +68,12 @@ static inline int	param_status(t_pvm *vm, int i)
 void				status_process(t_pvm *vm, int i)
 {
 	t_list		*node;
-	int			k;
 
 	i = current_status_pc(vm, i);
 	if (i < LINES - 5)
 	{
 		i = LINES - 15;
-		k = 0;
-		while (k < 1001)
-		{
-			if ((node = vm->stack[(vm->total_cycles + k) % 1001].next))
-				break ;
-			k++;
-		}
+		node = vm->stack;
 		if (node)
 		{
 			i = param_status(vm, i);
