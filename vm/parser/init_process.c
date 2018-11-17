@@ -16,8 +16,8 @@ inline void	init_process(t_process *process, t_pvm *vm)
 {
 	int		i;
 
-	i = 1;
-	while (i++ < REG_NUMBER)
+	i = 0;
+	while (++i < REG_NUMBER)
 		process->r[i] = 0;
 	process->r[0] = vm->champions[vm->nb_process].nbr;
 	process->champ_nbr = vm->nb_process;

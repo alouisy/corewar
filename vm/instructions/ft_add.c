@@ -37,7 +37,7 @@ int			ft_add(t_pvm *vm, t_list *node)
 	process = get_process(node);
 	i = -1;
 	error = 0;
-	if (check_param(process->opcode, OCP, OP_TAB.nb_param))
+	if (check_param(process->opcode, vm->ocp, OP_TAB.nb_param))
 	{
 		while (++i < 3)
 			if (vm->param[i] < 1 || vm->param[i] > REG_NUMBER)

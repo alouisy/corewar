@@ -43,8 +43,7 @@ int			ft_live(t_pvm *vm, t_list *node)
 		vm->last_live = vm->total_cycles;
 		process->last_live = vm->total_cycles;
 	}
-	else
-		vm->last_live2 = vm->total_cycles;
+	process->last_live = vm->total_cycles;
 	aux_verbose(vm, node);
 	process->pc += 5;
 	return (1);

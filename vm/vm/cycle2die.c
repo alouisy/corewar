@@ -36,18 +36,19 @@ static void	update_state(t_list *node)
 {
 	(get_process(node))->state = (get_process(node))->state & 2;
 }
-
-static void aux_verbose(t_pvm *vm, t_list *node)
-{
-	if (vm->c2d > 0 && vm->verbose > 1)
-	{
-		ft_printf("Process %ld hasn't lived for %d cycles (CTD %d)\n",
-				node->content_size,
-				vm->total_cycles - (get_process(node))->last_live,
-				vm->c2d);
-	}
-}
-
+/*
+**  a ajouter ligne 70 	aux_verbose(vm, node);
+**static void aux_verbose(t_pvm *vm, t_list *node)
+**{
+**	if (vm->c2d > 0 && vm->verbose > 1)
+**	{
+**		ft_printf("Process %ld hasn't lived for %d cycles (CTD %d)\n",
+**				node->content_size,
+**				vm->total_cycles - (get_process(node))->last_live,
+**				vm->c2d);
+**	}
+**}
+*/
 static void	check_process(t_pvm *vm, int mode)
 {
 	t_list	*node;
@@ -67,7 +68,6 @@ static void	check_process(t_pvm *vm, int mode)
 				save->next = node->next;
 				node->next = vm->trash;
 				vm->trash = node;
-				aux_verbose(vm, node);
 				node = save;
 			}
 			else
