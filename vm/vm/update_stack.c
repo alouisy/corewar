@@ -27,7 +27,7 @@ void	update_stack(t_pvm *vm, int cycles, t_list *process)
 	modulo = cycles % 1001;
 	vm->stack[modulo].content_size = cycles;
 	node = (t_list*)(vm->stack[modulo].next);
-	save = (vm->stack + modulo);
+	save = (&vm->stack[modulo]);
 	while (node && node->content_size > process->content_size)
 	{
 		save = node;
@@ -36,5 +36,7 @@ void	update_stack(t_pvm *vm, int cycles, t_list *process)
 	save->next = process;
 	process->next = node;
 	if (!node)
+	{
 		vm->stack[modulo].content = process;
+	}
 }

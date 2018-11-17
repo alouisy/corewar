@@ -12,7 +12,7 @@
 
 #include "../vm.h"
 
-static void	aux_del(void *content)
+void	aux_del(void *content)
 {
 	free(content);
 }
@@ -22,7 +22,9 @@ void		free_vm(t_pvm *vm)
 	vm->c2d = -1;
 	cycle2die(vm, 1);
 	if (vm->trash)
+	{
 		ft_lstdel(&(vm->trash), 1, &aux_del);
+	}
 	if (vm->verbose == 1)
 	{
 		endwin();

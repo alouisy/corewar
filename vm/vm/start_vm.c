@@ -32,7 +32,16 @@ int	do_it(t_pvm *vm, t_list *node)
 		}
 		update_stack(vm, cycle, node);
 		if (!cycle)
+		{
+			node = vm->trash;
+			while (node && node->next)
+				node = node->next;
+			if (!node)
+				vm->trash = save;
+			else
+				node->next = save;
 			return (0);
+		}
 		node = save;
 	}
 	return (1);
