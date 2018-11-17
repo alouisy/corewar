@@ -26,12 +26,11 @@ void	write_in_memory(t_pvm *pvm, t_process *process, int value, int value2)
 	color = pvm->champions[(int)process->champ_nbr].color;
 	i = 0;
 	address = (process->pc + (value2 % IDX_MOD) + 3);
-	address += 0xFFFF + 1;
 	while (i < 4)
 	{
 		tmp = (address - i) % MEM_SIZE;
 		if (tmp < 0)
-			tmp %= MEM_SIZE;
+			tmp += MEM_SIZE;
 		pvm->memory[tmp] = value >> (i * 8);
 		pvm->mem_color[tmp] = color;
 		i++;
