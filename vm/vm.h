@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 17:41:26 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/11/15 13:40:47 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/17 16:05:40 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ extern t_op				g_op_tab[17];
 typedef struct			s_process
 {
 	unsigned char		opcode;
-	short int			pc;
+	unsigned short int	pc;
 	int					r[REG_NUMBER];
 	char				state;
 	char				champ_nbr;

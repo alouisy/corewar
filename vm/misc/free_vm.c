@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/26 15:34:58 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/11/16 18:02:43 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/17 15:35:04 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	aux_del(void *content)
 	free(content);
 }
 
-void		free_vm(t_pvm *vm)
+void	free_vm(t_pvm *vm)
 {
 	vm->c2d = -1;
 	cycle2die(vm, 1);

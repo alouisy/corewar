@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/18 18:54:28 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/11/16 18:30:16 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/17 15:31:22 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 static void	aux_verbose(t_pvm *vm, t_list *node, int val1, int val2)
 {
-	if ((vm->verbose == 3))
+	if (vm->verbose == 3)
 	{
 		ft_printf("P% 5d | sti r%d %d %d\n",
 				node->content_size,
@@ -35,8 +35,8 @@ static void	aux_verbose(t_pvm *vm, t_list *node, int val1, int val2)
 
 int			ft_sti(t_pvm *vm, t_list *node)
 {
-	int		val1;
-	int		val2;
+	int			val1;
+	int			val2;
 	t_process	*process;
 
 	process = get_process(node);

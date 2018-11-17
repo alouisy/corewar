@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/18 17:13:08 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/11/16 18:27:41 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/17 15:17:37 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 static void	aux_verbose(t_pvm *vm, t_list *node, int val1, int val2)
 {
-	if ((vm->verbose == 3))
+	if (vm->verbose == 3)
 	{
 		ft_printf("P% 5d | or %d %d r%d\n",
 				node->content_size,

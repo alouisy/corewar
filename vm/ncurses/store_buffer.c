@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/29 18:49:38 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/11/15 12:38:50 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/17 16:12:26 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@
 void	store_buffer(t_pvm *vm, int position, int color, int cycles)
 {
 	position %= MEM_SIZE;
-	if (position < 0)
-		position += MEM_SIZE;
 	if (vm->verbose == 1)
 	{
 		vm->nc.buffer[position] = vm->total_cycles + cycles;
@@ -34,8 +32,7 @@ void	store_buffer(t_pvm *vm, int position, int color, int cycles)
 		}
 		else
 		{
-			print_case(vm->nc.wleft, position, color,
-					vm->memory[position]);
+			print_case(vm->nc.wleft, position, color, vm->memory[position]);
 		}
 	}
 }

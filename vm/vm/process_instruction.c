@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 17:41:07 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/11/16 18:23:35 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/17 16:07:40 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@ int	process_instruction(t_pvm *vm, t_list *node)
 		return (0);
 	}
 	process->pc %= MEM_SIZE;
-	if (process->pc < 0)
-		process->pc += MEM_SIZE;
 	process->opcode = 0;
 	vm->ocp = 0;
 	return (vm->total_cycles);

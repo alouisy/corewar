@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/26 15:46:23 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/11/16 18:30:01 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/17 15:34:00 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	aux_verbose(t_pvm *vm, t_list *node, int val1, int val2)
 	t_process	*process;
 
 	process = get_process(node);
-	if ((vm->verbose == 3))
+	if (vm->verbose == 3)
 	{
 		ft_printf("P% 5d | lldi %d %d r%d\n",
 				node->content_size,
@@ -48,7 +48,7 @@ int			ft_lldi(t_pvm *vm, t_list *node)
 	val1 = 0;
 	val2 = 0;
 	if (check_param(process->opcode, vm->ocp, OP_TAB.nb_param)
-			&& is_reg(vm, 2) 
+			&& is_reg(vm, 2)
 			&& get_prm_value(vm, process, 0, &val1)
 			&& get_prm_value(vm, process, 1, &val2))
 	{

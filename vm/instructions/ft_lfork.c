@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/26 15:46:28 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/11/16 18:29:00 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/17 15:33:23 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,14 @@
 
 int		ft_lfork(t_pvm *vm, t_list *node)
 {
-	int value;
+	int			value;
 	t_process	*process;
 
 	process = get_process(node);
 	value = reverse_bytes(vm, process->pc + 1, 2);
 	if (!aux_fork(vm, node, value))
 		return (0);
-	if ((vm->verbose == 3))
+	if (vm->verbose == 3)
 	{
 		ft_printf("P% 5d | lfork %d (%d)\n",
 				node->content_size,

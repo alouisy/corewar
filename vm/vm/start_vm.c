@@ -6,13 +6,26 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 17:41:07 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/11/16 18:10:14 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/17 15:49:03 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../vm.h"
 
-int	do_it(t_pvm *vm, t_list *node)
+void	move_to_trash(t_pvm *vm, t_list *save)
+{
+	t_list *node;
+
+	node = vm->trash;
+	while (node && node->next)
+		node = node->next;
+	if (!node)
+		vm->trash = save;
+	else
+		node->next = save;
+}
+
+int		do_it(t_pvm *vm, t_list *node)
 {
 	t_list		*save;
 	t_process	*content;
@@ -23,23 +36,13 @@ int	do_it(t_pvm *vm, t_list *node)
 		save = node->next;
 		content = get_process(node);
 		if (content->opcode == 0)
-		{
 			cycle = get_opcode(vm, content);
-		}
 		else
-		{
 			cycle = process_instruction(vm, node);
-		}
 		update_stack(vm, cycle, node);
 		if (!cycle)
 		{
-			node = vm->trash;
-			while (node && node->next)
-				node = node->next;
-			if (!node)
-				vm->trash = save;
-			else
-				node->next = save;
+			move_to_trash(vm, save);
 			return (0);
 		}
 		node = save;
@@ -47,7 +50,7 @@ int	do_it(t_pvm *vm, t_list *node)
 	return (1);
 }
 
-int	start_vm(t_pvm *vm)
+int		start_vm(t_pvm *vm)
 {
 	t_list		*node;
 	int			position;
