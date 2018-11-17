@@ -41,7 +41,6 @@ int			ft_live(t_pvm *vm, t_list *node)
 		vm->champions[nbr].nb_live++;
 		vm->champions[nbr].l_live = vm->total_cycles;
 		vm->last_live = vm->total_cycles;
-		process->last_live = vm->total_cycles;
 	}
 	process->last_live = vm->total_cycles;
 	aux_verbose(vm, node);

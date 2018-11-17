@@ -14,6 +14,7 @@
 
 int	get_opcode(t_pvm *vm, t_process *process)
 {
+	reset_param(vm);
 	process->opcode = vm->memory[process->pc];
 	if (process->opcode < 1 || process->opcode > 16)
 	{
@@ -23,6 +24,8 @@ int	get_opcode(t_pvm *vm, t_process *process)
 	}
 	if (vm->verbose == 1)
 	{
+	
+		get_param(vm, process, get_param_type(vm, process) + 1);
 		store_buffer(
 				vm, process->pc,
 				vm->champions[(int)process->champ_nbr].color + 4,

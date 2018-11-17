@@ -18,7 +18,7 @@ inline void		init_champion(t_pvm *vm, int nb_prog)
 
 	i = vm->nb_champ;
 	vm->champions[i].nbr = nb_prog;
-	vm->champions[i].l_live = 0;
+	vm->champions[i].l_live = -1;
 	vm->champions[i].nb_live = 0;
 	ft_bzero(vm->champions[i].prog, CHAMP_MAX_SIZE);
 	vm->champions[i].color = i + 1;

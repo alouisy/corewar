@@ -23,6 +23,8 @@ inline void	print_winner(t_pvm *vm)
 			break ;
 		i++;
 	}
+	if (i == vm->nb_champ)
+		i--;
 	if (vm->verbose == 1)
 	{
 		clear();
