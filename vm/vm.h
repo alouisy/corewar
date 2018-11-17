@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 17:41:26 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/11/17 19:43:54 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/17 21:52:02 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ typedef struct			s_process
 	char				state;
 	char				champ_nbr;
 	unsigned short int	last_live;
+	int					cycle_of_exe;
 }						t_process;
 
 typedef struct			s_champion
@@ -113,7 +114,7 @@ typedef struct			s_ncurses
 typedef struct			s_pvm
 {
 	int					(*f[16])(struct s_pvm *, t_list *);
-	t_list				stack[1001];
+	t_list				*stack;
 	int					pid;
 	t_champion			champions[MAX_PLAYERS];
 	unsigned char		memory[MEM_SIZE];

@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 17:41:07 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/11/16 18:35:26 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/17 21:45:53 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 ** pour eviter de parcouir toute la chaine
 ** stack[i].next démarre la chaine
 */
-
+/*
 void	update_stack(t_pvm *vm, int cycles, t_list *process)
 {
 	int		modulo;
@@ -39,4 +39,4 @@ void	update_stack(t_pvm *vm, int cycles, t_list *process)
 	{
 		vm->stack[modulo].content = process;
 	}
-}
+}*/

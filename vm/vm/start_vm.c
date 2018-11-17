@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 17:41:07 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/11/17 15:49:03 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/17 22:13:50 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,8 @@ int		do_it(t_pvm *vm, t_list *node)
 		content = get_process(node);
 		if (content->opcode == 0)
 			cycle = get_opcode(vm, content);
-		else
+		else if (content->cycle_of_exe == vm->total_cycles)
 			cycle = process_instruction(vm, node);
-		update_stack(vm, cycle, node);
 		if (!cycle)
 		{
 			move_to_trash(vm, save);
@@ -53,7 +52,6 @@ int		do_it(t_pvm *vm, t_list *node)
 int		start_vm(t_pvm *vm)
 {
 	t_list		*node;
-	int			position;
 
 	while (vm->total_cycles != vm->dump && vm->nb_process)
 	{
@@ -61,10 +59,7 @@ int		start_vm(t_pvm *vm)
 			cycle2die(vm, 0);
 		if (vm->c2d < 0 || !vm->nb_process)
 			break ;
-		position = vm->total_cycles % 1001;
-		node = vm->stack[position].next;
-		vm->stack[position].next = NULL;
-		vm->stack[position].content = NULL;
+		node = vm->stack;
 		vm->total_cycles++;
 		if (vm->verbose == 3)
 			ft_printf("It is now cycle %d\n", vm->total_cycles);
@@ -73,6 +68,7 @@ int		start_vm(t_pvm *vm)
 		if (vm->verbose == 1)
 			status_game(vm);
 	}
+	ft_printf("It is now cycle %d\n", vm->total_cycles);
 	if (vm->total_cycles == vm->dump)
 		print_memory(vm);
 	print_winner(vm);

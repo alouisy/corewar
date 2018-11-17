@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/25 17:26:50 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/11/16 19:02:38 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/17 22:02:05 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,28 +53,35 @@ static void	check_process(t_pvm *vm, int mode)
 {
 	t_list	*node;
 	t_list	*save;
-	int		i;
 
-	i = 0;
-	while (i < 1001)
+	node = vm->stack;
+	save = vm->stack;
+	while (node)
 	{
-		node = vm->stack[i].next;
-		save = &(vm->stack[i]);
-		while (node)
+		if ((get_process(node))->state % 2 != 1 || mode)
 		{
-			if ((get_process(node))->state % 2 != 1 || mode)
+			vm->nb_process--;
+			if (node == vm->stack)
 			{
-				vm->nb_process--;
-				save->next = node->next;
+				save = node->next;
 				node->next = vm->trash;
 				vm->trash = node;
+				vm->stack = save;
 				node = save;
 			}
 			else
-				update_state((save = node));
+			{
+				save->next = node->next;
+				node->next = vm->trash;
+				vm->trash = node;
+				node = save->next;
+			}
+		}
+		else
+		{
+			update_state((save = node));
 			node = node->next;
 		}
-		vm->stack[i++].content = save;
 	}
 }
 

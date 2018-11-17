@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/26 15:46:28 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/11/16 18:25:56 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/17 21:47:33 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	aux_fork(t_pvm *pvm, t_list *proc, int value)
 {
 	int			new_pc;
 	t_list		*node;
+	t_list		*save;
 	t_process	*process;
 
 	process = get_process(proc);
@@ -34,6 +35,9 @@ int	aux_fork(t_pvm *pvm, t_list *proc, int value)
 	pvm->nb_process++;
 	node->content_size = ++pvm->pid;
 	new_process_init(process, get_process(node), new_pc);
-	update_stack(pvm, pvm->total_cycles, node);
+	save = pvm->stack;
+	pvm->stack = node;
+	node->next = save;
+//	update_stack(pvm, pvm->total_cycles, node);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 17:41:07 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/10/29 18:52:02 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/17 21:50:13 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ inline void		init_memory(t_pvm *vm)
 	int				k;
 
 	reset_mem_color(vm);
-	ptmp = vm->stack[0].next;
+	ptmp = vm->stack;
 	k = vm->nb_champ - 1;
 	while (k >= 0)
 	{

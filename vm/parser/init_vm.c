@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 17:41:07 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/10/27 19:13:37 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/17 21:48:34 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ inline void				init_vm(t_pvm *vm)
 	int i;
 
 	init_f(vm);
-	aux_reset_stack(vm->stack);
+//	aux_reset_stack(vm->stack);
+	vm->stack = NULL;
 	vm->pid = 0;
 	i = 0;
 	while (i < MAX_PLAYERS)
