@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 17:41:07 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/11/16 18:52:06 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/17 22:56:53 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ inline void	print_winner(t_pvm *vm)
 	i = 0;
 	while (i < vm->nb_champ)
 	{
-		if (vm->champions[i].l_live >= vm->last_live)
+		if (vm->champions[i].l_live == vm->last_live)
 			break ;
 		i++;
 	}
