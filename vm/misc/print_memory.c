@@ -27,10 +27,8 @@ void	print_memory(t_pvm *vm)
 		}
 		if (vm->memory[i] == 0)
 			ft_printf("00 ");
-		else if (vm->verbose == 3)
-			ft_printf("%.2hhx ", vm->memory[i]);
 		else
-			ft_printf("\033[32m%.2hhx \033[0m", vm->memory[i]);
+			ft_printf("%.2hhx ", vm->memory[i]);
 		i++;
 	}
 	ft_putchar('\n');
