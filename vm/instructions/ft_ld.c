@@ -21,7 +21,7 @@ void	ft_ld(__attribute__((unused)) t_pvm *pvm, t_process *process)
 	int		value;
 
 	value = 0;
-	if (vm->param_type[1] == 1 && (vm->param_type[0] == 2 || vm->param_type[0] == 3))
+	if (process->param_type[1] == 1 && (process->param_type[0] == 2 || process->param_type[0] == 3))
 	{
 		if (process->param[1] >= 1 && process->param[1] <= REG_NUMBER
 			&& get_prm_value(pvm, process, 0, &value))

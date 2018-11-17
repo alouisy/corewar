@@ -14,8 +14,13 @@
 
 void	process_instruction(t_pvm *vm, t_process *process)
 {
+	int		shift;
+
+	shift = 1;
 	if (--process->cycle_bf_exe == 0)
 	{
+		shift += get_octet_de_codage(vm, process);
+		shift = get_param(vm, process, shift);
 		vm->f[process->opcode - 1](vm, process);
 		reset_param(process);
 		process->pc = process->pc2;

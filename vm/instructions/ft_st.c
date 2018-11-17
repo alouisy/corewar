@@ -18,12 +18,13 @@
 
 static void	write_in_memory(t_pvm *pvm, int address, int value)
 {
+	address += 3;
 	while (address < 0)
 		address += MEM_SIZE;
-	pvm->memory[(address + 3) % MEM_SIZE] = (value >> 0);
-	pvm->memory[(address + 2) % MEM_SIZE] = (value >> 8);
-	pvm->memory[(address + 1) % MEM_SIZE] = (value >> 16);
-	pvm->memory[(address + 0) % MEM_SIZE] = (value >> 24);
+	pvm->memory[(address - 0) % MEM_SIZE] = (value >> 0);
+	pvm->memory[(address - 1) % MEM_SIZE] = (value >> 8);
+	pvm->memory[(address - 2) % MEM_SIZE] = (value >> 16);
+	pvm->memory[(address - 3) % MEM_SIZE] = (value >> 24);
 }
 
 void	ft_st(t_pvm *pvm, t_process *process)
@@ -33,7 +34,7 @@ void	ft_st(t_pvm *pvm, t_process *process)
 
 	value = 0;
 	check = 0;
-	if (vm->param_type[0] == REG_CODE && vm->param[0] >= 1 && vm->param[0] <= REG_NUMBER)
+	if (process->param_type[0] == REG_CODE && process->param[0] >= 1 && process->param[0] <= REG_NUMBER)
 	{
 		if (get_prm_value(pvm, process, 0, &value))
 		{
@@ -58,10 +59,6 @@ void	ft_st(t_pvm *pvm, t_process *process)
 					ft_printf("P% 5d | st r%d %d\n", process->champ_nbr, process->param[0], process->param[1]);
 				}
 			}
-			if (check == 1 && value == 0)
-				process->carry = 1;
-			else if (check == 1 && value != 0)
-				process->carry = 0;
 		}
 	}
 }

@@ -5,30 +5,30 @@ int		get_prm_value(t_pvm *vm, t_process *process, int i, int *value)
 	int		address;
 
 	address = 0;
-	if (vm->param_type[i] == REG_CODE)
+	if (process->param_type[i] == REG_CODE)
 	{
-		if (vm->param[i] >= 1 && vm->param[i] <= REG_NUMBER)
-			*value = process->r[vm->param[i]];
+		if (process->param[i] >= 1 && process->param[i] <= REG_NUMBER)
+			*value = process->r[process->param[i]];
 		else
 			return (0);
 	}
-	else if (vm->param_type[i] == DIR_CODE)
-		*value = vm->param[i];
-	else if (vm->param_type[i] == IND_CODE)
+	else if (process->param_type[i] == DIR_CODE)
+		*value = process->param[i];
+	else if (process->param_type[i] == IND_CODE)
 	{
 		if (process->opcode != 13)
 		{
-			address = process->pc + (vm->param[i] % IDX_MOD);
+			address = process->pc + (process->param[i] % IDX_MOD);
 			while (address < 0)
 				address += MEM_SIZE;
-			*value = ft_strhex2dec((pvm->memory + (address % MEM_SIZE)), 4)
+			*value = ft_strhex2dec((vm->memory + (address % MEM_SIZE)), 4);
 		}
 		else
 		{
-			address = process->pc + vm->param[i];
+			address = process->pc + process->param[i];
 			while (address < 0)
 				address += MEM_SIZE;
-			*value = ft_strhex2dec((pvm->memory + (address % MEM_SIZE)), 2)
+			*value = ft_strhex2dec((vm->memory + (address % MEM_SIZE)), 2);
 		}
 	}
 	else
@@ -37,7 +37,7 @@ int		get_prm_value(t_pvm *vm, t_process *process, int i, int *value)
 }
 
 /*
-int		get_prm_value(t_pvm *pvm, t_process *process, int i, int *value)
+int		get_prm_value(t_pvm *vm, t_process *process, int i, int *value)
 {
 	int		address;
 	int		j;
@@ -63,14 +63,14 @@ int		get_prm_value(t_pvm *pvm, t_process *process, int i, int *value)
 		j = 0;
 		while (j)
 		{
-			*value += pvm->memory[address + j] << (24 - j * 8);
+			*value += vm->memory[address + j] << (24 - j * 8);
 			i++;
 		}
 	}
 	return (1);
 }
 
-int		lget_prm_value(t_pvm *pvm, t_process *process, int i, int *value)
+int		lget_prm_value(t_pvm *vm, t_process *process, int i, int *value)
 {
 	int		address;
 
@@ -89,10 +89,10 @@ int		lget_prm_value(t_pvm *pvm, t_process *process, int i, int *value)
 		address = process->pc + process->param[i];
 		if (address < 0)
 			address += MEM_SIZE;
-		*value = pvm->memory[(address) % MEM_SIZE] << 24;
-		*value += pvm->memory[(address + 1) % MEM_SIZE] << 16;
-		*value += pvm->memory[(address + 2) % MEM_SIZE] << 8;
-		*value += pvm->memory[(address + 3) % MEM_SIZE];
+		*value = vm->memory[(address) % MEM_SIZE] << 24;
+		*value += vm->memory[(address + 1) % MEM_SIZE] << 16;
+		*value += vm->memory[(address + 2) % MEM_SIZE] << 8;
+		*value += vm->memory[(address + 3) % MEM_SIZE];
 	}
 	return (1);
 }

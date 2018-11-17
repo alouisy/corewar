@@ -83,7 +83,7 @@ int			get_param(t_pvm *vm, t_process *process, int shift)
 		else if (label_size == IND_CODE)
 			label_size -= 1;
 		process->param[i] = ft_strhex2dec(vm->memory + ((process->pc + shift) % MEM_SIZE), label_size);
-		if (label_size == 2)// && process->param_type[i] == IND_CODE)
+		if (label_size == 2)
 		{
 		//	printf("%s => label_size : %d => param : %d => short : %d\n", g_op_tab[process->opcode].name, label_size, process->param[i], (short int)process->param[i]);
 			process->param[i] = (short)process->param[i];
