@@ -14,7 +14,7 @@
 
 int	get_opcode(t_pvm *vm, t_process *process)
 {
-	process->opcode = vm->memory[process->pc % MEM_SIZE];
+	process->opcode = vm->memory[process->pc];
 	if (process->opcode < 1 || process->opcode > 16)
 	{
 		process->opcode = 0;

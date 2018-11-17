@@ -32,12 +32,9 @@ int			ft_st(t_pvm *vm, t_list *node)
 	t_process	*process;
 
 	process = get_process(node);
-	if (check_param(process->opcode, OCP, OP_TAB.nb_param)
-		&& vm->param_type[0] == REG_CODE
-		&& vm->param[0] >= 1 && vm->param[0] <= REG_NUMBER)
+	if (check_param(process->opcode, vm->ocp, OP_TAB.nb_param) && is_reg(vm, 0))
 	{
-		if (vm->param_type[1] == REG_CODE
-				&& vm->param[1] >= 1 && vm->param[1] <= REG_NUMBER)
+		if (is_reg(vm, 1))
 		{
 			REG(vm->param[1]) = REG(vm->param[0]);
 //			ft_carry(process, REG(vm->param[0]), !(REG(vm->param[0])));
@@ -45,14 +42,12 @@ int			ft_st(t_pvm *vm, t_list *node)
 		}
 		else if (vm->param_type[1] == IND_CODE)
 		{
-			vm->param[1] = reverse_bytes(vm, PC + 3, 2);
+			vm->param[1] = reverse_bytes(vm, process->pc + 3, 2);
 			write_in_memory(vm, process, REG(vm->param[0]), vm->param[1]);
 //			ft_carry(process, REG(vm->param[0]), !(REG(vm->param[0])));
 			aux_verbose(vm, node);
 		}
 	}
-	if (vm->verbose == 3)
-		print_adv(vm, PC, octal_shift(OCP, 4, 2));
-	PC = (PC + octal_shift(OCP, 4, 2)) % MEM_SIZE;
+	update_pc(vm, process, 4, 2);
 	return (1);
 }

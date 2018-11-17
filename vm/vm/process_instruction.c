@@ -32,7 +32,10 @@ int	process_instruction(t_pvm *vm, t_list *node)
 		vm->c2d = -1;
 		return (0);
 	}
+	process->pc %= MEM_SIZE;
+	if (process->pc < 0)
+		process->pc += MEM_SIZE;
 	process->opcode = 0;
-	OCP = 0;
+	vm->ocp = 0;
 	return (vm->total_cycles);
 }

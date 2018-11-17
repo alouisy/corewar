@@ -43,20 +43,15 @@ int			ft_ldi(t_pvm *vm, t_list *node)
 	val[0] = 0;
 	val[1] = 0;
 	address = 0;
-	if (check_param(process->opcode, OCP, OP_TAB.nb_param))
-	{
-		if (vm->param_type[2] == 1
-			&& vm->param[2] >= 1 && vm->param[2] <= REG_NUMBER
+	if (check_param(process->opcode, vm->ocp, OP_TAB.nb_param)
+			&& is_reg(vm, 2)
 			&& get_prm_value(vm, process, 0, &val[0])
 			&& get_prm_value(vm, process, 1, &val[1]))
-		{
-			address = PC + ((val[0] + val[1]) % IDX_MOD);
-			REG(vm->param[2]) = reverse_bytes(vm, address, 4);
-			aux_verbose(vm, node, val, address);
-		}
+	{
+		address = process->pc + ((val[0] + val[1]) % IDX_MOD);
+		REG(vm->param[2]) = reverse_bytes(vm, address, 4);
+		aux_verbose(vm, node, val, address);
 	}
-	if (vm->verbose == 3)
-		print_adv(vm, PC, octal_shift(OCP, 2, 3));
-	PC = (PC + octal_shift(OCP, 2, 3)) % MEM_SIZE;
+	update_pc(vm, process, 2, 3);
 	return (1);
 }

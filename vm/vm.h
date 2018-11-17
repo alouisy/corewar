@@ -16,7 +16,6 @@
 # include "op.h"
 # include <ncurses.h>
 
-# define PROCESS(x) (t_process*)(x->content)
 # define REG(x) process->r[x - 1]
 # define PC process->pc
 # define OPCODE process->opcode
@@ -99,6 +98,9 @@ typedef struct			s_ncurses
 **
 ** N de stack[N]depend du temps d'execution max + 1 des instructions,
 **	ici 1000 pour lfork
+**
+** stack[N] serait plus efficace si c'était un arbre binaire plutot
+** qu'une liste
 **
 ** verbose mode: (pas a jour)
 **     	1 : ncurses
@@ -198,6 +200,9 @@ void					ft_carry(t_process *process, char carry_0,
 int						aux_fork(t_pvm *vm, t_list *proc, int value);
 int						aux_andorxor(t_pvm *vm, t_list *node, int mode,
 							void (*f)(t_pvm *, t_list *, int, int));
+int						is_reg(t_pvm *vm, int i);
+void					update_pc(t_pvm *vm, t_process *process,
+							unsigned char size, unsigned char nb_param);
 
 /*
 ** misc
@@ -212,6 +217,7 @@ void					print_memory(t_pvm *vm);
 void					print_champ(t_champion champ[MAX_PLAYERS]);
 void					reset_param(t_pvm *vm);
 void					print_adv(t_pvm *vm, int	pc, int shift);
+int						*reg(t_process *process, int x);
 
 /*
 ** ncurses

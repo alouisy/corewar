@@ -18,9 +18,6 @@
 
 static void	aux_verbose(t_pvm *vm, t_list *node, int val1, int val2)
 {
-	t_process	*process;
-
-	process = get_process(node);
 	if ((vm->verbose == 3))
 	{
 		ft_printf("P% 5d | sti r%d %d %d\n",
@@ -32,7 +29,7 @@ static void	aux_verbose(t_pvm *vm, t_list *node, int val1, int val2)
 				val1,
 				val2,
 				(val1 + val2),
-				PC + ((val1 + val2) % IDX_MOD));
+				(get_process(node))->pc + ((val1 + val2) % IDX_MOD));
 	}
 }
 
@@ -45,19 +42,14 @@ int			ft_sti(t_pvm *vm, t_list *node)
 	process = get_process(node);
 	val1 = 0;
 	val2 = 0;
-	if (check_param(process->opcode, OCP, OP_TAB.nb_param))
-	{
-		if (vm->param_type[0] == 1
-			&& vm->param[0] >= 1 && vm->param[0] <= REG_NUMBER
+	if (check_param(process->opcode, vm->ocp, OP_TAB.nb_param)
+			&& is_reg(vm, 0)
 			&& get_prm_value(vm, process, 1, &val1)
 			&& get_prm_value(vm, process, 2, &val2))
-		{
-			write_in_memory(vm, process, REG(vm->param[0]), val1 + val2);
-			aux_verbose(vm, node, val1, val2);
-		}
+	{
+		write_in_memory(vm, process, REG(vm->param[0]), val1 + val2);
+		aux_verbose(vm, node, val1, val2);
 	}
-	if (vm->verbose == 3)
-		print_adv(vm, PC, octal_shift(OCP, 2, 3));
-	PC = (PC + octal_shift(OCP, 2, 3)) % MEM_SIZE;
+	update_pc(vm, process, 2, 3);
 	return (1);
 }

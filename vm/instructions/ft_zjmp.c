@@ -22,27 +22,23 @@ int	ft_zjmp(t_pvm *vm, t_list *node)
 	t_process	*process;
 
 	process = get_process(node);
-	value = reverse_bytes(vm, PC + 1, 2);
+	value = reverse_bytes(vm, process->pc + 1, 2);
 	if ((process->state / 2))
 	{
-		PC = PC + (value % IDX_MOD);
-		while (PC < 0)
-			PC += MEM_SIZE;
-		PC %= MEM_SIZE;
+		process->pc = (process->pc + (value % IDX_MOD)) % MEM_SIZE;
+		if (process->pc < 0)
+			process->pc += MEM_SIZE;
 		if ((vm->verbose == 3))
-			ft_printf("P% 5d | zjmp %d OK\n",
-					node->content_size, value);
+			ft_printf("P% 5d | zjmp %d OK\n", node->content_size, value);
 	}
 	else
 	{
 		if ((vm->verbose == 3))
 		{
-			ft_printf("P% 5d | zjmp %d FAILED\n",
-					node->content_size, value);
-			if (vm->verbose == 3)
-				print_adv(vm, PC, 3);
+			ft_printf("P% 5d | zjmp %d FAILED\n", node->content_size, value);
+			print_adv(vm, process->pc, 3);
 		}
-		PC = (PC + 3) % MEM_SIZE;
+		process->pc += 3;
 	}
 	return (1);
 }

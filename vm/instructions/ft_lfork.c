@@ -22,7 +22,7 @@ int		ft_lfork(t_pvm *vm, t_list *node)
 	t_process	*process;
 
 	process = get_process(node);
-	value = reverse_bytes(vm, PC + 1, 2);
+	value = reverse_bytes(vm, process->pc + 1, 2);
 	if (!aux_fork(vm, node, value))
 		return (0);
 	if ((vm->verbose == 3))
@@ -30,10 +30,10 @@ int		ft_lfork(t_pvm *vm, t_list *node)
 		ft_printf("P% 5d | lfork %d (%d)\n",
 				node->content_size,
 				value,
-				(PC + value));
+				(process->pc + value));
 		if (vm->verbose == 3)
-			print_adv(vm, PC, 3);
+			print_adv(vm, process->pc, 3);
 	}
-	PC = (PC + 3) % MEM_SIZE;
+	process->pc += 3;
 	return (1);
 }

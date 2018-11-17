@@ -19,10 +19,9 @@ int	aux_fork(t_pvm *pvm, t_list *proc, int value)
 	t_process	*process;
 
 	process = get_process(proc);
-	pvm->nb_process++;
-	new_pc = (PC + value) % MEM_SIZE;
-	while (new_pc < 0)
-		new_pc = (new_pc + MEM_SIZE) % MEM_SIZE;
+	new_pc = (process->pc + value) % MEM_SIZE;
+	if (new_pc < 0)
+		new_pc += MEM_SIZE;
 	if (pvm->trash)
 	{
 		node = pvm->trash;
@@ -32,6 +31,7 @@ int	aux_fork(t_pvm *pvm, t_list *proc, int value)
 	}
 	else if (!(node = ft_lstnew2(process, sizeof(t_process))))
 		return (0);
+	pvm->nb_process++;
 	node->content_size = ++pvm->pid;
 	new_process_init(process, get_process(node), new_pc);
 	update_stack(pvm, pvm->total_cycles, node);

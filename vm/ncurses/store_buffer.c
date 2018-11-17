@@ -18,11 +18,15 @@
 
 void	store_buffer(t_pvm *vm, int position, int color, int cycles)
 {
+	position %= MEM_SIZE;
+	if (position < 0)
+		position += MEM_SIZE;
 	if (vm->verbose == 1)
 	{
-		vm->nc.buffer[position % MEM_SIZE] = vm->total_cycles + cycles;
+		vm->nc.buffer[position] = vm->total_cycles + cycles;
 		if (cycles == 50)
 		{
+			//chelou
 			vm->nc.buffer[++position % MEM_SIZE] = vm->total_cycles + cycles;
 			vm->nc.buffer[++position % MEM_SIZE] = vm->total_cycles + cycles;
 			vm->nc.buffer[++position % MEM_SIZE] = vm->total_cycles + cycles;
@@ -30,8 +34,8 @@ void	store_buffer(t_pvm *vm, int position, int color, int cycles)
 		}
 		else
 		{
-			print_case(vm->nc.wleft, position % MEM_SIZE, color,
-					vm->memory[position % MEM_SIZE]);
+			print_case(vm->nc.wleft, position, color,
+					vm->memory[position]);
 		}
 	}
 }

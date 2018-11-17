@@ -21,7 +21,7 @@ static inline int	registre_status(t_pvm *vm, int i, t_list *node)
 	t_process	*process;
 	int			j;
 
-	process = PROCESS(node);
+	process = get_process(node);
 	j = 0;
 	mvwprintw(vm->nc.wright, i, 1,
 			"________________________________|       ");

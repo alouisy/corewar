@@ -12,42 +12,13 @@
 
 #include "../vm.h"
 
-int		check_param(unsigned char op, unsigned char ocp, unsigned char nb_param)
+void	print_adv(t_pvm *vm, int pc, int shift)
 {
-	unsigned char	val;
-	unsigned char	code;
-	int				shift;
-	int				i;
-
-	i = 0;
-	shift = 6;
-	while (nb_param--)
-	{
-		code = (ocp >> shift) & 0b11;
-		val = code ? 1 << (code - 1) : 0;
-		if (!(val & g_op_tab[op].param[i]))
-			return (0);
-		i++;
-		shift -= 2;
-	}
-	return (1);
-}
-
-int		get_param_type(t_pvm *vm, t_process *process)
-{
-	int i;
+	int	i;
 
 	i = -1;
-	if (OP_TAB.ocp)
-	{
-		vm->ocp = vm->memory[PC + 1];
-		while (++i < OP_TAB.nb_param)
-		{
-			vm->param_type[i] = (vm->ocp & (0b11000000 >> (i * 2))) >> (6 - i * 2);
-		}
-		return (1);
-	}
-	else
-		vm->param_type[0] = DIR_CODE;
-	return (0);
+	ft_printf("ADV %d (0x%04x -> 0x%04x) ", shift, pc, pc + shift);
+	while (++i < shift)
+		ft_printf("%02x ", vm->memory[(unsigned int)(pc + i) % MEM_SIZE]);
+	ft_printf("\n");
 }

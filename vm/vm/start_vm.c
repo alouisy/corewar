@@ -21,7 +21,7 @@ int	do_it(t_pvm *vm, t_list *node)
 	while (node)
 	{
 		save = node->next;
-		content = PROCESS(node);
+		content = get_process(node);
 		if (content->opcode == 0)
 		{
 			cycle = get_opcode(vm, content);
@@ -41,6 +41,7 @@ int	do_it(t_pvm *vm, t_list *node)
 int	start_vm(t_pvm *vm)
 {
 	t_list		*node;
+	int			position;
 
 	while (vm->total_cycles != vm->dump && vm->nb_process)
 	{
@@ -48,9 +49,10 @@ int	start_vm(t_pvm *vm)
 			cycle2die(vm, 0);
 		if (vm->c2d < 0 || !vm->nb_process)
 			break ;
-		node = vm->stack[(vm->total_cycles) % 1001].next;
-		vm->stack[(vm->total_cycles) % 1001].next = NULL;
-		vm->stack[(vm->total_cycles) % 1001].content = NULL;
+		position = vm->total_cycles % 1001;
+		node = vm->stack[position].next;
+		vm->stack[position].next = NULL;
+		vm->stack[position].content = NULL;
 		vm->total_cycles++;
 		if (vm->verbose == 3)
 			ft_printf("It is now cycle %d\n", vm->total_cycles);

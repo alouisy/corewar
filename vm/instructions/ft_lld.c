@@ -34,22 +34,16 @@ int			ft_lld(t_pvm *vm, t_list *node)
 
 	process = get_process(node);
 	value = 0;
-	if (check_param(process->opcode, OCP, OP_TAB.nb_param))
+	if (check_param(process->opcode, vm->ocp, OP_TAB.nb_param) && is_reg(vm, 1))
 	{
-		if (vm->param_type[1] == 1
-				&& vm->param[1] >= 1 && vm->param[1] <= REG_NUMBER)
-		{
-			if (vm->param_type[0] == IND_CODE)
-				value = reverse_bytes(vm, (PC + vm->param[0]), 2);
-			else if (vm->param_type[0] == DIR_CODE)
-				value = reverse_bytes(vm, (PC + 2), 4);
-			REG(vm->param[1]) = value;
-			ft_carry(process, REG(vm->param[1]), !(REG(vm->param[1])));
-			aux_verbose(vm, node, value);
-		}
+		if (vm->param_type[0] == IND_CODE)
+			value = reverse_bytes(vm, (process->pc + vm->param[0]), 2);
+		else if (vm->param_type[0] == DIR_CODE)
+			value = reverse_bytes(vm, (process->pc + 2), 4);
+		REG(vm->param[1]) = value;
+		ft_carry(process, REG(vm->param[1]), !(REG(vm->param[1])));
+		aux_verbose(vm, node, value);
 	}
-	if (vm->verbose == 3)
-		print_adv(vm, PC, octal_shift(OCP, 4, 2));
-	PC = (PC + octal_shift(OCP, 4, 2)) % MEM_SIZE;
+	update_pc(vm, process, 4, 2);
 	return (1);
 }

@@ -22,7 +22,7 @@ static void	aux_verbose(t_pvm *vm, t_list *node)
 		ft_printf("P% 5d | live %d\n",
 				node->content_size,
 				vm->param[0]);
-		print_adv(vm, PC, 5);
+		print_adv(vm, process->pc, 5);
 	}
 }
 
@@ -35,7 +35,7 @@ int			ft_live(t_pvm *vm, t_list *node)
 	if (!(process->state % 2))
 		process->state += 1;
 	vm->sum_lives++;
-	vm->param[0] = reverse_bytes(vm, PC + 1, 4);
+	vm->param[0] = reverse_bytes(vm, process->pc + 1, 4);
 	if ((nbr = ft_find_champ(vm, vm->param[0])) != -1)
 	{
 		vm->champions[nbr].nb_live++;
@@ -46,7 +46,6 @@ int			ft_live(t_pvm *vm, t_list *node)
 	else
 		vm->last_live2 = vm->total_cycles;
 	aux_verbose(vm, node);
-	PC += 5;
-	PC %= MEM_SIZE;
+	process->pc += 5;
 	return (1);
 }

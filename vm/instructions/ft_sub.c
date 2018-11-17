@@ -37,7 +37,7 @@ int			ft_sub(t_pvm *vm, t_list *node)
 	process = get_process(node);
 	i = -1;
 	error = 0;
-	if (check_param(process->opcode, OCP, OP_TAB.nb_param))
+	if (check_param(process->opcode, vm->ocp, OP_TAB.nb_param))
 	{
 		while (++i < 3)
 			if (vm->param[i] < 1 || vm->param[i] > REG_NUMBER)
@@ -49,8 +49,6 @@ int			ft_sub(t_pvm *vm, t_list *node)
 			aux_verbose(vm, node);
 		}
 	}
-	if (vm->verbose == 3)
-		print_adv(vm, PC, octal_shift(OCP, 4, 3));
-	PC = (PC + octal_shift(OCP, 4, 3)) % MEM_SIZE;
+	update_pc(vm, process, 4, 3);
 	return (1);
 }

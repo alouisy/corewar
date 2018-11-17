@@ -27,7 +27,7 @@ int	status_champion(t_pvm *vm, int i)
 		mvwprintw(vm->nc.wright, i++, 2, "name:	%s",
 				vm->champions[j].header.prog_name);
 		wattroff(vm->nc.wright, COLOR_PAIR(vm->champions[j].color));
-		mvwprintw(vm->nc.wright, i++, 2, "	number: %d", vm->champions[j].nbr);
+		mvwprintw(vm->nc.wright, i++, 2, "	number: %d", -vm->champions[j].nbr);
 		mvwprintw(vm->nc.wright, i++, 2,
 				"	last live: %d", vm->champions[j].l_live);
 		mvwprintw(vm->nc.wright, i++, 2,

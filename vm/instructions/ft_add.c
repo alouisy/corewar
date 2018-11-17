@@ -49,8 +49,6 @@ int			ft_add(t_pvm *vm, t_list *node)
 			aux_verbose(vm, node);
 		}
 	}
-	if (vm->verbose == 3)
-		print_adv(vm, PC, octal_shift(OCP, 4, 3));
-	PC = (PC + octal_shift(OCP, 4, 3)) % MEM_SIZE;
+	update_pc(vm, process, 4, 3);
 	return (1);
 }

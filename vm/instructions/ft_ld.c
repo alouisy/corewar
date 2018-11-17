@@ -29,29 +29,25 @@ static void	aux_verbose(t_pvm *vm, t_list *node, int value)
 
 int			ft_ld(t_pvm *vm, t_list *node)
 {
-	int		value;
+	int			value;
 	t_process	*process;
 
 	process = get_process(node);
 	value = 0;
-	if (check_param(process->opcode, OCP, OP_TAB.nb_param)
-		&& vm->param_type[1] == REG_CODE
-		&& vm->param[1] >= 1 && vm->param[1] <= REG_NUMBER)
+	if (check_param(process->opcode, vm->ocp, OP_TAB.nb_param) && is_reg(vm, 1))
 	{
 		if (vm->param_type[0] == DIR_CODE)
-			value = reverse_bytes(vm, PC + 2, 4);
+			value = reverse_bytes(vm, process->pc + 2, 4);
 		else
 		{
-			value = reverse_bytes(vm, PC + 2, 2);
+			value = reverse_bytes(vm, process->pc + 2, 2);
 			value %= IDX_MOD;
-			value = reverse_bytes(vm, PC + value, 4);
+			value = reverse_bytes(vm, process->pc + value, 4);
 		}
 		REG(vm->param[1]) = value;
 		ft_carry(process, value, !value);
 		aux_verbose(vm, node, value);
 	}
-	if (vm->verbose == 3)
-		print_adv(vm, PC, octal_shift(OCP, 4, 2));
-	PC = (PC + octal_shift(OCP, 4, 2)) % MEM_SIZE;
+	update_pc(vm, process, 4, 2);
 	return (1);
 }
