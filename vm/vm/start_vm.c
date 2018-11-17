@@ -68,7 +68,6 @@ int		start_vm(t_pvm *vm)
 		if (vm->verbose == 1)
 			status_game(vm);
 	}
-	ft_printf("It is now cycle %d\n", vm->total_cycles);
 	if (vm->total_cycles == vm->dump)
 		print_memory(vm);
 	print_winner(vm);
