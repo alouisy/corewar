@@ -34,31 +34,42 @@ static int	hard_code(int *res, int nb_letters)
 	return (0);
 }
 
+static int	add_all(int hard_coded, int *res)
+{
+	char	*middle;
+	int		i;
+
+	while (!hard_coded && *res > 15)
+	{
+		middle = ft_itoa(*res);
+		if (!middle)
+			return (-1);
+		i = 0;
+		*res = 0;
+		while (middle[i])
+			*res += middle[i++] - 48;
+		ft_strdel(&middle);
+	}
+	return (*res);
+}
+
 static int	hash_word(char *word)
 {
 	int		res;
 	int		i;
-	char	*middle;
 	int		hard_coded;
 
 	i = 0;
 	res = 0;
 	while (word[i])
+	{
+		if (!ft_isalpha(word[i]))
+			return (WRONG_CHAR_INST_ERR);
 		res += word[i++] - 96;
+	}
 	res += i;
 	hard_coded = hard_code(&res, i);
-	while (!hard_coded && res > 15)
-	{
-		middle = ft_itoa(res);
-		if (!middle)
-			return (-1);
-		i = 0;
-		res = 0;
-		while (middle[i])
-			res += middle[i++] - 48;
-		ft_strdel(&middle);
-	}
-	return (res);
+	return (add_all(hard_coded, &res));
 }
 
 static void	act_on_inst(t_op *op, char *params)
@@ -97,8 +108,8 @@ void		check_instruct(char *inst, char *params)
 	if (len > 5 || len <= 1)
 		free_inst_utilitary(params, inst, UNKNOWN_INST_ERR);
 	index = hash_word(inst);
-	if (index == -1)
-		free_inst_utilitary(params, inst, -1);
+	if (index < 0)
+		free_inst_utilitary(params, inst, index);
 	if (ft_strcmp(g_op_tab[index].name, inst))
 		free_inst_utilitary(params, inst, UNKNOWN_INST_ERR);
 	ft_strdel(&inst);

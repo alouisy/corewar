@@ -12,35 +12,6 @@
 
 #include "asm.h"
 
-static void	display_custom_err(int err)
-{
-	char *msg;
-
-	msg = "";
-	if (g_err->str)
-		msg = g_err->str;
-	if (err == WRONG_FORMAT_ERR)
-		ft_printf("Error : Unexpected char in line (\"%s\")\n", msg);
-	else if (err == UNKNOWN_INST_ERR)
-		ft_printf("Error : Unknown instruction (\"%s\")\n", msg);
-	else if (err == WRONG_DOT_CMD_ERR)
-		ft_printf("Error : Name/comment command badly written (\"%s\")\n", msg);
-	else if (err == LBL_FORMAT_ERR)
-		ft_printf("Error : Unexpected char in label (\"%s\")\n", msg);
-	else if (err == LBL_EXIST_ERR)
-		ft_printf("Error : Label already declared (\"%s\")\n", msg);
-	else if (err == LBL_NOT_EXIST_ERR)
-		ft_printf("Error : Referenced label doesn't exist (\"%s\")\n", msg);
-	else if (err == LARGE_REG_ERR)
-		ft_printf("Error : Register number too big (\"%s\")\n", msg);
-	else if (err == NEG_REG_ERR)
-		ft_printf("Error : Negative register (\"%s\")\n", msg);
-	else if (err == WRONG_PARAM_TYPE_ERR)
-		ft_printf("Error : Wrong param type (\"%s\")\n", msg);
-	else
-		ft_printf("Error\n", -1);
-}
-
 static void	free_g_err(void)
 {
 	if (g_err->str)

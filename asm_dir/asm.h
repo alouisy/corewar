@@ -12,19 +12,23 @@
 
 #ifndef ASM_H
 # define ASM_H
+# define WRONG_CHAR_INST_ERR -2
 # define WRONG_FORMAT_ERR 4
 # define UNKNOWN_INST_ERR 5
-# define WRONG_DOT_CMD_ERR 6
-# define INCOMPLETE_FILE 7
-# define LBL_FORMAT_ERR 8
-# define LBL_EXIST_ERR 9
-# define LBL_NOT_EXIST_ERR 10
-# define LARGE_REG_ERR 11
-# define NEG_REG_ERR 12
-# define WRONG_PARAM_TYPE_ERR 13
-# define WRONG_PARAM_NUM_ERR 14
-# define NAME_TOO_BIG_ERR 15
-# define COMMENT_TOO_BIG_ERR 16
+# define WRONG_NAME_CMD_ERR 6
+# define WRONG_COM_CMD_ERR 7
+# define BAD_NAME_ERR 8
+# define BAD_COM_ERR 9
+# define NAME_TOO_BIG_ERR 10
+# define COM_TOO_BIG_ERR 11
+# define INCOMPLETE_FILE 12
+# define LBL_FORMAT_ERR 13
+# define LBL_EXIST_ERR 14
+# define LBL_NOT_EXIST_ERR 15
+# define LARGE_REG_ERR 16
+# define NEG_REG_ERR 17
+# define WRONG_PARAM_TYPE_ERR 18
+# define WRONG_PARAM_NUM_ERR 19
 # include "../libft/libft.h"
 # include "op.h"
 # include "errno.h"
@@ -113,6 +117,9 @@ int				calc_weight(int pow);
 int				add_lbl(char *lbl, t_write_inf *write_inf);
 char			*fill_binary(int nb_bytes, int val);
 int				calc_neg_val(int val, int lbl_bytes);
+void			read_label(char *lbl);
+void			add_new(t_holder_def *tmp_holder, int val);
+void			parse_line(void);
 void			free_all(int err);
 void			free_split(char **split);
 void			free_add_err(int err, char **split);
@@ -121,8 +128,6 @@ void			free_read_utility(char *lbl, t_tree_index *index,
 												t_lbl_def *lbl_def, int err);
 void			free_inst_utilitary(char *params, char *inst, int err);
 void			free_list_node(void *content);
-void			read_label(char *lbl);
-void			add_new(t_holder_def *tmp_holder, int val);
-void			parse_line(void);
+void			display_custom_err(int err);
 
 #endif
