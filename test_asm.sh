@@ -18,7 +18,7 @@ if [ "$1" == "-exec" ]; then
 		./asm $filename
 	done
 
-	mv ./*.cor ./ressources/mine/
+	mv ./ressources/champs/*.cor ./ressources/mine/
 
 	echo "---------- RESSOURCE ASM ------------"
 

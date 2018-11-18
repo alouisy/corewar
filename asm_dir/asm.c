@@ -18,29 +18,16 @@ t_err		*g_err = NULL;
 static char	*create_name(char *source_file)
 {
 	int		len;
-	int		i;
 	char	*name;
-	char	**split;
 
-	split = ft_strsplit(source_file, '/');
-	i = 0;
-	while (split[i])
-		i++;
-	len = ft_strlen(split[i - 1]);
-	if (split[i - 1][len - 1] == 's' && split[i - 1][len - 2] == '.')
+	len = ft_strlen(source_file);
+	if (source_file[len - 1] == 's' && source_file[len - 2] == '.')
 	{
-		if (!(name = ft_strndup(split[i - 1], len - 2)))
-		{
-			free_split(split);
-			free_all(-1);
-		}
+		name = ft_strndup(source_file, len - 2);
 		name = ft_strjoin_free(name, ".cor", 0);
 	}
 	else
 		name = ft_strjoin(source_file, ".cor");
-	free_split(split);
-	if (!name)
-		free_all(-1);
 	return (name);
 }
 
@@ -67,7 +54,7 @@ void		write_binary(char *src_name)
 		current = current->next;
 	}
 	close(fd);
-	ft_printf("writting output to %s\n", name);
+	ft_printf("Writting output to %s\n", name);
 	ft_strdel(&name);
 }
 

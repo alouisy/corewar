@@ -79,8 +79,7 @@ static int		choose_write(char *param, t_op *op, t_write_inf *w_inf)
 	int		state;
 	char	*trimmed;
 
-	trimmed = ft_strtrim(param);
-	if (!trimmed)
+	if (!(trimmed = ft_strtrim(param)))
 		return (-1);
 	w_inf->ocp_part = 1;
 	state = WRONG_PARAM_TYPE_ERR;
@@ -93,7 +92,8 @@ static int		choose_write(char *param, t_op *op, t_write_inf *w_inf)
 	}
 	else if (trimmed[0] == 'r' && op->param[w_inf->i] % 2 != 0)
 		state = write_register(&trimmed[1]);
-	else if (op->param[w_inf->i] >= 4)
+	else if (op->param[w_inf->i] >= 4 && trimmed[0] != DIRECT_CHAR
+												&& trimmed[0] != 'r')
 	{
 		w_inf->nb_bytes = IND_SIZE;
 		w_inf->ocp_part = 3;
