@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/25 17:26:50 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/11/18 14:28:59 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/18 16:24:06 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int		decremente_c2d(t_pvm *vm)
 {
 	int out;
 
-	if (vm->sum_lives >= NBR_LIVE || vm->nb_checks >= MAX_CHECKS)
+	if (vm->sum_lives >= NBR_LIVE || vm->nb_checks == MAX_CHECKS - 1)
 	{
 		vm->c2d -= CYCLE_DELTA;
 		vm->nb_checks = 0;
