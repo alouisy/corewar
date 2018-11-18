@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/09 14:51:21 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/11/18 15:58:45 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/18 17:21:15 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,8 @@ inline int	parse_arg(t_pvm *vm, int ac, char **av)
 		}
 		else if (ft_strequ("-nc", av[i]))
 			vm->verbose = 1;
-		else if (ft_strequ("-v", av[i]))
-		{
-			i++;
+		else if (ft_strequ("-v", av[i]) && ++i)
 			vm->verbose = 3;
-		}
 		else if (ft_strequ("-n", av[i]))
 		{
 			if (!ft_set_var(av, ++i, &champ_nb))
