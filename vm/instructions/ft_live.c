@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/18 16:16:15 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/11/17 15:33:33 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/18 13:44:13 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int			ft_live(t_pvm *vm, t_list *node)
 	{
 		vm->champions[nbr].nb_live++;
 		vm->champions[nbr].l_live = vm->total_cycles;
-		vm->last_live = vm->total_cycles;
+		vm->last_live = vm->champions[nbr].nbr;
 	}
 	process->last_live = vm->total_cycles;
 	aux_verbose(vm, node);

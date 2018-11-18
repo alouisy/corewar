@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 17:41:26 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/11/17 21:52:02 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/18 13:42:55 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,6 @@
 # include <ncurses.h>
 
 # define REG(x) process->r[x - 1]
-# define PC process->pc
-# define OPCODE process->opcode
-# define OCP vm->ocp
 # define MEM(x) vm->memory[(unsigned int)(x) % MEM_SIZE]
 # define OP_TAB g_op_tab[process->opcode]
 
@@ -97,12 +94,6 @@ typedef struct			s_ncurses
 /*
 ** main structure
 **
-** N de stack[N]depend du temps d'execution max + 1 des instructions,
-**	ici 1000 pour lfork
-**
-** stack[N] serait plus efficace si c'était un arbre binaire plutot
-** qu'une liste
-**
 ** verbose mode: (pas a jour)
 **     	1 : ncurses
 **     	2 : verbose printf
@@ -130,7 +121,6 @@ typedef struct			s_pvm
 	int					nb_checks;
 	int					sum_lives;
 	int					last_live;
-	int					last_live2;
 	t_list				*trash;
 	unsigned char		param_type[3];
 	int					param[3];

@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/27 19:47:47 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/11/17 22:42:19 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/18 13:42:01 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 static inline int	current_void(t_pvm *vm, int i, int j)
 {
-	while (j++ < 25)
+	while (j++ < 40)
 	{
 		mvwprintw(vm->nc.wright, i++, 1,
 				" %10s | %5s | %4s | %6s | %5s | %5s | %4s ",

@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 17:41:07 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/11/15 12:36:33 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/18 13:01:22 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,11 @@ int		get_param_type(t_pvm *vm, t_process *process)
 	i = -1;
 	if (OP_TAB.ocp)
 	{
-		vm->ocp = vm->memory[PC + 1];
+		vm->ocp = vm->memory[process->pc + 1];
 		while (++i < OP_TAB.nb_param)
 		{
-			vm->param_type[i] = (vm->ocp & (0b11000000 >> (i * 2))) >> (6 - i * 2);
+			vm->param_type[i] = (vm->ocp & (0b11000000 >> (i * 2)))
+				>> (6 - i * 2);
 		}
 		return (1);
 	}

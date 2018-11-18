@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/26 15:46:28 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/11/17 21:47:33 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/18 12:54:21 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,5 @@ int	aux_fork(t_pvm *pvm, t_list *proc, int value)
 	save = pvm->stack;
 	pvm->stack = node;
 	node->next = save;
-//	update_stack(pvm, pvm->total_cycles, node);
 	return (1);
 }

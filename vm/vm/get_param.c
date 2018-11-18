@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 17:41:07 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/11/15 12:34:17 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/18 13:10:15 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	get_param(t_pvm *vm, t_process *process, int shift)
 			label_size += (OP_TAB.label_size == 1 ? 0 : 2);
 		else if (label_size == IND_CODE)
 			label_size -= 1;
-		vm->param[i] = reverse_bytes(vm, (PC + shift), label_size);
+		vm->param[i] = reverse_bytes(vm, (process->pc + shift), label_size);
 		shift += label_size;
 	}
 	return (shift);

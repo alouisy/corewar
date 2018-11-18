@@ -6,30 +6,40 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 17:41:07 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/11/17 22:56:53 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/18 14:29:12 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../vm.h"
 
-inline void	print_winner(t_pvm *vm)
+static int	get_winner(t_pvm *vm)
 {
 	int i;
 
 	i = 0;
 	while (i < vm->nb_champ)
 	{
-		if (vm->champions[i].l_live == vm->last_live)
-			break ;
+		if (vm->champions[i].nbr == vm->last_live)
+		{
+			return (i);
+		}
 		i++;
 	}
-	if (i == vm->nb_champ)
-		i--;
+	return (vm->nb_champ - 1);
+}
+
+inline void	print_winner(t_pvm *vm)
+{
+	int	i;
+
+	i = get_winner(vm);
 	if (vm->verbose == 1)
 	{
-		clear();
 		timeout(-1);
-		mvprintw(LINES / 2, COLS / 2 - 30, "le joueur %d(%s) a gagne\n",
+		getch();
+		clear();
+		mvprintw(LINES / 2, COLS / 2 - 30,
+				"Contestant %d, \"%s\", has won, GG!!\n",
 				-vm->champions[i].nbr,
 				vm->champions[i].header.prog_name);
 		getch();

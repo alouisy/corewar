@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/18 17:11:05 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/11/16 18:13:51 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/18 13:10:45 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int		aux_andorxor(t_pvm *vm, t_list *node, int mode,
 	registre = reg(process, vm->param[2]);
 	val[0] = 0;
 	val[1] = 0;
-	if (check_param(process->opcode, OCP, OP_TAB.nb_param)
+	if (check_param(process->opcode, vm->ocp, OP_TAB.nb_param)
 			&& vm->param[2] >= 1 && vm->param[2] <= REG_NUMBER
 			&& get_prm_value(vm, process, 0, &val[0])
 			&& get_prm_value(vm, process, 1, &val[1]))

@@ -6,13 +6,13 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/25 17:26:50 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/11/17 22:02:05 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/18 14:28:59 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../vm.h"
 
-static int	decremente_c2d(t_pvm *vm)
+static int		decremente_c2d(t_pvm *vm)
 {
 	int out;
 
@@ -32,12 +32,13 @@ static int	decremente_c2d(t_pvm *vm)
 	return (out);
 }
 
-static void	update_state(t_list *node)
+static void		update_state(t_list *node)
 {
 	(get_process(node))->state = (get_process(node))->state & 2;
 }
+
 /*
-**  a ajouter ligne 70 	aux_verbose(vm, node);
+**  a ajouter ligne 61 par la aux_verbose(vm, node);
 **static void aux_verbose(t_pvm *vm, t_list *node)
 **{
 **	if (vm->c2d > 0 && vm->verbose > 1)
@@ -49,7 +50,27 @@ static void	update_state(t_list *node)
 **	}
 **}
 */
-static void	check_process(t_pvm *vm, int mode)
+
+static t_list	*delete_process(t_pvm *vm, t_list **save, t_list *node)
+{
+	if (node == vm->stack)
+	{
+		*save = node->next;
+		node->next = vm->trash;
+		vm->trash = node;
+		vm->stack = *save;
+		return (*save);
+	}
+	else
+	{
+		(*save)->next = node->next;
+		node->next = vm->trash;
+		vm->trash = node;
+		return ((*save)->next);
+	}
+}
+
+static void		check_process(t_pvm *vm, int mode)
 {
 	t_list	*node;
 	t_list	*save;
@@ -61,21 +82,7 @@ static void	check_process(t_pvm *vm, int mode)
 		if ((get_process(node))->state % 2 != 1 || mode)
 		{
 			vm->nb_process--;
-			if (node == vm->stack)
-			{
-				save = node->next;
-				node->next = vm->trash;
-				vm->trash = node;
-				vm->stack = save;
-				node = save;
-			}
-			else
-			{
-				save->next = node->next;
-				node->next = vm->trash;
-				vm->trash = node;
-				node = save->next;
-			}
+			node = delete_process(vm, &save, node);
 		}
 		else
 		{
@@ -85,7 +92,7 @@ static void	check_process(t_pvm *vm, int mode)
 	}
 }
 
-void		cycle2die(t_pvm *vm, int mode)
+void			cycle2die(t_pvm *vm, int mode)
 {
 	int i;
 	int out;

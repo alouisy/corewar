@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/27 19:47:47 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/11/17 22:43:39 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/18 13:40:04 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void				status_process(t_pvm *vm, int i)
 	{
 		i = LINES - 15;
 		node = vm->stack;
-		if (node)
+		if (node && vm->nb_champ == 1)
 		{
 			i = param_status(vm, i);
 			registre_status(vm, i, node);
