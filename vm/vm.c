@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 17:41:07 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/11/16 14:44:22 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/18 16:46:10 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,12 @@ static void	aux_usage(char *str)
 	ft_printf("		         any key : continue\n");
 }
 
+int			aux_out(t_pvm *vm)
+{
+	free_vm(vm);
+	return (EXIT_FAILURE);
+}
+
 int			main(int argc, char **argv)
 {
 	t_pvm	vm;
@@ -41,12 +47,10 @@ int			main(int argc, char **argv)
 			else
 				init_ncurses(&vm);
 			if (!start_vm(&vm))
-			{
-				free_vm(&vm);
-				return (EXIT_FAILURE);
-			}
+				return (aux_out(&vm));
 		}
-		free_vm(&vm);
+		else
+			return (aux_out(&vm));
 	}
 	else
 		aux_usage(argv[0]);

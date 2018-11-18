@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 17:41:07 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/11/17 22:28:05 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/18 16:38:12 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,17 @@ int		start_vm(t_pvm *vm)
 	while (vm->total_cycles != vm->dump && vm->nb_process)
 	{
 		if (vm->total_cycles >= vm->cycle_to_die)
+		{
 			cycle2die(vm, 0);
-		if (vm->c2d < 0 || !vm->nb_process)
+		}
+		if (!vm->nb_process)
 			break ;
 		node = vm->stack;
 		vm->total_cycles++;
 		if (vm->verbose == 3)
+		{
 			ft_printf("It is now cycle %d\n", vm->total_cycles);
+		}
 		if (!do_it(vm, node))
 			return (0);
 		if (vm->verbose == 1)

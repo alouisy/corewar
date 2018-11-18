@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/25 17:26:50 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/11/18 16:24:06 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/18 16:40:32 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,6 @@ void			cycle2die(t_pvm *vm, int mode)
 	{
 		vm->champions[i++].nb_live = 0;
 	}
-	if (vm->verbose == 3 && out && vm->c2d > 0)
+	if (vm->verbose == 3 && out)
 		ft_printf("Cycle to die is now %d\n", vm->c2d);
 }
