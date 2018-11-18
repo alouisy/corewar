@@ -30,20 +30,23 @@ static void	aux_verbose(t_pvm *vm, t_list *node, int value)
 int			ft_lld(t_pvm *vm, t_list *node)
 {
 	int			value;
-	t_process	*process;
-
-	process = get_process(node);
+	t_process	*proc;
+	int			*registre;
+	
+	proc = get_process(node);
+	registre = reg(proc, vm->param[1]);
 	value = 0;
-	if (check_param(process->opcode, vm->ocp, OP_TAB.nb_param) && is_reg(vm, 1))
+	if (check_param(proc->opcode, vm->ocp, g_op_tab[proc->opcode].nb_param)
+			&& is_reg(vm, 1))
 	{
 		if (vm->param_type[0] == IND_CODE)
-			value = reverse_bytes(vm, (process->pc + vm->param[0]), 2);
+			value = reverse_bytes(vm, (proc->pc + vm->param[0]), 2);
 		else if (vm->param_type[0] == DIR_CODE)
-			value = reverse_bytes(vm, (process->pc + 2), 4);
-		REG(vm->param[1]) = value;
-		ft_carry(process, REG(vm->param[1]), !(REG(vm->param[1])));
+			value = reverse_bytes(vm, (proc->pc + 2), 4);
+		*registre = value;
+		ft_carry(proc, *registre, !(*registre));
 		aux_verbose(vm, node, value);
 	}
-	update_pc(vm, process, 4, 2);
+	update_pc(vm, proc, 4, 2);
 	return (1);
 }

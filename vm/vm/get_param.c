@@ -24,11 +24,11 @@ int	get_param(t_pvm *vm, t_process *process, int shift)
 	int		label_size;
 
 	i = -1;
-	while (++i < OP_TAB.nb_param)
+	while (++i < g_op_tab[process->opcode].nb_param)
 	{
 		label_size = vm->param_type[i];
 		if (label_size == DIR_CODE)
-			label_size += (OP_TAB.label_size == 1 ? 0 : 2);
+			label_size += (g_op_tab[process->opcode].label_size == 1 ? 0 : 2);
 		else if (label_size == IND_CODE)
 			label_size -= 1;
 		vm->param[i] = reverse_bytes(vm, (process->pc + shift), label_size);

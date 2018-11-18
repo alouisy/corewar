@@ -18,9 +18,9 @@
 
 static void	aux_verbose(t_pvm *vm, t_list *node, int val1, int val2)
 {
-	t_process	*process;
+	t_process	*proc;
 
-	process = get_process(node);
+	proc = get_process(node);
 	if (vm->verbose == 3)
 	{
 		ft_printf("P% 5d | lldi %d %d r%d\n",
@@ -32,7 +32,7 @@ static void	aux_verbose(t_pvm *vm, t_list *node, int val1, int val2)
 				val1,
 				val2,
 				(val1 + val2),
-				process->pc + val1 + val2);
+				proc->pc + val1 + val2);
 	}
 }
 
@@ -40,22 +40,22 @@ int			ft_lldi(t_pvm *vm, t_list *node)
 {
 	int			val1;
 	int			val2;
-	t_process	*process;
+	t_process	*proc;
 	int			*registre;
 
-	process = get_process(node);
-	registre = reg(process, vm->param[2]);
+	proc = get_process(node);
+	registre = reg(proc, vm->param[2]);
 	val1 = 0;
 	val2 = 0;
-	if (check_param(process->opcode, vm->ocp, OP_TAB.nb_param)
+	if (check_param(proc->opcode, vm->ocp, g_op_tab[proc->opcode].nb_param)
 			&& is_reg(vm, 2)
-			&& get_prm_value(vm, process, 0, &val1)
-			&& get_prm_value(vm, process, 1, &val2))
+			&& get_prm_value(vm, proc, 0, &val1)
+			&& get_prm_value(vm, proc, 1, &val2))
 	{
-		*registre = reverse_bytes(vm, process->pc + val1 + val2, 4);
-		ft_carry(process, *registre, !(*registre));
+		*registre = reverse_bytes(vm, proc->pc + val1 + val2, 4);
+		ft_carry(proc, *registre, !(*registre));
 		aux_verbose(vm, node, val1, val2);
 	}
-	update_pc(vm, process, 2, 3);
+	update_pc(vm, proc, 2, 3);
 	return (1);
 }

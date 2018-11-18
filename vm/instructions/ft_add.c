@@ -33,19 +33,22 @@ int			ft_add(t_pvm *vm, t_list *node)
 	int			i;
 	int			error;
 	t_process	*process;
-
+	int			*registre;
+	
 	process = get_process(node);
+	registre = reg(process, vm->param[2]);
 	i = -1;
 	error = 0;
-	if (check_param(process->opcode, vm->ocp, OP_TAB.nb_param))
+	if (check_param(process->opcode, vm->ocp, g_op_tab[process->opcode].nb_param))
 	{
 		while (++i < 3)
 			if (vm->param[i] < 1 || vm->param[i] > REG_NUMBER)
 				error = 1;
 		if (!error)
 		{
-			REG(vm->param[2]) = REG(vm->param[0]) + REG(vm->param[1]);
-			ft_carry(process, REG(vm->param[2]), !(REG(vm->param[2])));
+			*registre = *(reg(process, vm->param[0]))
+				+ *(reg(process, vm->param[1]));
+			ft_carry(process, *registre, !(*registre));
 			aux_verbose(vm, node);
 		}
 	}

@@ -14,13 +14,13 @@
 
 int		get_prm_value(t_pvm *vm, t_process *process, int i, int *value)
 {
-	int		address;
-
+	int			address;
+	
 	address = 0;
 	if (vm->param_type[i] == REG_CODE)
 	{
 		if (vm->param[i] >= 1 && vm->param[i] <= REG_NUMBER)
-			*value = REG(vm->param[i]);
+			*value = process->r[vm->param[i] - 1];
 		else
 			return (0);
 	}

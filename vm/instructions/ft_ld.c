@@ -34,7 +34,8 @@ int			ft_ld(t_pvm *vm, t_list *node)
 
 	process = get_process(node);
 	value = 0;
-	if (check_param(process->opcode, vm->ocp, OP_TAB.nb_param) && is_reg(vm, 1))
+	if (check_param(process->opcode, vm->ocp, g_op_tab[process->opcode].nb_param)
+			&& is_reg(vm, 1))
 	{
 		if (vm->param_type[0] == DIR_CODE)
 			value = reverse_bytes(vm, process->pc + 2, 4);
@@ -44,7 +45,7 @@ int			ft_ld(t_pvm *vm, t_list *node)
 			value %= IDX_MOD;
 			value = reverse_bytes(vm, process->pc + value, 4);
 		}
-		REG(vm->param[1]) = value;
+		process->r[vm->param[1] - 1] = value;
 		ft_carry(process, value, !value);
 		aux_verbose(vm, node, value);
 	}

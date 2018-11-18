@@ -16,10 +16,6 @@
 # include "op.h"
 # include <ncurses.h>
 
-# define REG(x) process->r[x - 1]
-# define MEM(x) vm->memory[(unsigned int)(x) % MEM_SIZE]
-# define OP_TAB g_op_tab[process->opcode]
-
 /*
 ** structure de descriptions des instructions
 */
