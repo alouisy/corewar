@@ -13,13 +13,13 @@
 #include "asm.h"
 
 char	**init_write(t_write_inf *write_inf,
-		__attribute__((unused)) int *ocp_val, char *params, int *i)
+		int *ocp_val, char *params, int *i)
 {
 	char **params_split;
 
 	write_inf->inst_pos = g_asm_inf->nb_bytes;
 	write_inf->i = 0;
-	ocp_val = 0;
+	*ocp_val = 0;
 	*i = 0;
 	params_split = ft_strsplit(params, ',');
 	ft_strdel(&params);

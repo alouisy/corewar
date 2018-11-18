@@ -60,6 +60,7 @@ static int	join_all(char **tmp)
 
 	while ((pos = ft_strchri(*tmp, '"')) == -1)
 	{
+		ft_strdel(&g_err->line);
 		read = get_next_line(g_err->fd, &g_err->line, '\n');
 		if (read < 0)
 			free_all(-1);
