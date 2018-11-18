@@ -34,7 +34,7 @@ void	init_prog(int argc, char **argv)
 {
 	if (argc != 2)
 	{
-		ft_printf("Usage : %s <sourcefile.s>\n");
+		ft_printf("Usage : %s <sourcefile.s>\n", argv[0]);
 		exit(0);
 	}
 	g_err = malloc(sizeof(t_err));
