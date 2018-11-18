@@ -6,7 +6,7 @@
 /*   By: zcugni <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/06 21:22:48 by zcugni            #+#    #+#             */
-/*   Updated: 2018/11/06 21:22:49 by zcugni           ###   ########.fr       */
+/*   Updated: 2018/11/18 15:13:52 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void				read_label(char *lbl)
 	if (!(index = malloc(sizeof(t_tree_index))))
 		free_read_utility(lbl, NULL, NULL, -1);
 	index->is_nb = 0;
-	index->str = strndup(lbl, ft_strlen(lbl) - 1);
+	index->str = ft_strndup(lbl, ft_strlen(lbl) - 1);
 	if (!index->str)
 		free_read_utility(lbl, index, NULL, -1);
 	if (!find_in_tree(g_asm_inf->lbl_tree, index))

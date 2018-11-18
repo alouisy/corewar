@@ -6,20 +6,19 @@
 /*   By: zcugni <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/06 21:22:31 by zcugni            #+#    #+#             */
-/*   Updated: 2018/11/06 21:22:32 by zcugni           ###   ########.fr       */
+/*   Updated: 2018/11/18 15:03:36 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-char	**init_write(t_write_inf *write_inf,
-		__attribute__((unused)) int *ocp_val, char *params, int *i)
+char	**init_write(t_write_inf *write_inf, int *ocp_val, char *params, int *i)
 {
 	char **params_split;
 
 	write_inf->inst_pos = g_asm_inf->nb_bytes;
 	write_inf->i = 0;
-	ocp_val = 0;
+	*ocp_val = 0;
 	*i = 0;
 	params_split = ft_strsplit(params, ',');
 	ft_strdel(&params);
