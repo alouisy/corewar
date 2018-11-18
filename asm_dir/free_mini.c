@@ -44,6 +44,8 @@ void	free_read_utility(char *lbl, t_tree_index *index,
 		ft_memdel((void **)&index);
 	if (lbl_def)
 		ft_memdel((void **)&lbl_def);
+	if (error != -1)
+		g_err->str = ft_strtrim(g_err->line);
 	free_all(error);
 }
 

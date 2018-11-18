@@ -40,6 +40,8 @@ static int	check_cmd(char *cmd_str, int err)
 	j = i;
 	while (g_err->line[j] && !ft_iswhitespace(g_err->line[j]))
 		j++;
+	if (!g_err->line[j - 1])
+		return (-2);
 	cmd = ft_strndup(&g_err->line[i], j - i);
 	if (!cmd)
 		free_all(-1);
@@ -110,19 +112,17 @@ void		get_dot_info(void)
 
 	skip_comment();
 	i = check_cmd(NAME_CMD_STRING, WRONG_NAME_CMD_ERR);
+	if (i == -2)
+		free_all(INCOMPLETE_FILE);
 	get_inf(&g_asm_inf->prog_name, &i, BAD_NAME_ERR);
 	if (g_asm_inf->prog_name && ft_strlen(g_asm_inf->prog_name)
 														> PROG_NAME_LENGTH)
-	{
-		g_err->str = ft_strtrim(g_err->line);
 		free_all(NAME_TOO_BIG_ERR);
-	}
 	skip_comment();
 	i = check_cmd(COMMENT_CMD_STRING, WRONG_COM_CMD_ERR);
+	if (i == -2)
+		free_all(INCOMPLETE_FILE);
 	get_inf(&g_asm_inf->comment, &i, BAD_COM_ERR);
 	if (g_asm_inf->comment && ft_strlen(g_asm_inf->comment) > COMMENT_LENGTH)
-	{
-		g_err->str = ft_strtrim(g_err->line);
 		free_all(COM_TOO_BIG_ERR);
-	}
 }

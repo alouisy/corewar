@@ -33,9 +33,9 @@ static void	display_name_com_err(int err, char *msg)
 	else if (err == BAD_COM_ERR)
 		ft_printf("Error : Comment badly written (\"%s\")\n", msg);
 	else if (err == NAME_TOO_BIG_ERR)
-		ft_printf("Error : Name too big (\"%s\")\n", msg);
+		ft_printf("Error : Name too big\n");
 	else if (err == COM_TOO_BIG_ERR)
-		ft_printf("Error : Comment too big (\"%s\")\n", msg);
+		ft_printf("Error : Comment too big\n");
 	else if (err == INCOMPLETE_FILE)
 		ft_printf("Error : No instructions\n");
 }
@@ -48,6 +48,20 @@ static void	display_lbl_err(int err, char *msg)
 		ft_printf("Error : Label already declared (\"%s\")\n", msg);
 	else if (err == LBL_NOT_EXIST_ERR)
 		ft_printf("Error : Referenced label doesn't exist (\"%s\")\n", msg);
+}
+
+static void	display_param_err(int err, char *msg)
+{
+	if (err == LARGE_REG_ERR)
+		ft_printf("Error : Register number too big (\"%s\")\n", msg);
+	else if (err == NEG_REG_ERR)
+		ft_printf("Error : Negative register (\"%s\")\n", msg);
+	else if (err == WRONG_PARAM_TYPE_ERR)
+		ft_printf("Error : Wrong param type (\"%s\")\n", msg);
+	else if (err == WRONG_PARAM_NUM_ERR)
+		ft_printf("Error : Too many or not enough params (\"%s\")\n", msg);
+	else if (err == WRONG_NUM_FORMAT_ERR)
+		ft_printf("Error : value badly written or missing (\"%s\")\n", msg);
 }
 
 void		display_custom_err(int err)
@@ -67,14 +81,8 @@ void		display_custom_err(int err)
 		display_name_com_err(err, msg);
 	else if (err >= LBL_FORMAT_ERR && err <= LBL_NOT_EXIST_ERR)
 		display_lbl_err(err, msg);
-	else if (err == LARGE_REG_ERR)
-		ft_printf("Error : Register number too big (\"%s\")\n", msg);
-	else if (err == NEG_REG_ERR)
-		ft_printf("Error : Negative register (\"%s\")\n", msg);
-	else if (err == WRONG_PARAM_TYPE_ERR)
-		ft_printf("Error : Wrong param type (\"%s\")\n", msg);
-	else if (err == WRONG_PARAM_NUM_ERR)
-		ft_printf("Error : Too many or not enough params (\"%s\")\n", msg);
+	else if (err >= LARGE_REG_ERR && err <= WRONG_NUM_FORMAT_ERR)
+		display_param_err(err, msg);
 	else
 		ft_printf("Error\n", -1);
 }

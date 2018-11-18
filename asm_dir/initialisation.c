@@ -40,11 +40,13 @@ void	init_prog(int argc, char **argv)
 	g_err = malloc(sizeof(t_err));
 	if (!g_err)
 		free_all(-1);
-	g_asm_inf = malloc(sizeof(t_asm_inf));
-	if (!g_asm_inf)
-		free_all(-1);
+	g_err->line = NULL;
+	g_err->str = NULL;
 	g_err->fd = open(argv[1], O_RDONLY);
 	if (g_err->fd == -1)
+		free_all(-1);
+	g_asm_inf = malloc(sizeof(t_asm_inf));
+	if (!g_asm_inf)
 		free_all(-1);
 	g_asm_inf->binary_list = NULL;
 	g_asm_inf->holder_lst = NULL;
@@ -52,6 +54,4 @@ void	init_prog(int argc, char **argv)
 	g_asm_inf->comment = NULL;
 	g_asm_inf->lbl_tree = NULL;
 	g_asm_inf->nb_bytes = 0;
-	g_err->line = NULL;
-	g_err->str = NULL;
 }

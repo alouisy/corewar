@@ -78,19 +78,24 @@ void		add_prog_size(void)
 
 int			main(int argc, char **argv)
 {
-	int			state;
+	int	state;
+	int	written;
 
 	init_prog(argc, argv);
 	get_dot_info();
 	write_header();
+	written = 0;
 	while ((state = get_next_line(g_err->fd, &g_err->line, '\n')) > 0)
 		if (g_err->line)
 		{
+			written = 1;
 			parse_line();
 			ft_strdel(&g_err->line);
 		}
 	if (state < 0)
 		free_all(-1);
+	if (!written)
+		free_all(INCOMPLETE_FILE);
 	write_lbl();
 	add_prog_size();
 	write_binary(argv[1]);

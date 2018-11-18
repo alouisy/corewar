@@ -29,6 +29,7 @@
 # define NEG_REG_ERR 17
 # define WRONG_PARAM_TYPE_ERR 18
 # define WRONG_PARAM_NUM_ERR 19
+# define WRONG_NUM_FORMAT_ERR 20
 # include "../libft/libft.h"
 # include "op.h"
 # include "errno.h"

@@ -24,6 +24,8 @@ static int		is_zero(char *str)
 			return (0);
 		i++;
 	}
+	if (i == 0)
+		return (0);
 	return (1);
 }
 
@@ -38,7 +40,7 @@ static int		write_val(char *param, t_write_inf *write_inf)
 	{
 		val = ft_atoi_harsh(param, 1, 0, 0);
 		if (val == 0 && !is_zero(param))
-			return (WRONG_FORMAT_ERR);
+			return (WRONG_NUM_FORMAT_ERR);
 		else if (val < 0)
 			val = calc_neg_val(val, write_inf->nb_bytes);
 		g_asm_inf->nb_bytes += write_inf->nb_bytes;
@@ -61,7 +63,7 @@ static int		write_register(char *param)
 
 	nb_register = ft_atoi_harsh(param, 0, -1, 0);
 	if (nb_register == 0 && !is_zero(param))
-		return (WRONG_FORMAT_ERR);
+		return (WRONG_NUM_FORMAT_ERR);
 	if (nb_register > REG_NUMBER)
 		return (LARGE_REG_ERR);
 	else if (nb_register < 0)
@@ -116,6 +118,8 @@ void			write_param(char *params, t_op *op, int *ocp_val)
 		i++;
 	if (i != op->nb_param)
 		free_add_err(WRONG_PARAM_NUM_ERR, params_split);
+	else if (params[ft_strlen(params) - 1] == ',')
+		free_add_err(WRONG_FORMAT_ERR, params_split);
 	while (write_inf.i < op->nb_param)
 	{
 		write_inf.beside_ocp = op->ocp - write_inf.i;

@@ -12,7 +12,7 @@
 
 #ifndef LIBFT_H
 # define LIBFT_H
-# define BUFF_SIZE 20
+# define BUFF_SIZE 320
 # define MULT_ARGS_ERR 1
 # define MISSING_ARGS_ERR 2
 # define WRONG_FILE_NAME 3

@@ -69,4 +69,6 @@ void		free_all(int err)
 		free_g_err();
 		exit(err);
 	}
+	else
+		free_g_err();
 }
