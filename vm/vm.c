@@ -19,7 +19,12 @@ static void	aux_usage(char *str)
 	ft_printf("	-dump N	: dump memory after N cycles then exit\n");
 	ft_printf("	-n N\t: assign number N (integer != 0) to champion ");
 	ft_printf("from the following file\n");
-	ft_printf("	-v 22	: equivalent of zaz verbose mode 22\n");
+	ft_printf("	-v N : equivalent of zaz verbose mode\n");
+	ft_printf("		- 1 : show ??\n");
+	ft_printf("		- 2 : show cycles\n");
+	ft_printf("		- 4 : show operations\n");
+	ft_printf("		- 8 : show deaths\n");
+	ft_printf("		- 16 : show PC movement\n");
 	ft_printf("	-nc	: ncurses graphical mode\n");
 	ft_printf("		command: w/z : +/-1  cycle/s\n");
 	ft_printf("		         +/- : +/-10 cycles/s\n");
@@ -43,7 +48,9 @@ int			main(int argc, char **argv)
 		if (parse_arg(&vm, argc, argv))
 		{
 			init_memory(&vm);
-			if (vm.verbose != 1)
+			if (vm.nc_mode && vm.verbose)
+				vm.verbose = 0;
+			if (vm.nc_mode != 1)
 				print_champ(vm.champions);
 			else
 				init_ncurses(&vm);

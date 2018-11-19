@@ -48,9 +48,9 @@ inline int	parse_arg(t_pvm *vm, int ac, char **av)
 				return (0);
 		}
 		else if (ft_strequ("-nc", av[i]))
-			vm->verbose = 1;
-		else if (ft_strequ("-v", av[i]) && ++i)
-			vm->verbose = 3;
+			vm->nc_mode = 1;
+		else if (ft_strequ("-v", av[i]) && ft_nbrisinteger(av[++i]))
+			vm->verbose = ft_atoi(av[i]);
 		else if (ft_strequ("-n", av[i]))
 		{
 			if (!ft_set_var(av, ++i, &champ_nb))

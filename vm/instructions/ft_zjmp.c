@@ -28,12 +28,12 @@ int	ft_zjmp(t_pvm *vm, t_list *node)
 		process->pc = (process->pc + (value % IDX_MOD)) % MEM_SIZE;
 		if (process->pc < 0)
 			process->pc += MEM_SIZE;
-		if (vm->verbose == 3)
+		if (vm->verbose & 4)
 			ft_printf("P% 5d | zjmp %d OK\n", node->content_size, value);
 	}
 	else
 	{
-		if (vm->verbose == 3)
+		if (vm->verbose & 4)
 		{
 			ft_printf("P% 5d | zjmp %d FAILED\n", node->content_size, value);
 			print_adv(vm, process->pc, 3);

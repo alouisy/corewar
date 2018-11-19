@@ -20,7 +20,7 @@ void	update_pc(t_pvm *vm,
 	int shift;
 
 	shift = octal_shift(vm->ocp, size, nb_param);
-	if (vm->verbose == 3)
+	if (vm->verbose & 16)
 		print_adv(vm, process->pc, shift);
 	process->pc += shift;
 }

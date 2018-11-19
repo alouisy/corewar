@@ -25,7 +25,7 @@ void	free_vm(t_pvm *vm)
 	{
 		ft_lstdel(&(vm->trash), 1, &aux_del);
 	}
-	if (vm->verbose == 1)
+	if (vm->nc_mode)
 	{
 		endwin();
 	}

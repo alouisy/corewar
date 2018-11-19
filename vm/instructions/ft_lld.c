@@ -18,7 +18,7 @@
 
 static void	aux_verbose(t_pvm *vm, t_list *node, int value)
 {
-	if (vm->verbose == 3)
+	if (vm->verbose & 4)
 	{
 		ft_printf("P% 5d | lld %d r%d\n",
 				node->content_size,

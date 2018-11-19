@@ -17,7 +17,7 @@ static void	aux_verbose(t_pvm *vm, t_list *node)
 	t_process	*process;
 
 	process = get_process(node);
-	if (vm->verbose == 3)
+	if (vm->verbose & 4)
 	{
 		ft_printf("P% 5d | live %d\n",
 				node->content_size,

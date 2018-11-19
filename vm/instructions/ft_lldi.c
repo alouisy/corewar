@@ -21,7 +21,7 @@ static void	aux_verbose(t_pvm *vm, t_list *node, int val1, int val2)
 	t_process	*proc;
 
 	proc = get_process(node);
-	if (vm->verbose == 3)
+	if (vm->verbose & 4)
 	{
 		ft_printf("P% 5d | lldi %d %d r%d\n",
 				node->content_size,

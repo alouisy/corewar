@@ -26,7 +26,7 @@ int	ft_aff(t_pvm *vm, t_list *node)
 	if (is_reg(vm, 0))
 	{
 		c = *(reg(process, vm->param[0]));
-		if (vm->verbose == 3)
+		if (vm->verbose & 4)
 			ft_printf("Aff: %c\n", c);
 		ft_carry(process, !(c == '\0'), c == '\0');
 	}

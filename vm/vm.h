@@ -109,6 +109,7 @@ typedef struct			s_pvm
 	int					dump;
 	char				verbose;
 	t_ncurses			nc;
+	char				nc_mode;
 	int					nb_champ;
 	int					nb_process;
 	int					cycle_to_die;

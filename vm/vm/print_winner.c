@@ -33,7 +33,7 @@ inline void	print_winner(t_pvm *vm)
 	int	i;
 
 	i = get_winner(vm);
-	if (vm->verbose == 1)
+	if (vm->nc_mode)
 	{
 		timeout(-1);
 		getch();

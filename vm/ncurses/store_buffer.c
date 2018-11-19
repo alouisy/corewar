@@ -18,11 +18,11 @@
 
 void	store_buffer(t_pvm *vm, int position, int color, int cycles)
 {
-	position %= MEM_SIZE;
-	if (position < 0)
-		position += MEM_SIZE;
-	if (vm->verbose == 1)
+	if (vm->nc_mode)
 	{
+		position %= MEM_SIZE;
+		if (position < 0)
+			position += MEM_SIZE;
 		vm->nc.buffer[position] = vm->total_cycles + cycles;
 		if (cycles == 50)
 		{

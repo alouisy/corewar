@@ -20,7 +20,7 @@ NAME= ../corewar
 LIB = ../libft/libft.a
 .phony: all clean fclean re
 SRC_VM=		cycle2die.c get_opcode.c get_param.c get_param_type.c\
-			print_winner.c process_instruction.c start_vm.c update_stack.c
+			print_winner.c process_instruction.c start_vm.c
 		
 SRC_PARSER=	add_process.c get_champ_numb.c init_champion.c init_memory.c\
 			init_process.c init_vm.c parse_arg.c parse_champion.c\

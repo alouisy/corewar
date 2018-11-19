@@ -56,20 +56,16 @@ int		start_vm(t_pvm *vm)
 	while (vm->total_cycles != vm->dump && vm->nb_process)
 	{
 		if (vm->total_cycles >= vm->cycle_to_die)
-		{
 			cycle2die(vm, 0);
-		}
 		if (!vm->nb_process)
 			break ;
 		node = vm->stack;
 		vm->total_cycles++;
-		if (vm->verbose == 3)
-		{
+		if (vm->verbose & 2)
 			ft_printf("It is now cycle %d\n", vm->total_cycles);
-		}
 		if (!do_it(vm, node))
 			return (0);
-		if (vm->verbose == 1)
+		if (vm->nc_mode)
 			status_game(vm);
 	}
 	if (vm->total_cycles == vm->dump)

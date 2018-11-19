@@ -25,7 +25,7 @@ int		ft_fork(t_pvm *vm, t_list *node)
 	value = reverse_bytes(vm, process->pc + 1, 2);
 	if (!aux_fork(vm, node, value % IDX_MOD))
 		return (0);
-	if (vm->verbose == 3)
+	if (vm->verbose & 4)
 	{
 		ft_printf("P% 5d | fork %d (%d)\n",
 				node->content_size,
