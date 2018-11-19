@@ -18,7 +18,7 @@
 
 static inline int	current_void(t_pvm *vm, int i, int j)
 {
-	while (j++ < 40)
+	while (j++ < 40 && i < LINES - 2)
 	{
 		mvwprintw(vm->nc.wright, i++, 1,
 				" %10s | %5s | %4s | %6s | %5s | %5s | %4s ",
@@ -51,7 +51,7 @@ inline int			current_status_pc(t_pvm *vm, int i)
 			"____________|_______|______|________|_______|_______|______");
 	j = 0;
 	node = vm->stack;
-	while (node && j++ < 40)
+	while (node && j++ < 40 && i < LINES - 2)
 	{
 		current_print(vm, i, node);
 		i++;

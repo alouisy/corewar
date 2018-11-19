@@ -69,15 +69,11 @@ void				status_process(t_pvm *vm, int i)
 {
 	t_list		*node;
 
-	i = current_status_pc(vm, i);
-	if (i < LINES - 5)
+	node = vm->stack;
+	if (node && vm->nb_champ == 1)
 	{
-		i = LINES - 15;
-		node = vm->stack;
-		if (node && vm->nb_champ == 1)
-		{
-			i = param_status(vm, i);
-			registre_status(vm, i, node);
-		}
+		i = param_status(vm, i);
+		i = registre_status(vm, i, node) + 1;
 	}
+	i = current_status_pc(vm, i);
 }

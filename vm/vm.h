@@ -12,7 +12,7 @@
 
 #ifndef VM_H
 # define VM_H
-# include "libft.h"
+# include "../libft/libft.h"
 # include "op.h"
 # include <ncurses.h>
 
