@@ -29,7 +29,7 @@ void	store_buffer(t_pvm *vm, int position, int color, int cycles)
 			vm->nc.buffer[++position % MEM_SIZE] = vm->total_cycles + cycles;
 			vm->nc.buffer[++position % MEM_SIZE] = vm->total_cycles + cycles;
 			vm->nc.buffer[++position % MEM_SIZE] = vm->total_cycles + cycles;
-			print_4case(vm, (position - 4) % MEM_SIZE, color);
+			print_4case(vm, (position - 3) % MEM_SIZE, color);
 		}
 		else
 		{
