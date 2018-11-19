@@ -6,15 +6,15 @@
 #    By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/02/06 11:23:09 by jgroc-de          #+#    #+#              #
-#    Updated: 2018/11/18 13:24:41 by jgroc-de         ###   ########.fr        #
+#    Updated: 2018/11/19 17:03:13 by alouisy-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC= gcc
 ## on Linux
-CFLAGS= -lncurses -Wall -Werror -Wextra -g -I ../libft
+#CFLAGS= -lncurses -Wall -Werror -Wextra -g -I ../libft
 ## on MacOS
-#CFLAGS= -Wall -Werror -Wextra -g -I ../libft
+CFLAGS= -Wall -Werror -Wextra -g -I ../libft
 LIBFT= -L../libft -lft
 NAME= ../corewar
 LIB = ../libft/libft.a
