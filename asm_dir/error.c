@@ -37,7 +37,7 @@ static void	display_name_com_err(int err, char *msg)
 	else if (err == COM_TOO_BIG_ERR)
 		ft_printf("Error : Comment too big\n");
 	else if (err == INCOMPLETE_FILE)
-		ft_printf("Error : No instructions\n");
+		ft_printf("Error : Incomplete file\n");
 }
 
 static void	display_lbl_err(int err, char *msg)
@@ -61,7 +61,7 @@ static void	display_param_err(int err, char *msg)
 	else if (err == WRONG_PARAM_NUM_ERR)
 		ft_printf("Error : Too many or not enough params (\"%s\")\n", msg);
 	else if (err == WRONG_NUM_FORMAT_ERR)
-		ft_printf("Error : value badly written or missing (\"%s\")\n", msg);
+		ft_printf("Error : Value badly written or missing (\"%s\")\n", msg);
 }
 
 void		display_custom_err(int err)

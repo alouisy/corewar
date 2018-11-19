@@ -21,9 +21,9 @@ char	**init_write(t_write_inf *write_inf, int *ocp_val, char *params, int *i)
 	*ocp_val = 0;
 	*i = 0;
 	params_split = ft_strsplit(params, ',');
-	ft_strdel(&params);
 	if (!params_split)
 	{
+		ft_strdel(&params);
 		free_all(-1);
 		return (NULL);
 	}

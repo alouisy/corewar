@@ -55,8 +55,10 @@ void	free_list_node(void *content)
 	ft_memdel(&content);
 }
 
-void	free_add_err(int err, char **split)
+void	free_add_err(int err, char **split, char *line)
 {
+	if (line)
+		ft_strdel(&line);
 	g_err->str = ft_strtrim(g_err->line);
 	if (split)
 		free_split(split);

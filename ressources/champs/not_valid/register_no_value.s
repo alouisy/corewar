@@ -10,5 +10,5 @@ le_12:
 
 live	%1
 
-liv: aff %	#
+liv: aff r	#
 	

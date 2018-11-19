@@ -40,7 +40,7 @@ static int	check_cmd(char *cmd_str, int err)
 	j = i;
 	while (g_err->line[j] && !ft_iswhitespace(g_err->line[j]))
 		j++;
-	if (!g_err->line[j - 1])
+	if (j == 0 || !g_err->line[j - 1] || j == i)
 		return (-2);
 	cmd = ft_strndup(&g_err->line[i], j - i);
 	if (!cmd)

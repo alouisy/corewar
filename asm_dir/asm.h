@@ -123,7 +123,7 @@ void			add_new(t_holder_def *tmp_holder, int val);
 void			parse_line(void);
 void			free_all(int err);
 void			free_split(char **split);
-void			free_add_err(int err, char **split);
+void			free_add_err(int err, char **split, char *line);
 int				free_tmp(char **trimmed, char **binary, t_write_inf *write_inf);
 void			free_read_utility(char *lbl, t_tree_index *index,
 												t_lbl_def *lbl_def, int err);
