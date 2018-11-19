@@ -80,6 +80,7 @@ static void		check_process(t_pvm *vm, int mode)
 		else
 		{
 			(get_process(node))->state &= 2;
+			save = node;
 			node = node->next;
 		}
 	}
