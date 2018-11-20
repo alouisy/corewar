@@ -20,11 +20,12 @@ static void	aux_usage(char *str)
 	ft_printf("	-n N\t: assign number N (integer != 0) to champion ");
 	ft_printf("from the following file\n");
 	ft_printf("	-v N : equivalent of zaz verbose mode\n");
-	ft_printf("		- 1 : show ??\n");
+	ft_printf("		- 0 : show only essentials\n");
+	ft_printf("		- 1 : show lives\n");
 	ft_printf("		- 2 : show cycles\n");
 	ft_printf("		- 4 : show operations\n");
 	ft_printf("		- 8 : show deaths\n");
-	ft_printf("		- 16 : show PC movement\n");
+	ft_printf("		- 16 : show PC movements\n");
 	ft_printf("	-nc	: ncurses graphical mode\n");
 	ft_printf("		command: w/z : +/-1  cycle/s\n");
 	ft_printf("		         +/- : +/-10 cycles/s\n");

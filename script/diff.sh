@@ -1,3 +1,3 @@
 #!/bin/bash
 
-./corewar -dump 6002 -v $@ > us.txt && ./../subject/corewar -d 6002 -v 22 $@ > zaz.txt && diff us.txt zaz.txt
+./../corewar -dump $1 -v 22 $2 $3 $4 $5 > us.txt ; ./../subject/corewar -d $1 -v 22 $2 $3 $4 $5 > zaz.txt ; diff us.txt zaz.txt | more

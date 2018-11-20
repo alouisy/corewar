@@ -32,9 +32,9 @@ static int		decremente_c2d(t_pvm *vm)
 	return (out);
 }
 
-static void aux_verbose(t_pvm *vm, t_list *node)
+static void		aux_verbose(t_pvm *vm, t_list *node, int md)
 {
-	if (vm->verbose & 8 && vm->c2d > 0)
+	if (vm->verbose & 8 && !md)
 	{
 		ft_printf("Process %ld hasn't lived for %d cycles (CTD %d)\n",
 				node->content_size,
@@ -43,9 +43,9 @@ static void aux_verbose(t_pvm *vm, t_list *node)
 	}
 }
 
-static t_list	*delete_process(t_pvm *vm, t_list **save, t_list *node)
+static t_list	*delete_process(t_pvm *vm, t_list **save, t_list *node, int md)
 {
-	aux_verbose(vm, node);
+	aux_verbose(vm, node, md);
 	if (node == vm->stack)
 	{
 		*save = node->next;
@@ -75,7 +75,7 @@ static void		check_process(t_pvm *vm, int mode)
 		if (!((get_process(node))->state & 1) || mode)
 		{
 			vm->nb_process--;
-			node = delete_process(vm, &save, node);
+			node = delete_process(vm, &save, node, mode);
 		}
 		else
 		{
@@ -93,11 +93,11 @@ void			cycle2die(t_pvm *vm, int mode)
 
 	check_process(vm, mode);
 	out = decremente_c2d(vm);
-	i = 0;
-	while (i < vm->nb_champ)
+	i = -1;
+	while (++i < vm->nb_champ)
 	{
-		vm->champions[i++].nb_live = 0;
+		vm->champions[i].nb_live = 0;
 	}
-	if (vm->verbose & 8 && out)
+	if (vm->verbose & 2 && out && !mode)
 		ft_printf("Cycle to die is now %d\n", vm->c2d);
 }

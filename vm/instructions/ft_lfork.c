@@ -31,9 +31,9 @@ int		ft_lfork(t_pvm *vm, t_list *node)
 				node->content_size,
 				value,
 				(process->pc + value));
-		if (vm->verbose == 3)
-			print_adv(vm, process->pc, 3);
 	}
+	if (vm->verbose & 16)
+		print_adv(vm, process->pc, 3);
 	process->pc += 3;
 	return (1);
 }

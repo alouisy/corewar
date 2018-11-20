@@ -34,7 +34,8 @@ int			ft_ld(t_pvm *vm, t_list *node)
 
 	process = get_process(node);
 	value = 0;
-	if (check_param(process->opcode, vm->ocp, g_op_tab[process->opcode].nb_param)
+	if (check_param(process->opcode, vm->ocp,
+			g_op_tab[process->opcode].nb_param)
 			&& is_reg(vm, 1))
 	{
 		if (vm->param_type[0] == DIR_CODE)

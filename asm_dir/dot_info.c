@@ -86,7 +86,7 @@ static void	get_inf(char **str, int *i, int err)
 	while (ft_iswhitespace(g_err->line[*i]))
 		(*i)++;
 	if (g_err->line[*i] != '"')
-		free_add_err(err, NULL);
+		free_add_err(err, NULL, NULL);
 	if (g_err->line[*i + 1] != '"')
 	{
 		tmp = ft_strdup(&(g_err->line[*i + 1]));
@@ -96,7 +96,7 @@ static void	get_inf(char **str, int *i, int err)
 		if (pos != 0 && (size_t)pos != ft_strlen(tmp) - 1)
 		{
 			ft_strdel(&tmp);
-			free_add_err(err, NULL);
+			free_add_err(err, NULL, NULL);
 		}
 		*str = ft_strndup(tmp, ft_strlen(tmp) - 1);
 		ft_strdel(&tmp);

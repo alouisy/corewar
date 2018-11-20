@@ -32,7 +32,7 @@ int			ft_lld(t_pvm *vm, t_list *node)
 	int			value;
 	t_process	*proc;
 	int			*registre;
-	
+
 	proc = get_process(node);
 	registre = reg(proc, vm->param[1]);
 	value = 0;

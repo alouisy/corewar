@@ -34,12 +34,13 @@ int			ft_add(t_pvm *vm, t_list *node)
 	int			error;
 	t_process	*process;
 	int			*registre;
-	
+
 	process = get_process(node);
 	registre = reg(process, vm->param[2]);
 	i = -1;
 	error = 0;
-	if (check_param(process->opcode, vm->ocp, g_op_tab[process->opcode].nb_param))
+	if (check_param(process->opcode, vm->ocp,
+			g_op_tab[process->opcode].nb_param))
 	{
 		while (++i < 3)
 			if (vm->param[i] < 1 || vm->param[i] > REG_NUMBER)

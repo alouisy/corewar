@@ -34,10 +34,9 @@ int	ft_zjmp(t_pvm *vm, t_list *node)
 	else
 	{
 		if (vm->verbose & 4)
-		{
 			ft_printf("P% 5d | zjmp %d FAILED\n", node->content_size, value);
+		if (vm->verbose & 16)
 			print_adv(vm, process->pc, 3);
-		}
 		process->pc += 3;
 	}
 	return (1);

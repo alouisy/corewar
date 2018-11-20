@@ -39,13 +39,14 @@ int			ft_ldi(t_pvm *vm, t_list *node)
 	int			address;
 	t_process	*process;
 	int			*registre;
-	
+
 	process = get_process(node);
 	registre = reg(process, vm->param[2]);
 	val[0] = 0;
 	val[1] = 0;
 	address = 0;
-	if (check_param(process->opcode, vm->ocp, g_op_tab[process->opcode].nb_param)
+	if (check_param(process->opcode, vm->ocp,
+			g_op_tab[process->opcode].nb_param)
 			&& is_reg(vm, 2)
 			&& get_prm_value(vm, process, 0, &val[0])
 			&& get_prm_value(vm, process, 1, &val[1]))

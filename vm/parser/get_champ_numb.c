@@ -19,11 +19,11 @@ static int	aux_manuel(int nb, t_champion champions[MAX_PLAYERS])
 	i = 0;
 	while (i < MAX_PLAYERS && champions[i].color != -1)
 	{
-		if (champions[i].nbr == nb)
+		if (champions[i].nbr == (nb * -1))
 			return (0);
 		i++;
 	}
-	return (nb);
+	return (nb * -1);
 }
 
 static int	aux_auto(t_champion champions[MAX_PLAYERS])
@@ -50,7 +50,7 @@ inline int	get_champ_nb(int nb, t_champion champions[MAX_PLAYERS])
 {
 	if (nb != 0)
 	{
-		if (!aux_manuel(nb, champions))
+		if (!(nb = aux_manuel(nb, champions)))
 			nb = aux_auto(champions);
 	}
 	else
