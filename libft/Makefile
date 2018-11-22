@@ -46,8 +46,15 @@ SRCS_MISC = ft_isalnum.c ft_isprint.c ft_isalpha.c ft_atoi.c ft_isascii.c \
 			ft_iswhitespace.c ft_atoi_harsh.c ft_atoi2.c ft_itoa_base2.c \
 			ft_abs.c ft_nbrisinteger.c
 
+SRC_PRINTF = ft_conv_bin.c ft_conv_c.c ft_conv_d.c ft_conv_else.c\
+			 ft_conv_index.c ft_conv_lc.c ft_conv_ls.c ft_conv_oux.c\
+			 ft_conv_p.c ft_conv_percent.c ft_conv_s.c ft_d_size_1.c\
+			 ft_d_size_2.c ft_hash.c ft_inc_was.c ft_init.c ft_option.c\
+			 ft_oux_size_1.c ft_oux_size_2.c ft_plus.c ft_precision.c\
+			 ft_printf.c ft_width.c ft_zero.c
+
 SRCS = $(SRCS_STR) $(SRCS_LST) $(SRCS_IO) $(SRCS_MEM) $(SRCS_FTPRINTF) $(SRCS_MISC) $(SRCS_TREE)
-SRC = $(wildcard srcs/ft_printf/*.c)
+SRC = $(addprefix srcs/ft_printf/, $(SRC_PRINTF))
 
 OBJS = $(SRCS:%.c=objs/%.o) $(subst .c,.o, $(SRC))
 
@@ -81,7 +88,7 @@ objs/%.o : srcs/tree/%.c
 	@echo "compilation : " $*
 	@gcc $(CFLAGS) -c $^ -o $@ -I$(HEADER_PATH)
 
-$(NAME): $(OBJS) libft.h
+$(NAME): $(OBJS) libft.h srcs/ft_printf/libprintf.h
 	@echo "compilation : " $(NAME)
 	@ar rc $(NAME) $(OBJS)
 	@ranlib $(NAME)

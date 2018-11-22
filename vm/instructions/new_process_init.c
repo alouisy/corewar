@@ -19,8 +19,16 @@
 
 void	new_process_init(t_process *old, t_process *new, int new_pc)
 {
+	int i;
+
 	new->champ_nbr = old->champ_nbr;
 	new->pc = new_pc;
 	new->state = old->state;
 	new->opcode = 0;
+	i = 0;
+	while (i < 16)
+	{
+		new->r[i] = old->r[i];
+		i++;
+	}
 }

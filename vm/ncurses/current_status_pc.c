@@ -32,7 +32,7 @@ static inline void	current_print(t_pvm *vm, int i, t_list *node)
 	mvwprintw(vm->nc.wright, i, 1,
 			" %10d | %5d | %4d | %6d | %5d | %5d | %4d ",
 			node->content_size,
-			vm->champions[(int)(get_process(node))->champ_nbr].nbr,
+			-vm->champions[(int)(get_process(node))->champ_nbr].nbr,
 			(get_process(node))->pc,
 			(get_process(node))->opcode,
 			(get_process(node))->state & 2,

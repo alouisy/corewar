@@ -14,12 +14,12 @@
 
 static void	aux_usage(char *str)
 {
-	ft_printf("Usage: %s [-nc] [-dump N] [-v 22] ", str);
+	ft_printf("Usage: %s [-nc] [-dump N] [-v N] ", str);
 	ft_printf("[-n N] <champion1.cor> [-n N] <...>\n");
 	ft_printf("	-dump N	: dump memory after N cycles then exit\n");
-	ft_printf("	-n N\t: assign number N (integer != 0) to champion ");
+	ft_printf("	-n N\t: assign number N (can NOT be 0!) to champion ");
 	ft_printf("from the following file\n");
-	ft_printf("	-v N : equivalent of zaz verbose mode\n");
+	ft_printf("	-v N : equivalent of zaz verbose mode, can be added\n");
 	ft_printf("		- 0 : show only essentials\n");
 	ft_printf("		- 1 : show lives\n");
 	ft_printf("		- 2 : show cycles\n");

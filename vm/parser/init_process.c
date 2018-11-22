@@ -23,4 +23,5 @@ inline void	init_process(t_process *process, t_pvm *vm)
 	process->champ_nbr = vm->nb_process;
 	process->state = 0;
 	process->opcode = 0;
+	process->cycle_of_exe = 0;
 }

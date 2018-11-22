@@ -70,7 +70,7 @@ int		start_vm(t_pvm *vm)
 		if (vm->nc_mode)
 			status_game(vm);
 	}
-	if (vm->total_cycles == vm->dump)
+	if (vm->dump != -1)
 		print_memory(vm);
 	print_winner(vm);
 	return (1);

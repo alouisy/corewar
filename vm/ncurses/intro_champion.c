@@ -31,7 +31,7 @@ inline void	intro_champions(t_pvm *vm)
 		attron(COLOR_PAIR(vm->champions[k].color));
 		mvprintw(i++, j, "Prog_name: %s", vm->champions[k].header.prog_name);
 		attroff(COLOR_PAIR(vm->champions[k].color));
-		mvprintw(i++, j, "Pos: %d", vm->champions[k].nbr);
+		mvprintw(i++, j, "Pos: %d", -vm->champions[k].nbr);
 		mvprintw(i++, j, "Prog_size: %d", vm->champions[k].header.prog_size);
 		mvprintw(i++, j, "Comment: %s", vm->champions[k].header.comment);
 		k++;

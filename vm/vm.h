@@ -107,7 +107,7 @@ typedef struct			s_pvm
 	unsigned char		memory[MEM_SIZE];
 	unsigned char		mem_color[MEM_SIZE];
 	int					dump;
-	char				verbose;
+	int					verbose;
 	t_ncurses			nc;
 	char				nc_mode;
 	int					nb_champ;
