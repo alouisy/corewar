@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/18 16:27:38 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/11/17 15:16:35 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/23 20:15:15 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int			ft_ld(t_pvm *vm, t_list *node)
 			value = reverse_bytes(vm, process->pc + value, 4);
 		}
 		process->r[vm->param[1] - 1] = value;
-		ft_carry(process, value, !value);
+		ft_carry(process, value);
 		aux_verbose(vm, node, value);
 	}
 	update_pc(vm, process, 4, 2);

@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 17:41:07 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/11/18 16:38:12 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/23 18:31:41 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int		start_vm(t_pvm *vm)
 		if (vm->nc_mode)
 			status_game(vm);
 	}
-	if (vm->dump != -1)
+	if (vm->dump == vm->total_cycles)
 		print_memory(vm);
 	print_winner(vm);
 	return (1);

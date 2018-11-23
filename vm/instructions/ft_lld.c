@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/18 16:27:38 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/11/17 15:31:32 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/23 20:15:39 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int			ft_lld(t_pvm *vm, t_list *node)
 		else if (vm->param_type[0] == DIR_CODE)
 			value = reverse_bytes(vm, (proc->pc + 2), 4);
 		*registre = value;
-		ft_carry(proc, *registre, !(*registre));
+		ft_carry(proc, *registre);
 		aux_verbose(vm, node, value);
 	}
 	update_pc(vm, proc, 4, 2);

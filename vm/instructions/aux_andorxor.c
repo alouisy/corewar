@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/18 17:11:05 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/11/18 13:10:45 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/23 20:18:28 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int		aux_andorxor(t_pvm *vm, t_list *node, int mode,
 			*registre = (val[0] | val[1]);
 		else if (mode == 3)
 			*registre = (val[0] ^ val[1]);
-		ft_carry(proc, *registre, !(*registre));
+		ft_carry(proc, *registre);
 		f(vm, node, val[0], val[1]);
 	}
 	update_pc(vm, proc, 4, 3);

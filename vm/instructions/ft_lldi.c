@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/26 15:46:23 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/11/17 15:34:00 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/23 20:15:48 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int			ft_lldi(t_pvm *vm, t_list *node)
 			&& get_prm_value(vm, proc, 1, &val2))
 	{
 		*registre = reverse_bytes(vm, proc->pc + val1 + val2, 4);
-		ft_carry(proc, *registre, !(*registre));
+		ft_carry(proc, *registre);
 		aux_verbose(vm, node, val1, val2);
 	}
 	update_pc(vm, proc, 2, 3);

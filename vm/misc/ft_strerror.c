@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/25 18:53:41 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/10/25 19:18:11 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/23 18:34:53 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_strerror(char *str, int free)
 {
-	ft_putendl(str);
+	ft_putendl_fd(str, 2);
 	if (free)
 		ft_strdel(&str);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/09 14:51:21 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/11/18 17:21:15 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/23 17:33:08 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@ static int	ft_set_var(int ac, char **av, int i, int *var)
 
 static int	ft_set_champion(t_pvm *vm, int ac, char **av, int *i)
 {
-	int	champ_nb;
+	int		champ_nb;
 	char	*search;
 
 	champ_nb = 0;
-	if (ft_strequ("-n",  av[*i]))
+	if (ft_strequ("-n", av[*i]))
 	{
 		if (!ft_set_var(ac, av, ++(*i), &champ_nb))
 			return (0);

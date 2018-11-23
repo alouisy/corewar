@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 17:41:26 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/11/18 13:42:55 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/23 20:16:45 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,8 +183,7 @@ void					new_process_init(t_process *old, t_process *new,
 							int new_pc);
 void					write_in_memory(t_pvm *pvm, t_process *process,
 							int value, int value2);
-void					ft_carry(t_process *process, char carry_0,
-							char carry_1);
+void					ft_carry(t_process *process, int carry_0);
 int						aux_fork(t_pvm *vm, t_list *proc, int value);
 int						aux_andorxor(t_pvm *vm, t_list *node, int mode,
 							void (*f)(t_pvm *, t_list *, int, int));

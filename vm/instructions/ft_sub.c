@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/18 17:09:45 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/11/17 15:31:42 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/23 20:16:13 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int			ft_sub(t_pvm *vm, t_list *node)
 		if (!error)
 		{
 			*registre = *(reg(proc, vm->param[0])) - *(reg(proc, vm->param[1]));
-			ft_carry(proc, *registre, !(*registre));
+			ft_carry(proc, *registre);
 			aux_verbose(vm, node);
 		}
 	}
