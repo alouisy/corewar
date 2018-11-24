@@ -12,9 +12,9 @@
 
 CC= gcc
 ## on Linux
-#CFLAGS= -lncurses -Wall -Werror -Wextra -g -I ../libft
+CFLAGS= -lncurses -Wall -Werror -Wextra -g -I ../libft
 ## on MacOS
-CFLAGS= -Wall -Werror -Wextra -g -I ../libft
+#CFLAGS= -Wall -Werror -Wextra -g -I ../libft
 LIBFT= -L../libft -lft
 NAME= ../corewar
 LIB = ../libft/libft.a

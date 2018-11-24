@@ -1,36 +1,62 @@
 #!/bin/sh
 
-if [ $# -ne 1 ]; then
-	echo "usage: ./test_vm.sh [-del] [-exec] [-diff]"
-fi
+if [ $# -ne 1 ] && [ $# -ne 2 ]; then
+	echo "usage: ./test_vm.sh [-del] [-verb [file.cor]] [-win [file.cor]] [-diff]"
+else
+	if [ "$1" = "-del" ]; then
+		rm -rf ../ressources/example
+		rm -rf ../ressources/mine
+	fi
 
-if [ "$1" == "-del" ]; then
-	rm -rf ../ressources/example
-	rm -rf ../ressources/mine
-	rm -rf ./vm_diff
-fi
+	if [ "$1" = "-verb" ] || [ "$1" = "-win" ]; then
+		
+		if [ "$1" = "-win" ]; then
+			rm ../ressources/mine/Car.cor
+			rm ../ressources/mine/bee_gees.cor
+			rm ../ressources/mine/fork.cor
+			rm ../ressources/mine/lfork.cor
+			rm ../ressources/mine/gg.cor
+			rm ../ressources/mine/mandragore.cor
+			rm ../ressources/mine/maxi_simple.cor
+		fi
+		echo "---------- RESSOURCE VM ------------";
 
-if [ "$1" == "-exec" ]; then
+		for filename in ../ressources/example/*.cor; do
+			if [ $# -eq 2 ]; then
+				test= $2
+			else
+				test= $filename
+			fi
+			echo $test VS $filename
+			if [ "$1" = "-verb" ]; then
+				../ressources/corewar -a -v 31 -d 10000 $test $filename > $filename.txt
+			else
+				../ressources/corewar $test $filename > $filename.txt
+			fi
+		done
 
-	echo "---------- RESSOURCE vm ------------";
+		echo "------------- MY VM ---------------";
 
-	for filename in ../ressources/example/*.cor; do
-		echo $filename VS $filename
-		../ressources/corewar -a -v 31 -d 12000 $filename $filename > $filename.txt
-	done
+		for filename in ../ressources/mine/*.cor; do
+			if [ $# -eq 2 ]; then
+				test=$2
+			else
+				test=$filename
+			fi
+			echo $test VS $filename
+			if [ "$1" = "-verb" ]; then
+				../corewar -v 63 -dump 10000 $test $filename > $filename.txt
+			else
+				../corewar $test $filename > $filename.txt
+			fi
+		done
 
-	echo "------------- MY VM ---------------";
+	fi
 
-	for filename in ../ressources/mine/*.cor; do
-		echo $filename VS $filename
-		../corewar -v 31 -dump 12000 $filename $filename > $filename.txt
-	done
+	if [ "$1" = "-diff" ]; then
 
-fi
-
-if [ "$1" == "-diff" ]; then
-
-	for filename in ../ressources/mine/*.txt; do
-		diff ../ressources/example/${filename##*/} $filename
-	done
+		for filename in ../ressources/mine/*.txt; do
+			diff ../ressources/example/${filename##*/} $filename
+		done
+	fi
 fi
