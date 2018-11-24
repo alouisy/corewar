@@ -30,6 +30,18 @@ char	**init_write(t_write_inf *write_inf, int *ocp_val, char *params, int *i)
 	return (params_split);
 }
 
+void	clr_tab(int len, char *tab)
+{
+	int i;
+
+	i = 0;
+	while (i < len)
+	{
+		tab[i] = '\0';
+		i++;
+	}
+}
+
 void	init_prog(int argc, char **argv)
 {
 	if (argc != 2)
@@ -41,7 +53,7 @@ void	init_prog(int argc, char **argv)
 	if (!g_err)
 		free_all(-1);
 	g_err->line = NULL;
-	g_err->str = NULL;
+	//g_err->str = NULL;
 	g_err->fd = open(argv[1], O_RDONLY);
 	if (g_err->fd == -1)
 		free_all(-1);
@@ -50,8 +62,8 @@ void	init_prog(int argc, char **argv)
 		free_all(-1);
 	g_asm_inf->binary_list = NULL;
 	g_asm_inf->holder_lst = NULL;
-	g_asm_inf->prog_name = NULL;
-	g_asm_inf->comment = NULL;
+	clr_tab(ft_strlen(g_asm_inf->prog_name), g_asm_inf->prog_name);
+	clr_tab(ft_strlen(g_asm_inf->comment), g_asm_inf->comment);
 	g_asm_inf->lbl_tree = NULL;
 	g_asm_inf->nb_bytes = 0;
 }

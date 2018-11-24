@@ -22,16 +22,16 @@ static void	display_lib_err(int err)
 		ft_putstr("Error : Wrong file name\n");
 }
 
-static void	display_name_com_err(int err, char *msg)
+static void	display_name_com_err(int err)
 {
 	if (err == WRONG_NAME_CMD_ERR)
-		ft_printf("Error : Name command badly written (\"%s\")\n", msg);
+		ft_printf("Error : Name command badly written (\"%s\")\n", g_err->line);
 	else if (err == WRONG_COM_CMD_ERR)
-		ft_printf("Error : Comment command badly written (\"%s\")\n", msg);
+		ft_printf("Error : Comment command badly written (\"%s\")\n", g_err->line);
 	else if (err == BAD_NAME_ERR)
-		ft_printf("Error : Name badly written (\"%s\")\n", msg);
+		ft_printf("Error : Name badly written (\"%s\")\n", g_err->line);
 	else if (err == BAD_COM_ERR)
-		ft_printf("Error : Comment badly written (\"%s\")\n", msg);
+		ft_printf("Error : Comment badly written (\"%s\")\n", g_err->line);
 	else if (err == NAME_TOO_BIG_ERR)
 		ft_printf("Error : Name too big\n");
 	else if (err == COM_TOO_BIG_ERR)
@@ -40,49 +40,51 @@ static void	display_name_com_err(int err, char *msg)
 		ft_printf("Error : Incomplete file\n");
 }
 
-static void	display_lbl_err(int err, char *msg)
+static void	display_lbl_err(int err)
 {
 	if (err == LBL_FORMAT_ERR)
-		ft_printf("Error : Unexpected char in label (\"%s\")\n", msg);
+		ft_printf("Error : Unexpected char in label (\"%s\")\n", g_err->line);
 	else if (err == LBL_EXIST_ERR)
-		ft_printf("Error : Label already declared (\"%s\")\n", msg);
+		ft_printf("Error : Label already declared (\"%s\")\n", g_err->line);
 	else if (err == LBL_NOT_EXIST_ERR)
-		ft_printf("Error : Referenced label doesn't exist (\"%s\")\n", msg);
+		ft_printf("Error : Referenced label doesn't exist (\"%s\")\n", g_err->line);
 }
 
-static void	display_param_err(int err, char *msg)
+static void	display_param_err(int err)
 {
 	if (err == LARGE_REG_ERR)
-		ft_printf("Error : Register number too big (\"%s\")\n", msg);
+		ft_printf("Error : Register number too big (\"%s\")\n", g_err->line);
 	else if (err == NEG_REG_ERR)
-		ft_printf("Error : Negative register (\"%s\")\n", msg);
+		ft_printf("Error : Negative register (\"%s\")\n", g_err->line);
 	else if (err == WRONG_PARAM_TYPE_ERR)
-		ft_printf("Error : Wrong param type (\"%s\")\n", msg);
+		ft_printf("Error : Wrong param type (\"%s\")\n", g_err->line);
 	else if (err == WRONG_PARAM_NUM_ERR)
-		ft_printf("Error : Too many or not enough params (\"%s\")\n", msg);
+		ft_printf("Error : Too many or not enough params (\"%s\")\n", g_err->line);
 	else if (err == WRONG_NUM_FORMAT_ERR)
-		ft_printf("Error : Value badly written or missing (\"%s\")\n", msg);
+		ft_printf("Error : Value badly written or missing (\"%s\")\n", g_err->line);
 }
+
+//j'sais pas si je dois forcement utiliser g_err->line ou si je peux pas juste utiliser la ligne..
 
 void		display_custom_err(int err)
 {
-	char *msg;
+	//char *g_err->line;
 
-	msg = (g_err->str == NULL) ? "" : g_err->str;
+	//g_err->line = (g_err->str == NULL) ? "" : g_err->str;
 	if (err >= MULT_ARGS_ERR && err <= WRONG_FILE_NAME)
 		display_lib_err(err);
 	else if (err == WRONG_FORMAT_ERR)
-		ft_printf("Error : Unexpected char in line (\"%s\")\n", msg);
+		ft_printf("Error : Unexpected char in line (\"%s\")\n", g_err->line);
 	else if (err == WRONG_CHAR_INST_ERR)
-		ft_printf("Error : Unexpected char in inst (\"%s\")\n", msg);
+		ft_printf("Error : Unexpected char in inst (\"%s\")\n", g_err->line);
 	else if (err == UNKNOWN_INST_ERR)
-		ft_printf("Error : Unknown instruction (\"%s\")\n", msg);
+		ft_printf("Error : Unknown instruction (\"%s\")\n", g_err->line);
 	else if (err >= WRONG_NAME_CMD_ERR && err <= INCOMPLETE_FILE)
-		display_name_com_err(err, msg);
+		display_name_com_err(err);
 	else if (err >= LBL_FORMAT_ERR && err <= LBL_NOT_EXIST_ERR)
-		display_lbl_err(err, msg);
+		display_lbl_err(err);
 	else if (err >= LARGE_REG_ERR && err <= WRONG_NUM_FORMAT_ERR)
-		display_param_err(err, msg);
+		display_param_err(err);
 	else
 		ft_printf("Error\n", -1);
 }

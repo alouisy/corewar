@@ -66,8 +66,8 @@ typedef struct	s_asm_inf
 	t_list		*holder_lst;
 	int			nb_bytes;
 	t_rbt_node	*lbl_tree;
-	char		*comment;
-	char		*prog_name;
+	char		comment[COMMENT_LENGTH];
+	char		prog_name[PROG_NAME_LENGTH];
 	t_list		*binary_list;
 	t_list		*holder_prog_size;
 }				t_asm_inf;
@@ -100,6 +100,14 @@ typedef struct	s_err
 	int		fd;
 	char	*line;
 }				t_err;
+
+typedef struct	s_dot_inf_err
+{
+	int		name_err;
+	int		len_err;
+	int		max_len;
+	int		current_len;
+}				t_dot_inf_err;
 
 extern t_op			g_op_tab[16];
 extern t_asm_inf	*g_asm_inf;

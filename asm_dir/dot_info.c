@@ -12,7 +12,7 @@
 
 #include "asm.h"
 
-static void	skip_comment(void)
+static int	skip_comment(void)
 {
 	int read;
 
@@ -26,6 +26,7 @@ static void	skip_comment(void)
 		free_all(-1);
 	else if (read == 0)
 		free_all(INCOMPLETE_FILE);
+	return (read);
 }
 
 static int	check_cmd(char *cmd_str, int err)
@@ -40,27 +41,26 @@ static int	check_cmd(char *cmd_str, int err)
 	j = i;
 	while (g_err->line[j] && !ft_iswhitespace(g_err->line[j]))
 		j++;
-	if (j == 0 || !g_err->line[j - 1] || j == i)
-		return (-2);
+	if (j == 0 || j == i) ///j'avais mis || !g_err->line[j - 1] mais je sais pas pourquoi
+		free_all(INCOMPLETE_FILE);
 	cmd = ft_strndup(&g_err->line[i], j - i);
 	if (!cmd)
 		free_all(-1);
 	if (!ft_strequ(cmd, cmd_str))
 	{
 		ft_strdel(&cmd);
-		g_err->str = ft_strtrim(g_err->line);
+		//g_err->str = ft_strtrim(g_err->line); // ?
 		free_all(err);
 	}
 	ft_strdel(&cmd);
 	return (j);
 }
 
-static int	join_all(char **tmp)
+static void	join_all(int *pos, char *str, int current_len, t_dot_inf_err *err)
 {
 	int read;
-	int pos;
 
-	while ((pos = ft_strchri(*tmp, '"')) == -1)
+	while (*pos == -1 && current_len < err->max_len)
 	{
 		ft_strdel(&g_err->line);
 		read = get_next_line(g_err->fd, &g_err->line, '\n');
@@ -68,61 +68,51 @@ static int	join_all(char **tmp)
 			free_all(-1);
 		else if (read == 0)
 			free_all(INCOMPLETE_FILE);
-		*tmp = ft_strjoin_free(*tmp, "\n", 0);
-		if (!*tmp)
-			free_all(-1);
-		*tmp = ft_strjoin_free(*tmp, g_err->line, 0);
-		if (!*tmp)
-			free_all(-1);
+		ft_strcat(str, (const char *)g_err->line);
+		current_len += read;
+		*pos = ft_strchri(g_err->line, '"');
 	}
-	return (pos);
+	if (current_len > err->max_len)
+		free_all(err->len_err);
 }
 
-static void	get_inf(char **str, int *i, int err)
+static void	get_inf(char *str, int *i, int current_len, t_dot_inf_err *err)
 {
+    char    *trimmed;
 	int		pos;
-	char	*tmp;
 
-	while (ft_iswhitespace(g_err->line[*i]))
-		(*i)++;
-	if (g_err->line[*i] != '"')
-		free_add_err(err, NULL, NULL);
-	if (g_err->line[*i + 1] != '"')
-	{
-		tmp = ft_strdup(&(g_err->line[*i + 1]));
-		if (!tmp)
-			free_all(-1);
-		pos = join_all(&tmp);
-		if (pos != 0 && (size_t)pos != ft_strlen(tmp) - 1)
-		{
-			ft_strdel(&tmp);
-			free_add_err(err, NULL, NULL);
-		}
-		*str = ft_strndup(tmp, ft_strlen(tmp) - 1);
-		ft_strdel(&tmp);
-		if (!*str)
-			free_all(-1);
-	}
-	ft_strdel(&g_err->line);
+    trimmed = ft_strtrim(&(g_err->line[*i]));
+	if (trimmed[0] != '"')
+		free_add_err(err->name_err, NULL, NULL);
+    pos = ft_strchri(&trimmed[1], '"');
+    if (pos != -1 && trimmed[pos + 1])
+    {
+        ft_strdel(&trimmed);
+        free_all(err->name_err);
+    }
+	ft_strcpy(str, trimmed);
+	ft_strdel(&trimmed);
+	join_all(&pos, str, current_len, err);
+	if (pos != -1 && g_err->line[pos + 1])
+        free_all(err->name_err);
 }
 
 void		get_dot_info(void)
 {
-	int i;
+	int				i;
+	int				current_len;
+	t_dot_inf_err	err;
 
-	skip_comment();
+	current_len = skip_comment();
 	i = check_cmd(NAME_CMD_STRING, WRONG_NAME_CMD_ERR);
-	if (i == -2)
-		free_all(INCOMPLETE_FILE);
-	get_inf(&g_asm_inf->prog_name, &i, BAD_NAME_ERR);
-	if (g_asm_inf->prog_name && ft_strlen(g_asm_inf->prog_name)
-														> PROG_NAME_LENGTH)
-		free_all(NAME_TOO_BIG_ERR);
-	skip_comment();
+	err.name_err = BAD_NAME_ERR;
+	err.max_len = PROG_NAME_LENGTH;
+	err.len_err = NAME_TOO_BIG_ERR;
+	get_inf(g_asm_inf->prog_name, &i, current_len, &err);
+	current_len = skip_comment();
 	i = check_cmd(COMMENT_CMD_STRING, WRONG_COM_CMD_ERR);
-	if (i == -2)
-		free_all(INCOMPLETE_FILE);
-	get_inf(&g_asm_inf->comment, &i, BAD_COM_ERR);
-	if (g_asm_inf->comment && ft_strlen(g_asm_inf->comment) > COMMENT_LENGTH)
-		free_all(COM_TOO_BIG_ERR);
+	err.name_err = BAD_COM_ERR;
+	err.max_len = COMMENT_LENGTH;
+	err.len_err = COM_TOO_BIG_ERR;
+	get_inf(g_asm_inf->comment, &i, current_len, &err);
 }

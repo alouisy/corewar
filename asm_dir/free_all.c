@@ -50,11 +50,6 @@ void		free_all(int err)
 {
 	if (g_asm_inf)
 	{
-		if (!g_asm_inf->binary_list || !g_asm_inf->binary_list->next)
-		{
-			ft_strdel(&g_asm_inf->prog_name);
-			ft_strdel(&g_asm_inf->comment);
-		}
 		ft_lstdel(&g_asm_inf->binary_list, 1, free);
 		rbt_clear(&g_asm_inf->lbl_tree, free, 1);
 		ft_lstdel(&g_asm_inf->holder_lst, 1, free_list_node);

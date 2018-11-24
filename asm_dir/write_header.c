@@ -53,8 +53,7 @@ void			write_header(void)
 
 	write_magic();
 	size = 0;
-	if (g_asm_inf->prog_name)
-		size = ft_strlen(g_asm_inf->prog_name);
+	size = ft_strlen(g_asm_inf->prog_name);
 	add_str(g_asm_inf->prog_name, size);
 	str = ft_strnew(PROG_NAME_LENGTH - size + 4);
 	if (!str)
@@ -62,8 +61,7 @@ void			write_header(void)
 	add_str(str, PROG_NAME_LENGTH - size + 4);
 	g_asm_inf->holder_prog_size = g_asm_inf->current;
 	size = 0;
-	if (g_asm_inf->comment)
-		size = ft_strlen(g_asm_inf->comment);
+	size = ft_strlen(g_asm_inf->comment);
 	add_str(g_asm_inf->comment, size);
 	str = ft_strnew(COMMENT_LENGTH - size + 4);
 	if (!str)
