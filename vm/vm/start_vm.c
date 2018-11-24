@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 17:41:07 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/11/23 18:31:41 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/24 15:52:39 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int		do_it(t_pvm *vm, t_list *node)
 
 	while (node)
 	{
+		cycle = 1;
 		save = node->next;
 		content = get_process(node);
 		if (content->opcode == 0)

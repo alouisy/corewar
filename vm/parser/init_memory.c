@@ -6,20 +6,11 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 17:41:07 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/11/17 21:50:13 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/24 15:47:09 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../vm.h"
-
-void			reset_mem_color(t_pvm *vm)
-{
-	int	i;
-
-	i = 0;
-	while (i < MEM_SIZE)
-		vm->mem_color[i++] = 0;
-}
 
 void			set_mem_color(t_pvm *vm, int k)
 {
@@ -39,7 +30,6 @@ inline void		init_memory(t_pvm *vm)
 	t_process		*process;
 	int				k;
 
-	reset_mem_color(vm);
 	ptmp = vm->stack;
 	k = vm->nb_champ - 1;
 	while (k >= 0)

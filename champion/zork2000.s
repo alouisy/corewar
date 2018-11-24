@@ -13,11 +13,11 @@ l1:		live %-5
 		ld %218759116, r10 #0D 09 FF CC zjump
 		ld %-21, r12
 		ld %-21, r13
-		aff r16
+		add r16, r16, r16
 		live %-5
 		zjmp %-491
 boum:   live %-5
-		aff r16
+		add r16, r16, r16
 		st r10, 65035
 		st r09, 65034
 		zjmp %-511
@@ -36,19 +36,18 @@ l2:		live %-5
 #boucle de fork
 ifar:	live %-5
 		sub r5, r6, r5 #i--
-		aff r5 #if (if (i != 0) : carry = 0)
+		add r1, r1, r1 #(if (r1 != 0) : carry = 0)
 		zjmp %:elsear
 		fork %:ifar
-		aff r16 #(if (r16 == 0) : carry = 1)
+		add r16, r16, r16 #(if (r16 == 0) : carry = 1)
 		zjmp %:ifar
 elsear:	live %-5
 		ld %-3, r5
-		aff r5
+		add r1, r1, r1 #(if (r16 == 0) : carry = 1)
 		fork %:ifar
 
 #bouclier arriere en boucle
 l3:		live %-5
-		and %0, %0, r16
 		st r4, 65032
 		st r2, 65031
 		st r1, 65030
@@ -62,7 +61,7 @@ l3:		live %-5
 		st r1, -352
 		st r3, -353
 l4:		live %-5
-		aff r16
+		and r16, r16, r16
 		zjmp %:l3
 
 #ecriture des bnnes valeurs de live
@@ -95,7 +94,7 @@ av:		live %-5
 
 #bouclier avant
 p1:		live %-5
-		aff r1
+		and r16, r16, r16
 		fork %:end
 		st r11, :tar1 #st
 		st r11, 100 #st
@@ -107,7 +106,7 @@ p1:		live %-5
 		st r11, 450 #st
 		st r11, 500 #st
 		st r8, 511 #live
-p2:		aff r16
+		and r16, r16, r16
 end:	live %1
 		zjmp %:p1
 tar1: aff r1

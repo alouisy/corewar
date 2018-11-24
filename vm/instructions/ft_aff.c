@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/18 18:20:03 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/11/23 18:57:18 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/24 14:21:28 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	ft_aff(t_pvm *vm, t_list *node)
 	if (is_reg(vm, 0))
 	{
 		c = *(reg(process, vm->param[0]));
-		if (vm->verbose & 4)
+		if (vm->verbose & 32)
 			ft_printf("Aff: %c\n", c);
 	}
 	update_pc(vm, process, 4, 1);

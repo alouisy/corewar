@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 17:41:07 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/11/18 13:07:09 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/24 15:44:39 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,10 @@ inline void				init_vm(t_pvm *vm)
 	vm->pid = 0;
 	reset_champ(vm);
 	ft_bzero(vm->memory, MEM_SIZE);
+	ft_bzero(vm->mem_color, MEM_SIZE);
 	reset_param(vm);
 	vm->dump = -1;
+	vm->dumpC = -1;
 	vm->verbose = 0;
 	vm->nc_mode = 0;
 	vm->nc.wleft = NULL;
@@ -64,4 +66,5 @@ inline void				init_vm(t_pvm *vm)
 	vm->sum_lives = 0;
 	vm->last_live = 0;
 	vm->trash = NULL;
+	vm->ocp = 0;
 }
