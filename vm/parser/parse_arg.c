@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/09 14:51:21 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/11/23 17:33:08 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/24 15:41:47 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,11 @@ static int	ft_set_option(t_pvm *vm, int ac, char **av, int *i)
 	if (ft_strequ("-dump", av[*i]))
 	{
 		if (!ft_set_var(ac, av, ++(*i), &vm->dump))
+			return (0);
+	}
+	if (ft_strequ("-dumpC", av[*i]))
+	{
+		if (!ft_set_var(ac, av, ++(*i), &vm->dumpC))
 			return (0);
 	}
 	else if (ft_strequ("-nc", av[*i]))

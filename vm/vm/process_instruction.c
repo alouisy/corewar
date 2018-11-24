@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 17:41:07 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/11/23 20:17:30 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/24 16:10:03 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int	process_instruction(t_pvm *vm, t_list *node)
 	shift = get_param(vm, process, shift + 1);
 	if (!(vm->f[process->opcode - 1](vm, node)))
 	{
+		ft_putendl_fd("malloc!!!", 2);
 		vm->c2d = -1;
 		return (0);
 	}

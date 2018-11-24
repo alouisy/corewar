@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 17:41:07 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/11/23 19:55:14 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/24 14:28:39 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int		get_param_type(t_pvm *vm, t_process *process)
 	i = -1;
 	if (g_op_tab[process->opcode].ocp)
 	{
-		vm->ocp = vm->memory[(process->pc + 1) % 4096];
+		vm->ocp = vm->memory[(process->pc + 1) % MEM_SIZE];
 		while (++i < g_op_tab[process->opcode].nb_param)
 		{
 			vm->param_type[i] = (vm->ocp & (0b11000000 >> (i * 2)))

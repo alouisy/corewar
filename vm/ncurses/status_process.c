@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/27 19:47:47 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/11/18 13:40:04 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/24 14:29:31 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,10 @@ static inline int	registre_status(t_pvm *vm, int i, t_list *node)
 	return (i);
 }
 
-static inline int	param_status(t_pvm *vm, int i)
+static inline int	param_status(t_pvm *vm, int i, t_list *node)
 {
+	mvwprintw(vm->nc.wright, i++, 1,
+			"process n°: %7d", node->content_size);
 	mvwprintw(vm->nc.wright, i, 1,
 			"_________________________________");
 	mvwprintw(vm->nc.wright, i + 1, 1,
@@ -72,7 +74,7 @@ void				status_process(t_pvm *vm, int i)
 	node = vm->stack;
 	if (node && vm->nb_champ == 1)
 	{
-		i = param_status(vm, i);
+		i = param_status(vm, i, node);
 		i = registre_status(vm, i, node) + 1;
 	}
 	i = current_status_pc(vm, i);
