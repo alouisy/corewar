@@ -2,37 +2,37 @@
 
 if [ $# -ne 1 ]; then
 	echo "usage: ./test_asm.sh [-del] [-exec] [-diff]"
-fi
+else
+	if [ "$1" = "-del" ]; then
+		rm -rf ../ressources/example
+		rm -rf ../ressources/mine
+	fi
 
-if [ "$1" == "-del" ]; then
-	rm -rf ../ressources/example
-	rm -rf ../ressources/mine
-fi
+	if [ "$1" = "-exec" ]; then
+		echo "------------- MY ASM ---------------";
 
-if [ "$1" == "-exec" ]; then
-	echo "------------- MY ASM ---------------";
+		mkdir ../ressources/mine
 
-	mkdir ../ressources/mine
+		for filename in ../ressources/champs/*.s; do
+			../asm $filename
+		done
 
-	for filename in ../ressources/champs/*.s; do
-		../asm $filename
-	done
+		mv ../ressources/champs/*.cor ../ressources/mine/
 
-	mv ../ressources/champs/*.cor ../ressources/mine/
+		echo "---------- RESSOURCE ASM ------------";
 
-	echo "---------- RESSOURCE ASM ------------";
+		mkdir ../ressources/example
 
-	mkdir ../ressources/example
+		for filename in ../ressources/champs/*.s; do
+			../ressources/asm $filename
+		done
 
-	for filename in ../ressources/champs/*.s; do
-		../ressources/asm $filename
-	done
+		mv ../ressources/champs/*.cor ../ressources/example/
+	fi
 
-	mv ../ressources/champs/*.cor ../ressources/example/
-fi
-
-if [ "$1" == "-diff" ]; then
-	for filename in ../ressources/mine/*.cor; do
-		diff ../ressources/example/${filename##*/} $filename
-	done
+	if [ "$1" = "-diff" ]; then
+		for filename in ../ressources/mine/*.cor; do
+			diff ../ressources/example/${filename##*/} $filename
+		done
+	fi
 fi

@@ -23,7 +23,17 @@ void	free_vm(t_pvm *vm)
 	cycle2die(vm, 1);
 	if (vm->trash)
 	{
-		ft_lstdel(&(vm->trash), 1, &aux_del);
+		t_list *node;
+		t_list *save;
+
+		node = vm->trash;
+		while (node)
+		{
+			save = node->next;
+			free(node->content);
+			free(node);
+			node = save;
+		}
 	}
 	if (vm->nc_mode)
 	{
