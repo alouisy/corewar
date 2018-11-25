@@ -62,6 +62,8 @@ static void	join_all(int *pos, char *str, int current_len, t_dot_inf_err *err)
 
 	while (*pos == -1 && current_len < err->max_len)
 	{
+		printf("yep\n");
+		exit(1);
 		ft_strdel(&g_err->line);
 		read = get_next_line(g_err->fd, &g_err->line, '\n');
 		if (read < 0)
@@ -84,7 +86,7 @@ static void	get_inf(char *str, int *i, int current_len, t_dot_inf_err *err)
     trimmed = ft_strtrim(&(g_err->line[*i]));
 	if (trimmed[0] != '"')
 		free_add_err(err->name_err, NULL, NULL);
-    pos = ft_strchri(&trimmed[1], '"');
+    pos = ft_strchri(&trimmed[1], '"') + 1;
     if (pos != -1 && trimmed[pos + 1])
     {
         ft_strdel(&trimmed);
@@ -93,8 +95,8 @@ static void	get_inf(char *str, int *i, int current_len, t_dot_inf_err *err)
 	ft_strcpy(str, trimmed);
 	ft_strdel(&trimmed);
 	join_all(&pos, str, current_len, err);
-	if (pos != -1 && g_err->line[pos + 1])
-        free_all(err->name_err);
+	if (pos != -1 && g_err->line[pos + *i + 2])
+		free_all(err->name_err);
 }
 
 void		get_dot_info(void)
