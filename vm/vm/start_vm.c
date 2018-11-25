@@ -54,8 +54,6 @@ int		start_vm(t_pvm *vm)
 {
 	t_list		*node;
 
-	if (vm->nc_mode)
-		vm->dump = -1;
 	while (vm->total_cycles != vm->dump && vm->nb_process)
 	{
 		if (vm->total_cycles >= vm->cycle_to_die)

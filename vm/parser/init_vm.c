@@ -51,7 +51,7 @@ inline void				init_vm(t_pvm *vm)
 	ft_bzero(vm->mem_color, MEM_SIZE);
 	reset_param(vm);
 	vm->dump = -1;
-	vm->dumpC = -1;
+	vm->dumpC = 0;
 	vm->verbose = 0;
 	vm->nc_mode = 0;
 	vm->nc.wleft = NULL;

@@ -17,6 +17,7 @@ static void	aux_usage(char *str)
 	ft_printf("Usage: %s [-nc] [-dump N] [-v N] ", str);
 	ft_printf("[-n N] <champion1.cor> [-n N] <...>\n");
 	ft_printf("	-dump N\t: dump memory after N cycles then exit\n");
+	ft_printf("	-dumpC N\t: dump colorized memory after N cycles then exit\n");
 	ft_printf("	-n N\t: assign number N (can NOT be 0!) to champion ");
 	ft_printf("from the following file\n");
 	ft_printf("	-v N\t: equivalent of zaz verbose mode, can be added\n");

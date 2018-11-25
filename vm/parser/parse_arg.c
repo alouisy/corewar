@@ -97,5 +97,9 @@ inline int	parse_arg(t_pvm *vm, int ac, char **av)
 				return (0);
 		}
 	}
+	if (vm->nc_mode)
+		vm->dump = -1;
+	else if (vm->dumpC)
+		vm->dump = vm->dumpC;
 	return (vm->nb_champ ? 1 : (ft_strerror("ERROR (NO CHAMPIONS)", 0)));
 }
