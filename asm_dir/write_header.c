@@ -12,26 +12,6 @@
 
 #include "asm.h"
 
-static void		write_magic(void)
-{
-	char	magic[4];
-	int		i;
-	int		nb_bytes;
-
-	i = 0;
-	nb_bytes = 4;
-	while (nb_bytes > 0)
-	{
-		magic[i] = COREWAR_EXEC_MAGIC >> ((nb_bytes - 1) * 8);
-		nb_bytes--;
-		i++;
-	}
-	g_asm_inf->binary_list = ft_lstnew(&magic, 4, 1);
-	g_asm_inf->current = g_asm_inf->binary_list;
-	if (!g_asm_inf->binary_list)
-		free_all(-1);
-}
-
 static void		add_str(char *str, int len)
 {
 	t_list *new;
@@ -48,23 +28,22 @@ static void		add_str(char *str, int len)
 
 void			write_header(void)
 {
-	char	*str;
-	int		size;
+	int		i;
+	int		nb_bytes;
 
-	write_magic();
-	size = 0;
-	size = ft_strlen(g_asm_inf->prog_name);
-	add_str(g_asm_inf->prog_name, size);
-	str = ft_strnew(PROG_NAME_LENGTH - size + 4);
-	if (!str)
+	i = 0;
+	nb_bytes = 4;
+	while (nb_bytes > 0)
+	{
+		g_asm_inf->magic[i] = COREWAR_EXEC_MAGIC >> ((nb_bytes - 1) * 8);
+		nb_bytes--;
+		i++;
+	}
+	g_asm_inf->binary_list = ft_lstnew(&g_asm_inf->magic, 4, 0); //avant c'etait 1
+	g_asm_inf->current = g_asm_inf->binary_list;
+	if (!g_asm_inf->binary_list)
 		free_all(-1);
-	add_str(str, PROG_NAME_LENGTH - size + 4);
+	add_str(g_asm_inf->prog_name, PROG_NAME_LENGTH + 4);
 	g_asm_inf->holder_prog_size = g_asm_inf->current;
-	size = 0;
-	size = ft_strlen(g_asm_inf->comment);
-	add_str(g_asm_inf->comment, size);
-	str = ft_strnew(COMMENT_LENGTH - size + 4);
-	if (!str)
-		free_all(-1);
-	add_str(str, COMMENT_LENGTH - size + 4);
+	add_str(g_asm_inf->comment, COMMENT_LENGTH + 4);
 }

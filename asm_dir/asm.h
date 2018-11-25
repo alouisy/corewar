@@ -66,10 +66,12 @@ typedef struct	s_asm_inf
 	t_list		*holder_lst;
 	int			nb_bytes;
 	t_rbt_node	*lbl_tree;
-	char		comment[COMMENT_LENGTH];
-	char		prog_name[PROG_NAME_LENGTH];
+	char		comment[COMMENT_LENGTH + 4 + 1];
+	char		prog_name[PROG_NAME_LENGTH + 4 + 1];
+	char		magic[4];
 	t_list		*binary_list;
 	t_list		*holder_prog_size;
+	int			size_added;
 }				t_asm_inf;
 
 typedef struct	s_parse_inf
@@ -138,5 +140,6 @@ void			free_read_utility(char *lbl, t_tree_index *index,
 void			free_inst_utilitary(char *params, char *inst, int err);
 void			free_list_node(void *content);
 void			display_custom_err(int err);
+void		write_binary(char *src_name); //mettre en static apres
 
 #endif

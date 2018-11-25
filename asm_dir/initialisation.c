@@ -62,8 +62,9 @@ void	init_prog(int argc, char **argv)
 		free_all(-1);
 	g_asm_inf->binary_list = NULL;
 	g_asm_inf->holder_lst = NULL;
-	clr_tab(ft_strlen(g_asm_inf->prog_name), g_asm_inf->prog_name);
-	clr_tab(ft_strlen(g_asm_inf->comment), g_asm_inf->comment);
+	ft_bzero(g_asm_inf->prog_name, PROG_NAME_LENGTH + 4);
+	ft_bzero(g_asm_inf->comment, COMMENT_LENGTH + 4);
 	g_asm_inf->lbl_tree = NULL;
 	g_asm_inf->nb_bytes = 0;
+	g_asm_inf->size_added = 0;
 }

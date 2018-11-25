@@ -74,6 +74,7 @@ void		add_prog_size(void)
 	}
 	new->next = g_asm_inf->holder_prog_size->next;
 	g_asm_inf->holder_prog_size->next = new;
+	g_asm_inf->size_added = 1;
 }
 
 int			main(int argc, char **argv)
@@ -82,7 +83,9 @@ int			main(int argc, char **argv)
 	int	written;
 
 	init_prog(argc, argv);
+	printf("inf\n");
 	get_dot_info();
+	printf("header\n");
 	write_header();
 	written = 0;
 	while ((state = get_next_line(g_err->fd, &g_err->line, '\n')) > 0)
