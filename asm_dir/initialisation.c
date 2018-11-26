@@ -12,7 +12,7 @@
 
 #include "asm.h"
 
-char	**init_write(t_write_inf *write_inf, int *ocp_val, char *params, int *i)
+char		**init_write(t_write_inf *write_inf, int *ocp_val, char *params, int *i)
 {
 	char **params_split;
 
@@ -30,30 +30,31 @@ char	**init_write(t_write_inf *write_inf, int *ocp_val, char *params, int *i)
 	return (params_split);
 }
 
-void	clr_tab(int len, char *tab)
+static void	check_name(char **argv)
 {
-	int i;
+	int len;
 
-	i = 0;
-	while (i < len)
+	len = ft_strlen(argv[1]);
+	if (argv[1][len - 1] != 's' || argv[1][len - 2] != '.')
 	{
-		tab[i] = '\0';
-		i++;
+		ft_putstr("Missing \".s\" ext at end of file\n");
+		exit(WRONG_FILE_NAME);
 	}
 }
 
-void	init_prog(int argc, char **argv)
+void		init_prog(int argc, char **argv)
 {
 	if (argc != 2)
 	{
 		ft_printf("Usage : %s <sourcefile.s>\n", argv[0]);
 		exit(0);
 	}
+	check_name(argv);
 	g_err = malloc(sizeof(t_err));
 	if (!g_err)
 		free_all(-1);
 	g_err->line = NULL;
-	//g_err->str = NULL;
+	g_err->str = NULL;
 	g_err->fd = open(argv[1], O_RDONLY);
 	if (g_err->fd == -1)
 		free_all(-1);

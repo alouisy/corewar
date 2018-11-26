@@ -39,7 +39,7 @@ void			write_header(void)
 		nb_bytes--;
 		i++;
 	}
-	g_asm_inf->binary_list = ft_lstnew(&g_asm_inf->magic, 4, 0); //avant c'etait 1
+	g_asm_inf->binary_list = ft_lstnew(&g_asm_inf->magic, 4, 0);
 	g_asm_inf->current = g_asm_inf->binary_list;
 	if (!g_asm_inf->binary_list)
 		free_all(-1);

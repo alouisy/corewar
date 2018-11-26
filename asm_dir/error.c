@@ -47,7 +47,7 @@ static void	display_lbl_err(int err)
 	else if (err == LBL_EXIST_ERR)
 		ft_printf("Error : Label already declared (\"%s\")\n", g_err->line);
 	else if (err == LBL_NOT_EXIST_ERR)
-		ft_printf("Error : Referenced label doesn't exist (\"%s\")\n", g_err->line);
+		ft_printf("Error : Referenced label doesn't exist (\"%s\")\n", g_err->str);
 }
 
 static void	display_param_err(int err)
@@ -64,13 +64,8 @@ static void	display_param_err(int err)
 		ft_printf("Error : Value badly written or missing (\"%s\")\n", g_err->line);
 }
 
-//j'sais pas si je dois forcement utiliser g_err->line ou si je peux pas juste utiliser la ligne..
-
 void		display_custom_err(int err)
 {
-	//char *g_err->line;
-
-	//g_err->line = (g_err->str == NULL) ? "" : g_err->str;
 	if (err >= MULT_ARGS_ERR && err <= WRONG_FILE_NAME)
 		display_lib_err(err);
 	else if (err == WRONG_FORMAT_ERR)

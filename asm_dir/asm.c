@@ -21,13 +21,8 @@ static char	*create_name(char *source_file)
 	char	*name;
 
 	len = ft_strlen(source_file);
-	if (source_file[len - 1] == 's' && source_file[len - 2] == '.')
-	{
-		name = ft_strndup(source_file, len - 2);
-		name = ft_strjoin_free(name, ".cor", 0);
-	}
-	else
-		name = ft_strjoin(source_file, ".cor");
+	name = ft_strndup(source_file, len - 2);
+	name = ft_strjoin_free(name, ".cor", 0);
 	return (name);
 }
 
@@ -83,9 +78,7 @@ int			main(int argc, char **argv)
 	int	written;
 
 	init_prog(argc, argv);
-	printf("inf\n");
 	get_dot_info();
-	printf("header\n");
 	write_header();
 	written = 0;
 	while ((state = get_next_line(g_err->fd, &g_err->line, '\n')) > 0)

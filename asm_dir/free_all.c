@@ -14,8 +14,8 @@
 
 static void	free_g_err(void)
 {
-	//if (g_err->str)
-	//	ft_strdel(&g_err->str);
+	if (g_err->str)
+		ft_strdel(&g_err->str);
 	if (g_err)
 		ft_memdel((void **)&g_err);
 }
@@ -55,8 +55,6 @@ void		free_start(void)
 	{
 		if (g_asm_inf->binary_list->next->next->next)
 			tmp = g_asm_inf->binary_list->next->next->next;
-		if (g_asm_inf->binary_list->next->next)
-			free(g_asm_inf->binary_list->next->next);
 	}
 	else
 	{
@@ -65,11 +63,10 @@ void		free_start(void)
 		if (g_asm_inf->binary_list->next->next->next)
 			free(g_asm_inf->binary_list->next->next->next);
 		if (g_asm_inf->binary_list->next->next)
-		{
 			free(g_asm_inf->binary_list->next->next->content);
-			free(g_asm_inf->binary_list->next->next);
-		}
 	}
+	if (g_asm_inf->binary_list->next->next)
+		free(g_asm_inf->binary_list->next->next);
 	if (g_asm_inf->binary_list->next)
 		free(g_asm_inf->binary_list->next);
 	if (g_asm_inf->binary_list)
@@ -82,21 +79,25 @@ void		free_all(int err)
 {
 	if (g_asm_inf)
 	{
-		free_start();
+		if (g_asm_inf->binary_list)
+			free_start();
 		ft_lstdel(&g_asm_inf->binary_list, 1, free);
 		rbt_clear(&g_asm_inf->lbl_tree, free, 1);
 		ft_lstdel(&g_asm_inf->holder_lst, 1, free_list_node);
 		ft_memdel((void **)&g_asm_inf);
-		finish_gnl();
 	}
 	if (err == -1)
+	{
+		finish_gnl();
 		display_errno();
+	}
 	else if (err != 0)
 	{
 		display_custom_err(err);
+		finish_gnl();
 		free_g_err();
 		exit(err);
 	}
-	else
-		free_g_err();
+	finish_gnl();
+	free_g_err();
 }

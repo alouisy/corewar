@@ -29,8 +29,8 @@ void	free_inst_utilitary(char *params, char *inst, int err)
 {
 	ft_strdel(&inst);
 	ft_strdel(&params);
-	if (err != -1)
-		g_err->str = ft_strtrim(g_err->line);
+	//if (err != -1)
+	//	g_err->str = ft_strtrim(g_err->line);
 	free_all(err);
 }
 
