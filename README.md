@@ -28,11 +28,8 @@ or
 ./vm -nc <file.cor> <…>
 ```
 to have a visualization of the fight (made with ncurses)
+![ncurses](./subject/test/ncurses.png)
 
-### Assembler:
-### In action:
-
-#### Visualizer using ncurses:
 
 ## The Team
 
