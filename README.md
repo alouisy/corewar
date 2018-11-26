@@ -40,7 +40,7 @@ to see every options available for the vm
 ./vm
 ```
 
-## How it looks like
+## What does it looks like
 
 ![ncurses](./subject/test.gif)
 
