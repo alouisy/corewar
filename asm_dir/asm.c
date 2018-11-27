@@ -26,7 +26,7 @@ static char	*create_name(char *source_file)
 	return (name);
 }
 
-void		write_binary(char *src_name)
+static void	write_binary(char *src_name)
 {
 	t_list			*current;
 	int				fd;

@@ -29,8 +29,6 @@ void	free_inst_utilitary(char *params, char *inst, int err)
 {
 	ft_strdel(&inst);
 	ft_strdel(&params);
-	//if (err != -1)
-	//	g_err->str = ft_strtrim(g_err->line);
 	free_all(err);
 }
 
@@ -59,8 +57,6 @@ void	free_add_err(int err, char **split, char *line)
 {
 	if (line)
 		ft_strdel(&line);
-	//g_err->str = ft_strtrim(g_err->line); pourquoi trim
-	//g_err->str = ft_strdup(g_err->line);
 	if (split)
 		free_split(split);
 	free_all(err);

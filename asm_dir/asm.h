@@ -140,6 +140,6 @@ void			free_read_utility(char *lbl, t_tree_index *index,
 void			free_inst_utilitary(char *params, char *inst, int err);
 void			free_list_node(void *content);
 void			display_custom_err(int err);
-void		write_binary(char *src_name); //mettre en static apres
+void			get_inf(char *str, int *i, t_dot_inf_err *err);
 
 #endif

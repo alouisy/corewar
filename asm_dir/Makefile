@@ -1,7 +1,8 @@
 NAME = ../asm
 
 SRCS = asm.c op.c write_param.c write_utilitary.c check_instruct.c dot_info.c \
-	free_all.c initialisation.c write_header.c lbl.c parse_line.c free_mini.c error.c
+	free_all.c initialisation.c write_header.c lbl.c parse_line.c free_mini.c \
+	error.c get_inf.c
 
 OBJS = $(SRCS:%.c=objs/%.o)
 

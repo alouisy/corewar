@@ -12,7 +12,8 @@
 
 #include "asm.h"
 
-char		**init_write(t_write_inf *write_inf, int *ocp_val, char *params, int *i)
+char		**init_write(t_write_inf *write_inf, int *ocp_val, char *params,
+																	int *i)
 {
 	char **params_split;
 
@@ -37,7 +38,7 @@ static void	check_name(char **argv)
 	len = ft_strlen(argv[1]);
 	if (argv[1][len - 1] != 's' || argv[1][len - 2] != '.')
 	{
-		ft_putstr("Missing \".s\" ext at end of file\n");
+		ft_putstr("Missing \".s\" ext at end of file name\n");
 		exit(WRONG_FILE_NAME);
 	}
 }

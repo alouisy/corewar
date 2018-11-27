@@ -27,7 +27,8 @@ static void	display_name_com_err(int err)
 	if (err == WRONG_NAME_CMD_ERR)
 		ft_printf("Error : Name command badly written (\"%s\")\n", g_err->line);
 	else if (err == WRONG_COM_CMD_ERR)
-		ft_printf("Error : Comment command badly written (\"%s\")\n", g_err->line);
+		ft_printf("Error : Comment command badly written (\"%s\")\n",
+															g_err->line);
 	else if (err == BAD_NAME_ERR)
 		ft_printf("Error : Name badly written (\"%s\")\n", g_err->line);
 	else if (err == BAD_COM_ERR)
@@ -47,7 +48,8 @@ static void	display_lbl_err(int err)
 	else if (err == LBL_EXIST_ERR)
 		ft_printf("Error : Label already declared (\"%s\")\n", g_err->line);
 	else if (err == LBL_NOT_EXIST_ERR)
-		ft_printf("Error : Referenced label doesn't exist (\"%s\")\n", g_err->str);
+		ft_printf("Error : Referenced label doesn't exist (\"%s\")\n",
+														g_err->str);
 }
 
 static void	display_param_err(int err)
@@ -59,9 +61,11 @@ static void	display_param_err(int err)
 	else if (err == WRONG_PARAM_TYPE_ERR)
 		ft_printf("Error : Wrong param type (\"%s\")\n", g_err->line);
 	else if (err == WRONG_PARAM_NUM_ERR)
-		ft_printf("Error : Too many or not enough params (\"%s\")\n", g_err->line);
+		ft_printf("Error : Too many or not enough params (\"%s\")\n",
+														g_err->line);
 	else if (err == WRONG_NUM_FORMAT_ERR)
-		ft_printf("Error : Value badly written or missing (\"%s\")\n", g_err->line);
+		ft_printf("Error : Value badly written or missing (\"%s\")\n",
+														g_err->line);
 }
 
 void		display_custom_err(int err)
