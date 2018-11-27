@@ -26,7 +26,6 @@ char		**init_write(t_write_inf *write_inf, int *ocp_val, char *params,
 	{
 		ft_strdel(&params);
 		free_all(-1);
-		return (NULL);
 	}
 	return (params_split);
 }
