@@ -24,7 +24,8 @@ static void	display_errno(void)
 {
 	char *str;
 
-	free_g_err();
+	if (g_err)
+		free_g_err();
 	str = strerror(errno);
 	ft_printf("%s\n", str);
 	ft_strdel(&str);
@@ -33,7 +34,7 @@ static void	display_errno(void)
 
 static void	finish_gnl(void)
 {
-	int read;
+	int		read;
 
 	if (g_err->line)
 		ft_strdel(&g_err->line);
@@ -51,12 +52,11 @@ void		free_start(void)
 	t_list *tmp;
 
 	tmp = NULL;
-	if (!g_asm_inf->size_added)
-	{
-		if (g_asm_inf->binary_list->next->next->next)
-			tmp = g_asm_inf->binary_list->next->next->next;
-	}
-	else
+	if (!g_asm_inf->size_added && g_asm_inf->binary_list->next
+					&& g_asm_inf->binary_list->next->next
+					&& g_asm_inf->binary_list->next->next->next)
+		tmp = g_asm_inf->binary_list->next->next->next;
+	else if (g_asm_inf->size_added)
 	{
 		if (g_asm_inf->binary_list->next->next->next->next)
 			tmp = g_asm_inf->binary_list->next->next->next->next;
@@ -65,7 +65,7 @@ void		free_start(void)
 		if (g_asm_inf->binary_list->next->next)
 			free(g_asm_inf->binary_list->next->next->content);
 	}
-	if (g_asm_inf->binary_list->next->next)
+	if (g_asm_inf->binary_list->next && g_asm_inf->binary_list->next->next)
 		free(g_asm_inf->binary_list->next->next);
 	if (g_asm_inf->binary_list->next)
 		free(g_asm_inf->binary_list->next);
@@ -87,7 +87,8 @@ void		free_all(int err)
 	}
 	if (err == -1)
 	{
-		finish_gnl();
+		if (g_err)
+			finish_gnl();
 		display_errno();
 	}
 	else if (err != 0)

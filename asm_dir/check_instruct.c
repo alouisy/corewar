@@ -81,11 +81,11 @@ static void	act_on_inst(t_op *op, char *params)
 
 	g_asm_inf->nb_bytes += 1;
 	if (!(binary = fill_binary(1, op->op_code)))
-		free_all(-1);
+		free_add_err(-1, NULL, params);
 	if (!(g_asm_inf->current->next = ft_lstnew(binary, 1, 0)))
 	{
 		ft_strdel(&binary);
-		free_all(-1);
+		free_add_err(-1, NULL, params);
 	}
 	g_asm_inf->current = g_asm_inf->current->next;
 	holder = g_asm_inf->current;
@@ -93,6 +93,8 @@ static void	act_on_inst(t_op *op, char *params)
 	if (op->ocp)
 	{
 		new = ft_lstnew(&ocp_val, 1, 1);
+		if (!new)
+			free_add_err(-1, NULL, params);
 		new->next = holder->next;
 		holder->next = new;
 		g_asm_inf->nb_bytes += 1;

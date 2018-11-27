@@ -22,7 +22,11 @@ static char	*create_name(char *source_file)
 
 	len = ft_strlen(source_file);
 	name = ft_strndup(source_file, len - 2);
+	if (!name)
+		free_all(-1);
 	name = ft_strjoin_free(name, ".cor", 0);
+	if (!name)
+		free_all(-1);
 	return (name);
 }
 

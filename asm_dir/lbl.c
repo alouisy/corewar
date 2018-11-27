@@ -49,16 +49,22 @@ int					add_lbl(char *lbl, t_write_inf *write_inf)
 	holder_def = malloc(sizeof(t_holder_def));
 	if (!holder_def)
 		return (-1);
-	holder_def->lbl = ft_strdup(&lbl[1]);
-	if (!holder_def || !holder_def->lbl)
+	if (!(holder_def->lbl = ft_strdup(&lbl[1])))
+	{
+		ft_memdel((void **)&holder_def);
 		return (-1);
+	}
 	holder_def->inst_pos = write_inf->inst_pos;
 	holder_def->lst_pos = g_asm_inf->current;
 	holder_def->lbl_bytes = write_inf->nb_bytes;
 	holder_def->beside_ocp = write_inf->beside_ocp;
 	new = ft_lstnew(holder_def, sizeof(holder_def), 0);
 	if (!new)
+	{
+		ft_strdel(&(holder_def->lbl));
+		ft_memdel((void **)&holder_def);
 		return (-1);
+	}
 	ft_lstadd(&(g_asm_inf->holder_lst), new);
 	g_asm_inf->nb_bytes += write_inf->nb_bytes;
 	return (0);
