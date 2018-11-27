@@ -11,6 +11,7 @@ else
 	if [ "$1" = "-verb" ] || [ "$1" = "-win" ]; then
 		
 		if [ "$1" = "-win" ]; then
+			rm ../ressources/mine/42.cor
 			rm ../ressources/mine/Car.cor
 			rm ../ressources/mine/bee_gees.cor
 			rm ../ressources/mine/fork.cor
@@ -18,14 +19,22 @@ else
 			rm ../ressources/mine/gg.cor
 			rm ../ressources/mine/mandragore.cor
 			rm ../ressources/mine/maxi_simple.cor
+			rm ../ressources/example/42.cor
+			rm ../ressources/example/Car.cor
+			rm ../ressources/example/bee_gees.cor
+			rm ../ressources/example/fork.cor
+			rm ../ressources/example/lfork.cor
+			rm ../ressources/example/gg.cor
+			rm ../ressources/example/mandragore.cor
+			rm ../ressources/example/maxi_simple.cor
 		fi
 		echo "---------- RESSOURCE VM ------------";
 
 		for filename in ../ressources/example/*.cor; do
 			if [ $# -eq 2 ]; then
-				test= $2
+				test=$2
 			else
-				test= $filename
+				test=$filename
 			fi
 			echo $test VS $filename
 			if [ "$1" = "-verb" ]; then
