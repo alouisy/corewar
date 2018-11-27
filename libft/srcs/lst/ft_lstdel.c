@@ -13,16 +13,17 @@
 #include "libft.h"
 
 /*
-** bug sur les tres grandes listes (>200000) mais comprends pas pourquoi
+** bug sur les tres grandes listes (>2^17) mais comprends pas pourquoi
 */
 
 void	ft_lstdel(t_list **alst, int need_free, void (*del)(void *))
 {
 	if (alst && *alst && del)
 	{
-		ft_lstdel(&((*alst)->next), need_free, del);
+		if ((*alst)->next)
+			ft_lstdel(&((*alst)->next), need_free, del);
 		if (need_free)
 			del((*alst)->content);
-		free(*alst);
+		ft_memdel((void**)alst);
 	}
 }
