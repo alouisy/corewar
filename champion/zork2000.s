@@ -9,43 +9,34 @@ erase:	sti r1, %:live, %2
 		st r16, -11
 live:	ld %-5, r15
 		ld %57674497, r11 #st 03 70 0b 01
-		fork %:l4
+		fork %:l8
 l7:		live %-5
 		fork %:twin2
-twin1:	ld %218758957, r10 #0D 09 FF 01 zjump
-		ld %-201, r13
+twin1:	ld %218758878, r10 #0D 09 FF 01 zjump
+		ld %-281, r13
 		add r16, r16, r16
 l2:		live %-5
 		st r10, 65067
 		zjmp %-479
 twin2:  ld %190056972, r10 #0B 54 0A 0C sti
-		ld %-205, r13
+		ld %-285, r13
 		add r16, r16, r16
 l3:		live %-5
 		st r10, 65031
 		zjmp %-511
 
-l4:		live %-5
-		fork %:pivot
 l8:		live %-5
 		fork %:ifav
-l9:		live %-5
-		fork %:if1
-l10:	live %-5
 		ld %656, r2 #00 00 02 90: ld
 		ld %16842752, r3 #01 01 00 00: param de ld
-		ld %-2, r5 #i pour boucle while
 		ld %-1, r6 #operations sur les negs pour eviter les 00 00 00 XX
-		add r16, r16, r16 #(if (r16 == 0) : carry = 1)
-		zjmp %:l10
 
 #boucle de fork
-if1:	ld %-3, r5
+if1:	ld %-10, r5
 ifar:	live %-5
 		sub r5, r6, r5 #i--
-		add r1, r1, r1 #(if (r1 != 0) : carry = 0)
 		zjmp %:l5
-		fork %:if1
+		fork %:l5
 		add r16, r16, r16 #(if (r16 == 0) : carry = 1)
 		zjmp %:ifar
 
@@ -65,14 +56,13 @@ l5:		live %-5
 		st r3, -353
 l6:		live %-5
 		and r16, r16, r16
-		zjmp %:l6
+		zjmp %:l5
 
 #ecriture des bnnes valeurs de live
 pivot:	live %-5
 		sti r15, %:l1, %1
 		sti r15, %:l2, %1
 		sti r15, %:l3, %1
-		sti r15, %:l4, %1
 		sti r15, %:l5, %1
 		sti r15, %:l6, %1
 		sti r15, %:l7, %1
@@ -82,7 +72,6 @@ pivot:	live %-5
 		sti r15, %:pivot, %1
 		sti r15, %:p1, %1
 		sti r15, %:end, %1
-		lfork %2047
 
 #boucle de fork
 ifav:	live %-5
@@ -90,7 +79,6 @@ ifav:	live %-5
 
 #bouclier avant
 p1:		live %-5
-		and r16, %0, r16
 		fork %:end
 		st r11, :tar1 #st
 		st r11, 100 #st
@@ -107,4 +95,3 @@ p1:		live %-5
 end:	live %1
 		zjmp %:p1
 tar1: aff r1
-
