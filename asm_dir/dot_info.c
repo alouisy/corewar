@@ -74,7 +74,7 @@ static void	join_all(int *pos, char *str, t_dot_inf_err *err)
 	int	i;
 
 	current_len = 0;
-	while (*pos == -1 && current_len < err->max_len)
+	while (*pos == -1 && current_len <= err->max_len) // inf et = ?
 	{
 		ft_strdel(&g_err->line);
 		read = get_next_line(g_err->fd, &g_err->line, '\n');
@@ -96,30 +96,48 @@ static void	join_all(int *pos, char *str, t_dot_inf_err *err)
 		free_all(err->name_err);
 }
 
-static void	get_inf(char *str, int *i, t_dot_inf_err *err)
+static char	*prepare_cat(int *len, t_dot_inf_err *err, int *i)
 {
 	char	*trimmed;
-	int		pos;
+	int		sub;
 
 	trimmed = ft_strtrim(&(g_err->line[*i]));
 	if (!trimmed)
 		free_all(-1);
 	if (trimmed[0] != '"')
 		free_add_err(err->name_err, NULL, trimmed);
+	*len = ft_strlen(trimmed);
+	sub = 1;
+	if (trimmed[*len - 1] == '"')
+		sub = 2;
+	if (*len - sub > err->max_len)
+		free_add_err(err->len_err, NULL, trimmed);
+	return (trimmed);
+}
+
+static void	get_inf(char *str, int *i, t_dot_inf_err *err)
+{
+	char	*trimmed; //ca me semble etrange de pouvoir mettre une seule *
+	int		pos;
+	int		len;
+
+	trimmed = prepare_cat(&len, err, i);
 	pos = ft_strchri(&trimmed[1], '"');
+	
 	if (pos != -1)
 	{
 		if (trimmed[pos + 2])
 			free_add_err(err->name_err, NULL, trimmed);
-		ft_strncpy(str, &trimmed[1], ft_strlen(trimmed) - 2);
+		ft_strncpy(str, &trimmed[1], len - 2);
 		ft_strdel(&trimmed);
 	}
 	else
 	{
-		ft_strncpy(str, &trimmed[1], ft_strlen(trimmed) - 1);
+		ft_strncpy(str, &trimmed[1], len - 1);
 		ft_strdel(&trimmed);
 		join_all(&pos, str, err);
 	}
+	ft_strdel(&g_err->line);
 }
 
 void		get_dot_info(void)

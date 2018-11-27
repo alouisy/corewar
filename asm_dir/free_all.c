@@ -71,8 +71,7 @@ void		free_start(void)
 		free(g_asm_inf->binary_list->next);
 	if (g_asm_inf->binary_list)
 		free(g_asm_inf->binary_list);
-	if (tmp)
-		g_asm_inf->binary_list = tmp;
+	g_asm_inf->binary_list = tmp;
 }
 
 void		free_all(int err)
