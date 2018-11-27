@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/09 14:51:21 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/11/24 15:41:47 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/27 17:15:27 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static int	ft_set_option(t_pvm *vm, int ac, char **av, int *i)
 	}
 	if (ft_strequ("-dumpC", av[*i]))
 	{
-		if (!ft_set_var(ac, av, ++(*i), &vm->dumpC))
+		if (!ft_set_var(ac, av, ++(*i), &vm->dumpc))
 			return (0);
 	}
 	else if (ft_strequ("-nc", av[*i]))
@@ -99,7 +99,7 @@ inline int	parse_arg(t_pvm *vm, int ac, char **av)
 	}
 	if (vm->nc_mode)
 		vm->dump = -1;
-	else if (vm->dumpC)
-		vm->dump = vm->dumpC;
+	else if (vm->dumpc)
+		vm->dump = vm->dumpc;
 	return (vm->nb_champ ? 1 : (ft_strerror("ERROR (NO CHAMPIONS)", 0)));
 }

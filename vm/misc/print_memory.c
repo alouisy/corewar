@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 17:41:07 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/11/16 15:12:48 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/27 17:15:39 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	aux_color(t_pvm *vm, int i)
 		ft_printf("\033[34m");
 }
 
-void	print_memory(t_pvm *vm)
+void		print_memory(t_pvm *vm)
 {
 	int	i;
 
@@ -37,13 +37,13 @@ void	print_memory(t_pvm *vm)
 			ft_putchar('\n');
 			ft_printf("%#.4x : ", i);
 		}
-		if (vm->dumpC)
+		if (vm->dumpc)
 			aux_color(vm, i);
 		if (vm->memory[i] == 0)
 			ft_printf("00 ");
 		else
 			ft_printf("%.2hhx ", vm->memory[i]);
-		if (vm->dumpC)
+		if (vm->dumpc)
 			ft_printf("\033[0m");
 		i++;
 	}

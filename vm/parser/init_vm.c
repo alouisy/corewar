@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 17:41:07 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/11/24 15:44:39 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/27 17:15:04 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ inline void				init_vm(t_pvm *vm)
 	ft_bzero(vm->mem_color, MEM_SIZE);
 	reset_param(vm);
 	vm->dump = -1;
-	vm->dumpC = 0;
+	vm->dumpc = 0;
 	vm->verbose = 0;
 	vm->nc_mode = 0;
 	vm->nc.wleft = NULL;

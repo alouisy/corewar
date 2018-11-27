@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 17:41:26 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/11/24 15:44:58 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/27 17:14:37 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ typedef struct			s_pvm
 	unsigned char		memory[MEM_SIZE];
 	unsigned char		mem_color[MEM_SIZE];
 	int					dump;
-	int					dumpC;
+	int					dumpc;
 	int					verbose;
 	t_ncurses			nc;
 	char				nc_mode;

@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/25 18:38:22 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/11/24 15:48:18 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/27 17:14:18 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ inline void	init_process(t_process *process, t_pvm *vm)
 	while (++i < REG_NUMBER)
 		process->r[i] = 0;
 	i = 0;
-	while (i <  3)
+	while (i < 3)
 	{
 		vm->param[i++] = 0;
 		vm->param_type[i++] = 0;
