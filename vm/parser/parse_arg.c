@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/09 14:51:21 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/11/27 17:15:27 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/27 18:55:10 by alouisy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@ static int	ft_set_var(int ac, char **av, int i, int *var)
 {
 	if (i >= ac)
 		return (ft_strerror("ERROR (missing arguments)", 0));
-	if (ft_nbrisinteger(av[i]))
+	if (ft_nbrisinteger_pos(av[i]))
 	{
 		*var = ft_atoi(av[i]);
 		return (1);
 	}
 	else
-		return (ft_strerror("ERROR (not integer)", 0));
+		return (ft_strerror("ERROR (not positive integer)", 0));
 }
 
 static int	ft_set_champion(t_pvm *vm, int ac, char **av, int *i)
@@ -57,7 +57,7 @@ static int	ft_set_option(t_pvm *vm, int ac, char **av, int *i)
 		if (!ft_set_var(ac, av, ++(*i), &vm->dump))
 			return (0);
 	}
-	if (ft_strequ("-dumpC", av[*i]))
+	else if (ft_strequ("-dumpC", av[*i]))
 	{
 		if (!ft_set_var(ac, av, ++(*i), &vm->dumpc))
 			return (0);

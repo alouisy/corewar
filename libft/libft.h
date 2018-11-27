@@ -6,7 +6,7 @@
 /*   By: zcugni <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 09:52:18 by zcugni            #+#    #+#             */
-/*   Updated: 2018/11/15 12:07:48 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/27 18:44:40 by alouisy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -276,5 +276,6 @@ long long					ft_pow(int nb, int power);
 int							is_neg(char *str);
 int							ft_is_neg_digit(char *str);
 int							ft_nbrisinteger(char *str);
+int							ft_nbrisinteger_pos(char *str);
 
 #endif
