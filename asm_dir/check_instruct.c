@@ -75,7 +75,7 @@ static int	hash_word(char *word)
 static void	act_on_inst(t_op *op, char *params)
 {
 	t_list	*holder;
-	t_list	*new;
+	t_list	*new = NULL;
 	char	*binary;
 	int		ocp_val;
 
@@ -94,7 +94,7 @@ static void	act_on_inst(t_op *op, char *params)
 	{
 		new = ft_lstnew(&ocp_val, 1, 1);
 		if (!new)
-			free_add_err(-1, NULL, params);
+			free_all(-1);
 		new->next = holder->next;
 		holder->next = new;
 		g_asm_inf->nb_bytes += 1;
