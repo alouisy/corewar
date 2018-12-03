@@ -6,7 +6,7 @@
 /*   By: alouisy- <alouisy-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/08 17:41:07 by alouisy-          #+#    #+#             */
-/*   Updated: 2018/11/18 16:00:03 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/27 20:35:44 by jgroc-de         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ inline void	print_winner(t_pvm *vm)
 				"Contestant %d, \"%s\", has won, GG!!\n",
 				-vm->champions[i].nbr,
 				vm->champions[i].header.prog_name);
+		timeout(-1);
 		getch();
 	}
 	else if (vm->nb_process == 0)

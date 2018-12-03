@@ -6,7 +6,7 @@
 /*   By: jgroc-de <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/25 17:26:50 by jgroc-de          #+#    #+#             */
-/*   Updated: 2018/11/18 16:40:32 by jgroc-de         ###   ########.fr       */
+/*   Updated: 2018/11/27 20:37:34 by alouisy-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ static void		aux_verbose(t_pvm *vm, t_list *node, int md)
 	{
 		ft_printf("Process %ld hasn't lived for %d cycles (CTD %d)\n",
 				node->content_size,
-				vm->total_cycles - (get_process(node))->last_live,
+				(vm->total_cycles - (get_process(node))->last_live)
+				% (0xFFFF + 1),
 				vm->c2d);
 	}
 }

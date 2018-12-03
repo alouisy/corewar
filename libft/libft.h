@@ -6,7 +6,7 @@
 /*   By: zcugni <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 09:52:18 by zcugni            #+#    #+#             */
-/*   Updated: 2018/11/27 18:44:40 by alouisy-         ###   ########.fr       */
+/*   Updated: 2018/11/27 20:41:02 by zcugni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,7 @@
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
-# include <stdio.h>
 # include <stdarg.h>
-# include <inttypes.h>
 # include <fcntl.h>
 
 /*

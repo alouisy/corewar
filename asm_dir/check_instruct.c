@@ -6,7 +6,7 @@
 /*   By: zcugni <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/16 14:58:03 by zcugni            #+#    #+#             */
-/*   Updated: 2018/10/16 14:58:04 by zcugni           ###   ########.fr       */
+/*   Updated: 2018/11/27 20:09:36 by zcugni           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static int	hash_word(char *word)
 static void	act_on_inst(t_op *op, char *params)
 {
 	t_list	*holder;
-	t_list	*new = NULL;
+	t_list	*new;
 	char	*binary;
 	int		ocp_val;
 
